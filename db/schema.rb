@@ -25,8 +25,11 @@ ActiveRecord::Schema.define(version: 2019_06_30_160806) do
   create_table "authors_books", id: false, force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "author_id", null: false
+<<<<<<< HEAD
     t.index ["author_id", "book_id"], name: "index_authors_books_on_author_id_and_book_id"
     t.index ["book_id", "author_id"], name: "index_authors_books_on_book_id_and_author_id"
+=======
+>>>>>>> 61d09f106308376e7f2e9fd7c6cafd53f3c6148e
   end
 
   create_table "books", force: :cascade do |t|
@@ -47,8 +50,11 @@ ActiveRecord::Schema.define(version: 2019_06_30_160806) do
   create_table "books_materials", id: false, force: :cascade do |t|
     t.bigint "material_id", null: false
     t.bigint "book_id", null: false
+<<<<<<< HEAD
     t.index ["book_id", "material_id"], name: "index_books_materials_on_book_id_and_material_id"
     t.index ["material_id", "book_id"], name: "index_books_materials_on_material_id_and_book_id"
+=======
+>>>>>>> 61d09f106308376e7f2e9fd7c6cafd53f3c6148e
   end
 
   create_table "categories", force: :cascade do |t|

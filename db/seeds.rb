@@ -30,3 +30,5 @@ LIMIT.times do
     book.image = File.open(Rails.root.join("app/assets/images/small/#{rand(1..4)}.jpg"))
   end
 end
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

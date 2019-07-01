@@ -72,5 +72,8 @@ gem "pg", "~> 1.1"
 gem "activeadmin", "~> 2.1"
 gem "devise", "~> 4.6"
 gem "ffaker", "~> 2.11"
-gem "carrierwave", "~> 1.3"
 gem "aasm", "~> 5.0"
+
+gem "carrierwave", "~> 1.3"
+
+gem "pry", "~> 0.12.2"

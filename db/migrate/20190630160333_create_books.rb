@@ -8,7 +8,6 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :dimensions
       t.integer :year
       t.string :materials
-      t.string :image
       t.references :category, foreign_ley: true
 
       t.timestamps

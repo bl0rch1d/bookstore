@@ -34,5 +34,18 @@ LIMIT.times do |index|
     book.images.attach(io: File.open("app/assets/images/small/#{rand(1..4)}.jpg"), filename: "face.jpg", content_type: "image/jpg")
     book.images.attach(io: File.open("app/assets/images/small/#{rand(1..4)}.jpg"), filename: "face.jpg", content_type: "image/jpg")
   end
+
+  Customer.create! do |customer|
+    customer.email = FFaker::Internet.email
+    customer.password = FFaker::Internet.password
+  end
+
+  Review.create! do |review|
+    review.body = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
+    review.rating = rand(1..5)
+    review.state = :unprocessed
+    review.customer_id = Customer.all.sample.id
+    review.book_id = Book.all.sample.id
+  end
 end
 

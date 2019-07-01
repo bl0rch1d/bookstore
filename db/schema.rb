@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_07_01_071241) do
   end
 
   create_table "materials", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

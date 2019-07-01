@@ -10,7 +10,7 @@ CATEGORIES.each do |category|
 end
 
 MATERIALS.each do |material|
-  Material.create!(name: material)
+  Material.create!(title: material)
 end
 
 LIMIT.times do |index|

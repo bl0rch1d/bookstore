@@ -55,12 +55,19 @@ ActiveAdmin.register Book do
   end
 
   form do |f|
-    inputs
-
     f.inputs do
+      f.input :title
+      f.input :category, as: :radio
+      f.input :authors, as: :check_boxes
+      f.input :description
+      f.input :year
+      f.input :price
+      f.input :materials, as: :radio
+      f.input :dimensions
+      f.input :quantity
       f.input :images, as: :file, input_html: { multiple: true  }
     end
-    
+
     f.actions
   end
 end

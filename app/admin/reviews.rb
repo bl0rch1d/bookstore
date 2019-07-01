@@ -39,6 +39,4 @@ ActiveAdmin.register Review do
       link_to 'show', resource_path(resource)
     end
   end
-
-  config.clear_action_items!
 end

@@ -31,14 +31,16 @@ ActiveAdmin.register Book do
 
   show do
     h1 book.title
-
-    attributes_table do
-      row "Images" do |book|
-        book.images do |image|
-          image_tag image
+    
+    panel "Book Images" do
+      table do
+        book.images.each do |image|
+          span image_tag image
         end
       end
+    end
 
+    attributes_table do
       row :authors
       row :category
       row :year
@@ -52,8 +54,11 @@ ActiveAdmin.register Book do
       row :created_at
       row :updated_at
     end
+  
+    active_admin_comments
   end
 
+  
   form do |f|
     f.inputs do
       f.input :title
@@ -62,7 +67,7 @@ ActiveAdmin.register Book do
       f.input :description
       f.input :year
       f.input :price
-      f.input :materials, as: :radio
+      f.input :materials, as: :check_boxes
       f.input :dimensions
       f.input :quantity
       f.input :images, as: :file, input_html: { multiple: true  }

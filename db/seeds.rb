@@ -29,12 +29,10 @@ LIMIT.times do |index|
     book.materials = Material.all.sample(rand(1..3))
     book.category_id = Category.all.sample.id
     book.authors = Author.all.sample(rand(1..3))
+    
+    book.images.attach(io: File.open("app/assets/images/small/#{rand(1..4)}.jpg"), filename: "face.jpg", content_type: "image/jpg")
+    book.images.attach(io: File.open("app/assets/images/small/#{rand(1..4)}.jpg"), filename: "face.jpg", content_type: "image/jpg")
     book.images.attach(io: File.open("app/assets/images/small/#{rand(1..4)}.jpg"), filename: "face.jpg", content_type: "image/jpg")
   end
-
-  #Image.create! do |image|
-  #  image.file = File.open(Rails.root.join("app/assets/images/small/#{rand(1..4)}.jpg"))
-  #  image.book_id = Book.all[index].id
-  #end
 end
 

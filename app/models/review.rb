@@ -16,5 +16,13 @@ class Review < ApplicationRecord
     state :unprocessed, initial: true
     state :approved
     state :rejected
+
+    event :approve do
+      transitions from: :unprocessed, to: :approved
+    end
+
+    event :reject do
+      transitions from: :unprocessed, to: :rejected
+    end
   end
 end

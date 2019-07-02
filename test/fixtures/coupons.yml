@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  discount: 1
+  expire_date: 2019-07-02 17:18:26
+  order: one
+
+two:
+  code: MyString
+  discount: 1
+  expire_date: 2019-07-02 17:18:26
+  order: two

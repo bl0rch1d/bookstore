@@ -13,12 +13,14 @@ MATERIALS.each do |material|
   Material.create!(title: material)
 end
 
-LIMIT.times do
+LIMIT.times do |index|
+  puts 'Seeding Authors/Books/Customers/Reviews/Addresses/ShippingMethods
+  '
   Author.create! do |author|
     author.first_name = FFaker::Name.first_name
     author.last_name  = FFaker::Name.last_name
   end
-
+  
   Book.create! do |book|
     book.title        = FFaker::Book.title
     book.description  = FFaker::Book.description
@@ -32,24 +34,63 @@ LIMIT.times do
     book.category_id  = Category.all.sample.id
     book.authors      = Author.all.sample(rand(1..3))
   end
-
+  
   Customer.create! do |customer|
     customer.email    = FFaker::Internet.email
     customer.password = FFaker::Internet.password
   end
-
+  
   Review.create! do |review|
     review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
     review.rating       = rand(1..5)
-    review.state        = :unprocessed
     review.customer_id  = Customer.all.sample.id
     review.book_id      = Book.all.sample.id
+  end
+
+  BillingAddress.create! do |address|
+    address.first_name        = FFaker::Name.first_name
+    address.last_name         = FFaker::Name.last_name
+    address.address           = FFaker::AddressUS.street_address
+    address.city              = FFaker::AddressUS.city
+    address.zip               = FFaker::AddressUS.zip_code
+    address.country           = FFaker::AddressUS.country
+    address.phone             = FFaker::PhoneNumber.phone_number
+    address.addressable_type  = 'Customer'
+    address.addressable_id    = Customer.all[index].id
+  end
+
+  ShippingAddress.create! do |address|
+    address.first_name        = FFaker::Name.first_name
+    address.last_name         = FFaker::Name.last_name
+    address.address           = FFaker::AddressUS.street_address
+    address.city              = FFaker::AddressUS.city
+    address.zip               = FFaker::AddressUS.zip_code
+    address.country           = FFaker::AddressUS.country
+    address.phone             = FFaker::PhoneNumber.phone_number
+    address.addressable_type  = 'Customer'
+    address.addressable_id    = Customer.all[index].id
+  end
+
+  ShippingMethod.create! do |method|
+    method.title    = FFaker::CheesyLingo.title
+    method.min_days = rand(1..5)
+    method.max_days = rand(6..20)
+    method.price    = rand(1.0..50.0).round(1)
+  end
+
+  Order.create! do |order|
+    order.number              = FFaker::Code.ean
+    order.total_price         = rand(50.0..500.0).round(1)
+    order.customer_id         = Customer.all[index].id
+    order.shipping_method_id  = ShippingMethod.all[index].id
   end
 end
 
 Book.all.each do |book|
-  image = File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg"))
+  puts 'Book Images'
 
+  image = File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg"))
+  
   4.times do
     BookImage.create! do |book_image|
       book_image.image    = image

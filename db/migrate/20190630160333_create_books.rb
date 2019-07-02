@@ -5,7 +5,9 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.text :description
       t.decimal :price, precision: 10, scale: 2
       t.integer :quantity
-      t.string :dimensions
+      t.string :height
+      t.string :width
+      t.string :depth
       t.integer :year
       t.string :materials
       t.references :category, foreign_ley: true

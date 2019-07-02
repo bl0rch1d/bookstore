@@ -4,9 +4,7 @@ ActiveAdmin.register Category do
   index do
     selectable_column
 
-    column 'Title' do |resource|
-      link_to resource.title, resource_path(resource)
-    end
+    column :title
 
     actions
   end

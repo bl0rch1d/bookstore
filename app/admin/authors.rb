@@ -4,9 +4,7 @@ ActiveAdmin.register Author do
   index do
     selectable_column
 
-    column 'Full name' do |author|
-      author.to_s
-    end
+    column 'Full name', &:to_s
 
     actions
   end

@@ -20,7 +20,7 @@ ActiveAdmin.register Review do
     review.update(state: :approved)
     redirect_to admin_review_path(review)
   end
-  
+
   member_action :reject, method: :put do
     review = Review.find(params[:id])
     review.update(state: :rejected)

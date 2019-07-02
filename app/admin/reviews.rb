@@ -8,22 +8,26 @@ ActiveAdmin.register Review do
   scope :rejected
 
   action_item :approve, only: :show do
-    link_to 'Approve', approve_admin_review_path(review), method: :put if review.state != :approved
+    link_to 'Approve', approve_admin_review_path(review), method: :put if review.state == 'unprocessed'
   end
 
   action_item :reject, only: :show do
-    link_to 'Reject', reject_admin_review_path(review), method: :put if review.state != :rejected
+    link_to 'Reject', reject_admin_review_path(review), method: :put if review.state == 'unprocessed'
   end
 
   member_action :approve, method: :put do
     review = Review.find(params[:id])
-    review.update(state: :approved)
+
+    review.approve!
+
     redirect_to admin_review_path(review)
   end
 
   member_action :reject, method: :put do
     review = Review.find(params[:id])
-    review.update(state: :rejected)
+
+    review.reject!
+
     redirect_to admin_review_path(review)
   end
 

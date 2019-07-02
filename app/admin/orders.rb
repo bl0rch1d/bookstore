@@ -6,7 +6,7 @@ ActiveAdmin.register Order do
   scope :in_delivery
   scope :delivered
   scope :canceled
-  
+
   index do
     selectable_column
 
@@ -22,15 +22,15 @@ ActiveAdmin.register Order do
   action_item :deliver, only: :show do
     link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.state != :canceled
   end
-   
+
   action_item :confirm_delivery, only: :show do
     link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.state != :canceled
-  end 
+  end
 
   action_item :cancel, only: :show do
     link_to 'Cancel', cancel_admin_order_path(order), method: :put if order.state != :canceled
   end
-  
+
   member_action :deliver, only: :show do
     order = Order.find(params[:id])
 

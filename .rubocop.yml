@@ -39,4 +39,5 @@ AllCops:
   Exclude:
     - 'bin/'
     - '*.gemspec'
+    - 'db/'
   TargetRubyVersion: 2.6.3

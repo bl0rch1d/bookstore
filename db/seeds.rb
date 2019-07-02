@@ -20,7 +20,7 @@ LIMIT.times do |index|
     author.first_name = FFaker::Name.first_name
     author.last_name  = FFaker::Name.last_name
   end
-  
+
   Book.create! do |book|
     book.title        = FFaker::Book.title
     book.description  = FFaker::Book.description
@@ -34,12 +34,12 @@ LIMIT.times do |index|
     book.category_id  = Category.all.sample.id
     book.authors      = Author.all.sample(rand(1..3))
   end
-  
+
   Customer.create! do |customer|
     customer.email    = FFaker::Internet.email
     customer.password = FFaker::Internet.password
   end
-  
+
   Review.create! do |review|
     review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
     review.rating       = rand(1..5)
@@ -90,7 +90,7 @@ Book.all.each do |book|
   puts 'Book Images'
 
   image = File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg"))
-  
+
   4.times do
     BookImage.create! do |book_image|
       book_image.image    = image

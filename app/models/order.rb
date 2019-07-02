@@ -1,10 +1,7 @@
 class Order < ApplicationRecord
   include AASM
 
-  belongs_to :customer
-  belongs_to :shipping_method
-
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :books, through: :order_items
 
   has_one :shipping_address, as: :addressable, dependent: :destroy
@@ -13,8 +10,8 @@ class Order < ApplicationRecord
   has_one :credit_card
   has_one :coupon
 
-  belongs_to :shipping_method, optional: true
-  belongs_to :customer, optional: true
+  belongs_to :shipping_method
+  belongs_to :customer
 
   scope :completed, -> { where(completed_at) }
 

@@ -54,7 +54,7 @@ LIMIT.times do |index|
     address.city              = FFaker::AddressUS.city
     address.zip               = FFaker::AddressUS.zip_code
     address.country           = FFaker::AddressUS.country
-    address.phone             = FFaker::PhoneNumber.phone_number
+    address.phone             = FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '')
     address.addressable_type  = 'Customer'
     address.addressable_id    = Customer.all[index].id
   end
@@ -66,7 +66,7 @@ LIMIT.times do |index|
     address.city              = FFaker::AddressUS.city
     address.zip               = FFaker::AddressUS.zip_code
     address.country           = FFaker::AddressUS.country
-    address.phone             = FFaker::PhoneNumber.phone_number
+    address.phone             = FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '')
     address.addressable_type  = 'Customer'
     address.addressable_id    = Customer.all[index].id
   end

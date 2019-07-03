@@ -20,18 +20,18 @@ ActiveAdmin.register Order do
   end
 
   action_item :deliver, only: :show do
-    link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.state != :canceled
+    link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.processing?
   end
 
   action_item :confirm_delivery, only: :show do
-    link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.state != :canceled
+    link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.processing?
   end
 
   action_item :cancel, only: :show do
-    link_to 'Cancel', cancel_admin_order_path(order), method: :put if order.state != :canceled
+    link_to 'Cancel', cancel_admin_order_path(order), method: :put if order.processing?
   end
 
-  member_action :deliver, only: :show do
+  member_action :deliver, method: :put do
     order = Order.find(params[:id])
 
     order.deliver!
@@ -39,7 +39,7 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(order)
   end
 
-  member_action :confirm_delivery, only: :show do
+  member_action :confirm_delivery, method: :put do
     order = Order.find(params[:id])
 
     order.confirm_delivery!
@@ -47,7 +47,7 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(order)
   end
 
-  member_action :cancel, only: :show do
+  member_action :cancel, method: :put do
     order = Order.find(params[:id])
 
     order.cancel!

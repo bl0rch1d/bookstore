@@ -84,6 +84,12 @@ LIMIT.times do |index|
     order.customer_id         = Customer.all[index].id
     order.shipping_method_id  = ShippingMethod.all[index].id
   end
+
+  Coupon.create! do |coupon|
+    coupon.code         = Array.new(6) { rand(65..90).chr }.join
+    coupon.discount     = rand(1..90)
+    coupon.expire_date  = Time.at(rand * Time.now.to_i)
+  end
 end
 
 Book.all.each do |book|

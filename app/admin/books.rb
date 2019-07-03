@@ -1,30 +1,27 @@
 ActiveAdmin.register Book do
-  permit_params :title, :description, :height, :width, :depth, :materials, :price, :quantity, :category_id, :author_id, :book_images
+  permit_params :title, :description, :height, :width, :depth,
+                :materials, :price, :quantity, :category_id, :author_id, :book_images
+
+  decorate_with BookDecorator
 
   index do
     selectable_column
 
     column 'Book cover' do |book|
-      image_tag book.book_images.first.image.small.url
+      image_tag book.thumb
     end
 
     column :category
 
-    column 'Title' do |resource|
+    column :title do |resource|
       link_to resource.title.to_s, resource_path(resource)
     end
 
-    column :authors do |book|
-      book.authors(&:to_s)
-    end
+    column :authors, &:format_authors
 
-    column 'Short description' do |book|
-      book.description.slice(1..63) + '...'
-    end
+    column 'Short description', &:short_description
 
-    column 'Price' do |book|
-      "€#{book.price}"
-    end
+    column :price, &:price_in_currency
 
     actions
   end

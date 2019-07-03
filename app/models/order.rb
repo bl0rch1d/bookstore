@@ -7,11 +7,11 @@ class Order < ApplicationRecord
   has_one :shipping_address, as: :addressable, dependent: :destroy
   has_one :billing_address, as: :addressable, dependent: :destroy
 
-  has_one :credit_card
-  has_one :coupon
+  # has_one :credit_card
+  # has_one :coupon
 
-  belongs_to :shipping_method
-  belongs_to :customer
+  # belongs_to :shipping_method
+  # belongs_to :customer
 
   scope :completed, -> { where(completed_at) }
 

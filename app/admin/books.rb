@@ -1,6 +1,6 @@
 ActiveAdmin.register Book do
   permit_params :title, :description, :height, :width, :depth,
-                :materials, :price, :quantity, :category_id, :author_id, :book_images
+                :materials, :price, :quantity, :category_id, :author_id, :images
 
   decorate_with BookDecorator
 
@@ -31,9 +31,8 @@ ActiveAdmin.register Book do
 
     panel 'Book Images' do
       table do
-        book.book_images.each do |book_image|
-          span image_tag book_image.image.medium.url
-        end
+        # Because of activstorage does not allow upload identical images
+        4.times { span image_tag book.images.first.variant(resize: '200x200') }
       end
     end
 
@@ -73,9 +72,29 @@ ActiveAdmin.register Book do
       f.input :quantity
     end
 
-    f.has_many :book_images, heading: false, allow_destroy: true do |image|
-      image.input :book_image, as: :file, hint: image_tag(image.object.image.medium.url.to_s)
-    end
+    # === With carrierwave ===
+    # f.has_many :images, heading: false, allow_destroy: true do |book_image|
+    #   book_image.input :image, as: :file, hint: image_tag(book_image.object.image.medium.url.to_s)
+    # end
+
+    # f.has_many book.images do |t|
+    # end
+
+    # f.inputs do
+    #   f.input :images, as: :file, input_html: { multiple: true }
+    # end
+
+    
+    # binding.pry
+    
+
+    # f.has_many :attachments, allow_destroy: true do |book_image|
+    #   book_image.input :image, as: :file
+    # end
+
+    # f.inputs do
+    #   f.input :image, as: :file
+    # end
 
     f.actions
   end

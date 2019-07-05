@@ -17,7 +17,9 @@ class Order < ApplicationRecord
 
   aasm column: :state do
     state :in_progress, initial: true
-    state :in_delivery, :delivered, :canceled
+    state :in_delivery
+    state :delivered
+    state :canceled
 
     event :deliver do
       transitions from: :in_progress, to: :in_delivery
@@ -41,4 +43,8 @@ class Order < ApplicationRecord
   def complete
     update(completed_at: Time.now.strftime('%d %b %Y - %H:%M:%S'))
   end
+
+  # Bestsellers query
+  # books = Order.all.where(state: :delivered).flat_map(&:books)
+  # results = books.map { |book| [book, books.count(book)]}.sort_by(&:second).last(4).map { |collection| collection.first.first.id}
 end

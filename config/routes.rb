@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  resources :books, only: %i[show index]
+
   root 'home#index'
 end

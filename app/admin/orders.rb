@@ -19,12 +19,16 @@ ActiveAdmin.register Order do
     end
   end
 
+  controller do
+    actions :all, except: [:edit]
+  end
+
   action_item :deliver, only: :show do
-    link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.processing?
+    link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.processing? && order.state == 'in_progress'
   end
 
   action_item :confirm_delivery, only: :show do
-    link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.processing?
+    link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.processing? && order.state == 'in_delivery'
   end
 
   action_item :cancel, only: :show do

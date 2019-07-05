@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    = render 'head'
+  %body
+    = render 'header'
+    
+    - if notice || alert
+      %p.notice=notice 
+      %p.alert= alert
+      
+    = yield
+
+    = render 'footer'
+    = javascript_include_tag 'application'

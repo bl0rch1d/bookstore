@@ -63,7 +63,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'aasm', '~> 5.0'
 gem 'activeadmin', '~> 2.1'
 gem 'bootstrap-sass', '~> 3.4'
-gem 'carrierwave', '~> 1.3'
 gem 'devise', '~> 4.6'
 gem 'draper', '~> 3.1'
 gem 'fasterer', '~> 0.5.1'
@@ -76,3 +75,9 @@ gem 'pg', '~> 1.1'
 gem 'rubocop', '~> 0.72.0'
 gem 'rubocop-performance', '~> 1.4'
 gem 'rubocop-rspec', '~> 1.33'
+
+gem "image_processing", "~> 1.9"
+
+gem "pry", "~> 0.12.2"
+
+gem "kaminari", "~> 1.1"

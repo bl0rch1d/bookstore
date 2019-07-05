@@ -2,11 +2,11 @@ class BookDecorator < Draper::Decorator
   delegate_all
 
   def thumb
-    book_images.first.image.small.url
+    images.first.variant(resize: '100x100')
   end
 
   def cover
-    book_images.first.image.medium.url
+    images.first.variant(resize: '250x250')
   end
 
   def short_description

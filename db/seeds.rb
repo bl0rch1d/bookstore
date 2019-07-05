@@ -85,9 +85,16 @@ LIMIT.times do |index|
     order.shipping_method_id  = ShippingMethod.all[index].id
   end
 
+  OrderItem.create! do |order_item|
+    order_item.price      = rand(10.0..200.0).round(1)
+    order_item.quantity   = rand(1..10)
+    order_item.order_id   = Order.all[index].id
+    order_item.book_id    = Book.all[index].id
+  end
+
   Coupon.create! do |coupon|
     coupon.code         = Array.new(6) { rand(65..90).chr }.join
-    coupon.discount     = rand(1..90)
+    coupon.discount     = rand(5..90)
     coupon.expire_date  = Time.at(rand * Time.now.to_i)
   end
 end
@@ -95,12 +102,12 @@ end
 Book.all.each do |book|
   puts 'Book Images'
 
-  image = File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg"))
-
-  4.times do
-    BookImage.create! do |book_image|
-      book_image.image    = image
-      book_image.book_id  = book.id
-    end
-  end
+  book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
+  
+  # 4.times do |index|
+  #   BookImage.create! do |book_image|
+  #     book_image.image    = image
+  #     book_image.book_id  = book.id
+  #   end
+  # end
 end

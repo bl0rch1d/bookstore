@@ -1,5 +1,5 @@
-class BookImage < ApplicationRecord
-  mount_uploader :image, BookImageUploader
+# class BookImage < ApplicationRecord
+#   mount_uploader :image, BookImageUploader
 
-  belongs_to :book
-end
+#   belongs_to :book
+# end

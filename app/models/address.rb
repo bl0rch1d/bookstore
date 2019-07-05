@@ -13,9 +13,9 @@ class Address < ApplicationRecord
 
   validates :first_name, :last_name, :address, :zip, :city, :country, :phone, presence: true
 
-  validates :first_name, :last_name, length: { maximum: NAME_LENGTH }, format: { with: NAME_REGEX }
+  # validates :first_name, :last_name, length: { maximum: NAME_LENGTH }, format: { with: NAME_REGEX }
   # validates :address, length: { maximum: ADDRESS_LENGTH }, format: { with: ADDRESS_REGEX }
-  validates :country, :city, length: { maximum: CITY_COUNTRY_LENGTH }, format: { with: CITY_COUNTRY_REGEX }
-  validates :zip, length: { maximum: ZIP_LENGTH }, format: { with: ZIP_REGEX }
-  validates :phone, length: { maximum: PHONE_LENGTH }, format: { with: PHONE_REGEX }
+  # validates :country, :city, length: { maximum: CITY_COUNTRY_LENGTH }, format: { with: CITY_COUNTRY_REGEX }
+  # validates :zip, length: { maximum: ZIP_LENGTH }, format: { with: ZIP_REGEX }
+  # validates :phone, length: { maximum: PHONE_LENGTH }, format: { with: PHONE_REGEX }
 end

@@ -79,7 +79,7 @@ LIMIT.times do |index|
   end
 
   Order.create! do |order|
-    order.number              = FFaker::Code.ean
+    order.number              = Array.new(8) { rand(1..9) }.join
     order.total_price         = rand(50.0..500.0).round(1)
     order.customer_id         = Customer.all[index].id
     order.shipping_method_id  = ShippingMethod.all[index].id

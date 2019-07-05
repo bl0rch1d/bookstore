@@ -91,14 +91,6 @@ ActiveRecord::Schema.define(version: 2019_07_04_143253) do
     t.index ["book_id", "author_id"], name: "index_authors_books_on_book_id_and_author_id"
   end
 
-  create_table "book_images", force: :cascade do |t|
-    t.bigint "book_id"
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_book_images_on_book_id"
-  end
-
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -214,7 +206,6 @@ ActiveRecord::Schema.define(version: 2019_07_04_143253) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "book_images", "books"
   add_foreign_key "coupons", "orders"
   add_foreign_key "credit_cards", "orders"
   add_foreign_key "order_items", "books"

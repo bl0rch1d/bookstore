@@ -7,10 +7,8 @@ class Book < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :order_items, dependent: :destroy
 
-  # has_many :book_images, dependent: :destroy
-  # accepts_nested_attributes_for :images, allow_destroy: true
-  
   has_many_attached :images
+  accepts_nested_attributes_for :images_attachments, allow_destroy: true
 
   validates :title, :description, :price, :year, :quantity, :height, :width, :depth, :category_id, presence: true
 

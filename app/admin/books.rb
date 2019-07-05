@@ -1,6 +1,6 @@
 ActiveAdmin.register Book do
   permit_params :title, :description, :height, :width, :depth,
-                :materials, :price, :quantity, :category_id, :author_id, :images
+                :material_ids, :year, :price, :quantity, :category_id, :author_ids, images: []
 
   decorate_with BookDecorator
 
@@ -8,7 +8,7 @@ ActiveAdmin.register Book do
     selectable_column
 
     column 'Book cover' do |book|
-      image_tag book.thumb
+      image_tag book.thumb if book.images.any?
     end
 
     column :category
@@ -31,8 +31,9 @@ ActiveAdmin.register Book do
 
     panel 'Book Images' do
       table do
-        # Because of activstorage does not allow upload identical images
-        4.times { span image_tag book.images.first.variant(resize: '200x200') }
+        book.images.each do |image|
+          span image_tag image.variant(resize: '200x200')
+        end
       end
     end
 
@@ -72,30 +73,22 @@ ActiveAdmin.register Book do
       f.input :quantity
     end
 
-    # === With carrierwave ===
-    # f.has_many :images, heading: false, allow_destroy: true do |book_image|
-    #   book_image.input :image, as: :file, hint: image_tag(book_image.object.image.medium.url.to_s)
-    # end
+    f.inputs do
+      f.input :images, as: :file, input_html: { multiple: true }
+    end
 
-    # f.has_many book.images do |t|
-    # end
-
-    # f.inputs do
-    #   f.input :images, as: :file, input_html: { multiple: true }
-    # end
-
-    
-    # binding.pry
-    
-
-    # f.has_many :attachments, allow_destroy: true do |book_image|
-    #   book_image.input :image, as: :file
-    # end
-
-    # f.inputs do
-    #   f.input :image, as: :file
-    # end
+    f.object.images.each do |image|
+      span image_tag image.variant(resize: '50x50')
+      span link_to 'delete', delete_book_image_admin_book_path(image.id), method: :delete, data: { confirm: 'Are you sure?' }
+    end
 
     f.actions
+  end
+
+  member_action :delete_book_image, method: :delete do
+    @image = ActiveStorage::Attachment.find(params[:id])
+    @image.purge_later
+
+    redirect_back(fallback_location: edit_admin_book_path)
   end
 end

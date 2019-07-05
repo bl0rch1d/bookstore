@@ -6,7 +6,5 @@ class HomeController < ApplicationController
     @categories = Category.all
 
     @best_sellers = BestSellersQuery.new.call
-    p '======================='
-    p @best_sellers
   end
 end

@@ -1,6 +1,7 @@
 class BookDecorator < Draper::Decorator
   delegate_all
 
+  # === TODO: Refactor ===
   def thumb
     images.first.variant(resize: '100x100')
   end

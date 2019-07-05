@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  # === TODO: Auth ===
   # devise :database_authenticatable, :registerable, :confirmable, :validatable, :recoverable, :rememberable, :secure_validatable
 
   devise :database_authenticatable, :registerable, :validatable

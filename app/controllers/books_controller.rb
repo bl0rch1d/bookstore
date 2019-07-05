@@ -1,13 +1,14 @@
 class BooksController < ApplicationController
   def index
-    @books_count = Book.all.count
+    # === TODO: Books count per category. Pagination(12 books) ===
   end
 
   def show
     @book = Book.find(params[:id])
     @reviews = @book.reviews.approved
 
+    # === TODO: Refactor ===
     @cover = @book.decorate.cover
-    @other_images = @book.book_images.slice(1..-1)
+    @other_images = @book.images.slice(1..-1)
   end
 end

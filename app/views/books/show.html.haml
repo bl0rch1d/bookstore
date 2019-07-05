@@ -11,7 +11,7 @@
           - @other_images.each do |image|
             %a.img-link{href: "#"}
               = image_tag(image.image.small.url, class: 'img-responsive')
-    .col-sm-6
+    .col-sm-6#book_info
       %h1.mt-res-0= @book.title
       %p.lead.small= @book.decorate.format_authors
       .row
@@ -19,18 +19,21 @@
           %p.h1.in-gold-500.mt-10= @book.decorate.price_in_currency
         .col-xs-5.col-md-3
           .input-group.general-position
-            %a.input-link{href: "#"}
-              %i.fa.fa-minus.line-height-40
-            %input.form-control.quantity-input{type: "text"}
-            %a.input-link{href: "#"}
-              %i.fa.fa-plus.line-height-40
+            %a.input-link
+              %i.fa.fa-minus.line-height-40{onclick: "decrementQuantity()"}
+            %input.form-control.quantity-input#quantity_input{type: "text", value: '1'}
+            %a.input-link
+              %i.fa.fa-plus.line-height-40{onclick: "incrementQuantity()"}
         .col-xs-7.col-md-5
           %button.btn.btn-default.pull-right.general-position Add to Cart
       .general-info-wrap.divider-lg
         %p Description
-        %p.lead.small.line-height-2
+        %p.lead.small.line-height-2#short_description
           = @book.decorate.short_description
-          %a.in-gold-500.ml-10{href: "#"} Read More
+          %a.in-gold-500.ml-10#full_description_show Read More
+        %p.lead.small.line-height-2#full_description.hidden
+          = @book.description
+          %a.in-gold-500.ml-10#full_description_hide Read Less
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left Year of publication

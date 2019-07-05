@@ -7,9 +7,9 @@ class Order < ApplicationRecord
   has_one :shipping_address, as: :addressable, dependent: :destroy
   has_one :billing_address, as: :addressable, dependent: :destroy
 
+  # === TODO: Associations ===
   # has_one :credit_card
   # has_one :coupon
-
   # belongs_to :shipping_method
   # belongs_to :customer
 
@@ -44,6 +44,7 @@ class Order < ApplicationRecord
     update(completed_at: Time.now.strftime('%d %b %Y - %H:%M:%S'))
   end
 
+  # === TODO: Normalniy query ===
   # Bestsellers query
   # books = Order.all.where(state: :delivered).flat_map(&:books)
   # results = books.map { |book| [book, books.count(book)]}.sort_by(&:second).last(4).map { |collection| collection.first.first.id}

@@ -1,4 +1,5 @@
 class BestSellersQuery
+  # === TODO: Normalniy query ===
   def initialize; end
 
   def call

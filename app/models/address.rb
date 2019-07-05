@@ -1,6 +1,8 @@
 class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
+  # === TODO: Validations. Constants ===
+
   NAME_REGEX          = /\A[a-zA-Z]+\z/.freeze
   ADDRESS_REGEX       = /\A[ a-zA-Z\d,-]+\z/.freeze
   ZIP_REGEX           = /\A[\d-]+\z/.freeze

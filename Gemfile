@@ -75,7 +75,5 @@ gem 'pg', '~> 1.1'
 gem 'rubocop', '~> 0.72.0'
 gem 'rubocop-performance', '~> 1.4'
 gem 'rubocop-rspec', '~> 1.33'
-
 gem 'image_processing', '~> 1.9'
-
 gem 'pry', '~> 0.12.2'

@@ -9,6 +9,6 @@ class BooksController < ApplicationController
 
     # === TODO: Refactor ===
     @cover = @book.decorate.cover
-    @other_images = @book.images.slice(1..-1)
+    @other_images = @book.images.slice(1..3)
   end
 end

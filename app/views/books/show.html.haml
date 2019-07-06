@@ -10,7 +10,7 @@
         .images.clearfix
           - @other_images.each do |image|
             %a.img-link{href: "#"}
-              = image_tag(image.image.small.url, class: 'img-responsive')
+              = image_tag(image.variant(resize: '150x150'), class: 'img-responsive')
     .col-sm-6#book_info
       %h1.mt-res-0= @book.title
       %p.lead.small= @book.decorate.format_authors

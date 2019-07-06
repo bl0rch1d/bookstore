@@ -40,7 +40,6 @@
         .col-sm-6.col-md-3
           .general-thumb-wrap
             .thumbnail.general-thumbnail
-              -# %img.img-shadow.general-thumbnail-img{src: "#{book.decorate.cover}", alt: "design-book"}
               = image_tag(book.images.first, class: 'img-shadow general-thumbnail-img')
               .thumb-hover
                 .general-thumb-link-wrap

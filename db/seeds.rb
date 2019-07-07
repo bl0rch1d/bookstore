@@ -1,6 +1,6 @@
 CATEGORIES = ['Mobile development', 'Photo', 'Web design', 'Web development'].freeze
 MATERIALS = ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].freeze
-LIMIT = 20
+LIMIT = 100
 BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
@@ -41,6 +41,7 @@ LIMIT.times do |index|
   end
 
   Review.create! do |review|
+    review.title        = FFaker::Book.title
     review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
     review.rating       = rand(1..5)
     review.customer_id  = Customer.all.sample.id

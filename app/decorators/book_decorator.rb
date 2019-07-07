@@ -10,6 +10,10 @@ class BookDecorator < Draper::Decorator
     images.first.variant(resize: '250x250')
   end
 
+  def additional_images
+    images.slice(1..3)
+  end
+
   def short_description
     description.slice(1..63) + '...'
   end
@@ -19,7 +23,7 @@ class BookDecorator < Draper::Decorator
   end
 
   def format_authors
-    authors.map(&:to_s).join(', ')
+    authors.map { |author| author.decorate.full_name }.join(', ')
   end
 
   def dimensions

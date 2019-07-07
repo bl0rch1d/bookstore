@@ -19,14 +19,18 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'aasm', '~> 5.0'
-gem 'activeadmin', '~> 2.1'
 gem 'devise', '~> 4.6'
+gem 'omniauth-facebook', '~> 5.0'
+
+gem 'activeadmin', '~> 2.1'
+
+gem 'aasm', '~> 5.0'
 gem 'draper', '~> 3.1'
+gem 'pagy', '~> 3.3'
+
 gem 'haml', '~> 5.1'
 gem 'image_processing', '~> 1.9'
 gem 'mini_magick', '~> 4.9'
-gem 'pagy', '~> 3.3'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

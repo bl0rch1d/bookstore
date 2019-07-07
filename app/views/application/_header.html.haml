@@ -15,7 +15,8 @@
         %span.shop-quantity 3
 
     #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
-      = render 'navbar_mobile'  
+      = render 'navbar_mobile'
+      
       .hidden-xs
         %ul.nav.navbar-nav
           %li
@@ -25,13 +26,26 @@
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
               %li
-                %a{href: "#"} Mobile development
-              %li
-                %a{href: "#"} Photo
-              %li
-                %a{href: "#"} Web design
-              %li.divider{role: "separator"}
-              %li
-                %a{href: "#"} Log out
-            %li
-              %a{href: "#"} My account
+                = link_to 'All', category_books_path('all')
+              - Category.all.each do |category|
+                %li
+                  = link_to category.title, category_books_path(category)
+      
+          %li.dropdown
+            - if customer_signed_in?
+              %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
+              %ul.dropdown-menu
+                %li
+                  = link_to 'Orders', '#', class: "collapse-link"
+                %li
+                  = link_to 'Settings', '#', class: "collapse-link"
+                %li
+                  = link_to 'Sign out', destroy_customer_session_path, method: :delete, class: "collapse-link"
+              
+            - else
+              %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
+              %ul.dropdown-menu
+                %li
+                  = link_to 'Sign up', new_customer_registration_path, class: "collapse-link"
+                %li
+                  = link_to 'Log in', new_customer_session_path, class: "collapse-link"

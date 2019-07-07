@@ -10,7 +10,7 @@
           .row
             .col-sm-5
               .general-img-wrap
-                = image_tag(book.images.first, class: 'img-shadow general-thumbnail-img')
+                = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
             .col-sm-7
               .mb-60
                 %h1= book.title
@@ -32,7 +32,7 @@
     %h2.h1 Welcome to our amazing Bookstore!
     .mb-res-50
       %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-    %button.btn.btn-default Get Started
+      = link_to 'Get Started', category_books_path('all'), role: "button", class: "btn btn-default to-catalog"
   .mb-35
     %h3 Best Sellers
     .row
@@ -40,12 +40,12 @@
         .col-sm-6.col-md-3
           .general-thumb-wrap
             .thumbnail.general-thumbnail
-              = image_tag(book.images.first, class: 'img-shadow general-thumbnail-img')
+              = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
               .thumb-hover
                 .general-thumb-link-wrap
                   = link_to book_path(book.id), class: "thumb-hover-link" do
                     %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                  %a.thumb-hover-link{href: "#"}
+                  %a.thumb-hover-link
                     %i.fa.fa-shopping-cart.thumb-icon
           .mb-35
             .clearfix

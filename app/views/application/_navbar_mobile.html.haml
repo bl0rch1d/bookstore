@@ -9,10 +9,9 @@
       %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
       %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
         %li
-          %a.collapse-link{href: "#"} Mobile development
-        %li
-          %a.collapse-link{href: "#"} Photo
-        %li
-          %a.collapse-link{href: "#"} Web design
+          = link_to 'All', category_books_path('all')
+        - Category.all.each do |category|
+          %li
+            = link_to category.title, category_books_path(category)
     %li
       %a{href: "#"} My account

@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'devise', '~> 4.6'
 gem 'omniauth-facebook', '~> 5.0'
+# gem 'cancancan', '~> 3.0'
 
 gem 'activeadmin', '~> 2.1'
 
@@ -50,8 +51,10 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.0'
   gem 'ffaker', '~> 2.11'
 
-  gem 'chromedriver-helper'
-  gem 'selenium-webdriver'
+  # gem 'chromedriver-helper'
+  # gem 'selenium-webdriver'
+  
+  gem 'letter_opener', '~> 1.7'
 end
 
 group :development do
@@ -65,14 +68,9 @@ group :development do
   gem 'rubocop', '~> 0.72.0'
   gem 'rubocop-performance', '~> 1.4'
   gem 'rubocop-rspec', '~> 1.33'
+  gem 'rubocop-rails', '~> 2.2'
+  gem 'reek', '~> 5.4'
+  gem 'rails_best_practices', '~> 1.19'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'cancancan', '~> 3.0'
-
-gem "reek", "~> 5.4"
-
-gem "letter_opener", "~> 1.7"
-
-gem "rubocop-rails", "~> 2.2"

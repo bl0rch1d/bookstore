@@ -41,7 +41,7 @@ class Order < ApplicationRecord
   private
 
   def complete
-    update(completed_at: Time.now.strftime('%d %b %Y - %H:%M:%S'))
+    update(completed_at: Time.zone.now.strftime('%d %b %Y - %H:%M:%S'))
   end
 
   # === TODO: Normalniy query ===

@@ -1,10 +1,10 @@
 class Customer < ApplicationRecord
   # === for prod ===
-  devise :database_authenticatable, :registerable, :confirmable, :validatable,
-         :recoverable, :rememberable, :trackable, :omniauthable
+  # devise :database_authenticatable, :registerable, :confirmable, :validatable,
+  #        :recoverable, :rememberable, :trackable, :omniauthable
 
-  # === for dev ===
-  # devise :database_authenticatable, :registerable, :validatable, :omniauthable, :rememberable, :recoverable
+  # === for seeds ===
+  devise :database_authenticatable, :registerable, :validatable, :omniauthable, :rememberable, :recoverable
 
   has_many :reviews, dependent: :destroy
   has_many :orders, dependent: :destroy

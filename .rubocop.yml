@@ -1,7 +1,7 @@
 require:
   - rubocop-rspec
   - rubocop-performance
-  # - rubocop-rails
+  - rubocop-rails
 
 RSpec/MessageChain:
   Enabled: false
@@ -38,7 +38,7 @@ Style/FrozenStringLiteralComment:
 
 AllCops:
   Exclude:
-    - '.bin/*'
+    - './bin/*'
     - '*.gemspec'
     - './db/*'
   TargetRubyVersion: 2.6.3

@@ -1,5 +1,5 @@
 class ShippingMethod < ApplicationRecord
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   # === TODO: Constant ===
   validates :title, :min_days, :max_days, :price, presence: true

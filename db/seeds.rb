@@ -1,6 +1,6 @@
 CATEGORIES = ['Mobile development', 'Photo', 'Web design', 'Web development'].freeze
 MATERIALS = ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].freeze
-LIMIT = 100
+LIMIT = 50
 BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

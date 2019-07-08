@@ -1,8 +1,11 @@
 class Book < ApplicationRecord
   belongs_to :category
 
-  has_and_belongs_to_many :authors
-  has_and_belongs_to_many :materials
+  has_many :authors_books, dependent: :destroy
+  has_many :authors, through: :authors_books
+
+  has_many :books_materials, dependent: :destroy
+  has_many :materials, through: :books_materials
 
   has_many :reviews, dependent: :destroy
   has_many :order_items, dependent: :destroy

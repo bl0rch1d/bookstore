@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_07_153927) do
+ActiveRecord::Schema.define(version: 2019_07_08_123650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,11 +84,13 @@ ActiveRecord::Schema.define(version: 2019_07_07_153927) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "authors_books", id: false, force: :cascade do |t|
-    t.bigint "book_id", null: false
-    t.bigint "author_id", null: false
-    t.index ["author_id", "book_id"], name: "index_authors_books_on_author_id_and_book_id"
-    t.index ["book_id", "author_id"], name: "index_authors_books_on_book_id_and_author_id"
+  create_table "authors_books", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_authors_books_on_author_id"
+    t.index ["book_id"], name: "index_authors_books_on_book_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -107,11 +109,13 @@ ActiveRecord::Schema.define(version: 2019_07_07_153927) do
     t.index ["category_id"], name: "index_books_on_category_id"
   end
 
-  create_table "books_materials", id: false, force: :cascade do |t|
-    t.bigint "material_id", null: false
-    t.bigint "book_id", null: false
-    t.index ["book_id", "material_id"], name: "index_books_materials_on_book_id_and_material_id"
-    t.index ["material_id", "book_id"], name: "index_books_materials_on_material_id_and_book_id"
+  create_table "books_materials", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "material_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_books_materials_on_book_id"
+    t.index ["material_id"], name: "index_books_materials_on_material_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -219,6 +223,10 @@ ActiveRecord::Schema.define(version: 2019_07_07_153927) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authors_books", "authors"
+  add_foreign_key "authors_books", "books"
+  add_foreign_key "books_materials", "books"
+  add_foreign_key "books_materials", "materials"
   add_foreign_key "coupons", "orders"
   add_foreign_key "credit_cards", "orders"
   add_foreign_key "order_items", "books"

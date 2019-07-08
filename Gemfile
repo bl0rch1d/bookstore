@@ -72,3 +72,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'cancancan', '~> 3.0'
 
 gem "reek", "~> 5.4"
+
+gem "letter_opener", "~> 1.7"
+
+gem "rubocop-rails", "~> 2.2"

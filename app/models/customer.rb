@@ -1,16 +1,13 @@
 class Customer < ApplicationRecord
-  # === TODO: Auth ===
+  # === for prod ===
   # devise :database_authenticatable, :registerable, :confirmable, :validatable,
   #        :recoverable, :rememberable, :trackable, :omniauthable
 
-  # for seeding
-  devise :database_authenticatable, :registerable, :validatable, :omniauthable
+  # === for dev ===
+  devise :database_authenticatable, :registerable, :validatable, :omniauthable, :rememberable, :recoverable
 
-  has_one_attached :avatar
-
-  has_many :reviews
-
-  has_many :orders
+  has_many :reviews, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
@@ -20,5 +17,9 @@ class Customer < ApplicationRecord
       customer.email = auth.info.email
       customer.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  def bought?(book_id)
+    orders.delivered.joins(:books).where(books: { id: book_id }).exists?
   end
 end

@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 2019_07_07_153927) do
     t.text "body"
     t.integer "rating"
     t.string "state"
+    t.boolean "verified"
     t.bigint "customer_id"
     t.bigint "book_id"
     t.datetime "created_at", null: false

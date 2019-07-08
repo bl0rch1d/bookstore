@@ -4,11 +4,11 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  # get '/shop', to: 'books#index', as: :books
-
   resources :categories, only: [] do
     resources :books, only: :index
   end
+
+  resources :reviews, only: :create
 
   resources :books, only: :show
 

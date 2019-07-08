@@ -64,6 +64,14 @@
   color: $grey-600;
   word-break: break-word;
 }
+
+// Custom
+.catalog-authors {
+  height: 30px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .small {
   font-size: $font-size-base;
 }

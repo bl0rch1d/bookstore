@@ -5,6 +5,7 @@ class CreateReviews < ActiveRecord::Migration[5.2]
       t.text :body
       t.integer :rating
       t.string :state
+      t.boolean :verified
       t.references :customer, foreign_key: true
       t.references :book, foreign_key: true
 

@@ -11,6 +11,7 @@
           - @book.decorate.additional_images.each do |image|
             %a.img-link{href: "#"}
               = image_tag(image.variant(resize: '150x150'), class: 'img-responsive')
+    
     .col-sm-6#book_info.mb-30
       %h1.mt-res-0= @book.title
       %p.lead.small= @book.decorate.format_authors
@@ -51,23 +52,22 @@
       .mb-80
         %h3 Write a Review
         %p.general-info-text Score
-        .mb-15
-          %i.fa.fa-star.rate-empty
-          %i.fa.fa-star.rate-empty
-          %i.fa.fa-star.rate-empty
-          %i.fa.fa-star.rate-empty
-          %i.fa.fa-star.rate-empty  
-          %form.row
+        .row
+          = form_with scope: current_customer.reviews, url: reviews_path(book_id: @book.id), method: :post do |f|
+            .col-md-8.mb-10
+              = f.select :rating, [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]
             .col-md-8
               .mb-40
                 .form-group
                   %label.control-label.input-label.in-grey-600{for: "title"} Title
-                  %input#title.form-control{name:"title", type: "text"}
+                  = f.text_field :title, class: "form-control", id: "title"
                 .form-group
-                  %label.control-label.input-label.in-grey-600{for: "review"} Review
-                  %textarea#review.form-control{name:"review", type: "text"}
+                  %label.control-label.input-label.in-grey-600{for: "body"} Review
+                  = f.text_area :body, class: "form-control", id: "body"
               .text-right
-                %button.btn.disabled.mb-20 Post
+                = f.submit "Post", class: "btn btn-primary mb-20" do
+                  %button
+
     .mb-80
       - if @reviews
         %h3.in-gold-500.mb-25= "Reviews #{@reviews.size}"
@@ -79,6 +79,8 @@
                 %div
                   .general-message-date.hidden-xs= review.created_at
                   .max-240
+                    - if review.verified
+                      .general-message-verified.pull-right Verified Reviewer
                     .general-message-name= review.decorate.customer_full_name
                 .mb-15
                   - review.rating.times do

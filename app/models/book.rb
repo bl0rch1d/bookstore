@@ -22,7 +22,7 @@ class Book < ApplicationRecord
   scope :descending_title, -> { order('title DESC') }
 
   scope :ascending_price,  -> { order('price ASC') }
-  scope :descending_price, -> { order('prcice DESC') }
+  scope :descending_price, -> { order('price DESC') }
 
   def self.latest
     Book.all.last(3)

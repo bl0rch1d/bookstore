@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   include Pagy::Backend
 
   def index
-    @pagy, @books = pagy(BooksByFilterQuery.new(params).call, items: 12)
+    @pagy, @books = pagy(BooksSortingQuery.new(params).call, items: 12)
   end
 
   def show

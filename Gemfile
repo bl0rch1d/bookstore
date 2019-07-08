@@ -68,3 +68,7 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'cancancan', '~> 3.0'
+
+gem "reek", "~> 5.4"

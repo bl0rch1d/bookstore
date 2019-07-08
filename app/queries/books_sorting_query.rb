@@ -1,20 +1,21 @@
-class BooksByFilterQuery
+class BooksSortingQuery
   def initialize(params)
     @params = params
   end
 
   def call
-    filter
+    sort
   end
 
-  def filter
+  def sort
     case @params[:sort_by]
+    when 'newest'           then newest(from_category)
     when 'popular'          then popular(from_category)
     when 'low_price'        then low_price(from_category)
     when 'high_price'       then high_price(from_category)
     when 'title_ascending'  then title_ascending(from_category)
     when 'title_descending' then title_descending(from_category)
-    else newest(from_category)
+    else title_ascending(from_category)
     end
   end
 

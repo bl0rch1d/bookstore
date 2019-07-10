@@ -1,16 +1,15 @@
 %main.container
+  -# TODO: Link not working after order item submited
   = link_to(:back, class: 'general-back-link') do
     %i.fa.fa-long-arrow-left.mr-15
     Back to results
+  
   .row
     .col-sm-6
       .product-gallery
         .mb-20
           = image_tag(@book.decorate.cover, class: 'img-responsive')
-        .images.clearfix
-          - @book.decorate.additional_images.each do |image|
-            %a.img-link{href: "#"}
-              = image_tag(image.variant(resize: '150x150'), class: 'img-responsive')
+        = render 'images'
     
     .col-sm-6#book_info.mb-30
       %h1.mt-res-0= @book.title
@@ -18,15 +17,8 @@
       .row
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= @book.decorate.price_in_currency
-        .col-xs-5.col-md-3
-          .input-group.general-position
-            %a.input-link
-              %i.fa.fa-minus.line-height-40{onclick: "decrementQuantity()"}
-            %input.form-control.quantity-input#quantity_input{type: "text", value: '1'}
-            %a.input-link
-              %i.fa.fa-plus.line-height-40{onclick: "incrementQuantity()"}
-        .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position Add to Cart
+        = render 'order_item_form'
+
       .general-info-wrap.divider-lg
         %p Description
         %p.lead.small.line-height-2#short_description
@@ -49,42 +41,6 @@
           %p.lead.small.pull-right= @book.materials.map(&:title).join(', ')
   
     - if customer_signed_in?
-      .mb-80
-        %h3 Write a Review
-        %p.general-info-text Score
-        .row
-          = form_with scope: current_customer.reviews, url: reviews_path(book_id: @book.id), method: :post do |f|
-            .col-md-8.mb-10
-              = f.select :rating, [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]
-            .col-md-8
-              .mb-40
-                .form-group
-                  %label.control-label.input-label.in-grey-600{for: "title"} Title
-                  = f.text_field :title, class: "form-control", id: "title"
-                .form-group
-                  %label.control-label.input-label.in-grey-600{for: "body"} Review
-                  = f.text_area :body, class: "form-control", id: "body"
-              .text-right
-                = f.submit "Post", class: "btn btn-primary mb-20" do
-                  %button
+      = render(file: 'app/views/reviews/new')
 
-    .mb-80
-      - if @reviews
-        %h3.in-gold-500.mb-25= "Reviews #{@reviews.size}"
-        - @reviews.each do |review| 
-          .general-message-wrap.divider-lg
-            .clearfix
-              %span.img-circle.logo-size.inlide-block.pull-left.logo-empty= review.decorate.customer_initials
-              .ml-70
-                %div
-                  .general-message-date.hidden-xs= review.created_at
-                  .max-240
-                    - if review.verified
-                      .general-message-verified.pull-right Verified Reviewer
-                    .general-message-name= review.decorate.customer_full_name
-                .mb-15
-                  - review.rating.times do
-                    %i.fa.fa-star.rate-star
-                  - (5 - review.rating).times do
-                    %i.fa.fa-star.rate-empty  
-                %p= review.body
+    = render 'reviews'

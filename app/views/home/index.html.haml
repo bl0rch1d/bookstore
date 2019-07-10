@@ -1,55 +1,11 @@
 %main.container
-  #slider.carousel.slide{'data-ride': "carousel"}
-    %ol.carousel-indicators
-      %li.active{'data-target': "#slider", 'data-slide-to': "0"}
-      %li{'data-target': "#slider", 'data-slide-to': "1"}
-      %li{'data-target': "#slider", 'data-slide-to': "2"}
-    .carousel-inner{role: "listbox"}
-      - @latest_books.each_with_index do |book, index|
-        .item{ class: ("active" if index.zero? ) }
-          .row
-            .col-sm-5
-              .general-img-wrap
-                = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
-            .col-sm-7
-              .mb-60
-                %h1= book.title
-                %p.lead= book.description
-                %p.lead.small= book.decorate.format_authors
-                .general-align 
-                  - if book.quantity > 0
-                    %button.btn.btn-primary Buy Now
-                  - else
-                    %button.disabled.btn Buy Now
-    %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
-      %span.icon-prev{'aria-hidden': "true"}
-      %span.sr-only Previous
-    %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
-      %span.icon-next{'aria-hidden': "true"}
-      %span.sr-only Next
+  = render 'latest'
+
 .container
   .jumbotron.text-center.mb-0
     %h2.h1 Welcome to our amazing Bookstore!
     .mb-res-50
       %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
       = link_to 'Get Started', category_books_path('all'), role: "button", class: "btn btn-default to-catalog"
-  .mb-35
-    %h3 Best Sellers
-    .row
-      - @best_sellers.each do |book|
-        .col-sm-6.col-md-3
-          .general-thumb-wrap
-            .thumbnail.general-thumbnail
-              = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
-              .thumb-hover
-                .general-thumb-link-wrap
-                  = link_to book_path(book.id), class: "thumb-hover-link" do
-                    %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                  %a.thumb-hover-link
-                    %i.fa.fa-shopping-cart.thumb-icon
-          .mb-35
-            .clearfix
-              %p.pull-right.font-16.in-gold-500= book.decorate.price_in_currency
-              %p.title.mr-55= book.title
-            %span.divider-sm
-            %p.lead.small= book.decorate.format_authors
+  
+  = render 'best_sellers'

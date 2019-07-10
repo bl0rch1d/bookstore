@@ -2,20 +2,13 @@
   = devise_error_messages!
   .text-center
     %h3.general-login-title Sign in
-    .general-login-icon
-      = link_to customer_facebook_omniauth_authorize_path do
-        %i.fa.fa-facebook-official
+    
+    = render 'devise/providers/facebook'
+    
     %p.general-login-text Or
-  .general-form
-    = form_for(resource, as: resource_name, url: new_session_path(resource_name)) do |f|
-      .form-group.mb-30
-        %label.control-label.input-label{for: "user_email"} Email
-        = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email"
-      .form-group.mb-30
-        %label.control-label.input-label{for: "user_password"} Password
-        = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password", pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$"
-      .text-center
-        = f.submit 'Sign in', class: "btn btn-default mb-20"
+  
+  = render 'new_form'
+  
   %p.general-sign-text.text-center
     Do not have an account?
     = link_to 'Sign up', new_customer_registration_path, class: "in-gold-500"

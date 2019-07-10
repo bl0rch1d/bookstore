@@ -1,0 +1,10 @@
+.general-form
+  = form_with scope: :customer, url: new_session_path(@customer), local: true do |f|
+    .form-group.mb-30
+      %label.control-label.input-label{for: "user_email"} Email
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email", pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+    .form-group.mb-30
+      %label.control-label.input-label{for: "user_password"} Password
+      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password", pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$"
+    .text-center
+      = f.submit 'Sign in', class: "btn btn-default mb-20"

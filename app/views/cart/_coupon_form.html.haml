@@ -1,0 +1,7 @@
+= form_with scope: current_order.coupon, url: coupon_apply_path(order_id: current_order), method: :post, local: true do |f|
+  .input-group.general-input-group
+    %label.input-label Enter Your Coupon Code
+    = f.text_field :code, class: 'form-control mb-30'
+    %div
+      = f.submit 'Apply Coupon', class: 'btn btn-primary mr-5 mb-15' do
+        %button

@@ -6,46 +6,45 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand Bookstore
-      %a.shop-link.pull-right.visible-xs{href: "#"}
+      = link_to 'Bookstore', root_path, class: "navbar-brand"
+      = link_to cart_index_path, class: "shop-link pull-right visible-xs" do
         %span.shop-icon
-          %span.shop-quantity 3
-    %a.shop-link.pull-right.hidden-xs{href: "#"}
+          %span.shop-quantity= current_order.order_items.count
+    = link_to cart_index_path, class: "shop-link pull-right hidden-xs" do
       %span.shop-icon
-        %span.shop-quantity 3
+        %span.shop-quantity= current_order.order_items.count
 
     #navbar.navbar-collapse.collapse.pl-30{'aria-expanded': "false"}
-      = render 'navbar_mobile'
       
-      .hidden-xs
-        %ul.nav.navbar-nav
-          %li
-            = link_to root_path do
-              Home
-          %li.dropdown
-            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
+      %ul.nav.navbar-nav
+        %li
+          = link_to root_path do
+            Home
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
+          %ul.dropdown-menu
+            %li
+              = link_to 'All', category_books_path('all')
+            - Category.all.each do |category|
+              %li
+                = link_to category.title, category_books_path(category)
+    
+        %li.dropdown
+          - if customer_signed_in?
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
             %ul.dropdown-menu
               %li
-                = link_to 'All', category_books_path('all')
-              - Category.all.each do |category|
-                %li
-                  = link_to category.title, category_books_path(category)
-      
-          %li.dropdown
-            - if customer_signed_in?
-              %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
-              %ul.dropdown-menu
-                %li
-                  = link_to 'Orders', '#', class: "collapse-link"
-                %li
-                  = link_to 'Settings', '#', class: "collapse-link"
+                = link_to 'Orders', orders_path, class: "collapse-link"
+              %li
+                = link_to 'Settings', '#', class: "collapse-link"
+              %li.divider{role: "separator"}
                 %li
                   = link_to 'Sign out', destroy_customer_session_path, method: :delete, class: "collapse-link"
-              
-            - else
-              %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
-              %ul.dropdown-menu
-                %li
-                  = link_to 'Sign up', new_customer_registration_path, class: "collapse-link"
-                %li
-                  = link_to 'Log in', new_customer_session_path, class: "collapse-link"
+            
+          - else
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} My account
+            %ul.dropdown-menu
+              %li
+                = link_to 'Sign up', new_customer_registration_path, class: "collapse-link"
+              %li
+                = link_to 'Log in', new_customer_session_path, class: "collapse-link"

@@ -1,9 +1,10 @@
 class BookDecorator < Draper::Decorator
+  include ActionView::Helpers
+
   delegate_all
 
-  # === TODO: Refactor ===
   def thumb
-    images.first.variant(resize: '100x100')
+    images.first.variant(resize: '50x50')
   end
 
   def cover
@@ -19,7 +20,7 @@ class BookDecorator < Draper::Decorator
   end
 
   def price_in_currency
-    "€#{price}"
+    number_to_currency(price, unit: '€')
   end
 
   def format_authors

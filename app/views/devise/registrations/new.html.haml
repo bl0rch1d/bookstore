@@ -1,13 +1,15 @@
 %main.container.general-main-wrap
-  = devise_error_messages!
+  .text-center
+    = devise_error_messages!
   .text-center
     %h3.general-login-title Sign Up
-    .general-login-icon
-      = link_to customer_facebook_omniauth_authorize_path do
-        %i.fa.fa-facebook-official
+    
+    = render 'devise/providers/facebook'
+    
     %p.general-login-text Or
+  
   .general-form
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = form_with scope: :customer, url: registration_path(@customer), local: true do |f|
       .form-group.mb-30
         %label.control-label.input-label{for: "user_email"} Email
         = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email", pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -19,6 +21,7 @@
         = f.password_field :password_confirmation, autocomplete: "password", class: "form-control", placeholder: "Confirm Password", pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
       .text-center
         = f.submit 'Sign up', class: "btn btn-default mb-20"
+  
   %p.general-sign-text.text-center
     Already have an account?
     = link_to 'Log in', new_customer_session_path, class: "in-gold-500"

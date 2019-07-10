@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_123650) do
 
   create_table "coupons", force: :cascade do |t|
     t.string "code"
-    t.integer "discount"
+    t.decimal "discount", precision: 10, scale: 2
     t.datetime "expire_date"
     t.bigint "order_id"
     t.datetime "created_at", null: false
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_123650) do
 
   create_table "order_items", force: :cascade do |t|
     t.decimal "price", precision: 10, scale: 2
+    t.decimal "subtotal", precision: 10, scale: 2
     t.integer "quantity"
     t.bigint "order_id"
     t.bigint "book_id"

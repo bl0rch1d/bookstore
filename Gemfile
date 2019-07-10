@@ -53,7 +53,7 @@ group :development, :test do
 
   # gem 'chromedriver-helper'
   # gem 'selenium-webdriver'
-  
+
   gem 'letter_opener', '~> 1.7'
 end
 
@@ -65,12 +65,19 @@ group :development do
 
   gem 'fasterer', '~> 0.5.1'
   gem 'overcommit', '~> 0.22.0'
+  gem 'rails_best_practices', '~> 1.19'
+  gem 'reek', '~> 5.4'
   gem 'rubocop', '~> 0.72.0'
   gem 'rubocop-performance', '~> 1.4'
-  gem 'rubocop-rspec', '~> 1.33'
   gem 'rubocop-rails', '~> 2.2'
-  gem 'reek', '~> 5.4'
-  gem 'rails_best_practices', '~> 1.19'
+  gem 'rubocop-rspec', '~> 1.33'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'wicked', '~> 1.3'
+
+gem 'trailblazer', '~> 2.0'
+
+gem 'reform', '~> 2.2'
+gem 'reform-rails', '~> 0.1.7'

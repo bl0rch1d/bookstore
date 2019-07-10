@@ -22,7 +22,7 @@ LIMIT.times do |index|
   end
 
   Book.create! do |book|
-    book.title        = FFaker::Book.title
+    book.title        = FFaker::Book.unique.title
     book.description  = FFaker::Book.description
     book.price        = rand(5.0..200.00)
     book.quantity     = rand(1..10)
@@ -33,6 +33,8 @@ LIMIT.times do |index|
     book.materials    = Material.all.sample(rand(1..3))
     book.category_id  = Category.all.sample.id
     book.authors      = Author.all.sample(rand(1..3))
+    
+    book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
   Customer.create! do |customer|
@@ -73,7 +75,7 @@ LIMIT.times do |index|
   end
 
   ShippingMethod.create! do |method|
-    method.title    = FFaker::CheesyLingo.title
+    method.title    = FFaker::CheesyLingo.unique.title
     method.min_days = rand(1..5)
     method.max_days = rand(6..20)
     method.price    = rand(1.0..50.0).round(1)
@@ -89,26 +91,14 @@ LIMIT.times do |index|
   OrderItem.create! do |order_item|
     order_item.price      = rand(10.0..200.0).round(1)
     order_item.quantity   = rand(1..10)
+    order_item.subtotal   = order_item.price * order_item.quantity.to_f
     order_item.order_id   = Order.all[index].id
     order_item.book_id    = Book.all[index].id
   end
 
   Coupon.create! do |coupon|
     coupon.code         = Array.new(6) { rand(65..90).chr }.join
-    coupon.discount     = rand(5..90)
+    coupon.discount     = rand(0.01..0.90).round(2)
     coupon.expire_date  = Time.at(rand * Time.now.to_i)
   end
-end
-
-Book.all.each do |book|
-  puts 'Book Images'
-
-  book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
-  
-  # 4.times do |index|
-  #   BookImage.create! do |book_image|
-  #     book_image.image    = image
-  #     book_image.book_id  = book.id
-  #   end
-  # end
 end

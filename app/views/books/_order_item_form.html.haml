@@ -1,0 +1,11 @@
+= form_with(model: current_order.order_items, url: order_items_path(book_id: @book), method: :post, local: true) do |f|
+  .col-xs-5.col-md-3
+    .input-group.general-position
+      %a.input-link
+        %i.fa.fa-minus.line-height-40{onclick: "decrementQuantity()"}
+      = f.text_field :quantity, class: "form-control quantity-input", value: "1", id: "quantity_input"
+      %a.input-link
+        %i.fa.fa-plus.line-height-40{onclick: "incrementQuantity()"}
+  .col-xs-7.col-md-5
+    = f.submit 'Add to Cart', class: "btn btn-default pull-right general-position" do
+      %button

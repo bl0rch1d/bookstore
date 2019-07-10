@@ -65,13 +65,6 @@
   word-break: break-word;
 }
 
-// Custom
-.catalog-authors {
-  height: 30px;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
 .small {
   font-size: $font-size-base;
 }
@@ -227,11 +220,6 @@
 .title {
   font-size: $font-size-large;
   word-break: break-word;
-}
-
-// === Custom ===
-.book-title {
-  height: 45px;
 }
 
 .divider-sm {
@@ -574,4 +562,23 @@
       width: 80px;
     }
   }
+}
+
+// ====== Custom ======
+.catalog-authors {
+  height: 30px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.book-title {
+  height: 45px;
+}
+
+.quick-reg {
+  margin: auto;
+}
+
+.quick-reg-or {
+  margin-bottom: 33px !important;
 }

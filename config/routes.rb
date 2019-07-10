@@ -4,6 +4,24 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  # get 'checkout/', to: 'checkout#show'
+
+  # resources :checkout, only: %i[index show update]
+  resources :addresses, only: %i[edit update]
+  resources :checkout
+
+  devise_scope :customer do
+    get  'customers/fast_new',          to: 'registrations#fast_new'
+    post 'customers/fast_create',       to: 'registrations#fast_create'
+  end
+
+  post 'coupon/apply'
+
+  resources :order_items, only: %i[create update destroy]
+  resources :cart, only: :index
+
+  resources :orders, only: %i[index show]
+
   resources :categories, only: [] do
     resources :books, only: :index
   end

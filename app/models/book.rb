@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  MIN_QUANTITY = 0
+  MAX_QUANTITY = 100
+
   belongs_to :category
 
   has_many :authors_books, dependent: :destroy
@@ -15,8 +18,9 @@ class Book < ApplicationRecord
 
   validates :title, :description, :price, :year, :quantity, :height, :width, :depth, :category_id, presence: true
 
-  validates :price, numericality: { greater_or_equal_to: 0, less_than_or_equal_to: 100_000 }
-  validates :quantity, numericality: { only_integer: true, greater_or_equal_to: 0 }
+  validates :title, uniqueness: true, length: { maximum: MAX_TITLE_LENGTH }
+  validates :price, numericality: { greater_or_equal_to: MIN_PRICE, less_than_or_equal_to: MAX_PRICE }
+  validates :quantity, numericality: { only_integer: true, greater_or_equal_to: MIN_QUANTITY, less_than_or_equal_to: MAX_QUANTITY }
 
   scope :most_popular,     -> { order('created_at ASC') }
   scope :most_recent,      -> { order('created_at DESC') }

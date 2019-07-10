@@ -1,0 +1,30 @@
+.container.general-main-wrap.quick-reg
+  .col-sm-6
+    .text-center
+      %h3.in-gold-500.mb-25 Returning Customer
+
+      = render 'devise/providers/facebook'
+
+      %p.general-login-text Or
+
+    .general-form
+      = render 'devise/sessions/new_form'
+
+  .col-sm-6
+    .text-center
+      %h3.in-gold-500.mb-25 New Customer
+
+      = render 'devise/providers/facebook'
+
+      %p.general-login-text.quick-reg-or Or
+
+    .general-form
+      %h3.in-grey-500 Quick Register
+      %p.general-login-text= "You will be able to edit password later"
+      
+      = form_with scope: :customer, url: customers_fast_create_path, local: true do |f|
+        .form-group.mb-30
+          %label.control-label.input-label{for: "user_email"} Email
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email", pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        .text-center
+          = f.submit 'Contine to Checkout', class: "btn btn-default mb-20"

@@ -1,12 +1,14 @@
 class Coupon < ApplicationRecord
   belongs_to :order, optional: true
 
-  # === TODO: Constant ===
-  validates :code, :discount, :expire_date, presence: true
-  validates :discount, numericality: { only_integer: true, less_than: 100, greater_than: 1 }
+  MIN_DISCOUNT = 0.05
+  MAX_DISCOUNT = 0.90
 
-  # === TODO: Decorator ===
-  def format_discount
-    discount.to_s + '%'
+  validates :code, :discount, :expire_date, presence: true
+  validates :discount, numericality: { greater_or_equal_to: MIN_DISCOUNT, less_than_or_equal_to: MAX_DISCOUNT }
+
+  # === TODO: Refactor ===
+  def calculate_in_fact_discount(price)
+    (discount * price).round(2)
   end
 end

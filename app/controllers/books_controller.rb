@@ -4,6 +4,8 @@ class BooksController < ApplicationController
   PAGINATION_VALUE = 12
 
   def index
+    @current_filter = params[:category_id]
+
     @pagy, @books = pagy(BooksSortingQuery.new(params).call, items: PAGINATION_VALUE)
   end
 

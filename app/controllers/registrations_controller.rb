@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
     if @customer.save
       sign_up(:customer, @customer)
 
-      redirect_to checkout_path
+      redirect_to checkout_path(:address)
     else
       render 'devise/registrations/fast_new'
     end

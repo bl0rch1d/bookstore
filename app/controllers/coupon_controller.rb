@@ -1,10 +1,11 @@
 class CouponController < ApplicationController
-
   # === TODO: Service object ===
   def apply
     coupon = Coupon.find_by(code: params[:code])
 
     return redirect_back(fallback_location: root_path, alert: 'Such coupon not exist') unless coupon
+
+    return redirect_back(fallback_location: root_path, alert: 'Coupon expired') if coupon.expired?
 
     current_order.coupon = coupon
 

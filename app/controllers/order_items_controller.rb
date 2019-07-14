@@ -1,9 +1,6 @@
 class OrderItemsController < ApplicationController
-  
   # === TODO: Service objects ===
   def create
-    session[:current_order_id] = current_order.id
-
     book = Book.find_by(id: params[:book_id])
     order_item = OrderItem.find_or_create_by(order_id: current_order.id, book_id: book.id)
 

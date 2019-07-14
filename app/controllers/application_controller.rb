@@ -10,7 +10,10 @@ class ApplicationController < ActionController::Base
   end
 
   def obtain_order
-    Order.find_or_create_by(id: order_id)
+    order = Order.find_or_create_by(id: order_id)
+    session[:current_order_id] = order.id
+
+    order
   end
 
   def order_id

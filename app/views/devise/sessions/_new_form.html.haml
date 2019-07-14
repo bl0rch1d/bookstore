@@ -1,10 +1,19 @@
 .general-form
   = form_with scope: :customer, url: new_session_path(@customer), local: true do |f|
     .form-group.mb-30
-      %label.control-label.input-label{for: "user_email"} Email
-      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email", pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+      = f.label :customer_email, t("labels.email"), class: "control-label input-label"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
     .form-group.mb-30
-      %label.control-label.input-label{for: "user_password"} Password
-      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password", pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,}$"
+      = f.label :customer_password, t("labels.password"), class: "control-label input-label"
+      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("placeholders.password"), pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+      = link_to t("password.forgot"), new_customer_password_path, class: "help-block in-gold-500"
+
+    .form-group.checkbox.text-center.mb-30
+      -# === TODO: Remember me ===
+      %label.checkbox-label
+        = f.check_box :remember_me, { class: 'checkbox-input', hidden: 'true', id: 'remember_me' }, 'true', 'false'
+        %span.checkbox-icon
+          %i.fa.fa-check
+        %span.checkbox-text= t("auth.remember")
     .text-center
-      = f.submit 'Sign in', class: "btn btn-default mb-20"
+      = f.submit t("auth.log_in"), class: "btn btn-default mb-20"

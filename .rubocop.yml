@@ -41,4 +41,5 @@ AllCops:
     - './bin/*'
     - '*.gemspec'
     - './db/*'
+    - '/config/'
   TargetRubyVersion: 2.6.3

@@ -65,6 +65,18 @@
   margin-top: 10px;
 }
 
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.m-auto {
+  margin: auto;
+}
+
 @each $size in (5, 10, 15, 20, 35, 55, 240) {
   .mr-#{$size} {
     margin-right: #{$size}px !important;

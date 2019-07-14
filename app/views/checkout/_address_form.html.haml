@@ -1,0 +1,18 @@
+= builder.simple_fields_for form do |f|
+  .form-group
+    = f.input :first_name,  placeholder: t("placeholders.first_name")
+  .form-group
+    = f.input :last_name,   placeholder: t("placeholders.last_name")
+  .form-group
+    = f.input :address,     placeholder: t("placeholders.address")
+  .form-group
+    = f.input :city,        placeholder: t("placeholders.city")
+
+  .form-group.string.required
+    = f.label :country
+    = f.country_select :country, {}, class: "form-control", id: "country"
+
+  .form-group
+    = f.input :zip,   placeholder: t("placeholders.zip")
+  .form-group
+    = f.input :phone, placeholder: t("placeholders.phone")

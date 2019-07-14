@@ -1,19 +1,8 @@
 .dropdowns.mb-25.visible-xs
-  %p.lead.small.mb-10 Sort by
+  %p.lead.small.mb-10= t("sort_by")
   .dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      = params[:sort_by] || 'Title: A - Z'
+      = t("sortings.#{params[:sort_by] || :title_ascending}")
       %i.fa.fa-angle-down.dropdown-icon.pull-right
-    %ul.dropdown-menu
-      %li
-        = link_to 'Newest first', category_books_path(params[:category_id], sort_by: 'newest')
-      %li
-        = link_to 'Popular first', category_books_path(params[:category_id], sort_by: 'popular')
-      %li
-        = link_to 'Price: Low to high', category_books_path(params[:category_id], sort_by: 'low_price')
-      %li
-        = link_to 'Price: High to low', category_books_path(params[:category_id], sort_by: 'high_price')
-      %li
-        = link_to 'Title: A - Z', category_books_path(params[:category_id], sort_by: 'title_ascending')
-      %li
-        = link_to 'Title: Z - A', category_books_path(params[:category_id], sort_by: 'title_descending')
+    
+    = render 'sortings'

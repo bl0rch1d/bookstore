@@ -582,3 +582,43 @@
 .quick-reg-or {
   margin-bottom: 33px !important;
 }
+
+.cvv-hint {
+  position: absolute;
+  width: 300px;
+  left: 30px;
+  top: 0;
+  visibility: hidden;
+}
+
+.fa-question-circle:hover .cvv-hint {
+  visibility: visible;
+}
+
+.address-hidden {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.use-billing {
+  pointer-events: auto !important;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.empty-cart-icon {
+  margin: 70px 0;
+}
+
+.empty-cart-icon img{
+  width: 15%;
+  opacity: 0.5;
+}

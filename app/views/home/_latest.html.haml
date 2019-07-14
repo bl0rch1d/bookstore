@@ -17,12 +17,12 @@
               %p.lead.small= book.decorate.format_authors
               .general-align 
                 - if book.quantity > 0
-                  = link_to 'Buy Now', order_items_path(book_id: book), method: :post, class: "btn-primary btn"
+                  = link_to t("buy_now"), order_items_path(book_id: book), method: :post, class: "btn-primary btn"
                 - else
-                  %button.disabled.btn Buy Now
+                  %button.disabled.btn= t("buy_now")
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
-    %span.sr-only Previous
+    %span.sr-only= t("prev")
   %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
     %span.icon-next{'aria-hidden': "true"}
-    %span.sr-only Next
+    %span.sr-only= t("next")

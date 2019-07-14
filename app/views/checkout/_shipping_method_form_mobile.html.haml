@@ -1,0 +1,23 @@
+.visible-xs
+  - @shipping_methods.each do |shipping_method|
+    .general-cart-item.divider-lg-bottom
+      %table.table
+        %tr
+          %td.col-half
+            %span.in-grey-600= t("shipping.method")
+          %td.col-half
+            .form-group.radio.mt-0.mb-0
+              %label.radio-label
+                = form.radio_button :shipping_method_id, shipping_method.id, class: 'radio-input', hidden: true
+                %span.radio-icon
+                %span.radio-text= shipping_method.title
+        %tr
+          %td
+            %span.in-grey-600= t("shipping.days")
+          %td
+            %span.font-16.fw-300= t("shipping.interval", min: shipping_method.min_days, max: shipping_method.max_days)
+        %tr
+          %td
+            %span.in-grey-600= t("shipping.price")
+          %td
+            %span.font-16.in-gold-500= number_to_currency(shipping_method.price, unit: '€')

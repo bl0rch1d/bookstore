@@ -1,8 +1,13 @@
 %main.container
-  -# TODO: Link not working after order item submited
-  = link_to(:back, class: 'general-back-link') do
-    %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+  -# === TODO: Fix links ===
+  - if params[:category_id] || params[:current_sortings]
+    = link_to(category_books_path(params[:category_id], sort_by: params[:current_sortings]), class: 'general-back-link') do
+      %i.fa.fa-long-arrow-left.mr-15
+      =t("back_to_results")
+  - else
+    = link_to(cart_index_path, class: 'general-back-link') do
+      %i.fa.fa-long-arrow-left.mr-15
+      =t("back_to_results")
   
   .row
     .col-sm-6
@@ -20,24 +25,24 @@
         = render 'order_item_form'
 
       .general-info-wrap.divider-lg
-        %p Description
+        %p= t("book.description")
         %p.lead.small.line-height-2#short_description
           = @book.decorate.short_description
-          %a.in-gold-500.ml-10#full_description_show Read More
+          %a.in-gold-500.ml-10#full_description_show= t("read_more")
         %p.lead.small.line-height-2#full_description.hidden
           = @book.description
-          %a.in-gold-500.ml-10#full_description_hide Read Less
+          %a.in-gold-500.ml-10#full_description_hide= t("read_less")
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Year of publication
+          %p.pull-left= t("book.year")
           %p.lead.small.pull-right= @book.year
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Dimensions
+          %p.pull-left= t("book.dimensions")
           %p.lead.small.pull-right= @book.decorate.dimensions
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Materials
+          %p.pull-left= t("book.materials")
           %p.lead.small.pull-right= @book.materials.map(&:title).join(', ')
   
     - if customer_signed_in?

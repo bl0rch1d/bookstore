@@ -1,0 +1,36 @@
+%main.container.general-main-wrap
+  = render 'progress_bar'
+  
+  .text-center.mb-40
+    %h3.general-subtitle= t("checkout_complete.thanks")
+    -# %p.fw-300 An order confirmation has been has been sent to John Doe0411@gmail.com
+  
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
+        %p.general-address.mb-30= @order.completed_at
+      %p.general-address
+        = @order.shipping_address.decorate.full_name
+        %br
+        = @order.shipping_address.address
+        %br
+        = @order.shipping_address.decorate.city_zip
+        %br
+        = @order.shipping_address.country
+        %br
+        = t("order.phone", phone: @order.shipping_address.phone)
+    
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
+      %p.general-address.mb-30= @order.completed_at
+
+  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false})
+  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false})
+  
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t("order_summary.summary")
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'cart/order_summary'
+  
+  = button_to t("checkout_complete.back"), category_books_path(t("categories.all").downcase), method: :get, class: "btn btn-default mb-20 center-block"

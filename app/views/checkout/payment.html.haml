@@ -1,0 +1,28 @@
+%main.container.mb-res-50
+  = render 'progress_bar'
+
+  = simple_form_for current_order, url: wizard_path, method: :put do |form|
+    %h3.general-subtitle= t("credit_card.title")
+    .max-600.mb-80
+      = form.simple_fields_for :credit_card do |f|
+        .form-group
+          = f.input :number, placeholder: t("placeholders.card_number"), class: "form-control"
+        .row
+          .col-sm-6
+            .form-group
+              = f.input :card_name, placeholder: t("placeholders.name_of_card"), class: "form-control"
+          .col-sm-3
+            .form-group
+              = f.input :expiration_date, placeholder: t("placeholders.card_expiration"), class: "form-control"
+          .col-sm-3
+            .form-group.relative
+              = f.input :cvv, placeholder: t("placeholders.cvv"), class: "form-control"
+              %i.fa.fa-question-circle.general-form-help
+                %span.cvv-hint= t("credit_card.hint")
+  
+    .general-text-align
+      %p.in-gold-500.font-18= t("order_summary.summary")
+      %table.general-summary-table
+        = render 'cart/order_summary'
+    
+      = form.submit t("form.save_and_continue"), class: "btn btn-default center-block mb-20"

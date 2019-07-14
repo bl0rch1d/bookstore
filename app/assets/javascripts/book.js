@@ -5,7 +5,11 @@ let toggleDescription = () => {
     document.getElementById('full_description').classList.toggle("hidden");
 }
 
-let incrementQuantity = () => document.getElementById('quantity_input').value++;
+let incrementQuantity = () => {
+  let input = document.getElementById('quantity_input');
+
+  if (input.value < 10) input.value++;
+}
 
 let decrementQuantity = () => {
   let input = document.getElementById('quantity_input');

@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_123650) do
     t.decimal "total_price", precision: 10, scale: 2
     t.datetime "completed_at"
     t.string "state"
+    t.boolean "use_billing", default: false
     t.bigint "customer_id"
     t.bigint "shipping_method_id"
     t.datetime "created_at", null: false

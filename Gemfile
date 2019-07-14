@@ -19,6 +19,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
+gem 'country_select', '~> 4.0'
+gem 'simple_form', '~> 4.1'
+
 gem 'devise', '~> 4.6'
 gem 'omniauth-facebook', '~> 5.0'
 # gem 'cancancan', '~> 3.0'
@@ -28,10 +31,16 @@ gem 'activeadmin', '~> 2.1'
 gem 'aasm', '~> 5.0'
 gem 'draper', '~> 3.1'
 gem 'pagy', '~> 3.3'
+gem 'wicked', '~> 1.3'
 
 gem 'haml', '~> 5.1'
 gem 'image_processing', '~> 1.9'
 gem 'mini_magick', '~> 4.9'
+
+gem 'reform', '~> 2.2'
+gem 'reform-rails', '~> 0.1.7'
+gem 'trailblazer', '~> 2.0'
+gem 'trailblazer-rails', '~> 1.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -74,10 +83,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'wicked', '~> 1.3'
-
-gem 'trailblazer', '~> 2.0'
-
-gem 'reform', '~> 2.2'
-gem 'reform-rails', '~> 0.1.7'

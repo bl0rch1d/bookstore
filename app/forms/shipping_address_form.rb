@@ -1,0 +1,1 @@
+class ShippingAddressForm < AddressForm; end

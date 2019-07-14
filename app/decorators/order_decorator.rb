@@ -6,10 +6,12 @@ class OrderDecorator < Draper::Decorator
   end
 
   def total
-    coupon ? subtotal - coupon.calculate_in_fact_discount(subtotal) : subtotal
+    price = coupon ? subtotal - coupon.calculate_in_fact_discount(subtotal) : subtotal
+
+    shipping_method_id ? price + ShippingMethod.find(shipping_method_id).price : price
   end
 
-  def number
+  def generate_number
     'R' + Array.new(6) { rand(1..9) }.join
   end
 end

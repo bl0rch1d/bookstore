@@ -3,6 +3,10 @@ MATERIALS = ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].freeze
 LIMIT = 50
 BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 
+COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
+# COUPON_EXPIRE_DATE_RANGE = (0.9..1.009).freeze
+COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
+
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 CATEGORIES.each do |category|
@@ -98,7 +102,7 @@ LIMIT.times do |index|
 
   Coupon.create! do |coupon|
     coupon.code         = Array.new(6) { rand(65..90).chr }.join
-    coupon.discount     = rand(0.01..0.90).round(2)
-    coupon.expire_date  = Time.at(rand * Time.now.to_i)
+    coupon.discount     = rand(COUPON_DISCOUNT_RANGE).round(2)
+    coupon.expire_date  = Time.at(Time.now.to_i * rand(COUPON_EXPIRE_DATE_RANGE))
   end
 end

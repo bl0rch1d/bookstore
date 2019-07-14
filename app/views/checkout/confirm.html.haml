@@ -1,0 +1,22 @@
+%main.container.general-main-wrap
+  = render 'progress_bar'
+
+  .row.mb-20
+    .col-sm-3
+      = render(partial: 'address_info', locals: { type: 'Shipping address', address: current_order.shipping_address })
+    .col-sm-3
+      = render(partial: 'address_info', locals: { type: 'Billing address', address: current_order.billing_address })
+    .col-sm-3
+      = render 'shipping_info'
+    .col-sm-3
+      = render 'payment_info'
+  
+  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false})
+  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false})
+  
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t("order_summary.summary")
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render 'cart/order_summary'
+  
+  = button_to t("form.place_order"), wizard_path, method: :put, class: "btn btn-default mb-20 center-block"

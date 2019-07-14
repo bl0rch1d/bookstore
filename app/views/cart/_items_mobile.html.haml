@@ -1,21 +1,30 @@
 .visible-xs
-  - @items.each do |item|
+  - order.order_items.each do |item|
     .general-cart-item.divider-lg-bottom
       %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
         %span{'aria-hidden': "true"} &times;
       .general-img-wrap-table
-        = link_to book_path(item.book) do
+        - if with_show_link
+          = link_to book_path(item.book) do
+            = image_tag(item.book.images.first.variant(resize: '250x250'), class: 'cart-img-shadow')
+        - else
           = image_tag(item.book.images.first.variant(resize: '250x250'), class: 'cart-img-shadow')
-      %p.title= item.book.title
+      
+      - if with_show_link
+        = link_to book_path(item.book) do
+          %p.title= item.book.title
+      - else
+        %p.title= item.book.title
+      
       %table.table
         %tr
           %td
-            %span.in-grey-600 Price
+            %span.in-grey-600= t("order_item.price")
           %td
             %span.font-16.in-gold-500= number_to_currency(item.price, unit: '€')
         %tr
           %td.vertical-middle
-            %span.in-grey-600 Quantity
+            %span.in-grey-600= t("order_item.quantity")
           %td
             .input-group
               - if item.quantity > 1
@@ -30,6 +39,6 @@
                 %i.fa.fa-plus.line-heaght-40
         %tr
           %td
-            %span.in-grey-600 SubTotal
+            %span.in-grey-600= t("order_item.subtotal")
           %td
             %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: '€')

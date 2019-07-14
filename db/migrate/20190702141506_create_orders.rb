@@ -5,6 +5,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.decimal :total_price, precision: 10, scale: 2
       t.datetime :completed_at
       t.string :state
+      t.boolean :use_billing, default: false
       t.references :customer, foreign_key: true
       t.references :shipping_method, foreign_key: true
 

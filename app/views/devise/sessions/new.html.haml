@@ -1,15 +1,14 @@
 %main.container.general-main-wrap
   = devise_error_messages!
   .text-center
-    %h3.general-login-title Sign in
+    %h3.general-login-title= t("auth.log_in")
     
     = render 'devise/providers/facebook'
     
-    %p.general-login-text Or
+    %p.general-login-text= t("auth.or")
   
   = render 'new_form'
   
   %p.general-sign-text.text-center
-    Do not have an account?
-    = link_to 'Sign up', new_customer_registration_path, class: "in-gold-500"
-    
+    = t("auth.have_no_an_account")
+    = link_to t("auth.sign_up"), new_customer_registration_path, class: "in-gold-500"

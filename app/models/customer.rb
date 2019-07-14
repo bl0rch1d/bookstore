@@ -3,6 +3,8 @@ class Customer < ApplicationRecord
   # devise :database_authenticatable, :registerable, :confirmable, :validatable,
   #        :recoverable, :rememberable, :trackable, :omniauthable
 
+  attr_accessor :remove_account
+
   # === for seeds ===
   devise :database_authenticatable, :registerable, :validatable, :omniauthable, :rememberable, :recoverable
 
@@ -11,6 +13,9 @@ class Customer < ApplicationRecord
 
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
+
+  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :shipping_address
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |customer|

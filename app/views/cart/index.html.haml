@@ -1,9 +1,13 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Cart
+  %h1.general-title-margin= t("cart")
   
-  = render 'items_mobile'
-  
-  = render 'items'
+  - if current_order.order_items.any?
+    = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: true})
+    = render(partial: 'cart/items', locals: {order: current_order, with_show_link: true})
+
+  - else
+    .text-center.empty-cart-icon
+      = image_tag 'empty-cart-icon.png'
 
   .general-order-wrap
     .row
@@ -12,32 +16,19 @@
           = render 'coupon_form'
         - else
           .input-group.general-input-group
-            %label.input-label Enter Your Coupon Code
-            %input.form-control.mb-30{type: "text", placeholder: "Only one coupon can be applied", disabled: true}
+            %label.input-label= t("coupon.enter_code")
+            %input.form-control.mb-30{type: "text", placeholder: t("placeholders.only_one_coupon"), disabled: true}
             %div
-              %button.btn.btn-primary.mr-5.mb-15.disabled Apply Coupon
+              %button.btn.btn-primary.mr-5.mb-15.disabled= t("coupon.apply")
 
       .col-sm-8
         .res-mr-200.text-center.general-text-right
-          %p.in-gold-500.font-18 Order Summary
+          %p.in-gold-500.font-18= t("order_summary.summary")
           %table.general-summary-table.general-summary-table-right.general-text-right
-            %tr
-              %td
-                %p.font-16 Subtotal:
-              %td
-                %p.font-16= number_to_currency(current_order.decorate.subtotal, unit: '€')
-            %tr
-              %td
-                %p.font-16 Coupon:
-              %td
-                - if current_order.coupon
-                  %p.font-16= number_to_currency(current_order.coupon.calculate_in_fact_discount(current_order.decorate.subtotal), unit: '€')
-                - else
-                  %p.font-16 €0.00
-            %tr
-              %td
-                %strong.font-18 Order Total:
-              %td
-                %strong.font-18= number_to_currency(current_order.decorate.total, unit: '€')
+            = render 'order_summary'
+  
   .text-center
-    = link_to 'Checkout', checkout_path(:address), role: "button", class: "btn btn-default mb-"
+    - if current_order.order_items.any?
+      = link_to t("checkout"), checkout_path(:address), role: "button", class: "btn btn-default mb-20"
+    - else
+      %button.btn.btn-default.mb-20.disabled Checkout

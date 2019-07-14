@@ -3,9 +3,9 @@
 
 .container
   .jumbotron.text-center.mb-0
-    %h2.h1 Welcome to our amazing Bookstore!
+    %h2.h1= t("welcome")
     .mb-res-50
-      %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-      = link_to 'Get Started', category_books_path('all'), role: "button", class: "btn btn-default to-catalog"
+      %p= t("description")
+      = link_to t("get_started"), category_books_path(t('categories.all').downcase), role: "button", class: "btn btn-default to-catalog"
   
   = render 'best_sellers'

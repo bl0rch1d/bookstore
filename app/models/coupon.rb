@@ -11,4 +11,8 @@ class Coupon < ApplicationRecord
   def calculate_in_fact_discount(price)
     (discount * price).round(2)
   end
+
+  def expired?
+    Time.now.to_i > expire_date.to_i
+  end
 end

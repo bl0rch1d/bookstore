@@ -4,15 +4,19 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  # get 'checkout/', to: 'checkout#show'
+  get 'settings', to: 'settings#index'
 
-  # resources :checkout, only: %i[index show update]
-  resources :addresses, only: %i[edit update]
+  put 'settings/addresses',     to: 'customers#update_address'
+  put 'settings/new_email',     to: 'customers#update_email'
+  put 'settings/new_password',  to: 'customers#update_password'
+
+  delete 'settings/destroy_account', to: 'customers#destroy'
+
   resources :checkout
 
   devise_scope :customer do
-    get  'customers/fast_new',          to: 'registrations#fast_new'
-    post 'customers/fast_create',       to: 'registrations#fast_create'
+    get  'customers/fast_new',    to: 'registrations#fast_new'
+    post 'customers/fast_create', to: 'registrations#fast_create'
   end
 
   post 'coupon/apply'

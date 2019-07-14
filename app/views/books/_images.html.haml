@@ -1,4 +1,4 @@
 .images.clearfix
   - @book.decorate.additional_images.each do |image|
-    %a.img-link{href: "#"}
+    %a.img-link
       = image_tag(image.variant(resize: '150x150'), class: 'img-responsive')

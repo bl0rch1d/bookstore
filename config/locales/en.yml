@@ -1,33 +1,197 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
 # The following keys must be escaped otherwise they will not be retrieved by
 # the default I18n backend:
 #
 # true, false, on, off, yes, no
 #
 # Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  store_title: "Bookstore"
+
+  welcome: "Welcome to our amazing Bookstore!"
+  description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+  get_started: "Get Started"
+
+  store_email: "support@bookstore.com"
+  store_phone: "(555)-555-5555"
+
+  auth:
+    have_an_account: "Already have an account?"
+    have_no_an_account: "Do not have an account?"
+    sign_up: "Sign Up"
+    sign_out: "Sign out"
+    log_in: "Log in"
+    or: "Or"
+    remember: "Remember me"
+
+  store_menu:
+    home: "Home"
+    my_account: "My account"
+    shop: "Shop"
+    books: "Books"
+  
+  customer_menu:
+    orders: "Orders"
+    settings: "Settings"
+  
+  categories:
+    all: 'All'
+    mobile_development: 'Mobile development'
+    photo: 'Photo'
+    web_design: 'Web design'
+    web_development: 'Web development'
+
+  catalog: "Catalog"
+
+  sort_by: "Sort by"
+
+  sortings:
+    newest: "Newest first"
+    popular: "Popular first"
+    high_price: "Price: High to low"
+    low_price:  "Price: Low to high"
+    title_ascending: "Title: A - Z"
+    title_descending: "Title: Z - A"
+
+  add_to_cart: "Add to cart"
+
+  review:
+    write: "Write a Review"
+    score: "Score"
+    reviews_with_size: "Reviews (%{size})"
+    verified: "Verified Reviewer"
+    title: "Title"
+    review: "Review"
+    post: "Post"
+
+  back_to_results: "Back to results"
+
+  read_less: "Read less"
+  read_more: "Read more"
+
+  book:
+    description: "Description"
+    year: "Year of publication"
+    dimensions: "Dimensions"
+    materials: "Materials"
+    best_sellers: "Best Sellers"
+  
+  buy_now: "Buy Now"
+  next: "Next"
+  prev: "Previous"
+  cart: "Cart"
+
+  coupon:
+    enter_code: "Enter Your Coupon Code"
+    apply: "Apply Coupon"
+
+  order_item:
+    product: "Product"
+    price: "Price"
+    quantity: "Quantity"
+    sub_total: "Subtotal"
+
+  order_summary:
+    summary: "Order Summary"
+    item_total: "Item Total:"
+    coupon: "Coupon:"
+    shipping: "Shipping:"
+    order_total: "Order Total:"
+
+  address:
+    title: "Address"
+    billing: "Billing_address"
+    shipping: "Shipping_address"
+    use_billing: "Use Billing Adress"
+
+  privacy: "Privacy"
+
+  checkout: "Checkout"
+
+  edit_link: "edit"
+  
+  shipping:
+    title: "Shipping"
+    method: "Method"
+    days: "Days"
+    price: "Price"
+    interval: "%{min} to %{max} days"
+
+  payment:
+    info: "Payment Information"
+  
+  credit_card:
+    title: "Credit card"
+    hint: "3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front"
+
+  form:
+    all_fields_required: "all fields are required"
+    save_and_continue: "Save and Continue"
+    place_order: "Place order"
+    save: "save"
+
+  order:
+    total: "Total"
+    number: "Number"
+    state: "State"
+    completed_at: "Completed at"
+    order_number: "Order #%{number}"
+    phone: "Phone %{phone}"
+    my: "My Orders"
+    states:
+      in_progress: "In progress"
+      in_delivery: "In delivery"
+      delivered: "Delivered"
+      canceled: "Canceled"
+
+  checkout_complete:
+    thanks: "Thank You for your Order!"
+    back: "Back to Store"
+
+  password:
+    edit: "Change your password"
+    save: "Save Password"
+    forgot: "Forgot your password?"
+    reset_email: "Email Instructions"
+    reset_info: "We'll email you instructions on how to reset it"
+    cancel: "Cancel"
+
+  fast_auth:
+    returning: "Returning Customer"
+    new: "New Customer"
+    quick: "Quick Register"
+    password_later: "You will be able to edit password later"
+    continue: "Contine to Checkout"
+    
+  labels:
+    email: "Email"
+    password: "Password"
+    new_password: "New password"
+    password_confirmation: "Password confirmation"
+
+  remove_account:
+    title: "Remove Account"
+    confirmation: "I understand that all data will be lost"
+    remove: "Please Remove My Account"
+
+  zero_price: "€0.00"
+
+  placeholders:
+    only_one_coupon: "Only one coupon can be applied"
+    first_name: "first name"
+    last_name: "last name"
+    address: "address"
+    city: "city"
+    zip: "zip"
+    country: "country"
+    phone: "Example +355 66 123 4567"
+    card_number: "card number"
+    name_of_card: "name of card"
+    card_expiration: "MM / YY"
+    cvv: "cvv"
+    new_password: "new password"
+    confirm_password: "confirm password"
+    enter_email: "Enter your email"
+    email: "email"
+    password: "password"
+    current_password: "current_password"

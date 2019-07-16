@@ -1,5 +1,5 @@
 class CartController < ApplicationController
   def index
-    @items = current_order.order_items.order('quantity DESC')
+    @items = OrderItem::Index.call(order: current_order)[:model]
   end
 end

@@ -1,4 +1,7 @@
 = builder.simple_fields_for form do |f|
+  = f.hidden_field :addressable_type, value: 'Order'
+  = f.hidden_field :addressable_id, value: current_order.id
+
   .form-group
     = f.input :first_name,  placeholder: t("placeholders.first_name")
   .form-group

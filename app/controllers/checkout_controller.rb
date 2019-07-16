@@ -4,6 +4,7 @@ class CheckoutController < ApplicationController
   before_action :fast_authenticate_customer!
   steps :address, :shipping, :payment, :confirm, :complete
 
+  # === TODO: Keep calm. Will be refactored. ===
   def show
     case step
     when :address   then address
@@ -34,21 +35,21 @@ class CheckoutController < ApplicationController
   end
 
   def update_address
-    current_order.billing_address = BillingAddress.new
-    current_order.shipping_address = ShippingAddress.new
+    # current_order.billing_address = BillingAddress.new
+    # current_order.shipping_address = ShippingAddress.new
 
-    @billing_address_form = BillingAddressForm.new(current_order.billing_address)
-    @shipping_address_form = ShippingAddressForm.new(current_order.shipping_address)
+    # @billing_address_form = BillingAddressForm.new(current_order.billing_address)
+    # @shipping_address_form = ShippingAddressForm.new(current_order.shipping_address)
 
-    if address_params_valid?
-      current_order.billing_address.update(billing_address_params)
+    # if address_params_valid?
+    #   current_order.billing_address.update(billing_address_params)
 
-      use_billing? ? current_order.shipping_address.update(billing_address_params) : current_order.shipping_address.update(shipping_address_params)
+    #   use_billing? ? current_order.shipping_address.update(billing_address_params) : current_order.shipping_address.update(shipping_address_params)
 
-      return
-    else
-      render_wizard
-    end
+    #   return
+    # else
+    #   render_wizard
+    # end
   end
 
   def address_params_valid?

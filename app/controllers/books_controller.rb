@@ -1,16 +1,18 @@
 class BooksController < ApplicationController
-  include Pagy::Backend
-
-  PAGINATION_VALUE = 12
-
   def index
+    # === TODO: Refactor ===
     @current_filter = params[:category_id]
+    # ======================
 
-    @pagy, @books = pagy(BooksSortingQuery.new(params).call, items: PAGINATION_VALUE)
+    result = Book::Index.call(params)
+
+    @pagy = result['pagy']
+    @books = result['model']
   end
 
   def show
-    @book = Book.find(params[:id])
+    @book = Book::Show.call(id: params[:id])['model']
+
     @reviews = @book.reviews.approved
   end
 end

@@ -19,14 +19,14 @@
           %h3.general-subtitle= t("address.billing")
           %p.general-info-text= t("form.all_fields_required")
 
-        = render partial: 'address_form', locals: { builder: form, form: @billing_address_form }
+        = render partial: 'address_form', locals: { builder: form, form: :billing_address }
 
       .col-md-5.col-md-offset-1.mb-60#shippingAddress
         .visible-xs.visible-sm
           %h3.general-subtitle= t("address.shipping")
           %p.general-info-text= t("form.all_fields_required")
 
-        = render partial: 'address_form', locals: { builder: form, form: @shipping_address_form }
+        = render partial: 'address_form', locals: { builder: form, form: :shipping_address }
           
         .form-group.checkbox.use-billing{onmousedown: "toggleShippingForm();"}
           %label.checkbox-label

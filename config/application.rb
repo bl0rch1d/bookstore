@@ -16,6 +16,8 @@ module Bookstore
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.autoload_paths << Rails.root.join('lib')
+
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_bot, dir: 'spec/factories'

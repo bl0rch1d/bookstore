@@ -1,13 +1,13 @@
 class ReviewsController < ApplicationController
-  def create
-    review = Review.new(customer_id: current_customer.id,
-                        book_id: params[:book_id],
-                        verified: current_customer.bought?(params[:book_id]))
+  before_action :sanitize_rating
 
-    if review.update(review_params)
+  def create
+    result = Review::Create.call(params[:review], 'current_user' => current_customer)
+
+    if result.success?
       flash[:notice] = 'Thanks for Review. It will be published as soon as Admin will approve it.'
     else
-      flash[:alert] = review.errors.full_messages
+      flash[:alert] = result['result.contract.default'].errors.messages
     end
 
     redirect_to book_url(params[:book_id])
@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
 
   private
 
-  def review_params
-    params.require(:review).permit(:title, :body, :rating)
+  def sanitize_rating
+    params[:review][:rating] = params[:review][:rating].to_i
   end
 end

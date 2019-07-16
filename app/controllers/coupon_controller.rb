@@ -1,5 +1,4 @@
 class CouponController < ApplicationController
-  # === TODO: Service object ===
   def apply
     coupon = Coupon.find_by(code: params[:code])
 

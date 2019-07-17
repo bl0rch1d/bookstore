@@ -17,8 +17,8 @@ module Address::Contract
     property :city
     property :zip
     property :phone
-    property :addressable_type
-    property :addressable_id
+    # property :addressable_type
+    # property :addressable_id
 
     validates :first_name, :last_name, :address, :zip, :city, :country, :phone, presence: true
 

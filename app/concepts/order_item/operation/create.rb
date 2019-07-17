@@ -10,6 +10,7 @@ class OrderItem::Create < Trailblazer::Operation
   end
 
   def set_attributes(ctx, params:, **)
+    # === TODO: Refactor ===
     quantity = ctx['model'].quantity ? ctx['model'].quantity + (params[:quantity] || 1) : (params.dig(:order_item, :quantity) || 1)
 
     ctx['model'].quantity   = quantity.to_f

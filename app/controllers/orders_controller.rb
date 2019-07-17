@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
-  def index
+  def inde
     @current_sorting = params[:sort_by] || 'in progress'
 
-    @orders = OrdersSortingQuery.new(current_customer, params).call
+    @orders = Order::Index.call(params, 'customer' => current_customer)['model']
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order::Show.call(id: params[:id])['model']
   end
 end

@@ -1,7 +1,6 @@
 %main.container
   = render 'progress_bar'
   
-  -# %form.res-mb-100
   = simple_form_for current_order, url: wizard_path, method: :put, class: "res-mb-100" do |form|
     .hidden-xs.hidden-sm
       .row
@@ -19,14 +18,14 @@
           %h3.general-subtitle= t("address.billing")
           %p.general-info-text= t("form.all_fields_required")
 
-        = render partial: 'address_form', locals: { builder: form, form: :billing_address }
+        = render partial: 'address_form', locals: { builder: form, id: :BillingAddress, form: current_order.billing_address }
 
       .col-md-5.col-md-offset-1.mb-60#shippingAddress
         .visible-xs.visible-sm
           %h3.general-subtitle= t("address.shipping")
           %p.general-info-text= t("form.all_fields_required")
 
-        = render partial: 'address_form', locals: { builder: form, form: :shipping_address }
+        = render partial: 'address_form', locals: { builder: form, id: :shipping_address, form: current_order.shipping_address }
           
         .form-group.checkbox.use-billing{onmousedown: "toggleShippingForm();"}
           %label.checkbox-label

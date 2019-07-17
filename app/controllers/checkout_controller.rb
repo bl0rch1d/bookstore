@@ -5,6 +5,7 @@ class CheckoutController < ApplicationController
   steps :address, :shipping, :payment, :confirm, :complete
 
   # === TODO: Keep calm. Will be refactored. ===
+  # === TODO: Forms client validation ===
   def show
     case step
     when :address   then address
@@ -30,11 +31,16 @@ class CheckoutController < ApplicationController
   private
 
   def address
-    @billing_address_form = BillingAddressForm.new(BillingAddress.new)
-    @shipping_address_form = ShippingAddressForm.new(ShippingAddress.new)
+    # @billing_address_form = BillingAddressForm.new(BillingAddress.new)
+    # @shipping_address_form = ShippingAddressForm.new(ShippingAddress.new)
+
+    current_order.billing_address = Address::Create::Present.call['model']
+    current_order.shipping_address = Address::Create::Present.call['model']
   end
 
   def update_address
+    binding.pry
+
     # current_order.billing_address = BillingAddress.new
     # current_order.shipping_address = ShippingAddress.new
 
@@ -52,11 +58,11 @@ class CheckoutController < ApplicationController
     # end
   end
 
-  def address_params_valid?
-    return @billing_address_form.validate(billing_address_params) if use_billing?
+  # def address_params_valid?
+  #   return @billing_address_form.validate(billing_address_params) if use_billing?
 
-    @billing_address_form.validate(billing_address_params) && @shipping_address_form.validate(shipping_address_params)
-  end
+  #   @billing_address_form.validate(billing_address_params) && @shipping_address_form.validate(shipping_address_params)
+  # end
 
   def shipping
     @shipping_methods = ShippingMethod.all
@@ -87,15 +93,15 @@ class CheckoutController < ApplicationController
     redirect_to customers_fast_new_path unless current_customer
   end
 
-  def billing_address_params
-    params.require(:order).permit(billing_address: Address::FIELDS)[:billing_address]
-  end
+  # def billing_address_params
+  #   params.require(:order).permit(billing_address: Address::FIELDS)[:billing_address]
+  # end
 
-  def shipping_address_params
-    params.require(:order).permit(shipping_address: Address::FIELDS)[:shipping_address]
-  end
+  # def shipping_address_params
+  #   params.require(:order).permit(shipping_address: Address::FIELDS)[:shipping_address]
+  # end
 
-  def use_billing?
-    params.require(:order).permit(:use_billing)[:use_billing] == 'true'
-  end
+  # def use_billing?
+  #   params.require(:order).permit(:use_billing)[:use_billing] == 'true'
+  # end
 end

@@ -1,5 +1,7 @@
 "use strict";
 
+// === TODO: Refactor ===
+
 let toggleDescription = () => {
     document.getElementById('short_description').classList.toggle("hidden");
     document.getElementById('full_description').classList.toggle("hidden");

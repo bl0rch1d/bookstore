@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  # === TODO: Refactor ===
+
   get 'settings', to: 'settings#index'
 
   put 'settings/addresses',     to: 'customers#update_address'

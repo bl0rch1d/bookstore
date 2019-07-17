@@ -3,6 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
     @customer = Customer.new
   end
 
+  # === TODO: Email confirmation with generated password ===
+
   def fast_create
     generated_password = Devise.friendly_token.first(8)
 

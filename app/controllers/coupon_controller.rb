@@ -1,12 +1,10 @@
 class CouponController < ApplicationController
   def apply
-    coupon = Coupon.find_by(code: params[:code])
+    result = Coupon::Apply.call(code: params[:code], order: current_order)
 
-    return redirect_back(fallback_location: root_path, alert: 'Such coupon not exist') unless coupon
+    return redirect_back(fallback_location: root_path, alert: 'Such coupon not exist') unless result['model']
 
-    return redirect_back(fallback_location: root_path, alert: 'Coupon expired') if coupon.expired?
-
-    current_order.coupon = coupon
+    return redirect_back(fallback_location: root_path, alert: 'Coupon expired') unless result['coupon.relevant']
 
     redirect_back(fallback_location: root_path, notice: 'Coupon has been applied')
   end

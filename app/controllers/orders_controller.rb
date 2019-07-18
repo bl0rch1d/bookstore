@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  def inde
+  def index
     @current_sorting = params[:sort_by] || 'in progress'
 
     @orders = Order::Index.call(params, 'customer' => current_customer)['model']

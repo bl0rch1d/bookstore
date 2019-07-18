@@ -1,6 +1,6 @@
 "use strict";
 
-// === TODO: Refactor ===
+const MAX_ITEM_QUANTITY = 10
 
 let toggleDescription = () => {
     document.getElementById('short_description').classList.toggle("hidden");
@@ -10,7 +10,7 @@ let toggleDescription = () => {
 let incrementQuantity = () => {
   let input = document.getElementById('quantity_input');
 
-  if (input.value < 10) input.value++;
+  if (input.value < MAX_ITEM_QUANTITY) input.value++;
 }
 
 let decrementQuantity = () => {

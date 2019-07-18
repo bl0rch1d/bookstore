@@ -1,5 +1,5 @@
 .visible-xs
-  - @shipping_methods.each do |shipping_method|
+  - ShippingMethod.all.each do |shipping_method|
     .general-cart-item.divider-lg-bottom
       %table.table
         %tr

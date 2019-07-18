@@ -41,8 +41,8 @@
         %br
         = @order.credit_card.expiration_date
 
-  = render(partial: 'cart/items_mobile', locals: {order: @order})
-  = render(partial: 'cart/items', locals: {order: @order})
+  = render(partial: 'cart/items_mobile', locals: {order: @order, with_show_link: true})
+  = render(partial: 'cart/items', locals: {order: @order, with_show_link: true})
   
   .text-center.general-text-right
     %p.in-gold-500.font-18= t("order_summary.summary")

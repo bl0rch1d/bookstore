@@ -28,6 +28,7 @@ gem 'simple_form', '~> 4.1'
 
 # Auth
 gem 'devise', '~> 4.6'
+# gem 'devise-security', '~> 0.14.3'
 gem 'omniauth-facebook', '~> 5.0'
 
 # Admin panel
@@ -80,6 +81,7 @@ group :development, :test do
   # gem 'selenium-webdriver'
 
   gem 'letter_opener', '~> 1.7'
+  gem 'letter_opener_web', '~> 1.3'
 end
 
 group :development do
@@ -100,5 +102,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-gem 'sidekiq', '~> 5.2'

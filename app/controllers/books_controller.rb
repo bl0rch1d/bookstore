@@ -1,9 +1,5 @@
 class BooksController < ApplicationController
   def index
-    # === TODO: Refactor ===
-    @current_filter = params[:category_id]
-    # ======================
-
     result = Book::Index.call(params)
 
     @pagy = result['pagy']

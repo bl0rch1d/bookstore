@@ -1,5 +1,5 @@
-module Address::Contract
-  class Create < Reform::Form
+module Checkout::Contract
+  class Address < Reform::Form
     NAME_REGEX          = /\A[a-zA-Z']+\z/.freeze
     ADDRESS_REGEX       = /\A[ a-zA-Z\d',-]+\z/.freeze
     ZIP_REGEX           = /\A[\d-]+\z/.freeze

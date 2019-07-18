@@ -4,7 +4,7 @@
   = simple_form_for current_order, url: wizard_path, method: :put do |form|
     %h3.general-subtitle= t("credit_card.title")
     .max-600.mb-80
-      = form.simple_fields_for :credit_card do |f|
+      = form.simple_fields_for :credit_card, @credit_card_form do |f|
         .form-group
           = f.input :number, placeholder: t("placeholders.card_number"), class: "form-control"
         .row

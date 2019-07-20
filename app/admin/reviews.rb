@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 ActiveAdmin.register Review do
   permit_params :body, :rating, :state
 
@@ -8,11 +9,15 @@ ActiveAdmin.register Review do
   scope :rejected
 
   action_item :approve, only: :show do
-    link_to 'Approve', approve_admin_review_path(review), method: :put if review.state == 'unprocessed'
+    if review.state == I18n.t('review.states.unprocessed')
+      link_to I18n.t('review.admin_actions.approve'), approve_admin_review_path(review), method: :put
+    end
   end
 
   action_item :reject, only: :show do
-    link_to 'Reject', reject_admin_review_path(review), method: :put if review.state == 'unprocessed'
+    if review.state == I18n.t('review.states.unprocessed')
+      link_to I18n.t('review.admin_actions.reject'), reject_admin_review_path(review), method: :put
+    end
   end
 
   member_action :approve, method: :put do
@@ -40,7 +45,8 @@ ActiveAdmin.register Review do
     column :state
 
     column do |resource|
-      link_to 'show', resource_path(resource)
+      link_to I18n.t('link_to.show'), resource_path(resource)
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

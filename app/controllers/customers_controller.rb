@@ -1,9 +1,13 @@
 class CustomersController < ApplicationController
-  def forgot_password; end
+  before_action :authenticate_customer!
+
+  def index
+    addresses_forms
+  end
 
   def update_email
     if current_customer.update(email_params)
-      redirect_back(fallback_location: root_path, notice: 'Email has been updated')
+      redirect_back(fallback_location: root_path, notice: I18n.t('customer.notice.email_updated'))
     else
       redirect_back(fallback_location: root_path, alert: current_customer.errors)
     end
@@ -13,7 +17,7 @@ class CustomersController < ApplicationController
     addresses_forms
 
     if current_customer.update(billing_address_params) || current_customer.update(shipping_address_params)
-      redirect_back(fallback_location: root_path, notice: 'Address has been updated')
+      redirect_back(fallback_location: root_path, notice: I18n.t('customer.notice.addresses_updated'))
     else
       redirect_back(fallback_location: root_path, alert: current_customer.errors)
     end
@@ -21,7 +25,7 @@ class CustomersController < ApplicationController
 
   def update_password
     if current_customer.update(password_params)
-      redirect_back(fallback_location: root_path, notice: 'Password has been updated')
+      redirect_back(fallback_location: root_path, notice: I18n.t('customer.notice.password_updated'))
     else
       redirect_back(fallback_location: root_path, alert: current_customer.errors)
     end
@@ -29,7 +33,7 @@ class CustomersController < ApplicationController
 
   def destroy
     if current_customer.destroy
-      redirect_back(fallback_location: root_path, notice: 'Account has been removed')
+      redirect_back(fallback_location: root_path, notice: I18n.t('customer.notice.account_removed'))
     else
       redirect_back(fallback_location: root_path, alert: current_customer.errors)
     end

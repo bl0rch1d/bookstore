@@ -5,15 +5,16 @@
       = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
     .form-group.mb-30
       = f.label :customer_password, t("labels.password"), class: "control-label input-label"
-      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("placeholders.password"), pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("placeholders.password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
       = link_to t("password.forgot"), new_customer_password_path, class: "help-block in-gold-500"
 
-    .form-group.checkbox.text-center.mb-30
-      -# === TODO: Remember me ===
-      %label.checkbox-label
-        = f.check_box :remember_me, { class: 'checkbox-input', hidden: 'true', id: 'remember_me' }, 'true', 'false'
-        %span.checkbox-icon
-          %i.fa.fa-check
-        %span.checkbox-text= t("auth.remember")
+    - if devise_mapping.rememberable?
+      .form-group.checkbox.text-center.mb-30
+        %label.checkbox-label
+          = f.check_box :remember_me, { class: 'checkbox-input', hidden: 'true', id: 'remember_me' }, 'true', 'false'
+          %span.checkbox-icon
+            %i.fa.fa-check
+          %span.checkbox-text= t("auth.remember")
+      
     .text-center
       = f.submit t("auth.log_in"), class: "btn btn-default mb-20"

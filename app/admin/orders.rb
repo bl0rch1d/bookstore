@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 ActiveAdmin.register Order do
   permit_params :state
 
@@ -15,7 +16,7 @@ ActiveAdmin.register Order do
     column :state
 
     column do |resource|
-      link_to 'Change State', resource_path(resource)
+      link_to I18n.t('order.admin_actions.change'), resource_path(resource)
     end
   end
 
@@ -24,15 +25,19 @@ ActiveAdmin.register Order do
   end
 
   action_item :deliver, only: :show do
-    link_to 'Deliver', deliver_admin_order_path(order), method: :put if order.processing? && order.state == 'in_progress'
+    if order.processing? && order.state == I18n.t('order.states.in_progress')
+      link_to(I18n.t('order.admin_actions.deliver'), deliver_admin_order_path(order), method: :put)
+    end
   end
 
   action_item :confirm_delivery, only: :show do
-    link_to 'Confirm Delivery', confirm_delivery_admin_order_path(order), method: :put if order.processing? && order.state == 'in_delivery'
+    if order.processing? && order.state == I18n.t('order.states.in_delivery')
+      link_to I18n.t('order.admin_actions.confirm_delivery'), confirm_delivery_admin_order_path(order), method: :put
+    end
   end
 
   action_item :cancel, only: :show do
-    link_to 'Cancel', cancel_admin_order_path(order), method: :put if order.processing?
+    link_to I18n.t('order.admin_actions.cancel'), cancel_admin_order_path(order), method: :put if order.processing?
   end
 
   member_action :deliver, method: :put do
@@ -59,3 +64,4 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(order)
   end
 end
+# rubocop:enable Metrics/BlockLength

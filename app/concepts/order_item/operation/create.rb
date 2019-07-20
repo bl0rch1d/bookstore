@@ -9,13 +9,12 @@ class OrderItem::Create < Trailblazer::Operation
     ctx['model'] = OrderItem.find_or_create_by(order_id: params[:order_id], book_id: params[:book_id])
   end
 
-  def set_attributes(ctx, params:, **)
-    # === TODO: Refactor ===
-    quantity = ctx['model'].quantity ? ctx['model'].quantity + (params[:quantity] || 1) : (params.dig(:order_item, :quantity) || 1)
+  def set_attributes(_ctx, model:, params:, **)
+    quantity = model.quantity ? model.quantity + (params[:quantity] || 1) : (params.dig(:order_item, :quantity) || 1)
 
-    ctx['model'].quantity   = quantity.to_f
-    ctx['model'].price      = Book.find_by(id: params[:book_id]).price
-    ctx['model'].subtotal   = ctx['model'].price * quantity.to_f
+    model.quantity   = quantity.to_f
+    model.price      = Book.find_by(id: params[:book_id]).price
+    model.subtotal   = model.price * quantity.to_f
   end
 
   def validate(ctx, params:, **)

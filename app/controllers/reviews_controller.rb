@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
     result = Review::Create.call(params[:review], 'current_user' => current_customer)
 
     if result.success?
-      flash[:notice] = 'Thanks for Review. It will be published as soon as Admin will approve it.'
+      flash[:notice] = I18n.t('review.notice.sent')
     else
       flash[:alert] = result['result.contract.default'].errors.messages
     end

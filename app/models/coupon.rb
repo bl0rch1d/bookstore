@@ -7,7 +7,6 @@ class Coupon < ApplicationRecord
   validates :code, :discount, :expire_date, presence: true
   validates :discount, numericality: { greater_or_equal_to: MIN_DISCOUNT, less_than_or_equal_to: MAX_DISCOUNT }
 
-  # === TODO: Refactor ===
   def calculate_in_fact_discount(price)
     (discount * price).round(2)
   end

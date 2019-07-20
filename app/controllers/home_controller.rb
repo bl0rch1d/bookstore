@@ -3,6 +3,6 @@ class HomeController < ApplicationController
     @latest_books = Book.latest
     @categories = Category.all
 
-    @best_sellers = BestSellersQuery.new.call
+    @best_sellers = BestSellersQuery.call
   end
 end

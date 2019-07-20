@@ -12,7 +12,7 @@
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t("address.billing")
 
-        = render partial: 'checkout/address_form', locals: { builder: form, form: :billing_address }
+        = render partial: 'checkout/address_form', locals: { builder: form, id: :billing_address, form: @billing_address_form }
         = form.submit t("form.save"), class: "btn btn-default center-block mb-20 mt-25"
       
     = simple_form_for current_customer, url: settings_addresses_path, method: :put do |form|
@@ -20,5 +20,5 @@
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t("address.shipping")
 
-        = render partial: 'checkout/address_form', locals: { builder: form, form: :shipping_address }
+        = render partial: 'checkout/address_form', locals: { builder: form, id: :shipping_address, form: @shipping_address_form }
         = form.submit t("form.save"), class: "btn btn-default center-block mb-20 mt-25"

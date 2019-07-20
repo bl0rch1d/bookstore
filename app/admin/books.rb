@@ -7,7 +7,7 @@ ActiveAdmin.register Book do
   index do
     selectable_column
 
-    column 'Book cover' do |book|
+    column I18n.t('books.cover') do |book|
       image_tag book.thumb if book.images.any?
     end
 
@@ -19,7 +19,7 @@ ActiveAdmin.register Book do
 
     column :authors, &:format_authors
 
-    column 'Short description', &:short_description
+    column I18n.t('books.short_description'), &:short_description
 
     column :price, &:price_in_currency
 
@@ -29,7 +29,7 @@ ActiveAdmin.register Book do
   show do
     h1 book.title
 
-    panel 'Book Images' do
+    panel I18n.t('book.images') do
       table do
         book.images.each do |image|
           span image_tag image.variant(resize: '200x200')
@@ -79,7 +79,8 @@ ActiveAdmin.register Book do
 
     f.object.images.each do |image|
       span image_tag image.variant(resize: '50x50')
-      span link_to 'delete', delete_book_image_admin_book_path(image.id), method: :delete, data: { confirm: 'Are you sure?' }
+      span link_to('delete', delete_book_image_admin_book_path(image.id),
+                   method: :delete, data: { confirm: I18n.t('books.image_remove_confirmation') })
     end
 
     f.actions

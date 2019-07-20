@@ -6,7 +6,7 @@ ActiveAdmin.register Author do
   index do
     selectable_column
 
-    column 'Full name', &:full_name
+    column I18n.t('authors.full_name'), &:full_name
 
     actions
   end

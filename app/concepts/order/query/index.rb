@@ -9,10 +9,10 @@ module Order::Query
 
     def perform
       case @params[:sort_by]
-      when 'in_progress'  then in_progress
-      when 'in_delivery'  then in_delivery
-      when 'delivered'    then delivered
-      when 'canceled'     then canceled
+      when I18n.t('order.states.in_progress')  then in_progress
+      when I18n.t('order.states.in_delivery')  then in_delivery
+      when I18n.t('order.states.delivered')    then delivered
+      when I18n.t('order.states.canceled')     then canceled
       else in_progress
       end
     end

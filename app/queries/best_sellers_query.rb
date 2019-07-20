@@ -1,8 +1,5 @@
 class BestSellersQuery
-  # === TODO: Normalniy query ===
-  def initialize; end
-
-  def call
+  def self.call
     books = Order.all.where(state: :delivered).flat_map(&:books)
     books.map { |book| [book, books.count(book)] }.sort_by(&:second).last(4).map(&:first)
   end

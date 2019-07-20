@@ -63,6 +63,18 @@ en:
     title: "Title"
     review: "Review"
     post: "Post"
+    states:
+      unprocessed: "unprocessed"
+      approved: "approved"
+      rejected: "rejected"
+    admin_actions:
+      approve: "Approve"
+      reject: "Reject"
+    notice:
+      sent: "Thanks for Review. It will be published as soon as Admin will approve it."
+
+  link_to:
+    show: "show"
 
   back_to_results: "Back to results"
 
@@ -84,12 +96,20 @@ en:
   coupon:
     enter_code: "Enter Your Coupon Code"
     apply: "Apply Coupon"
+    applied: "Coupon has been applied"
+    errors:
+      not_exist: "Such coupon not exist"
+      expired: "Coupon expired"
 
   order_item:
     product: "Product"
     price: "Price"
     quantity: "Quantity"
     sub_total: "Subtotal"
+    notice:
+      added: "Item has been added to cart"
+      updated: "Item has been updated"
+      removed: "Item has been removed"
 
   order_summary:
     summary: "Order Summary"
@@ -100,8 +120,8 @@ en:
 
   address:
     title: "Address"
-    billing: "Billing_address"
-    shipping: "Shipping_address"
+    billing: "Billing Address"
+    shipping: "Shipping Address"
     use_billing: "Use Billing Adress"
 
   privacy: "Privacy"
@@ -143,6 +163,12 @@ en:
       in_delivery: "In delivery"
       delivered: "Delivered"
       canceled: "Canceled"
+    
+    admin_actions:
+      change: "Change state"
+      deliver: "Deliver"
+      confirm_delivery: "Confirm Delivery"
+      cancel: "Cancel"
 
   checkout_complete:
     thanks: "Thank You for your Order!"
@@ -195,3 +221,21 @@ en:
     email: "email"
     password: "password"
     current_password: "current_password"
+
+  authors:
+    full_name: "Full name"
+
+  books:
+    cover: "Book cover"
+    short_description: "Short Description"
+    images: "Book Images"
+    image_remove_confirmation: "Are you sure?"
+
+  customer:
+    notice:
+      email_updated: "Email has been updated"
+      addresses_updated: "Addresses has been updated"
+      password_updated: "Password has been updated"
+      account_removed: "Account has been removed"
+
+

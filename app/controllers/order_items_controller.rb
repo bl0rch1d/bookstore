@@ -5,7 +5,7 @@ class OrderItemsController < ApplicationController
     result = OrderItem::Create.call(params)
 
     if result.success?
-      redirect_back(fallback_location: root_path, notice: 'Item has been added to cart')
+      redirect_back(fallback_location: root_path, notice: I18n.t('order_item.notice.added'))
     else
       redirect_back(fallback_location: root_path, alert: result['result.contract.default'].errors.messages)
     end
@@ -15,7 +15,7 @@ class OrderItemsController < ApplicationController
     result = OrderItem::Update.call(id: params[:id], quantity: params[:quantity])
 
     if result.success?
-      redirect_back(fallback_location: root_path, notice: 'Item has been updated')
+      redirect_back(fallback_location: root_path, notice: I18n.t('order_item.notice.updated'))
     else
       redirect_back(fallback_location: root_path, alert: result['result.model.errors'])
     end
@@ -25,7 +25,7 @@ class OrderItemsController < ApplicationController
     result = OrderItem::Delete.call(id: params[:id])
 
     if result.success?
-      redirect_back(fallback_location: root_path, notice: 'Item has been removed')
+      redirect_back(fallback_location: root_path, notice: I18n.t('order_item.notice.removed'))
     else
       redirect_back(fallback_location: root_path, alert: result['result.contract.default'].errors.messages)
     end

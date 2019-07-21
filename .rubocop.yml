@@ -38,8 +38,9 @@ Style/FrozenStringLiteralComment:
 
 AllCops:
   Exclude:
-    - './bin/*'
+    - 'bin/*'
     - '*.gemspec'
-    - './db/*'
-    - '/config/'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'TODO.rb'
   TargetRubyVersion: 2.6.3

@@ -37,7 +37,6 @@ LIMIT.times do |index|
     book.materials    = Material.all.sample(rand(1..3))
     book.category_id  = Category.all.sample.id
     book.authors      = Author.all.sample(rand(1..3))
-    
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
@@ -53,30 +52,6 @@ LIMIT.times do |index|
     review.customer_id  = Customer.all.sample.id
     review.book_id      = Book.all.sample.id
   end
-
-  # BillingAddress.create! do |address|
-  #   address.first_name        = FFaker::Name.first_name
-  #   address.last_name         = FFaker::Name.last_name
-  #   address.address           = FFaker::AddressUS.street_address
-  #   address.city              = FFaker::AddressUS.city
-  #   address.zip               = FFaker::AddressUS.zip_code
-  #   address.country           = FFaker::AddressUS.country
-  #   address.phone             = FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '')
-  #   address.addressable_type  = 'Customer'
-  #   address.addressable_id    = Customer.all[index].id
-  # end
-
-  # ShippingAddress.create! do |address|
-  #   address.first_name        = FFaker::Name.first_name
-  #   address.last_name         = FFaker::Name.last_name
-  #   address.address           = FFaker::AddressUS.street_address
-  #   address.city              = FFaker::AddressUS.city
-  #   address.zip               = FFaker::AddressUS.zip_code
-  #   address.country           = FFaker::AddressUS.country
-  #   address.phone             = FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '')
-  #   address.addressable_type  = 'Customer'
-  #   address.addressable_id    = Customer.all[index].id
-  # end
 
   ShippingMethod.create! do |method|
     method.title    = FFaker::CheesyLingo.unique.title

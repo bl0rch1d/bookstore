@@ -69,6 +69,7 @@ group :development, :test do
   gem 'capybara', '>= 2.15'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'
   gem 'shoulda-matchers', '~> 4.1'
   gem 'simplecov', '~> 0.17.0'
 
@@ -76,9 +77,6 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.7'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'ffaker', '~> 2.11'
-
-  # gem 'chromedriver-helper'
-  # gem 'selenium-webdriver'
 
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.3'

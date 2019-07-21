@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :fast_authenticate_customer!, :cart_emptiness_check!
+  before_action :cart_emptiness_check!, :fast_authenticate_customer!
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -26,7 +26,7 @@ class CheckoutController < ApplicationController
   private
 
   def cart_emptiness_check!
-    redirect_back(fallback_location: root_path, alert: I18n.t('errors.no_items')) unless current_order.order_items.any?
+    redirect_back(fallback_location: root_path, alert: I18n.t('order_item.errors.no_items')) unless current_order.order_items.any?
   end
 
   def fast_authenticate_customer!

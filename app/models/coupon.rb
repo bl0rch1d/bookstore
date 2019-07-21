@@ -1,7 +1,7 @@
 class Coupon < ApplicationRecord
   belongs_to :order, optional: true
 
-  MIN_DISCOUNT = 0.05
+  MIN_DISCOUNT = 0.01
   MAX_DISCOUNT = 0.90
 
   validates :code, :discount, :expire_date, presence: true

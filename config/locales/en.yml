@@ -106,6 +106,8 @@ en:
     price: "Price"
     quantity: "Quantity"
     sub_total: "Subtotal"
+    errors:
+      no_items: "Add items first!"
     notice:
       added: "Item has been added to cart"
       updated: "Item has been updated"

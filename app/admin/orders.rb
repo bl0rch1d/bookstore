@@ -25,13 +25,13 @@ ActiveAdmin.register Order do
   end
 
   action_item :deliver, only: :show do
-    if order.processing? && order.state == I18n.t('order.states.in_progress')
+    if order.processing? && order.state == I18n.t('order.states.in_progress').downcase.split.join('_')
       link_to(I18n.t('order.admin_actions.deliver'), deliver_admin_order_path(order), method: :put)
     end
   end
 
   action_item :confirm_delivery, only: :show do
-    if order.processing? && order.state == I18n.t('order.states.in_delivery')
+    if order.state == I18n.t('order.states.in_delivery').downcase.split.join('_')
       link_to I18n.t('order.admin_actions.confirm_delivery'), confirm_delivery_admin_order_path(order), method: :put
     end
   end

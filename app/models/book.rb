@@ -19,8 +19,8 @@ class Book < ApplicationRecord
   validates :title, :description, :price, :year, :quantity, :height, :width, :depth, :category_id, presence: true
 
   validates :title, uniqueness: true, length: { maximum: MAX_TITLE_LENGTH }
-  validates :price, numericality: { greater_or_equal_to: MIN_PRICE, less_than_or_equal_to: MAX_PRICE }
-  validates :quantity, numericality: { only_integer: true, greater_or_equal_to: MIN_QUANTITY, less_than_or_equal_to: MAX_QUANTITY }
+  validates :price, numericality: { greater_than_or_equal_to: MIN_PRICE, less_than_or_equal_to: MAX_PRICE }
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: MIN_QUANTITY, less_than_or_equal_to: MAX_QUANTITY }
 
   scope :most_popular,     -> { order('created_at ASC') }
   scope :most_recent,      -> { order('created_at DESC') }

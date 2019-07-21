@@ -17,7 +17,6 @@ module Checkout::Contract
     property :city
     property :zip
     property :phone
-    # property :type
 
     validates :first_name, :last_name, :address, :zip, :city, :country, :phone, presence: true
 
@@ -26,7 +25,5 @@ module Checkout::Contract
     validates :country, :city, length: { maximum: CITY_COUNTRY_LENGTH }, format: { with: CITY_COUNTRY_REGEX }
     validates :zip, length: { maximum: ZIP_LENGTH }, format: { with: ZIP_REGEX }
     validates :phone, length: { maximum: PHONE_LENGTH }, format: { with: PHONE_REGEX }
-
-    # validates :type, uniqueness: { scope: %i[addressable_type addressable_id] }, presence: true
   end
 end

@@ -6,7 +6,7 @@
           %li
             = link_to t('store_menu.home'), root_path, class: 'nav-link'
           %li
-            = link_to t('store_menu.books'), category_books_path('all'), class: 'nav-link'
+            = link_to t('store_menu.books'), category_books_path(t('categories.all').downcase, class: 'nav-link'
           -if customer_signed_in?
             %li
               = link_to t("customer_menu.orders"), orders_path, class: "nav-link"

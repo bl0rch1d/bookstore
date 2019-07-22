@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe BookDecorator do
   subject(:book) { create(:book).decorate }
 
@@ -29,7 +27,7 @@ RSpec.describe BookDecorator do
   end
 
   it '#price_in_currency' do
-    expect(book.price_in_currency).to eq("€#{book.price}")
+    expect(book.price_in_currency.to_s).to eq("€#{book.price}")
   end
 
   it '#format_authors' do

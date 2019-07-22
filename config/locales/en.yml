@@ -30,7 +30,7 @@ en:
     shop: "Shop"
     books: "Books"
   
-  customer_menu:
+  user_menu:
     orders: "Orders"
     settings: "Settings"
   
@@ -233,7 +233,7 @@ en:
     images: "Book Images"
     image_remove_confirmation: "Are you sure?"
 
-  customer:
+  user:
     notice:
       email_updated: "Email has been updated"
       addresses_updated: "Addresses has been updated"

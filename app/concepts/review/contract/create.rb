@@ -8,7 +8,7 @@ module Review::Contract
     property :title
     property :body
     property :rating
-    property :customer_id
+    property :user_id
     property :book_id
 
     validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }

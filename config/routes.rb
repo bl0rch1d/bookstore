@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
-  devise_for :customers, controllers: { omniauth_callbacks: 'customers/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   ActiveAdmin.routes(self)
 
-  get 'settings',               to: 'customers#index'
+  get 'settings',               to: 'users#index'
 
-  put 'settings/addresses',     to: 'customers#update_address'
-  put 'settings/new_email',     to: 'customers#update_email'
-  put 'settings/new_password',  to: 'customers#update_password'
+  put 'settings/addresses',     to: 'users#update_address'
+  put 'settings/new_email',     to: 'users#update_email'
+  put 'settings/new_password',  to: 'users#update_password'
 
-  delete 'settings/destroy_account', to: 'customers#destroy'
+  delete 'settings/destroy_account', to: 'users#destroy'
 
   resources :checkout
 
-  devise_scope :customer do
-    get  'customers/fast_new',    to: 'registrations#fast_new'
-    post 'customers/fast_create', to: 'registrations#fast_create'
+  devise_scope :user do
+    get  'users/fast_new',    to: 'registrations#fast_new'
+    post 'users/fast_create', to: 'registrations#fast_create'
   end
 
   post 'coupon/apply'

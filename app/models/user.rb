@@ -1,4 +1,4 @@
-class Customer < ApplicationRecord
+class User < ApplicationRecord
   # === for prod ===
   devise :database_authenticatable, :registerable, :confirmable, :validatable,
          :recoverable, :rememberable, :trackable, :omniauthable
@@ -18,9 +18,9 @@ class Customer < ApplicationRecord
   accepts_nested_attributes_for :shipping_address
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |customer|
-      customer.email = auth.info.email
-      customer.password = Devise.friendly_token[0, 20]
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
     end
   end
 

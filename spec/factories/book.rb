@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :book do
-    title { FFaker::Book.unique.title }
+    title { ('a'..'z').to_a.shuffle.join }
     description { FFaker::Book.description }
     price { rand(5.0..200.00) }
     quantity { rand(1..10) }

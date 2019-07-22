@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :sanitize_rating
 
   def create
-    result = Review::Create.call(params[:review], 'current_user' => current_customer)
+    result = Review::Create.call(params[:review], 'current_user' => current_user)
 
     if result.success?
       flash[:notice] = I18n.t('review.notice.sent')

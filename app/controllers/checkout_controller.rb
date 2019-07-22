@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :cart_emptiness_check!, :fast_authenticate_customer!
+  before_action :cart_emptiness_check!, :fast_authenticate_user!
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -29,14 +29,14 @@ class CheckoutController < ApplicationController
     redirect_back(fallback_location: root_path, alert: I18n.t('order_item.errors.no_items')) unless current_order.order_items.any?
   end
 
-  def fast_authenticate_customer!
-    redirect_to customers_fast_new_path unless current_customer
+  def fast_authenticate_user!
+    redirect_to users_fast_new_path unless current_user
   end
 
   def checkout_params
     {
       'current_order' => current_order,
-      'current_customer' => current_customer,
+      'current_user' => current_user,
       'shipping_method_id' => params.dig(:order, :shipping_method_id),
       'billing_address_params' => params.dig(:order, :billing_address)&.to_unsafe_h,
       'shipping_address_params' => params.dig(:order, :shipping_address)&.to_unsafe_h,
@@ -92,6 +92,7 @@ class CheckoutController < ApplicationController
     if result.success?
       render_wizard current_order
     else
+      flash.alert = "Shipping method can't be blank"
       render_wizard
     end
   end
@@ -144,6 +145,7 @@ class CheckoutController < ApplicationController
 
     if result.success?
       @order = result['model']
+      render_wizard
     else
       redirect_back(fallback_location: root_path)
     end

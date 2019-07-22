@@ -1,9 +1,7 @@
-require 'rails_helper'
-
 RSpec.describe Review, type: :model do
   subject(:review) { create :review }
 
-  it { is_expected.to belong_to(:customer) }
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:book) }
 
   context 'when aasm state' do

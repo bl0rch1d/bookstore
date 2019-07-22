@@ -147,29 +147,6 @@ ActiveRecord::Schema.define(version: 2019_07_19_111033) do
     t.index ["order_id"], name: "index_credit_cards_on_order_id"
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
-    t.index ["confirmation_token"], name: "index_customers_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_customers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
-  end
-
   create_table "materials", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -194,12 +171,12 @@ ActiveRecord::Schema.define(version: 2019_07_19_111033) do
     t.datetime "completed_at"
     t.string "state"
     t.boolean "use_billing", default: false
-    t.bigint "customer_id"
+    t.bigint "user_id"
     t.bigint "shipping_method_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -208,12 +185,12 @@ ActiveRecord::Schema.define(version: 2019_07_19_111033) do
     t.integer "rating"
     t.string "state"
     t.boolean "verified"
-    t.bigint "customer_id"
+    t.bigint "user_id"
     t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
-    t.index ["customer_id"], name: "index_reviews_on_customer_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "shipping_methods", force: :cascade do |t|
@@ -225,6 +202,29 @@ ActiveRecord::Schema.define(version: 2019_07_19_111033) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
@@ -234,8 +234,8 @@ ActiveRecord::Schema.define(version: 2019_07_19_111033) do
   add_foreign_key "credit_cards", "orders"
   add_foreign_key "order_items", "books"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "customers"
   add_foreign_key "orders", "shipping_methods"
+  add_foreign_key "orders", "users"
   add_foreign_key "reviews", "books"
-  add_foreign_key "reviews", "customers"
+  add_foreign_key "reviews", "users"
 end

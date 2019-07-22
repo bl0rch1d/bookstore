@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Material, type: :model do
   it { is_expected.to have_many(:books_materials).dependent(:destroy) }
   it { is_expected.to have_many(:books).through(:books_materials) }

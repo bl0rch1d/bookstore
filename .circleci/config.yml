@@ -10,10 +10,10 @@ jobs:
           RACK_ENV: test
       - image: circleci/postgres:9.6
         environment:
-          POSTGRES_USER: bookstore_test
-          POSTGRES_PASSWORD: bookstore_test
-          POSTGRES_DB: bookstore_test_db
-          DATABASE_URL: "postgres://debian@localhost:5432/bookstore_test_db"
+          POSTGRES_USER: bookstore
+          POSTGRES_PASSWORD: ''
+          POSTGRES_DB: bookstore_test
+          DATABASE_URL: "postgres://debian@localhost:5432/bookstore_test"
 
     working_directory: ~/repo
 
@@ -34,7 +34,7 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # - run: bundle exec rake db:create
+      - run: bundle exec rake db:setup
       # - run: bundle exec rake db:schema:load
         
       - run:

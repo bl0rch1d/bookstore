@@ -9,8 +9,8 @@ FactoryBot.define do
     phone { FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '') }
     type { :ShippingAddress }
 
-    trait :for_customer do
-      addressable { create :customer }
+    trait :for_user do
+      addressable { create :user }
     end
 
     trait :for_order do
@@ -28,8 +28,8 @@ FactoryBot.define do
     phone { FFaker::PhoneNumberNL.international_mobile_phone_number.gsub!(/\s+/, '') }
     type { :BillingAddress }
 
-    trait :for_customer do
-      addressable { create :customer }
+    trait :for_user do
+      addressable { create :user }
     end
 
     trait :for_order do

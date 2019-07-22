@@ -7,7 +7,7 @@
         %h3.general-subtitle.mt-0= t("address.shipping")
   
   .row
-    = simple_form_for current_customer, url: settings_addresses_path, method: :put do |form|
+    = simple_form_for current_user, url: settings_addresses_path, method: :put do |form|
       .col-md-5.mb-40
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t("address.billing")
@@ -15,7 +15,7 @@
         = render partial: 'checkout/address_form', locals: { builder: form, id: :billing_address, form: @billing_address_form }
         = form.submit t("form.save"), class: "btn btn-default center-block mb-20 mt-25"
       
-    = simple_form_for current_customer, url: settings_addresses_path, method: :put do |form|
+    = simple_form_for current_user, url: settings_addresses_path, method: :put do |form|
       .col-md-5.col-md-offset-1.mb-25
         .visible-xs.visible-sm
           %h3.general-subtitle.mt-0= t("address.shipping")

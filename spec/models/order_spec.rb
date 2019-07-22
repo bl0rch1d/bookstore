@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Order, type: :model do
   subject(:order) { create :order }
 
@@ -13,7 +11,7 @@ RSpec.describe Order, type: :model do
   it { is_expected.to have_one(:coupon).dependent(:destroy) }
 
   it { is_expected.to belong_to(:shipping_method).optional }
-  it { is_expected.to belong_to(:customer).optional }
+  it { is_expected.to belong_to(:user).optional }
 
   context 'when aasm state' do
     it 'in_progress -> in_delivery' do

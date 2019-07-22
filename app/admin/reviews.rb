@@ -41,7 +41,7 @@ ActiveAdmin.register Review do
 
     column :book
     column :created_at
-    column :customer
+    column :user
     column :state
 
     column do |resource|

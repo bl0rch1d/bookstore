@@ -6,13 +6,13 @@ class Checkout::Addresses < Trailblazer::Operation
     def create_forms(ctx, params:, **)
       ctx['billing_address_form'] = Checkout::Contract::Address.new(
         params['current_order'].billing_address ||
-        params['current_customer'].billing_address ||
+        params['current_user'].billing_address ||
         BillingAddress.new
       )
 
       ctx['shipping_address_form'] = Checkout::Contract::Address.new(
         params['current_order'].shipping_address ||
-        params['current_customer'].shipping_address ||
+        params['current_user'].shipping_address ||
         ShippingAddress.new
       )
     end

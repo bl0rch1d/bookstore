@@ -1,7 +1,7 @@
 class Review < ApplicationRecord
   include AASM
 
-  belongs_to :customer
+  belongs_to :user
   belongs_to :book
 
   scope :processed, -> { approved.or(rejected) }

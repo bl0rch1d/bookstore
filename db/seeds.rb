@@ -18,8 +18,8 @@ MATERIALS.each do |material|
 end
 
 LIMIT.times do |index|
-  puts 'Seeding Authors/Books/Customers/Reviews/Addresses/ShippingMethods
-  '
+  puts 'Seeding Authors/Books/Users/Reviews/Addresses/ShippingMethods'
+  
   Author.create! do |author|
     author.first_name = FFaker::Name.first_name
     author.last_name  = FFaker::Name.last_name
@@ -40,16 +40,16 @@ LIMIT.times do |index|
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
-  Customer.create! do |customer|
-    customer.email    = FFaker::Internet.email
-    customer.password = FFaker::Internet.password
+  User.create! do |user|
+    user.email    = FFaker::Internet.email
+    user.password = FFaker::Internet.password
   end
 
   Review.create! do |review|
     review.title        = FFaker::Book.title
     review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
     review.rating       = rand(1..5)
-    review.customer_id  = Customer.all.sample.id
+    review.user_id      = User.all.sample.id
     review.book_id      = Book.all.sample.id
   end
 
@@ -63,7 +63,7 @@ LIMIT.times do |index|
   Order.create! do |order|
     order.number              = Array.new(8) { rand(1..9) }.join
     order.total_price         = rand(50.0..500.0).round(1)
-    order.customer_id         = Customer.all[index].id
+    order.user_id             = User.all[index].id
     order.shipping_method_id  = ShippingMethod.all[index].id
   end
 

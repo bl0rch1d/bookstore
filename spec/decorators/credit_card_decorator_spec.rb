@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe CreditCardDecorator do
   subject(:credit_card) { create(:credit_card).decorate }
 

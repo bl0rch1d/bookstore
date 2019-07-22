@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe CategoryDecorator do
   subject(:category) { create(:category).decorate }
 

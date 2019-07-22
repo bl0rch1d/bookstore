@@ -2,8 +2,8 @@
   %h3= t("review.write")
   %p.general-info-text= t("review.score")
   .row
-    = form_with scope: current_customer.reviews, url: reviews_path(book_id: @book.id), method: :post, local: true do |f|
-      = f.hidden_field :customer_id, value: current_customer.id
+    = form_with scope: current_user.reviews, url: reviews_path(book_id: @book.id), method: :post, local: true do |f|
+      = f.hidden_field :user_id, value: current_user.id
       = f.hidden_field :book_id, value: @book.id
 
       .col-md-8.mb-10

@@ -45,7 +45,7 @@
           %p.pull-left= t("book.materials")
           %p.lead.small.pull-right= @book.materials.map(&:title).join(', ')
   
-    - if customer_signed_in?
+    - if user_signed_in?
       = render(file: 'app/views/reviews/new')
 
     = render 'reviews'

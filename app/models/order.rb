@@ -11,7 +11,7 @@ class Order < ApplicationRecord
   has_one :coupon, dependent: :destroy
 
   belongs_to :shipping_method, optional: true
-  belongs_to :customer, optional: true
+  belongs_to :user, optional: true
 
   scope :completed, -> { where(completed_at) }
 

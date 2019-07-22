@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe AddressDecorator do
   subject(:address) { create(:shipping_address, :for_order).decorate }
 

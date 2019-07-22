@@ -259,10 +259,9 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  # === TODO: Fix CI ===
-  # config.omniauth :facebook, Rails.application.credentials.fb_test[:id],
-  #                            Rails.application.credentials.fb_test[:secret],
-  #                            callback_url: 'localhost'
+  config.omniauth :facebook, Rails.application.credentials.fb_test[:id],
+                             Rails.application.credentials.fb_test[:secret],
+                             callback_url: 'localhost'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

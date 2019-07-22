@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Customer, type: :model do
+RSpec.describe User, type: :model do
   it { is_expected.to have_many(:reviews).dependent(:destroy) }
   it { is_expected.to have_many(:orders).dependent(:destroy) }
 

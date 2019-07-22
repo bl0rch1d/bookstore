@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    title { ['Mobile development', 'Photo', 'Web design', 'Web development'].sample }
+    title { FFaker::Food.herb_or_spice }
   end
 end

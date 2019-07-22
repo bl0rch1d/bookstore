@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   def fast_new
-    @customer = Customer.new
+    @user = User.new
   end
 
   # === TODO: Email confirmation with generated password ===
@@ -8,10 +8,10 @@ class RegistrationsController < Devise::RegistrationsController
   def fast_create
     generated_password = Devise.friendly_token.first(8)
 
-    @customer = Customer.new(email: params[:customer][:email], password: generated_password)
+    @user = User.new(email: params[:user][:email], password: generated_password)
 
-    if @customer.save
-      sign_up(:customer, @customer)
+    if @user.save
+      sign_up(:user, @user)
 
       redirect_to checkout_path(:address)
     else

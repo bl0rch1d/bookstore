@@ -98,6 +98,7 @@ group :development do
   gem 'rails_best_practices', '~> 1.19'
   gem 'reek', '~> 5.4'
   gem 'rubocop', '~> 0.72.0'
+  gem 'rubocop-i18n', '~> 2.0'
   gem 'rubocop-performance', '~> 1.4'
   gem 'rubocop-rails', '~> 2.2'
   gem 'rubocop-rspec', '~> 1.33'

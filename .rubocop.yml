@@ -2,6 +2,7 @@ require:
   - rubocop-rspec
   - rubocop-performance
   - rubocop-rails
+  - rubocop-i18n
 
 RSpec/MessageChain:
   Enabled: false
@@ -35,6 +36,10 @@ Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/concepts/**/**/*'
 
 AllCops:
   Exclude:

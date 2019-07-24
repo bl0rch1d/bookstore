@@ -1,0 +1,6 @@
+.text-center.no-orders-icon
+  = image_tag 'no_orders_yet.svg'
+.text-center.mb-0
+  %h2= t('order.no_orders')
+  .mt-25.mb-res-50
+    = link_to t("get_started"), category_books_path(0), role: "button", class: "btn btn-default to-catalog"

@@ -21,7 +21,7 @@
       %p.lead.small= @book.decorate.format_authors
       .row
         .col-xs-12.col-md-4
-          %p.h1.in-gold-500.mt-10= @book.decorate.price_in_currency
+          %p.h1.in-gold-500.mt-10= number_to_currency(@book.price, unit: t('currency.euro'))
         = render 'order_item_form'
 
       .general-info-wrap.divider-lg
@@ -43,7 +43,7 @@
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t("book.materials")
-          %p.lead.small.pull-right= @book.materials.map(&:title).join(', ')
+          %p.lead.small.pull-right= @book.decorate.inline_materials
   
     - if user_signed_in?
       = render(file: 'app/views/reviews/new')

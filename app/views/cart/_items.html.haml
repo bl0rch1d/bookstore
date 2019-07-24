@@ -19,9 +19,9 @@
             .general-img-wrap-table
               - if with_show_link
                 = link_to book_path(item.book) do
-                  = image_tag(item.book.images.first.variant(resize: '100x100'), class: 'cart-img-shadow pull-left')
+                  = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
               - else
-                = image_tag(item.book.images.first.variant(resize: '100x100'), class: 'cart-img-shadow pull-left')
+                = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
           
           %td
             - if with_show_link
@@ -31,7 +31,7 @@
               %p.title= item.book.title
           
           %td
-            %span.font-16.in-gold-500= number_to_currency(item.price, unit: '€')
+            %span.font-16.in-gold-500= number_to_currency(item.price, unit: t('currency.euro'))
           %td
             .input-group
               - if item.quantity > 1
@@ -45,7 +45,7 @@
               = link_to order_item_path(item, quantity: 1, book_id: item.book), method: :patch, class: "input-link" do
                 %i.fa.fa-plus.line-heaght-40
           %td
-            %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: '€')
+            %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: t('currency.euro'))
           %td
             = link_to order_item_path(item), method: :delete, class: "close general-cart-close" do
               %span{'aria-hidden': "true"} &times;

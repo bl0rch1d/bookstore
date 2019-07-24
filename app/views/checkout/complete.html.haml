@@ -32,4 +32,4 @@
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render 'cart/order_summary'
   
-  = button_to t("checkout_complete.back"), category_books_path(t("categories.all").downcase), method: :get, class: "btn btn-default mb-20 center-block"
+  = button_to t("checkout_complete.back"), category_books_path(0), method: :get, class: "btn btn-default mb-20 center-block"

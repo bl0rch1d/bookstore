@@ -20,7 +20,7 @@
                     %i.fa.fa-shopping-cart.thumb-icon
           .general-thumb-info
             %p.title.book-title= book.title
-            %p.font-16.in-gold-500= book.decorate.price_in_currency
+            %p.font-16.in-gold-500= number_to_currency(book.price, unit: t('currency.euro'))
             %span.divider-sm
             %p.lead.small.catalog-authors= book.decorate.format_authors
   

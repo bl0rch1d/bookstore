@@ -46,12 +46,20 @@ en:
   sort_by: "Sort by"
 
   sortings:
-    newest: "Newest first"
-    popular: "Popular first"
-    high_price: "Price: High to low"
-    low_price:  "Price: Low to high"
-    title_ascending: "Title: A - Z"
-    title_descending: "Title: Z - A"
+    text:
+      newest: "Newest first"
+      popular: "Popular first"
+      high_price: "Price: High to low"
+      low_price:  "Price: Low to high"
+      title_ascending: "Title: A - Z"
+      title_descending: "Title: Z - A"
+    system:
+      newest: "newest"
+      popular: "popular"
+      high_price: "high_price"
+      low_price:  "low_price"
+      title_ascending: "title_ascending"
+      title_descending: "title_descending"
 
   add_to_cart: "Add to cart"
 
@@ -75,6 +83,7 @@ en:
 
   link_to:
     show: "show"
+    delete: "delete"
 
   back_to_results: "Back to results"
 
@@ -153,6 +162,7 @@ en:
     save: "save"
 
   order:
+    no_orders: "No Orders yet"
     total: "Total"
     number: "Number"
     state: "State"
@@ -165,12 +175,18 @@ en:
       in_delivery: "In delivery"
       delivered: "Delivered"
       canceled: "Canceled"
-    
+    filter:
+      in_progress: "in_progress"
+      in_delivery: "in_delivery"
+      delivered: "delivered"
+      canceled: "canceled"
     admin_actions:
       change: "Change state"
       deliver: "Deliver"
       confirm_delivery: "Confirm Delivery"
       cancel: "Cancel"
+    validation_errors:
+      sort_by: '%{value} is not a valid filter'
 
   checkout_complete:
     thanks: "Thank You for your Order!"
@@ -240,4 +256,11 @@ en:
       password_updated: "Password has been updated"
       account_removed: "Account has been removed"
 
+  resize:
+    thumb: '50x50'
+    small: '150x150'
+    middle: '200x200'
+    cover: '250x250'
 
+  currency:
+    euro: '€'

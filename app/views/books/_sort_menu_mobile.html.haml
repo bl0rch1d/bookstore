@@ -2,7 +2,7 @@
   %p.lead.small.mb-10= t("sort_by")
   .dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      = t("sortings.#{params[:sort_by] || :title_ascending}")
+      = t("sortings.text.#{params[:sort_by] || :title_ascending}")
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     
     = render 'sortings'

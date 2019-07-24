@@ -32,7 +32,7 @@
       %p.general-address
         = @order.shipping_method.title
         %br
-        = number_to_currency(@order.shipping_method.price, unit: '€')
+        = number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
     
     .col-sm-3
       %h3.general-subtitle.mt-0= t("payment.info")
@@ -51,22 +51,22 @@
         %td
           %p.font-16= t("order_summary.item_total")
         %td
-          %p.font-16= number_to_currency(@order.decorate.subtotal, unit: '€')
+          %p.font-16= number_to_currency(@order.decorate.subtotal, unit: t('currency.euro'))
       
       - if @order.coupon
         %tr
           %td
             %p.font-16= t("order_summary.coupon")
           %td
-            %p.font-16= number_to_currency(@order.coupon.calculate_in_fact_discount(@order.decorate.subtotal), unit: '€')
+            %p.font-16= number_to_currency(@order.coupon.calculate_in_fact_discount(@order.decorate.subtotal), unit: t('currency.euro'))
 
       %tr
         %td
           %p.font-16= t("order_summary.shipping")
         %td
-          %p.font-16= number_to_currency(@order.shipping_method.price, unit: "€")
+          %p.font-16= number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
       %tr
         %td
           %strong.font-18= t("order_summary.order_total")
         %td
-          %strong.font-18= number_to_currency(@order.decorate.total, unit: "€")
+          %strong.font-18= number_to_currency(@order.decorate.total, unit: t('currency.euro'))

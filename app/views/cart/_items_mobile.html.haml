@@ -6,9 +6,9 @@
       .general-img-wrap-table
         - if with_show_link
           = link_to book_path(item.book) do
-            = image_tag(item.book.images.first.variant(resize: '250x250'), class: 'cart-img-shadow')
+            = image_tag(item.book.images.first.variant(resize: t('resize.cover')), class: 'cart-img-shadow')
         - else
-          = image_tag(item.book.images.first.variant(resize: '250x250'), class: 'cart-img-shadow')
+          = image_tag(item.book.images.first.variant(resize: t('resize.cover')), class: 'cart-img-shadow')
       
       - if with_show_link
         = link_to book_path(item.book) do
@@ -21,7 +21,7 @@
           %td
             %span.in-grey-600= t("order_item.price")
           %td
-            %span.font-16.in-gold-500= number_to_currency(item.price, unit: '€')
+            %span.font-16.in-gold-500= number_to_currency(item.price, unit: t('currency.euro'))
         %tr
           %td.vertical-middle
             %span.in-grey-600= t("order_item.quantity")
@@ -41,4 +41,4 @@
           %td
             %span.in-grey-600= t("order_item.subtotal")
           %td
-            %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: '€')
+            %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: t('currency.euro'))

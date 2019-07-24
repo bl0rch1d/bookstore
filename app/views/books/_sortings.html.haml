@@ -1,13 +1,13 @@
 %ul.dropdown-menu
   %li
-    = link_to t("sortings.newest"), category_books_path(params[:category_id], sort_by: 'newest')
+    = link_to t("sortings.text.newest"), category_books_path(params[:category_id], sort_by: t("sortings.system.newest"))
   %li
-    = link_to t("sortings.popular"), category_books_path(params[:category_id], sort_by: 'popular')
+    = link_to t("sortings.text.popular"), category_books_path(params[:category_id], sort_by: t("sortings.system.popular"))
   %li
-    = link_to t("sortings.low_price"), category_books_path(params[:category_id], sort_by: 'low_price')
+    = link_to t("sortings.text.low_price"), category_books_path(params[:category_id], sort_by: t("sortings.system.low_price"))
   %li
-    = link_to t("sortings.high_price"), category_books_path(params[:category_id], sort_by: 'high_price')
+    = link_to t("sortings.text.high_price"), category_books_path(params[:category_id], sort_by: t("sortings.system.high_price"))
   %li
-    = link_to t("sortings.title_ascending"), category_books_path(params[:category_id], sort_by: 'title_ascending')
+    = link_to t("sortings.text.title_ascending"), category_books_path(params[:category_id], sort_by: t("sortings.system.title_ascending"))
   %li
-    = link_to t("sortings.title_descending"), category_books_path(params[:category_id], sort_by: 'title_descending')
+    = link_to t("sortings.text.title_descending"), category_books_path(params[:category_id], sort_by: t("sortings.system.title_descending"))

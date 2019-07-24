@@ -1,0 +1,30 @@
+.hidden-xs.mb-res-50
+  - unless @orders.empty?
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600= t("order.number")
+          %th
+            %span.in-grey-600= t("order.completed_at")
+          %th
+            %span.in-grey-600= t("order.state")
+          %th
+            %span.in-grey-600= t("order.total")
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td
+              %span
+                =link_to "##{order.number}", order_path(order), class: "general-order-number"
+            %td
+              %span.in-grey-900.font-16.fw-300= order.completed_at
+            %td
+              - if order.state == t("order.states.delivered")
+                %span.font-16.fw-300.text-success= order.state
+              - else
+                %span.font-16.in-grey-900.fw-300= order.state
+            %td
+              %strong.font-16= number_to_currency(order.total_price, unit: t('currency.euro'))
+  - else
+    = render 'no_orders'

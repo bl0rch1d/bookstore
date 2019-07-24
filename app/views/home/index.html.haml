@@ -6,6 +6,6 @@
     %h2.h1= t("welcome")
     .mb-res-50
       %p= t("description")
-      = link_to t("get_started"), category_books_path(t('categories.all').downcase), role: "button", class: "btn btn-default to-catalog"
+      = link_to t("get_started"), category_books_path(0), role: "button", class: "btn btn-default to-catalog"
   
   = render 'best_sellers'

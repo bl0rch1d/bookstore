@@ -3,7 +3,7 @@
   %p.lead.small.mb-10.visible-xs= t("sort_by")
   .dropdowns.dropdown.general-order-dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      = t("order.states.#{@current_sorting || :in_progress}")
+      = t("order.states.#{params[:sort_by] || :in_progress}")
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
@@ -15,60 +15,6 @@
       %li
         = link_to t("order.states.canceled"), orders_path(sort_by: 'canceled')
   
-  .visible-xs
-    .general-cart-item.divider-lg-bottom
-    - @orders.each do |order|
-      .general-cart-item.divider-lg-bottom.pt-0
-        %table.table
-          %tr
-            %td.col-half
-              %span.in-grey-600= t("order.number")
-            %td.col-half
-              %span
-                =link_to "##{order.number}", order_path(order), class: "general-order-number"
-          %tr
-            %td
-              %span.in-grey-600= t("order.completed_at")
-            %td
-              %span.in-grey-900.font-16.fw-300= order.completed_at
-          %tr
-            %td
-              %span.in-grey-600= t("order.state")
-            %td
-              - if order.state == t("order.states.delivered")
-                %span.font-16.fw-300.text-success= order.state
-              - else
-                %span.font-16.in-grey-900.fw-300= order.state
-          %tr
-            %td
-              %span.in-grey-600= t("order.total")
-            %td
-              %strong.font-16= number_to_currency(order.total_price, unit: '€')
+  = render 'orders_mobile'
   
-  .hidden-xs.mb-res-50
-    %table.table.table-hover
-      %thead
-        %tr
-          %th
-            %span.in-grey-600= t("order.number")
-          %th
-            %span.in-grey-600= t("order.completed_at")
-          %th
-            %span.in-grey-600= t("order.state")
-          %th
-            %span.in-grey-600= t("order.total")
-      %tbody
-        - @orders.each do |order|
-          %tr
-            %td
-              %span
-                =link_to "##{order.number}", order_path(order), class: "general-order-number"
-            %td
-              %span.in-grey-900.font-16.fw-300= order.completed_at
-            %td
-              - if order.state == t("order.states.delivered")
-                %span.font-16.fw-300.text-success= order.state
-              - else
-                %span.font-16.in-grey-900.fw-300= order.state
-            %td
-              %strong.font-16= number_to_currency(order.total_price, unit: '€')
+  = render 'orders'

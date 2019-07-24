@@ -3,4 +3,4 @@
   = current_order.shipping_method.title
   %span= link_to t("edit_link"), wizard_path(:shipping), class: 'general-edit'
   %br
-  = number_to_currency(current_order.shipping_method.price, unit: '€')
+  = number_to_currency(current_order.shipping_method.price, unit: t('currency.euro'))

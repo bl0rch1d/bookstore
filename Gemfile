@@ -37,7 +37,7 @@ gem 'activeadmin', '~> 2.1'
 # Pagination
 gem 'pagy', '~> 3.3'
 
-# State machine
+# State machines
 gem 'aasm', '~> 5.0'
 gem 'wicked', '~> 1.3'
 
@@ -78,8 +78,12 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.0'
   gem 'ffaker', '~> 2.11'
 
+  # Email client emulation
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.3'
+
+  # Query checkers
+  gem 'bullet', '~> 6.0', '>= 6.0.1'
 end
 
 group :development do
@@ -88,7 +92,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 
-  # Lintering
+  # Linters
   gem 'fasterer', '~> 0.5.1'
   gem 'overcommit', '~> 0.22.0'
   gem 'rails_best_practices', '~> 1.19'

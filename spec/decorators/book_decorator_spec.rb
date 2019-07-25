@@ -9,12 +9,12 @@ RSpec.describe BookDecorator do
   end
 
   it '#thumb' do
-    expect(book.thumb.variation.transformations[:resize]).to eq(book.images.first.variant(resize: '50x50')
+    expect(book.thumb.variation.transformations[:resize]).to eq(book.images.first.variant(resize: I18n.t('resize.thumb'))
                                                               .variation.transformations[:resize])
   end
 
   it '#cover' do
-    expect(book.cover.variation.transformations[:resize]).to eq(book.images.first.variant(resize: '250x250')
+    expect(book.cover.variation.transformations[:resize]).to eq(book.images.first.variant(resize: I18n.t('resize.cover'))
                                                               .variation.transformations[:resize])
   end
 
@@ -26,15 +26,15 @@ RSpec.describe BookDecorator do
     expect(book.short_description).to eq(book.description.slice(1..63) + '...')
   end
 
-  it '#price_in_currency' do
-    expect(book.price_in_currency.to_s).to eq("€#{book.price}")
-  end
-
   it '#format_authors' do
     expect(book.format_authors).to eq(book.authors.map { |author| author.decorate.full_name }.join(', '))
   end
 
   it '#dimensions' do
     expect(book.dimensions).to eq("H: #{book.height} \"\ x W: #{book.width} \"\ x D: #{book.depth} \"\ ")
+  end
+
+  it '#inline_materials' do
+    expect(book.inline_materials).to eq(book.materials.map(&:title).join(', '))
   end
 end

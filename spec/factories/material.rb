@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :material do
-    title { ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].sample }
+    title { FFaker::Food.unique.herb_or_spice }
   end
 end

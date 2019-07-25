@@ -10,5 +10,9 @@ FactoryBot.define do
       shipping_address { create :shipping_address, :for_user }
       billing_address { create :billing_address, :for_user }
     end
+
+    trait :with_orders do
+      orders { create_list(:order, 20) }
+    end
   end
 end

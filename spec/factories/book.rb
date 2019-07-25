@@ -8,7 +8,6 @@ FactoryBot.define do
     width { rand(1.0..10.0).round(1) }
     depth { rand(1.0..10.0).round(1) }
     year { rand(1850..2019) }
-    # materials { Array.new(3) { create(:material) } }
     category
     authors { Array.new(3) { create(:author) } }
   end

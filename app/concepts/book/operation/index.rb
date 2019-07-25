@@ -1,4 +1,5 @@
 class Book::Index < Trailblazer::Operation
+  step Policy::Guard(Book::Policy::IndexGuard.new), fail_fast: true
   step Contract::Build(constant: Book::Contract::Index)
   step Contract::Validate(), fail_fast: true
 
@@ -7,7 +8,11 @@ class Book::Index < Trailblazer::Operation
   failure :overflow
 
   def model(ctx, params:, **)
-    ctx['pagy'], ctx['model'] = ::Service::Pagy.call(Book::Query::Index.call(params), page: params[:page], items: 12)
+    ctx['pagy'], ctx['model'] = ::Service::Pagy.call(
+      Book::Query::Index.call(params),
+      page: params[:page],
+      items: Book::PAGINATION_INDEX
+    )
   end
 
   def overflow?(_ctx, pagy:, **)

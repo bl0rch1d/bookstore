@@ -1,5 +1,5 @@
 class OrderItem::Update < Trailblazer::Operation
-  step Model(OrderItem, :find_by)
+  step Model(OrderItem, :find_by), fail_fast: true
   step Contract::Build(constant: OrderItem::Contract::Create)
   success :update_attributes
   step :validate, fail_fast: true

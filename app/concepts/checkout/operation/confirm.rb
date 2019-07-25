@@ -4,7 +4,7 @@ class Checkout::Confirm < Trailblazer::Operation
   end
 
   step Nested(Present)
-  step :complete_order
+  success :complete_order
 
   def complete_order(_ctx, params:, **)
     current_order = params['current_order']

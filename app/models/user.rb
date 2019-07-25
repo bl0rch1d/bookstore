@@ -23,8 +23,4 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
     end
   end
-
-  def bought?(book_id)
-    orders.delivered.joins(:books).where(books: { id: book_id }).exists?
-  end
 end

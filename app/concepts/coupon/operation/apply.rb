@@ -1,5 +1,6 @@
 class Coupon::Apply < Trailblazer::Operation
-  step :model, fast_fail: true
+  step Policy::Guard(Coupon::Policy::ApplyGuard.new), fail_fast: true
+  step :model, fail_fast: true
   step :expired?
   step :link_to_order
 

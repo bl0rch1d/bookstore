@@ -1,8 +1,6 @@
 class OrderItemsController < ApplicationController
   def create
-    params[:order_id] = current_order.id
-
-    result = OrderItem::Create.call(params)
+    result = OrderItem::Create.call(params.merge(order_id: current_order.id))
 
     if result.success?
       redirect_back(fallback_location: root_path, notice: I18n.t('order_item.notice.added'))

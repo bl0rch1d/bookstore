@@ -21,7 +21,9 @@ ActiveAdmin.register Book do
 
     column I18n.t('books.short_description'), &:short_description
 
-    column :price, &:price_in_currency
+    column :price do |book|
+      number_to_currency(book.price, unit: I18n.t('currency.euro'))
+    end
 
     actions
   end
@@ -32,7 +34,7 @@ ActiveAdmin.register Book do
     panel I18n.t('book.images') do
       table do
         book.images.each do |image|
-          span image_tag image.variant(resize: '200x200')
+          span image_tag image.variant(resize: I18n.t('resize.middle'))
         end
       end
     end
@@ -80,8 +82,8 @@ ActiveAdmin.register Book do
     end
 
     f.object.images.each do |image|
-      span image_tag image.variant(resize: '50x50')
-      span link_to('delete', delete_book_image_admin_book_path(image.id),
+      span image_tag image.variant(resize: I18n.t('resize.thumb'))
+      span link_to(I18n.t('link_to.delete'), delete_book_image_admin_book_path(image.id),
                    method: :delete, data: { confirm: I18n.t('books.image_remove_confirmation') })
     end
 

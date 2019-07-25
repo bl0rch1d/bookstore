@@ -20,13 +20,15 @@ class Checkout::Addresses < Trailblazer::Operation
 
   step Nested(Present)
   step :validate
-  step :set_addresses
+  success :set_addresses
 
   def validate(ctx, params:, **)
     return ctx['billing_address_form'].validate(params['billing_address_params']) if params['use_billing_address']
 
-    ctx['billing_address_form'].validate(params['billing_address_params']) &&
-      ctx['shipping_address_form'].validate(params['shipping_address_params'])
+    billing = ctx['billing_address_form'].validate(params['billing_address_params'])
+    shipping = ctx['shipping_address_form'].validate(params['shipping_address_params'])
+
+    billing && shipping
   end
 
   def set_addresses(_ctx, params:, **)

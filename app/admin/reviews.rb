@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 ActiveAdmin.register Review do
   permit_params :body, :rating, :state
 
@@ -49,4 +48,3 @@ ActiveAdmin.register Review do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

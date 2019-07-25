@@ -1,13 +1,7 @@
 %main.container
-  -# === TODO: Fix links ===
-  - if params[:category_id] || params[:current_sortings]
-    = link_to(category_books_path(params[:category_id], sort_by: params[:current_sortings]), class: 'general-back-link') do
-      %i.fa.fa-long-arrow-left.mr-15
-      =t("back_to_results")
-  - else
-    = link_to(cart_index_path, class: 'general-back-link') do
-      %i.fa.fa-long-arrow-left.mr-15
-      =t("back_to_results")
+  = link_to(:back, class: 'general-back-link') do
+    %i.fa.fa-long-arrow-left.mr-15
+    =t("back_to_results")
   
   .row
     .col-sm-6

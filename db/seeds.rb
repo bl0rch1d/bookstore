@@ -65,6 +65,7 @@ LIMIT.times do |index|
     order.total_price         = rand(50.0..500.0).round(1)
     order.user_id             = User.all[index].id
     order.shipping_method_id  = ShippingMethod.all[index].id
+    order.state               = ['in_progress', 'delivered'].sample
   end
 
   OrderItem.create! do |order_item|

@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 ActiveAdmin.register Order do
   permit_params :state
 
@@ -64,4 +63,3 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(order)
   end
 end
-# rubocop:enable Metrics/BlockLength

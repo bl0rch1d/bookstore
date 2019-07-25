@@ -2,12 +2,18 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @current_sorting = params[:sort_by] || I18n.t('order.states.in_progress')
+    result = Order::Index.call(params, 'current_user' => current_user)
 
-    @orders = Order::Index.call(params, 'user' => current_user)['model']
+    return redirect_to(orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
+
+    @orders = result['model']
   end
 
   def show
-    @order = Order::Show.call(id: params[:id])['model']
+    result = Order::Show.call(params, 'current_user' => current_user)
+
+    return redirect_to(orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
+
+    @order = result['model']
   end
 end

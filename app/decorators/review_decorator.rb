@@ -6,6 +6,9 @@ class ReviewDecorator < Draper::Decorator
   end
 
   def user_full_name
-    "#{user.billing_address.first_name} #{user.billing_address.last_name}"
+    first_name = user.billing_address&.first_name || user.orders&.first&.billing_address&.first_name || user.email
+    last_name = user.billing_address&.last_name || user.orders&.first&.billing_address&.last_name
+
+    "#{first_name} #{last_name}".strip
   end
 end

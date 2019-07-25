@@ -23,6 +23,7 @@ Metrics/BlockLength:
   Exclude:
     - 'Gemfile'
     - 'spec/**/*.rb'
+    - 'app/admin/*'
 
 Metrics/ModuleLength:
   Exclude:

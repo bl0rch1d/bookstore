@@ -8,12 +8,12 @@ module Book::Query
 
     def perform
       case @params[:sort_by]
-      when I18n.t('sortings.newest')           then newest(from_category)
-      when I18n.t('sortings.popular')          then popular(from_category)
-      when I18n.t('sortings.low_price')        then low_price(from_category)
-      when I18n.t('sortings.high_price')       then high_price(from_category)
-      when I18n.t('sortings.title_ascending')  then title_ascending(from_category)
-      when I18n.t('sortings.title_descending') then title_descending(from_category)
+      when I18n.t('sortings.system.newest')           then newest(from_category)
+      when I18n.t('sortings.system.popular')          then popular(from_category)
+      when I18n.t('sortings.system.low_price')        then low_price(from_category)
+      when I18n.t('sortings.system.high_price')       then high_price(from_category)
+      when I18n.t('sortings.system.title_ascending')  then title_ascending(from_category)
+      when I18n.t('sortings.system.title_descending') then title_descending(from_category)
       else title_ascending(from_category)
       end
     end

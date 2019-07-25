@@ -4,7 +4,9 @@ class Checkout::Payment < Trailblazer::Operation
     step :create_form
 
     def create_form(ctx, params:, **)
-      ctx['contract.default'] = Checkout::Contract::CreditCard.new(params['current_order'].credit_card || CreditCard.new)
+      ctx['contract.default'] = Checkout::Contract::CreditCard.new(
+        params['current_order'].credit_card || CreditCard.new
+      )
     end
   end
 

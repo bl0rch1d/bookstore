@@ -1,4 +1,5 @@
 class OrderItem::Index < Trailblazer::Operation
+  step Policy::Guard(OrderItem::Policy::IndexGuard.new), fail_fast: true
   step :model
   step :order
 

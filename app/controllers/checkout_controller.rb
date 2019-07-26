@@ -1,7 +1,7 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :cart_emptiness_check!, :fast_authenticate_user!
+  before_action :fast_authenticate_user!
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -24,10 +24,6 @@ class CheckoutController < ApplicationController
   end
 
   private
-
-  def cart_emptiness_check!
-    redirect_back(fallback_location: root_path, alert: I18n.t('order_item.errors.no_items')) unless current_order.order_items.any?
-  end
 
   def fast_authenticate_user!
     redirect_to users_fast_new_path unless current_user
@@ -133,21 +129,38 @@ class CheckoutController < ApplicationController
     result = Checkout::Confirm.call(checkout_params)
 
     if result.success?
-      @credit_card_form = result['contract.default']
-      redirect_to next_wizard_path
+      render_wizard current_order
     else
-      redirect_back(fallback_location: root_path)
+      render_wizard
     end
   end
 
+  # === TODO: Operation? Refactor? ===
   def complete
-    result = Checkout::Complete.call(checkout_params)
+    # result = Checkout::Complete.call(checkout_params)
 
-    if result.success?
-      @order = result['model']
+    # if result.success?
+    #   @order = result['model']
+
+    #   CheckoutMailer.with(user: current_user, order: @order).order_check.deliver_now
+
+    #   render_wizard
+    # else
+    #   redirect_back(fallback_location: root_path)
+    # end
+
+    if current_order.completed_at
+      @order = current_order
+
+      session[:current_order_id] = nil
+
+      CheckoutMailer.with(user: current_user, order: @order).order_check.deliver_now
+
       render_wizard
     else
-      redirect_back(fallback_location: root_path)
+      @order = current_user.orders.last
+
+      render 'complete'
     end
   end
 end

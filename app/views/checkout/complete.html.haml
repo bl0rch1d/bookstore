@@ -3,7 +3,7 @@
   
   .text-center.mb-40
     %h3.general-subtitle= t("checkout_complete.thanks")
-    -# === TODO: Mailer ===
+    %p.fw-300= "An order confirmation has been sent to #{current_user.email}"
   
   .row.mb-20
     .col-sm-6
@@ -25,8 +25,8 @@
       %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
       %p.general-address.mb-30= @order.completed_at
 
-  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false})
-  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false})
+  = render(partial: 'cart/items_mobile', locals: {order: @order, with_show_link: false})
+  = render(partial: 'cart/items', locals: {order: @order, with_show_link: false})
   
   .text-center.general-text-right
     %p.in-gold-500.font-18= t("order_summary.summary")

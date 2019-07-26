@@ -10,7 +10,7 @@ RSpec.describe Checkout::Initialize do
       {
         'current_order' => order,
         'current_user' => user,
-        'step' => :address,
+        'step' => :address
       }
     end
 

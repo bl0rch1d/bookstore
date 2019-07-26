@@ -56,7 +56,7 @@ RSpec.describe Checkout::Shipping do
         {
           'current_order' => order,
           'current_user' => create(:user),
-          'step' => :shipping,
+          'step' => :shipping
         }
       end
 

@@ -16,7 +16,7 @@ RSpec.describe Checkout::Contract::CreditCard do
           card_name: ["can't be blank", 'is invalid'],
           number: ["can't be blank", 'is invalid'],
           cvv: ["can't be blank", 'is too short (minimum is 3 characters)'],
-          expiration_date: ["can't be blank", 'is invalid'],
+          expiration_date: ["can't be blank", 'is invalid']
         }
       end
 

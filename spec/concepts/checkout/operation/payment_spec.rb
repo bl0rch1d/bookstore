@@ -81,19 +81,5 @@ RSpec.describe Checkout::Payment do
         expect(result).to be_failure
       end
     end
-
-    # === HELP THERE ===
-    context 'when persist fails' do
-      let(:params) do
-        {
-          'current_order' => order,
-          'current_user' => user,
-          'step' => :payment,
-          'credit_card' => ActionController::Parameters.new(attributes_for(:book))
-        }
-      end
-
-      it { expect(result).to be_failure }
-    end
   end
 end

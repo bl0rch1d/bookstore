@@ -25,7 +25,7 @@ class Order < ApplicationRecord
       transitions from: :in_progress, to: :in_delivery
     end
 
-    event :confirm_delivery, after: :complete do
+    event :confirm_delivery do
       transitions from: :in_delivery, to: :delivered
     end
 
@@ -36,11 +36,5 @@ class Order < ApplicationRecord
 
   def processing?
     state != 'canceled' && state != 'delivered'
-  end
-
-  private
-
-  def complete
-    update(completed_at: Time.zone.now.strftime('%d %b %Y - %H:%M:%S'))
   end
 end

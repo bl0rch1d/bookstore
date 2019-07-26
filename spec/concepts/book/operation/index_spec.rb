@@ -11,7 +11,7 @@ RSpec.describe Book::Index do
 
   describe 'Success' do
     let(:sort_by) { 'title_ascending' }
-    let(:category_id) { 0 }
+    let(:category_id) { '0' }
 
     it 'returns paginated list of books' do
       expect(result['model']).to be_a(ActiveRecord::Relation)
@@ -27,7 +27,7 @@ RSpec.describe Book::Index do
     context 'when page is out of limits' do
       let(:page) { 9999 }
       let(:sort_by) { 'title_ascending' }
-      let(:category_id) { 0 }
+      let(:category_id) { '0' }
       let(:errors) { ['Page is out of limits'] }
 
       it 'has validation errors' do
@@ -49,7 +49,7 @@ RSpec.describe Book::Index do
     context 'when sorting is invalid' do
       let(:page) { 1 }
       let(:sort_by) { 'dsadas' }
-      let(:category_id) { 0 }
+      let(:category_id) { '0' }
 
       it do
         expect(result).to be_failure

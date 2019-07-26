@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  
+  ActiveAdmin.routes(self)
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  ActiveAdmin.routes(self)
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    confirmations: 'confirmations'
+  }
 
   get 'settings',               to: 'users#index'
 

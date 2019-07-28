@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  # === TODO: More suitable routes ===
   def index
-    addresses_forms
+    result = Address::Update::Present.call('current_user' => current_user)
+
+    expose_address_forms(result)
   end
 
   def update_email
@@ -13,18 +16,26 @@ class UsersController < ApplicationController
     end
   end
 
+  # === TODO: Refactor ===
   def update_address
-    addresses_forms
+    result = Address::Update.call(params.merge('current_user' => current_user))
 
-    if current_user.update(billing_address_params) || current_user.update(shipping_address_params)
+    if result.success?
+      # flash.notice = I18n.t('user.notice.addresses_updated')
       redirect_back(fallback_location: root_path, notice: I18n.t('user.notice.addresses_updated'))
     else
-      redirect_back(fallback_location: root_path, alert: current_user.errors)
+      expose_address_forms(result)
+
+      form = @billing_address_form || @shipping_address_form
+
+      redirect_back(fallback_location: root_path, alert: form.errors.full_messages)
     end
+
+    # render 'users/index'
   end
 
   def update_password
-    if current_user.update(password_params)
+    if current_user.update_with_password(password_params)
       redirect_back(fallback_location: root_path, notice: I18n.t('user.notice.password_updated'))
     else
       redirect_back(fallback_location: root_path, alert: current_user.errors)
@@ -40,25 +51,11 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def addresses_forms
-    current_user.billing_address   || current_user.billing_address = BillingAddress.new
-    current_user.shipping_address  || current_user.shipping_address = ShippingAddress.new
-  end
-
   def password_params
     params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
 
   def email_params
     params.require(:user).permit(:email)
-  end
-
-  def billing_address_params
-    params.require(:user).permit(billing_address_attributes: Address::FIELDS)
-  end
-
-  def shipping_address_params
-    params.require(:user).permit(shipping_address_attributes: Address::FIELDS)
   end
 end

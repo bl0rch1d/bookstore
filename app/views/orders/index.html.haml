@@ -7,6 +7,8 @@
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
+        = link_to 'all', orders_path(sort_by: 'all')
+      %li
         = link_to t("order.states.in_progress"), orders_path(sort_by: 'in_progress')
       %li
         = link_to t("order.states.in_delivery"), orders_path(sort_by: 'in_delivery')

@@ -13,6 +13,7 @@ module Order::Query
       when I18n.t('order.filter.in_delivery')  then in_delivery
       when I18n.t('order.filter.delivered')    then delivered
       when I18n.t('order.filter.canceled')     then canceled
+      when 'all'                               then orders
       else in_progress
       end
     end

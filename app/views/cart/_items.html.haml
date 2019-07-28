@@ -34,18 +34,24 @@
             %span.font-16.in-gold-500= number_to_currency(item.price, unit: t('currency.euro'))
           %td
             .input-group
-              - if item.quantity > 1
-                = link_to order_item_path(item, quantity: -1, book_id: item.book), method: :patch, class: "input-link" do
-                  %i.fa.fa-minus.line-heaght-40
+              - unless static
+                - if item.quantity > 1
+                  = link_to order_item_path(item, quantity: -1, book_id: item.book), method: :patch, class: "input-link", id: 'decrement' do
+                    %i.fa.fa-minus.line-heaght-40
+                - else
+                  %a.input-link
+                    %i.fa.fa-minus.line-heaght-40
+                
+                %input.form-control.quantity-input{type: "text", value: "#{item.quantity}", disabled: true}
+                = link_to order_item_path(item, quantity: 1, book_id: item.book), method: :patch, class: "input-link", id: 'increment' do
+                  %i.fa.fa-plus.line-heaght-40
+
               - else
-                %a.input-link
-                  %i.fa.fa-minus.line-heaght-40
-              
-              %input.form-control.quantity-input{type: "text", value: "#{item.quantity}", disabled: true}
-              = link_to order_item_path(item, quantity: 1, book_id: item.book), method: :patch, class: "input-link" do
-                %i.fa.fa-plus.line-heaght-40
+                %input.form-control.quantity-input{type: "text", value: "#{item.quantity}", disabled: true}
+          
           %td
             %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: t('currency.euro'))
           %td
-            = link_to order_item_path(item), method: :delete, class: "close general-cart-close" do
-              %span{'aria-hidden': "true"} &times;
+            - unless static
+              = link_to order_item_path(item), method: :delete, class: "close general-cart-close" do
+                %span{'aria-hidden': "true"} &times;

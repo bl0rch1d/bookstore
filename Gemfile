@@ -62,9 +62,6 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry', '~> 0.12.2'
 
-  # Security
-  gem 'brakeman', '~> 4.5'
-
   # Test bundle
   gem 'capybara', '>= 2.15'
   gem 'rspec', '~> 3.8'
@@ -82,8 +79,11 @@ group :development, :test do
   gem 'letter_opener', '~> 1.7'
   gem 'letter_opener_web', '~> 1.3'
 
-  # Query checkers
+  # Query checker
   gem 'bullet', '~> 6.0', '>= 6.0.1'
+
+  # Profiler
+  gem 'stackprof', '~> 0.2.12'
 end
 
 group :development do
@@ -91,6 +91,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+
+  # Security
+  gem 'brakeman', '~> 4.5'
 
   # Linters
   gem 'fasterer', '~> 0.5.1'

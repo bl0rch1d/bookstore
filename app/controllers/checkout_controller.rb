@@ -37,7 +37,7 @@ class CheckoutController < ApplicationController
       'billing_address_params' => params.dig(:order, :billing_address)&.to_unsafe_h,
       'shipping_address_params' => params.dig(:order, :shipping_address)&.to_unsafe_h,
       'use_billing_address' => params.dig(:order, :use_billing) == 'true',
-      'session' => session,
+      # 'session' => session,
       'credit_card' => params.dig(:order, :credit_card),
       'step' => @step
     }
@@ -66,10 +66,6 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def expose_address_forms(result)
-    @billing_address_form   = result['billing_address_form']
-    @shipping_address_form  = result['shipping_address_form']
-  end
 
   def shipping
     result = Checkout::Shipping::Present.call(checkout_params)

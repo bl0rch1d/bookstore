@@ -22,5 +22,14 @@ module Bookstore
       g.test_framework :rspec
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
+
+    config.middleware.use(
+      StackProf::Middleware,
+      enabled: true,
+      mode: :cpu,
+      interval: 1000,
+      save_every: 100,
+      path: 'tmp/stackprof/'
+    )
   end
 end

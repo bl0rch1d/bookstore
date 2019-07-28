@@ -25,4 +25,9 @@ class ApplicationController < ActionController::Base
   def order_id
     session[:current_order_id]
   end
+
+  def expose_address_forms(result)
+    @billing_address_form   = result['billing_address_form']
+    @shipping_address_form  = result['shipping_address_form']
+  end
 end

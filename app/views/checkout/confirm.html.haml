@@ -11,8 +11,8 @@
     .col-sm-3
       = render 'payment_info'
   
-  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false})
-  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false})
+  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false, static: false})
+  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false, static: false})
   
   .text-center.general-text-right
     %p.in-gold-500.font-18= t("order_summary.summary")

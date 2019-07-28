@@ -11,7 +11,7 @@ class BooksController < ApplicationController
   def show
     result = Book::Show.call(id: params[:id])
 
-    return redirect_to(category_books_path(0)) unless result.success?
+    raise ActiveRecord::RecordNotFound unless result.success?
 
     @book = result['model']
     @reviews = @book.reviews.approved

@@ -9,7 +9,7 @@
     %p.general-login-text= t("auth.or")
   
   .general-form
-    = form_with scope: :user, url: registration_path(@user), local: true do |f|
+    = form_with scope: :user, url: registration_path(@user), local: true, id: 'new_user' do |f|
       .form-group.mb-30
         = f.label :user_email, t("labels.email"), class: "control-label input-label"
         = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -18,7 +18,7 @@
         = f.password_field :password, autocomplete: "password", class: "form-control", placeholder: t("placeholders.password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
       .form-group.mb-30
         = f.label :user_password_confirmation, t("labels.password_confirmation"), class: "control-label input-label"
-        = f.password_field :password_confirmation, autocomplete: "password", class: "form-control", placeholder: t("placeholders.confirm_password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
+        = f.password_field :password_confirmation, autocomplete: "password_confirmation", class: "form-control", placeholder: t("placeholders.confirm_password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
       .text-center
         = f.submit t("auth.sign_up"), class: "btn btn-default mb-20"
   

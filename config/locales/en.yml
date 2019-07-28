@@ -18,7 +18,7 @@ en:
   auth:
     have_an_account: "Already have an account?"
     have_no_an_account: "Do not have an account?"
-    sign_up: "Sign Up"
+    sign_up: "Sign up"
     sign_out: "Sign out"
     log_in: "Log in"
     or: "Or"

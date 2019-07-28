@@ -1,6 +1,6 @@
 module Order::Contract
   class Index < Reform::Form
-    FILTERS = %w[in_progress in_delivery delivered canceled].freeze
+    FILTERS = %w[all in_progress in_delivery delivered canceled].freeze
 
     property :sort_by, virtual: true
 

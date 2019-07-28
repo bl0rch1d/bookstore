@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :material do
-    title { FFaker::Food.unique.herb_or_spice }
+    title { Array.new(8) { rand(65..90).chr }.join }
   end
 end

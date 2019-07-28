@@ -1,20 +1,17 @@
-class CouponsController < ApplicationController
+class CouponController < ApplicationController
   def apply
     result = Coupon::Apply.call(code: params[:code], order: current_order)
 
-    check_existence(result)
-    check_expiration(result)
+    check_result(result)
 
-    redirect_back(fallback_location: root_path, notice: I18n.t('coupon.applied'))
+    redirect_to cart_index_path
   end
 
-  private
+  def check_result(result)
+    return flash.alert = I18n.t('coupon.errors.not_exist') unless result['model']
 
-  def check_existence(result)
-    return redirect_back(fallback_location: root_path, alert: I18n.t('coupon.errors.not_exist')) unless result['model']
-  end
+    return flash.alert = I18n.t('coupon.errors.expired') unless result['coupon.relevant']
 
-  def check_expiration(result)
-    return redirect_back(fallback_location: root_path, alert: I18n.t('coupon.errors.expired')) unless result['coupon.relevant']
+    flash.notice = I18n.t('coupon.applied')
   end
 end

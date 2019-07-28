@@ -4,7 +4,7 @@ class OrderItem::Index < Trailblazer::Operation
   step :order
 
   def model(ctx, params:, **)
-    ctx['model'] = params[:order].order_items
+    ctx['model'] = params[:order].order_items.includes(:book)
   end
 
   def order(ctx, **)

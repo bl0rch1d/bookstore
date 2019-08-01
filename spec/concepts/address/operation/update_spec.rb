@@ -3,18 +3,18 @@ RSpec.describe Address::Update do
   let(:addressable) { { addressable_type: 'User', addressable_id: user.id } }
 
   describe 'Success' do
-    let(:params) do
-      {
-        user: {
-          billing_address_attributes: attributes_for(:billing_address).merge(addressable),
-          shipping_address_attributes: attributes_for(:shipping_address).merge(addressable)
-        },
-
-        'current_user' => user
-      }
-    end
-
     context 'when Present' do
+      let(:params) do
+        {
+          user: {
+            billing_address_attributes: attributes_for(:billing_address).merge(addressable),
+            shipping_address_attributes: attributes_for(:shipping_address).merge(addressable)
+          },
+
+          'current_user' => user
+        }
+      end
+
       let(:result) { described_class::Present.call(params) }
 
       it 'creates forms' do
@@ -39,7 +39,7 @@ RSpec.describe Address::Update do
           }
         end
 
-        it 'updates' do
+        it do
           expect(result).to be_success
           expect(User.last.billing_address).to be_present
         end
@@ -56,7 +56,7 @@ RSpec.describe Address::Update do
           }
         end
 
-        it 'updates' do
+        it do
           expect(result).to be_success
           expect(User.last.shipping_address).to be_present
         end

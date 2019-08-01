@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :book do
-    title { ('a'..'z').to_a.shuffle.join }
+    sequence(:title) { |n| "#{FFaker::Lorem.word}#{n}" }
+
     description { FFaker::Book.description }
     price { rand(5.0..200.00) }
     quantity { rand(1..10) }
@@ -13,7 +14,7 @@ FactoryBot.define do
 
     after :create do |book|
       book.images.attach(
-        io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")),
+        io: File.open(Rails.root.join("spec/fixtures/books/#{rand(1..4)}.jpg")),
         filename: 'cover.jpg',
         content_type: 'image/jpg'
       )
@@ -23,7 +24,7 @@ FactoryBot.define do
       after :create do |book|
         3.times do
           book.images.attach(
-            io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")),
+            io: File.open(Rails.root.join("spec/fixtures/books/#{rand(1..4)}.jpg")),
             filename: 'cover.jpg',
             content_type: 'image/jpg'
           )

@@ -13,8 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     )
 
     if @user.save
-      FastRegistrationMailer.with(user: @user, password: generated_password)
-                            .temp_password_info.deliver_later
+      FastRegistrationMailer.temporary_password(@user, generated_password).deliver_later
 
       sign_up(:user, @user)
     else

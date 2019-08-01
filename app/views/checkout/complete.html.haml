@@ -11,11 +11,11 @@
         %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
         %p.general-address.mb-30= @order.completed_at
       %p.general-address
-        = @order.shipping_address.decorate.full_name
+        = @order.shipping_address.full_name
         %br
-        = @order.shipping_address.address
+        = @order.shipping_address.address_line
         %br
-        = @order.shipping_address.decorate.city_zip
+        = @order.shipping_address.city_zip
         %br
         = @order.shipping_address.country
         %br

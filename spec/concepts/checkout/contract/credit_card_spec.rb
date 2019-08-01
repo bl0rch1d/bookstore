@@ -10,7 +10,7 @@ RSpec.describe Checkout::Contract::CreditCard do
   describe 'Failure' do
     let(:params) { attributes_for(:user) }
 
-    context 'when address params invalid' do
+    context 'when credit_card params invalid' do
       let(:errors) do
         {
           card_name: ["can't be blank", 'is invalid'],

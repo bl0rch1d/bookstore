@@ -1,4 +1,4 @@
-= form_with scope: current_order.coupon, url: coupon_apply_path(order_id: current_order), method: :post, local: true, id: 'applyCoupon' do |f|
+= form_with scope: current_order.coupon, url: coupon_path(order_id: current_order), method: :post, local: true, id: 'applyCoupon' do |f|
   .input-group.general-input-group
     %label.input-label= t("coupon.enter_code")
     = f.text_field :code, class: 'form-control mb-30'

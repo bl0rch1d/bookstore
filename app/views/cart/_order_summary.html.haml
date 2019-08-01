@@ -4,14 +4,14 @@
     %td
       %p.font-16= t("order_summary.item_total")
     %td
-      %p.font-16= number_to_currency(current_order.decorate.subtotal, unit: t('currency.euro'))
+      %p.font-16= number_to_currency(current_order.subtotal, unit: t('currency.euro'))
   
   %tr
     %td
       %p.font-16= t("order_summary.coupon")
     %td
       - if current_order.coupon
-        %p.font-16= number_to_currency(current_order.coupon.calculate_in_fact_discount(current_order.decorate.subtotal), unit: t('currency.euro'))
+        %p.font-16= number_to_currency(current_order.coupon.calculated_discount, unit: t('currency.euro'))
       - else
         %p.font-16= t("zero_price")
   
@@ -28,7 +28,7 @@
     %td
       %strong.font-18= t("order_summary.order_total")
     %td
-      %strong.font-18= number_to_currency(current_order.decorate.total, unit: t('currency.euro'))
+      %strong.font-18= number_to_currency(current_order.total, unit: t('currency.euro'))
 
 - else
   
@@ -36,14 +36,14 @@
     %td
       %p.font-16= t("order_summary.item_total")
     %td
-      %p.font-16= number_to_currency(current_order.decorate.subtotal, unit: t('currency.euro'))
+      %p.font-16= number_to_currency(current_order.subtotal, unit: t('currency.euro'))
   
   %tr
     %td
       %p.font-16= t("order_summary.coupon")
     %td
       - if current_order.coupon
-        %p.font-16= number_to_currency(current_order.coupon.calculate_in_fact_discount(current_order.decorate.subtotal), unit: t('currency.euro'))
+        %p.font-16= number_to_currency(current_order.coupon.calculated_discount, unit: t('currency.euro'))
       - else
         %p.font-16= t("zero_price")
   
@@ -51,4 +51,4 @@
     %td
       %strong.font-18= t("order_summary.order_total")
     %td
-      %strong.font-18= number_to_currency(current_order.decorate.total, unit: t('currency.euro'))
+      %strong.font-18= number_to_currency(current_order.total, unit: t('currency.euro'))

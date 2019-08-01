@@ -19,20 +19,20 @@ RSpec.describe 'Checkout', type: :feature do
     expect(page).to have_current_path('/checkout/address')
 
     within '.edit_order' do
-      fill_in 'order[billing_address][first_name]', with: 'firstname'
-      fill_in 'order[billing_address][last_name]',  with: 'lastname'
-      fill_in 'order[billing_address][address]',    with: 'address'
-      fill_in 'order[billing_address][city]',       with: 'city'
-      fill_in 'order[billing_address][zip]',        with: 123
-      fill_in 'order[billing_address][phone]',      with: '+380638567656'
+      fill_in 'order[billing_address][first_name]',   with: 'firstname'
+      fill_in 'order[billing_address][last_name]',    with: 'lastname'
+      fill_in 'order[billing_address][address_line]', with: 'address'
+      fill_in 'order[billing_address][city]',         with: 'city'
+      fill_in 'order[billing_address][zip]',          with: 123
+      fill_in 'order[billing_address][phone]',        with: '+380638567656'
       find('#order_billing_address_country').find(:xpath, 'option[2]').select_option
 
-      fill_in 'order[shipping_address][first_name]',  with: 'test'
-      fill_in 'order[shipping_address][last_name]',   with: 'test'
-      fill_in 'order[shipping_address][address]',     with: 'test'
-      fill_in 'order[shipping_address][city]',        with: 'test'
-      fill_in 'order[shipping_address][zip]',         with: 123
-      fill_in 'order[shipping_address][phone]',       with: '+380638567656'
+      fill_in 'order[shipping_address][first_name]',    with: 'test'
+      fill_in 'order[shipping_address][last_name]',     with: 'test'
+      fill_in 'order[shipping_address][address_line]',  with: 'test'
+      fill_in 'order[shipping_address][city]',          with: 'test'
+      fill_in 'order[shipping_address][zip]',           with: 123
+      fill_in 'order[shipping_address][phone]',         with: '+380638567656'
       find('#order_shipping_address_country').find(:xpath, 'option[2]').select_option
 
       find('input[type="submit"]').click

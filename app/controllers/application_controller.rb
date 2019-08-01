@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     order = Order.find_or_create_by(id: order_id)
     session[:current_order_id] = order.id
 
-    order
+    order.decorate
   end
 
   def order_id

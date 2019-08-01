@@ -1,5 +1,5 @@
 RSpec.describe 'Cart', type: :feature do
-  let!(:books) { create_list(:book, 20) }
+  let!(:book) { create :book }
 
   before do
     visit root_path

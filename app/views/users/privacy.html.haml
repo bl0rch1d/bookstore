@@ -18,7 +18,7 @@
       
       .col-sm-5.col-sm-offset-1
         %p.in-gold-500.font-18.mb-25= t("labels.password")
-        = simple_form_for current_user, url: users_new_password_path, method: :patch, class: "general-form-md" do |form|
+        = simple_form_for current_user, url: users_update_password_path, method: :patch, class: "general-form-md" do |form|
           .form-group.mb-30
             = form.input :current_password,  placeholder: t("placeholders.current_password"),  type: 'text', class: "form-control", id: "current_password"
           .form-group.mb-30
@@ -30,7 +30,7 @@
       
       .col-sm-12
         %p.in-gold-500.font-18.mb-25= t("remove_account.title")
-        = simple_form_for current_user, url: users_destroy_account_path, method: :delete, class: "general-form-md" do |form|
+        = simple_form_for current_user, url: users_destroy_path, method: :delete, class: "general-form-md" do |form|
           .general-settings-btn
             = form.submit t("remove_account.remove"), class: "btn btn-default mb-20", disabled: true, id: 'removeAccountBtn'
           .form-group.checkbox.general-settings-checkbox

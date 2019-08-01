@@ -7,12 +7,12 @@
     .col-sm-6
       .product-gallery
         .mb-20
-          = image_tag(@book.decorate.cover, class: 'img-responsive')
+          = image_tag(@book.cover, class: 'img-responsive')
         = render 'images'
     
     .col-sm-6#book_info.mb-30
       %h1.mt-res-0= @book.title
-      %p.lead.small= @book.decorate.format_authors
+      %p.lead.small= @book.format_authors
       .row
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= number_to_currency(@book.price, unit: t('currency.euro'))
@@ -21,7 +21,7 @@
       .general-info-wrap.divider-lg
         %p= t("book.description")
         %p.lead.small.line-height-2#short_description
-          = @book.decorate.short_description
+          = @book.short_description
           %a.in-gold-500.ml-10#full_description_show= t("read_more")
         %p.lead.small.line-height-2#full_description.hidden
           = @book.description
@@ -33,11 +33,11 @@
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t("book.dimensions")
-          %p.lead.small.pull-right= @book.decorate.dimensions
+          %p.lead.small.pull-right= @book.dimensions
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t("book.materials")
-          %p.lead.small.pull-right= @book.decorate.inline_materials
+          %p.lead.small.pull-right= @book.inline_materials
   
     - if user_signed_in?
       = render(file: 'app/views/reviews/new')

@@ -35,12 +35,12 @@ RSpec.describe 'User settings page', type: :feature do
     end
 
     it 'can set/update billing address' do
-      fill_in 'user[billing_address_attributes][first_name]', with: 'sometext'
-      fill_in 'user[billing_address_attributes][last_name]',  with: 'sometext'
-      fill_in 'user[billing_address_attributes][address]',    with: 'sometext'
-      fill_in 'user[billing_address_attributes][city]',       with: 'sometext'
-      fill_in 'user[billing_address_attributes][zip]',        with: '32323'
-      fill_in 'user[billing_address_attributes][phone]',      with: '+32323'
+      fill_in 'user[billing_address_attributes][first_name]',   with: 'sometext'
+      fill_in 'user[billing_address_attributes][last_name]',    with: 'sometext'
+      fill_in 'user[billing_address_attributes][address_line]', with: 'sometext'
+      fill_in 'user[billing_address_attributes][city]',         with: 'sometext'
+      fill_in 'user[billing_address_attributes][zip]',          with: '32323'
+      fill_in 'user[billing_address_attributes][phone]',        with: '+32323'
 
       find('#user_billing_address_attributes_country').find(:xpath, 'option[2]').select_option
 
@@ -50,12 +50,12 @@ RSpec.describe 'User settings page', type: :feature do
     end
 
     it 'can set/update shipping address' do
-      fill_in 'user[shipping_address_attributes][first_name]', with: 'sometext'
-      fill_in 'user[shipping_address_attributes][last_name]',  with: 'sometext'
-      fill_in 'user[shipping_address_attributes][address]',    with: 'sometext'
-      fill_in 'user[shipping_address_attributes][city]',       with: 'sometext'
-      fill_in 'user[shipping_address_attributes][zip]',        with: '32323'
-      fill_in 'user[shipping_address_attributes][phone]',      with: '+32323'
+      fill_in 'user[shipping_address_attributes][first_name]',    with: 'sometext'
+      fill_in 'user[shipping_address_attributes][last_name]',     with: 'sometext'
+      fill_in 'user[shipping_address_attributes][address_line]',  with: 'sometext'
+      fill_in 'user[shipping_address_attributes][city]',          with: 'sometext'
+      fill_in 'user[shipping_address_attributes][zip]',           with: '32323'
+      fill_in 'user[shipping_address_attributes][phone]',         with: '+32323'
 
       find('#user_shipping_address_attributes_country').find(:xpath, 'option[2]').select_option
 

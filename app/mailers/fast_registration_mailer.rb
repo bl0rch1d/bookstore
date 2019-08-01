@@ -1,8 +1,8 @@
 class FastRegistrationMailer < ApplicationMailer
-  def temp_password_info
-    @user = params[:user]
-    @password = params[:password]
+  def temporary_password(user, password)
+    @user = user
+    @password = password
 
-    mail(to: @user.email, subject: 'Fast registration random password')
+    mail(to: @user.email, subject: "Temporary password for #{@user.email}.")
   end
 end

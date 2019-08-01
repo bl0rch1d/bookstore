@@ -64,6 +64,7 @@ group :development, :test do
 
   # Test bundle
   gem 'capybara', '>= 2.15'
+  gem 'capybara-email', '~> 3.0', '>= 3.0.1'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'

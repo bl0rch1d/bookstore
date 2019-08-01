@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :shipping_address do
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
-    address { FFaker::AddressUS.street_address }
+    address_line { FFaker::AddressUS.street_address }
     city { FFaker::AddressUS.city }
     zip { FFaker::AddressUS.zip_code }
     country { FFaker::AddressUS.country }
@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :billing_address do
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
-    address { FFaker::AddressUS.street_address }
+    address_line { FFaker::AddressUS.street_address }
     city { FFaker::AddressUS.city }
     zip { FFaker::AddressUS.zip_code }
     country { FFaker::AddressUS.country }

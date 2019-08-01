@@ -134,11 +134,11 @@ class CheckoutController < ApplicationController
     result = Checkout::Complete.call(checkout_params)
 
     if result.success?
-      @order = result['model']
+      @order = result['model'].decorate
 
       render_wizard
     else
-      @order = current_user.orders.last
+      @order = current_user.orders.last.decorate
 
       render 'complete'
     end

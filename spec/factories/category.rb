@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :category do
-    title { FFaker::Food.herb_or_spice }
+    sequence(:title) { |n| "#{FFaker::Lorem.word}#{n}" }
 
     trait :with_books do
       after(:create) do |category|

@@ -12,11 +12,6 @@ colors@~0.6.0-1:
   resolved "https://registry.yarnpkg.com/colors/-/colors-0.6.2.tgz#2423fe6678ac0c5dae8852e5d0e5be08c997abcc"
   integrity sha1-JCP+ZnisDF2uiFLl0OW+CMmXq8w=
 
-jquery-mask-plugin@^1.14.15:
-  version "1.14.15"
-  resolved "https://registry.yarnpkg.com/jquery-mask-plugin/-/jquery-mask-plugin-1.14.15.tgz#9daabb41024383cba2a793bacfa46ef8f87273a5"
-  integrity sha512-/mI1N5WG9E7JmjFWIQBIMuG/4QlZDAXuoNjHoqVWZSMah+go5hp/xKI/xC0Jud9Ly4HqqhFxY4AXLTUZT+J7Hg==
-
 jssc@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/jssc/-/jssc-0.2.6.tgz#e9714210da1fd54b28131fd0b20986eb77ffda5c"

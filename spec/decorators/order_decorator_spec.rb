@@ -6,7 +6,7 @@ RSpec.describe OrderDecorator do
   end
 
   it '#total' do
-    price = order.coupon ? order.subtotal - order.coupon.calculate_in_fact_discount(order.subtotal) : order.subtotal
+    price = order.coupon ? order.subtotal - order.coupon.calculated_discount : order.subtotal
     order.shipping_method_id ? price + ShippingMethod.find(order.shipping_method_id).price : price
 
     expect(order.total).to eq(price)

@@ -4,11 +4,11 @@
     .col-sm-3
       %h3.general-subtitle.mt-0= t("address.shipping")
       %p.general-address
-        = @order.shipping_address.decorate.full_name
+        = @order.shipping_address.full_name
         %br
-        = @order.shipping_address.address
+        = @order.shipping_address.address_line
         %br
-        = @order.shipping_address.decorate.city_zip
+        = @order.shipping_address.city_zip
         %br
         = @order.shipping_address.country
         %br
@@ -17,11 +17,11 @@
     .col-sm-3
       %h3.general-subtitle.mt-0= t("address.billing")
       %p.general-address
-        = "#{@order.billing_address.first_name} #{@order.billing_address.last_name}"
+        = @order.billing_address.full_name
         %br
-        = @order.billing_address.address
+        = @order.billing_address.address_line
         %br
-        = @order.billing_address.decorate.city_zip
+        = @order.billing_address.city_zip
         %br
         = @order.billing_address.country
         %br
@@ -37,7 +37,7 @@
     .col-sm-3
       %h3.general-subtitle.mt-0= t("payment.info")
       %p.general-address
-        = @order.credit_card.decorate.secure_number
+        = @order.credit_card.secure_number
         %br
         = @order.credit_card.expiration_date
 
@@ -51,14 +51,14 @@
         %td
           %p.font-16= t("order_summary.item_total")
         %td
-          %p.font-16= number_to_currency(@order.decorate.subtotal, unit: t('currency.euro'))
+          %p.font-16= number_to_currency(@order.subtotal, unit: t('currency.euro'))
       
       - if @order.coupon
         %tr
           %td
             %p.font-16= t("order_summary.coupon")
           %td
-            %p.font-16= number_to_currency(@order.coupon.calculate_in_fact_discount(@order.decorate.subtotal), unit: t('currency.euro'))
+            %p.font-16= number_to_currency(@order.coupon.calculated_discount, unit: t('currency.euro'))
 
       %tr
         %td
@@ -69,4 +69,4 @@
         %td
           %strong.font-18= t("order_summary.order_total")
         %td
-          %strong.font-18= number_to_currency(@order.decorate.total, unit: t('currency.euro'))
+          %strong.font-18= number_to_currency(@order.total, unit: t('currency.euro'))

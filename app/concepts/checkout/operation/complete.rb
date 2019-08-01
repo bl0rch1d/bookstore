@@ -13,6 +13,6 @@ class Checkout::Complete < Trailblazer::Operation
   end
 
   def send_confirmation_email(_ctx, params:, **)
-    CheckoutMailer.with(user: params['current_user'], order: params['current_order']).order_check.deliver_later
+    CheckoutMailer.complete(params['current_user'], params['current_order']).deliver_later
   end
 end

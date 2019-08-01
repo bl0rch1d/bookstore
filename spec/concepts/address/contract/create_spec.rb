@@ -15,7 +15,7 @@ RSpec.describe Address::Contract::Create do
         {
           first_name: ["can't be blank", 'is invalid'],
           last_name: ["can't be blank", 'is invalid'],
-          address: ["can't be blank", 'is invalid'],
+          address_line: ["can't be blank", 'is invalid'],
           city: ["can't be blank", 'is invalid'],
           country: ["can't be blank", 'is invalid'],
           zip: ["can't be blank", 'is invalid'],

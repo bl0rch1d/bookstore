@@ -5,7 +5,7 @@
       .col-sm-6.col-md-3
         .general-thumb-wrap
           .thumbnail.general-thumbnail
-            = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
+            = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
             .thumb-hover
               .general-thumb-link-wrap
                 = link_to book_path(book.id), class: "thumb-hover-link" do
@@ -17,4 +17,4 @@
             %p.pull-right.font-16.in-gold-500= number_to_currency(book.price, unit: t('currency.euro'))
             %p.title.mr-55= book.title
           %span.divider-sm
-          %p.lead.small= book.decorate.format_authors
+          %p.lead.small= book.format_authors

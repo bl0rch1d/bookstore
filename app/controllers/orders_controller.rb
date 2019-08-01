@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
     return redirect_to(orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
 
-    @orders = result['model']
+    @orders = OrderDecorator.decorate_collection(result['model'])
   end
 
   def show
@@ -14,6 +14,6 @@ class OrdersController < ApplicationController
 
     return redirect_to(orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
 
-    @order = result['model']
+    @order = result['model'].decorate
   end
 end

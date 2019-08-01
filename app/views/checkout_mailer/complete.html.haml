@@ -1,0 +1,57 @@
+%head
+  :css
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(2n+1) {
+      background-color: #dddddd;
+    }
+%body
+  %table
+    %tr
+      %td{ colspan: "3" }= "Hello, #{@order.billing_address.decorate.full_name}"
+    %tr
+      %td{ align: "center", colspan: "3", style: "padding: 25px 0px; font-size: 17px; line-height: 24px; font-size: 26px; text-align: center" }
+        = link_to "Order ##{@order.number}", order_url(@order)
+
+  %table
+    %tr
+      %th= t("order_item.product")
+      %th= t("order_item.price")
+      %th= t("order_item.quantity")
+      %th= t("order_item.subtotal")
+    - @order.order_items.each do |item|
+      %tr
+        %td= item.book.title
+        %td= number_to_currency(item.price, unit: t('currency.euro'))
+        %td= item.quantity
+        %td= number_to_currency(item.subtotal, unit: t('currency.euro'))
+
+  %p
+  %table{ style: "width: 300px" }
+    %tr
+      %td Checkout
+      %td
+    %tr
+      %td= t("order_summary.item_total")
+      %td= number_to_currency(@order.subtotal, unit: t('currency.euro'))
+    %tr
+      - if @order.coupon
+        %td= t("order_summary.coupon")
+        %td= number_to_currency(@order.coupon.calculated_discount, unit: t('currency.euro'))
+    %tr
+      %td= t("order_summary.shipping")
+      %td= number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
+    %tr
+      %td
+        %b= t("order_summary.order_total")
+      %td 
+        %b= number_to_currency(@order.total, unit: t('currency.euro'))

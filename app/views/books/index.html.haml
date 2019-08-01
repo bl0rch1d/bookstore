@@ -11,7 +11,7 @@
           .general-thumb-wrap
             .thumbnail.general-thumbnail
               %img
-                = image_tag(book.decorate.cover, class: 'img-shadow general-thumbnail-img')
+                = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
               .thumb-hover
                 .general-thumb-link-wrap
                   = link_to book_path(book), class: "thumb-hover-link book_path_link" do
@@ -22,7 +22,7 @@
             %p.title.book-title= book.title
             %p.font-16.in-gold-500.book_price= number_to_currency(book.price, unit: t('currency.euro'))
             %span.divider-sm
-            %p.lead.small.catalog-authors= book.decorate.format_authors
+            %p.lead.small.catalog-authors= book.format_authors
   
     .text-center
       = raw pagy_bootstrap_nav(@pagy)

@@ -15,18 +15,19 @@ Rails.application.routes.draw do
   devise_scope :user do
     get  'users/fast_new',          to: 'registrations#fast_new'
     post 'users/fast_create',       to: 'registrations#fast_create'
-
-    get 'users/addresses',          to: 'users#addresses'
+    
+    get 'users/privacy'
+    
+    get 'users/addresses'
     patch 'users/addresses',        to: 'users#update_address'
-
-    get 'users/privacy',            to: 'users#privacy'
-    patch 'users/update_email',     to: 'users#update_email'
-    patch 'users/new_password',     to: 'users#update_password'
-
-    delete 'users/destroy_account', to: 'users#destroy'
+    
+    patch 'users/update_email'
+    patch 'users/update_password'
+    
+    delete 'users/destroy'
   end
 
-  post 'coupon/apply'
+  resource :coupon, only: :create, action: :apply
 
   resources :order_items, only: %i[create update destroy]
   resources :cart, only: :index

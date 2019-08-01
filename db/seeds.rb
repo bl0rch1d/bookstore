@@ -38,10 +38,10 @@ LIMIT.times do |index|
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
-  # User.create! do |user|
-  #   user.email    = FFaker::Internet.email
-  #   user.password = FFaker::Internet.password
-  # end
+  User.create! do |user|
+    user.email    = FFaker::Internet.email
+    user.password = FFaker::Internet.password
+  end
 
   Review.create! do |review|
     review.title        = FFaker::Book.title

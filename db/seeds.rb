@@ -19,7 +19,7 @@ end
 
 LIMIT.times do |index|
   Author.create! do |author|
-    author.first_name = FFaker::Name.first_name
+    author.first_name = FFaker::Name.unique.first_name
     author.last_name  = FFaker::Name.last_name
   end
 
@@ -39,7 +39,7 @@ LIMIT.times do |index|
   end
 
   User.create! do |user|
-    user.email    = FFaker::Internet.email
+    user.email    = FFaker::Internet.unique.email
     user.password = FFaker::Internet.password
   end
 

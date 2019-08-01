@@ -57,6 +57,13 @@ gem 'reform-rails', '~> 0.1.7'
 gem 'trailblazer', '~> 2.0'
 gem 'trailblazer-rails', '~> 1.0'
 
+# Fake data
+gem 'ffaker', '~> 2.11'
+
+# Email client emulation
+gem 'letter_opener', '~> 1.7'
+gem 'letter_opener_web', '~> 1.3'
+
 group :development, :test do
   # Debug
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -74,11 +81,6 @@ group :development, :test do
   # Fixtures
   gem 'database_cleaner', '~> 1.7'
   gem 'factory_bot_rails', '~> 5.0'
-  gem 'ffaker', '~> 2.11'
-
-  # Email client emulation
-  gem 'letter_opener', '~> 1.7'
-  gem 'letter_opener_web', '~> 1.3'
 
   # Query checker
   gem 'bullet', '~> 6.0', '>= 6.0.1'

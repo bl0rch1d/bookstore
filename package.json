@@ -1,7 +1,0 @@
-{
-  "name": "bookstore",
-  "private": true,
-  "dependencies": {
-    "jssc": "^0.2.6"
-  }
-}

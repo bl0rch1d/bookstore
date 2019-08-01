@@ -7,7 +7,7 @@ COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
 # COUPON_EXPIRE_DATE_RANGE = (0.9..1.009).freeze
 COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
 CATEGORIES.each do |category|
   Category.create!(title: category)
@@ -18,8 +18,6 @@ MATERIALS.each do |material|
 end
 
 LIMIT.times do |index|
-  puts 'Seeding Authors/Books/Users/Reviews/Addresses/ShippingMethods'
-  
   Author.create! do |author|
     author.first_name = FFaker::Name.first_name
     author.last_name  = FFaker::Name.last_name
@@ -40,10 +38,10 @@ LIMIT.times do |index|
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
-  User.create! do |user|
-    user.email    = FFaker::Internet.email
-    user.password = FFaker::Internet.password
-  end
+  # User.create! do |user|
+  #   user.email    = FFaker::Internet.email
+  #   user.password = FFaker::Internet.password
+  # end
 
   Review.create! do |review|
     review.title        = FFaker::Book.title
@@ -60,21 +58,21 @@ LIMIT.times do |index|
     method.price    = rand(1.0..50.0).round(1)
   end
 
-  Order.create! do |order|
-    order.number              = Array.new(8) { rand(1..9) }.join
-    order.total_price         = rand(50.0..500.0).round(1)
-    order.user_id             = User.all[index].id
-    order.shipping_method_id  = ShippingMethod.all[index].id
-    order.state               = ['in_progress', 'delivered'].sample
-  end
+  # Order.create! do |order|
+  #   order.number              = Array.new(8) { rand(1..9) }.join
+  #   order.total_price         = rand(50.0..500.0).round(1)
+  #   order.user_id             = User.all[index].id
+  #   order.shipping_method_id  = ShippingMethod.all[index].id
+  #   order.state               = ['in_progress', 'delivered'].sample
+  # end
 
-  OrderItem.create! do |order_item|
-    order_item.price      = rand(10.0..200.0).round(1)
-    order_item.quantity   = rand(1..10)
-    order_item.subtotal   = order_item.price * order_item.quantity.to_f
-    order_item.order_id   = Order.all[index].id
-    order_item.book_id    = Book.all[index].id
-  end
+  # OrderItem.create! do |order_item|
+  #   order_item.price      = rand(10.0..200.0).round(1)
+  #   order_item.quantity   = rand(1..10)
+  #   order_item.subtotal   = order_item.price * order_item.quantity.to_f
+  #   order_item.order_id   = Order.all[index].id
+  #   order_item.book_id    = Book.all[index].id
+  # end
 
   Coupon.create! do |coupon|
     coupon.code         = Array.new(6) { rand(65..90).chr }.join

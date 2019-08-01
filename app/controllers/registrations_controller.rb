@@ -12,8 +12,13 @@ class RegistrationsController < Devise::RegistrationsController
       password_confirmation: generated_password
     )
 
-    return render 'devise/registrations/fast_new' unless @user.save
+    if @user.save
+      FastRegistrationMailer.with(user: @user, password: generated_password)
+                            .temp_password_info.deliver_later
 
-    sign_up(:user, @user)
+      sign_up(:user, @user)
+    else
+      render 'devise/registrations/fast_new'
+    end
   end
 end

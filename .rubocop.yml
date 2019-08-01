@@ -7,6 +7,10 @@ require:
 RSpec/MessageChain:
   Enabled: false
 
+RSpec/FilePath:
+  Exclude:
+  - 'spec/concepts/**/**/*'
+
 RSpec/NestedGroups:
   Max: 6
 

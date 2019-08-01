@@ -13,6 +13,8 @@ class BooksController < ApplicationController
 
     raise ActiveRecord::RecordNotFound unless result.success?
 
+    @path = request.referer.presence || root_path
+
     @book = result['model']
     @reviews = @book.reviews.approved
   end

@@ -1,4 +1,7 @@
 = builder.simple_fields_for id, form do |f|
+  = f.hidden_field :addressable_type, value: a_type
+  = f.hidden_field :addressable_id, value: a_id
+
   .form-group
     = f.input :first_name,  placeholder: t("placeholders.first_name")
   .form-group
@@ -8,9 +11,10 @@
   .form-group
     = f.input :city,        placeholder: t("placeholders.city")
 
-  .form-group.string.required
-    = f.label :country
-    = f.country_select :country, {}, class: "form-control", id: "country"
+  .form-group
+    = f.label :country, class: 'control-label input-label'
+    = f.country_select :country, { include_blank: 'Select a country' }, class: "form-control"
+    = f.error :country, class: 'text-danger'
 
   .form-group
     = f.input :zip,   placeholder: t("placeholders.zip")

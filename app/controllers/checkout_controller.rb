@@ -34,10 +34,10 @@ class CheckoutController < ApplicationController
       'current_order' => current_order,
       'current_user' => current_user,
       'shipping_method_id' => params.dig(:order, :shipping_method_id),
-      'billing_address_params' => params.dig(:order, :billing_address)&.to_unsafe_h,
-      'shipping_address_params' => params.dig(:order, :shipping_address)&.to_unsafe_h,
+      'billing_address_params' => params.dig(:order, :billing_address),
+      'shipping_address_params' => params.dig(:order, :shipping_address),
       'use_billing_address' => params.dig(:order, :use_billing) == 'true',
-      # 'session' => session,
+      'session' => session,
       'credit_card' => params.dig(:order, :credit_card),
       'step' => @step
     }
@@ -65,7 +65,6 @@ class CheckoutController < ApplicationController
       render_wizard
     end
   end
-
 
   def shipping
     result = Checkout::Shipping::Present.call(checkout_params)
@@ -131,26 +130,11 @@ class CheckoutController < ApplicationController
     end
   end
 
-  # === TODO: Operation? Refactor? ===
   def complete
-    # result = Checkout::Complete.call(checkout_params)
+    result = Checkout::Complete.call(checkout_params)
 
-    # if result.success?
-    #   @order = result['model']
-
-    #   CheckoutMailer.with(user: current_user, order: @order).order_check.deliver_now
-
-    #   render_wizard
-    # else
-    #   redirect_back(fallback_location: root_path)
-    # end
-
-    if current_order.completed_at
-      @order = current_order
-
-      session[:current_order_id] = nil
-
-      CheckoutMailer.with(user: current_user, order: @order).order_check.deliver_now
+    if result.success?
+      @order = result['model']
 
       render_wizard
     else

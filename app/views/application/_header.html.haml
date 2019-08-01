@@ -35,7 +35,7 @@
               %li
                 = link_to t("user_menu.orders"), orders_path, class: "collapse-link"
               %li
-                = link_to t("user_menu.settings"), settings_path, class: "collapse-link"
+                = link_to t("user_menu.settings"), users_addresses_path, class: "collapse-link"
               %li.divider{role: "separator"}
                 %li
                   = link_to t("auth.sign_out"), destroy_user_session_path, method: :delete, class: "collapse-link"

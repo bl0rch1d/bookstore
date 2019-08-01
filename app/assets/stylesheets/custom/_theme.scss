@@ -631,3 +631,20 @@
   width: 20%;  
   opacity: 0.35;
 }
+
+.text-danger {
+  color: red !important;
+}
+
+.user-tab-link {
+  display: inline-block !important;
+}
+
+.user-tab-link a {
+  color: #333333;
+  padding: 10px 15px 10px 0 !important;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

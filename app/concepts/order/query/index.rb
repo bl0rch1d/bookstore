@@ -1,13 +1,16 @@
 module Order::Query
   class Index
-    def self.call(user, params)
-      query = new
-      query.instance_variable_set(:@params, params)
-      query.instance_variable_set(:@user, user)
-      query.perform
-    end
+    # def self.call(user, params)
+    #   query = new
+    #   query.instance_variable_set(:@params, params)
+    #   query.instance_variable_set(:@user, user)
+    #   query.perform
+    # end
 
-    def perform
+    def call(user, params)
+      @params = params
+      @user = user
+
       case @params[:sort_by]
       when I18n.t('order.filter.in_progress')  then in_progress
       when I18n.t('order.filter.in_delivery')  then in_delivery

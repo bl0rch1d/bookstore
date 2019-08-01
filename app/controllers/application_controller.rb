@@ -1,13 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+
+  rescue_from Wicked::Wizard::InvalidStepError, with: :page_not_found
 
   helper_method :current_order
 
   private
 
-  def record_not_found
+  def page_not_found
     render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
   end
 

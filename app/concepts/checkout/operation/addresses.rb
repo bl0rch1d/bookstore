@@ -4,13 +4,13 @@ class Checkout::Addresses < Trailblazer::Operation
     step :create_forms
 
     def create_forms(ctx, params:, **)
-      ctx['billing_address_form'] = Checkout::Contract::Address.new(
+      ctx['billing_address_form'] = Address::Contract::Create.new(
         params['current_order'].billing_address ||
         params['current_user'].billing_address ||
         BillingAddress.new
       )
 
-      ctx['shipping_address_form'] = Checkout::Contract::Address.new(
+      ctx['shipping_address_form'] = Address::Contract::Create.new(
         params['current_order'].shipping_address ||
         params['current_user'].shipping_address ||
         ShippingAddress.new
@@ -32,12 +32,12 @@ class Checkout::Addresses < Trailblazer::Operation
   end
 
   def set_addresses(_ctx, params:, **)
-    params['current_order'].billing_address = BillingAddress.new(params['billing_address_params'])
+    params['current_order'].billing_address = BillingAddress.new(params['billing_address_params'].to_unsafe_h)
 
     params['current_order'].shipping_address = if params['use_billing_address']
-                                                 ShippingAddress.new(params['billing_address_params'])
+                                                 ShippingAddress.new(params['billing_address_params'].to_unsafe_h)
                                                else
-                                                 ShippingAddress.new(params['shipping_address_params'])
+                                                 ShippingAddress.new(params['shipping_address_params'].to_unsafe_h)
                                                end
   end
 end

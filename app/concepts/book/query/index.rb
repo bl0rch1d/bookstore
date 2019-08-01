@@ -1,12 +1,10 @@
 module Book::Query
   class Index
-    def self.call(params)
-      query = new
-      query.instance_variable_set(:@params, params)
-      query.perform
-    end
+    SORTINGS = %w[newest popular high_price low_price title_ascending title_descending].freeze
 
-    def perform
+    def call(params)
+      @params = params
+
       case @params[:sort_by]
       when I18n.t('sortings.system.newest')           then newest(from_category)
       when I18n.t('sortings.system.popular')          then popular(from_category)

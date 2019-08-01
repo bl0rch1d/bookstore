@@ -9,7 +9,7 @@ class Book::Index < Trailblazer::Operation
 
   def model(ctx, params:, **)
     ctx['pagy'], ctx['model'] = ::Service::Pagy.call(
-      Book::Query::Index.call(params),
+      Book::Query::Index.new.call(params),
       page: params[:page],
       items: Book::PAGINATION_INDEX
     )

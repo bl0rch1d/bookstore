@@ -10,7 +10,7 @@ gem 'rails', '~> 5.2.3'
 
 # DB
 gem 'pg', '~> 1.1'
-gem 'sqlite3'
+# gem 'sqlite3'
 
 # JS/CSS
 gem 'bootstrap-sass', '~> 3.4'

@@ -22,7 +22,7 @@
       %h3.in-grey-500= t("fast_auth.quick")
       %p.general-login-text= t("password_later")
       
-      = form_with scope: :user, url: users_fast_create_path, local: true do |f|
+      = form_with scope: :user, url: users_fast_create_path, local: true, id: 'fastCreate' do |f|
         .form-group.mb-30
           = f.label :user_email, t("labels.email"), class: "control-label input-label"
           = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"

@@ -1,12 +1,14 @@
 RSpec.describe 'Cart', type: :feature do
-  let!(:books) { create_list(:book, 20, :full) }
+  let!(:books) { create_list(:book, 20) }
 
   before do
     visit root_path
     click_link('Buy Now')
-    page.evaluate_script("$('.thumb-hover').css({'opacity': '1'});")
-    find_link('AddToCartLink', match: :first).click
+
+    find_link('AddToCartLink', match: :first, visible: false).click
+
     click_link('Buy Now')
+
     visit cart_index_path
   end
 

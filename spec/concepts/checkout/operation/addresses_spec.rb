@@ -14,8 +14,8 @@ RSpec.describe Checkout::Addresses do
       end
 
       it do
-        expect(result['billing_address_form']).to be_a(Checkout::Contract::Address)
-        expect(result['shipping_address_form']).to be_a(Checkout::Contract::Address)
+        expect(result['billing_address_form']).to be_a(Address::Contract::Create)
+        expect(result['shipping_address_form']).to be_a(Address::Contract::Create)
         expect(result).to be_success
       end
     end
@@ -30,8 +30,8 @@ RSpec.describe Checkout::Addresses do
           'current_order' => order,
           'current_user' => user,
           'step' => :address,
-          'billing_address_params' => attributes_for(:billing_address),
-          'shipping_address_params' => attributes_for(:shipping_address),
+          'billing_address_params' => ActionController::Parameters.new(attributes_for(:billing_address)),
+          'shipping_address_params' => ActionController::Parameters.new(attributes_for(:shipping_address)),
           'use_billing_address' => false
         }
       end
@@ -51,7 +51,7 @@ RSpec.describe Checkout::Addresses do
             'current_order' => order,
             'current_user' => user,
             'step' => :address,
-            'billing_address_params' => attributes_for(:billing_address).except(:type),
+            'billing_address_params' => ActionController::Parameters.new(attributes_for(:billing_address).except(:type)),
             'use_billing_address' => true
           }
         end

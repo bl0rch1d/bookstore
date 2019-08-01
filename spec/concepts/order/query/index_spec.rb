@@ -1,5 +1,5 @@
 RSpec.describe Order::Query::Index do
-  let(:result) { described_class.call(user, params) }
+  let(:result) { described_class.new.call(user, params) }
 
   context 'when default' do
     let(:user) { create :user, :with_orders }

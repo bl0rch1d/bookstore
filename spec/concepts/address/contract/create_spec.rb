@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Contract::Address do
+RSpec.describe Address::Contract::Create do
   let(:contract) { described_class.new(Address.new) }
 
   describe 'Success' do

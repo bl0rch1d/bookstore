@@ -1,9 +1,9 @@
 RSpec.describe 'Shop page', type: :feature do
-  let!(:books) { create_list(:book, 10, :full) }
+  let!(:books) { create_list(:book, 10) }
 
   it 'user can navigate by categories' do
     visit category_books_path(0)
-    find('.filter-link', text: books.first.category.title).click
+    find('.filter-link', text: books.first.category.title, match: :first).click
     expect(page).to have_content(books.first.title)
   end
 

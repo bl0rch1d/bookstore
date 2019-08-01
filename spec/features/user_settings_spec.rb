@@ -1,6 +1,6 @@
 require_relative 'feature_spec_helper'
 
-RSpec.describe 'User page', type: :feature do
+RSpec.describe 'User settings page', type: :feature do
   before do
     register_user
     sign_in_user
@@ -31,7 +31,7 @@ RSpec.describe 'User page', type: :feature do
 
   context 'when billing and shipping addresses' do
     before do
-      visit settings_path
+      visit users_addresses_path
     end
 
     it 'can set/update billing address' do
@@ -41,6 +41,8 @@ RSpec.describe 'User page', type: :feature do
       fill_in 'user[billing_address_attributes][city]',       with: 'sometext'
       fill_in 'user[billing_address_attributes][zip]',        with: '32323'
       fill_in 'user[billing_address_attributes][phone]',      with: '+32323'
+
+      find('#user_billing_address_attributes_country').find(:xpath, 'option[2]').select_option
 
       find('#billingSave').click
 
@@ -55,17 +57,72 @@ RSpec.describe 'User page', type: :feature do
       fill_in 'user[shipping_address_attributes][zip]',        with: '32323'
       fill_in 'user[shipping_address_attributes][phone]',      with: '+32323'
 
+      find('#user_shipping_address_attributes_country').find(:xpath, 'option[2]').select_option
+
       find('#shippingSave').click
 
       expect(page).to have_content('Addresses has been updated')
     end
+
+    it 'get valiadteion errors' do
+      find('#shippingSave').click
+
+      expect(page).to have_content("can't be blank", count: 7)
+    end
   end
 
-  it 'can change password'
+  context 'when change email' do
+    before do
+      visit users_privacy_path
+    end
 
-  it 'can change email'
+    it 'can change email' do
+      fill_in 'user[email]', with: 'newemail@example.com'
 
-  it 'can remove an account'
+      find('#emailSave').click
 
-  it 'can fast registration'
+      expect(page).to have_content('Email has been updated')
+    end
+
+    it 'get validation errors' do
+      fill_in 'user[email]', with: ''
+
+      find('#emailSave').click
+
+      expect(page).to have_content("Email can't be blank")
+    end
+  end
+
+  context 'when change password' do
+    before do
+      visit users_privacy_path
+    end
+
+    it 'can change password' do
+      fill_in 'user[current_password]', with: 'Password123'
+      fill_in 'user[new_password]',     with: 'NewPassword123'
+      fill_in 'user[confirm_password]', with: 'NewPassword123'
+
+      find('#passwordSave').click
+
+      expect(page).to have_content('Password has been updated')
+    end
+
+    it 'get validation errors' do
+      fill_in 'user[new_password]',     with: 'NewPassword123'
+      fill_in 'user[confirm_password]', with: 'NewPassword123'
+
+      find('#passwordSave').click
+
+      expect(page).to have_content("Current password can't be blank")
+    end
+  end
+
+  it 'can remove an account' do
+    visit users_privacy_path
+
+    check 'I understand that all data will be lost', allow_label_click: true
+
+    click_button('Please Remove My Account')
+  end
 end

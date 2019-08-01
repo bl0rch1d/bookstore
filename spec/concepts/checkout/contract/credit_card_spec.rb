@@ -14,9 +14,10 @@ RSpec.describe Checkout::Contract::CreditCard do
       let(:errors) do
         {
           card_name: ["can't be blank", 'is invalid'],
-          number: ["can't be blank", 'is invalid'],
+          number: ["can't be blank", 'is invalid', 'is too short (minimum is 16 characters)'],
           cvv: ["can't be blank", 'is too short (minimum is 3 characters)'],
-          expiration_date: ["can't be blank", 'is invalid']
+          expiration_date: ["can't be blank", 'is invalid'],
+          order_id: ['is not a number']
         }
       end
 

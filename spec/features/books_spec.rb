@@ -1,7 +1,7 @@
 require_relative 'feature_spec_helper'
 
 RSpec.describe 'Books page', type: :feature do
-  let!(:book) { create(:book, :full) }
+  let!(:book) { create(:book) }
 
   it 'user can put book into a “shopping cart”' do
     visit book_path(book.id)
@@ -14,9 +14,7 @@ RSpec.describe 'Books page', type: :feature do
   it 'user can view detailed information on a book' do
     visit category_books_path(0)
 
-    page.evaluate_script("$('.thumb-hover').css({'opacity': '1'});")
-
-    find_link(class: 'book_path_link').click
+    find_link(class: 'book_path_link', visible: false).click
 
     expect(page).to have_content(book.title)
     expect(page).to have_content(book.decorate.format_authors)

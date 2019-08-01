@@ -1,6 +1,3 @@
-require 'rails_helper'
-require 'devise'
-
 def register_user
   visit root_path
 

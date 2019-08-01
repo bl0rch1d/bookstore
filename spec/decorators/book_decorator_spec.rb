@@ -1,12 +1,5 @@
 RSpec.describe BookDecorator do
-  subject(:book) { create(:book).decorate }
-
-  before do
-    5.times do
-      book.images.attach(io: File.open(Rails.root.join("spec/fixtures/books/#{rand(1..4)}.jpg")),
-                         filename: 'cover.jpg', content_type: 'image/jpg')
-    end
-  end
+  subject(:book) { create(:book, :with_many_images).decorate }
 
   it '#thumb' do
     expect(book.thumb.variation.transformations[:resize]).to eq(book.images.first.variant(resize: I18n.t('resize.thumb'))

@@ -19,9 +19,9 @@ FactoryBot.define do
       )
     end
 
-    trait :full do
+    trait :with_many_images do
       after :create do |book|
-        5.times do
+        3.times do
           book.images.attach(
             io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")),
             filename: 'cover.jpg',

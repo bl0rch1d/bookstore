@@ -17,6 +17,15 @@ MATERIALS.each do |material|
   Material.create!(title: material)
 end
 
+3.times do
+  ShippingMethod.create! do |method|
+    method.title    = FFaker::CheesyLingo.unique.title
+    method.min_days = rand(1..5)
+    method.max_days = rand(6..20)
+    method.price    = rand(1.0..50.0).round(1)
+  end
+end
+
 LIMIT.times do |index|
   Author.create! do |author|
     author.first_name = FFaker::Name.unique.first_name
@@ -38,25 +47,25 @@ LIMIT.times do |index|
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
-  User.create! do |user|
-    user.email    = FFaker::Internet.unique.email
-    user.password = FFaker::Internet.password
-  end
+  # User.create! do |user|
+  #   user.email    = FFaker::Internet.unique.email
+  #   user.password = FFaker::Internet.password
+  # end
 
-  Review.create! do |review|
-    review.title        = FFaker::Book.title
-    review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
-    review.rating       = rand(1..5)
-    review.user_id      = User.all.sample.id
-    review.book_id      = Book.all.sample.id
-  end
+  # Review.create! do |review|
+  #   review.title        = FFaker::Book.title
+  #   review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
+  #   review.rating       = rand(1..5)
+  #   review.user_id      = User.all.sample.id
+  #   review.book_id      = Book.all.sample.id
+  # end
 
-  ShippingMethod.create! do |method|
-    method.title    = FFaker::CheesyLingo.unique.title
-    method.min_days = rand(1..5)
-    method.max_days = rand(6..20)
-    method.price    = rand(1.0..50.0).round(1)
-  end
+  # ShippingMethod.create! do |method|
+  #   method.title    = FFaker::CheesyLingo.unique.title
+  #   method.min_days = rand(1..5)
+  #   method.max_days = rand(6..20)
+  #   method.price    = rand(1.0..50.0).round(1)
+  # end
 
   # Order.create! do |order|
   #   order.number              = Array.new(8) { rand(1..9) }.join

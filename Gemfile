@@ -71,6 +71,9 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.7'
 # Cloud storage
 gem 'aws-sdk-s3', '~> 1.46', require: false
 
+# API
+gem 'rest-client', '~> 2.0', '>= 2.0.2'
+
 group :development, :test do
   # Debug
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

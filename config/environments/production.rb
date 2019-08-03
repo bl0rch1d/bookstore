@@ -74,9 +74,6 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
 
-  require 'rest-client'
-  require 'json'
-
   response = RestClient.get "https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}"
 
   first_inbox = JSON.parse(response)[0] # get first inbox

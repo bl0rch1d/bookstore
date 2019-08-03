@@ -19,5 +19,11 @@ RSpec.describe 'Fast registration', type: :feature do
     end
 
     expect(page).to have_content('You have to confirm your email address before continuing.')
+
+    # Because email delivered with delay
+    sleep 1
+
+    ctoken = ActionMailer::Base.deliveries.last.body.raw_source.match(/confirmation_token=[\w*-]+/)
+    visit "/users/confirmation?#{ctoken}"
   end
 end

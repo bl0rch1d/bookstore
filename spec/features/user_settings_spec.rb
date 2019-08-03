@@ -31,7 +31,7 @@ RSpec.describe 'User settings page', type: :feature do
 
   context 'when billing and shipping addresses' do
     before do
-      visit users_addresses_path
+      visit edit_addresses_path
     end
 
     it 'can set/update billing address' do
@@ -73,7 +73,7 @@ RSpec.describe 'User settings page', type: :feature do
 
   context 'when change email' do
     before do
-      visit users_privacy_path
+      visit edit_user_registration_path
     end
 
     it 'can change email' do
@@ -81,7 +81,7 @@ RSpec.describe 'User settings page', type: :feature do
 
       find('#emailSave').click
 
-      expect(page).to have_content('Email has been updated')
+      expect(page).to have_content(I18n.t('devise.registrations.updated'))
     end
 
     it 'get validation errors' do
@@ -89,13 +89,13 @@ RSpec.describe 'User settings page', type: :feature do
 
       find('#emailSave').click
 
-      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("can't be blank")
     end
   end
 
   context 'when change password' do
     before do
-      visit users_privacy_path
+      visit edit_user_registration_path
     end
 
     it 'can change password' do
@@ -105,7 +105,7 @@ RSpec.describe 'User settings page', type: :feature do
 
       find('#passwordSave').click
 
-      expect(page).to have_content('Password has been updated')
+      expect(page).to have_content(I18n.t('devise.registrations.updated'))
     end
 
     it 'get validation errors' do
@@ -114,12 +114,12 @@ RSpec.describe 'User settings page', type: :feature do
 
       find('#passwordSave').click
 
-      expect(page).to have_content("Current password can't be blank")
+      expect(page).to have_content("can't be blank")
     end
   end
 
   it 'can remove an account' do
-    visit users_privacy_path
+    visit edit_user_registration_path
 
     check 'I understand that all data will be lost', allow_label_click: true
 

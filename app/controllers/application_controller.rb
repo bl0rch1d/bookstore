@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
 
   def page_not_found
-    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+    render file: Rails.root.join('public', '404.html'), layout: false, status: :not_found
   end
 
   def current_order

@@ -8,12 +8,15 @@ jobs:
           PG_USER: rails_dev
           RAILS_ENV: test
           RACK_ENV: test
+      
       - image: circleci/postgres:9.6
         environment:
           POSTGRES_USER: rails_dev
           POSTGRES_PASSWORD: qwerty123
           POSTGRES_DB: bookstore_test
           DATABASE_URL: "postgres://rails_dev@localhost:5432/bookstore_test"
+      
+      - image: redis
 
     working_directory: ~/repo
 

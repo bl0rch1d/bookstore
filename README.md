@@ -1,24 +1,14 @@
-# README
+# Bookstore
+https://bookstore-diz.herokuapp.com/
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Admin panel
+https://bookstore-diz.herokuapp.com/admin
 
-Things you may want to cover:
+* Login: kojima_genius@example.com
+* Password: KaminoAlive
 
-* Ruby version
+# Integrated mailbox
+https://bookstore-diz.herokuapp.com/lettet_opener
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Sidekiq
+https://bookstore-diz.herokuapp.com/sidekiq

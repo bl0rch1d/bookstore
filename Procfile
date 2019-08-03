@@ -1,1 +1,1 @@
-sidekiq -C config/sidekiq.yml
+worker: sidekiq -C config/sidekiq.yml

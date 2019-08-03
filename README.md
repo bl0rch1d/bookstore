@@ -8,7 +8,7 @@ https://bookstore-diz.herokuapp.com/admin
 * Password: KaminoAlive
 
 # Integrated mailbox
-https://bookstore-diz.herokuapp.com/lettet_opener
+https://bookstore-diz.herokuapp.com/letter_opener
 
 # Sidekiq
 https://bookstore-diz.herokuapp.com/sidekiq

@@ -9,7 +9,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if result.success?
       sign_up(:user, result['model'])
     else
-      render :fast_new
+      flash.alert = result['contract.default'].errors.full_messages
+      redirect_to users_fast_new_path
     end
   end
 

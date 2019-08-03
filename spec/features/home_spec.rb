@@ -34,6 +34,10 @@ RSpec.describe 'Home page', type: :feature do
     within '#bestsellers' do
       expect(page).to have_selector('.col-sm-6.col-md-3', count: Category.all.count)
 
+      # binding.pry
+
+      category.books.first.images
+
       all('a', visible: false)[0].click
 
       expect(page).to have_current_path(book_path(category.books.first.id))

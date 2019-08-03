@@ -16,20 +16,16 @@ module Bookstore
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.autoload_paths << Rails.root.join('lib')
+    # config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
 
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
-    # config.middleware.use(
-    #   StackProf::Middleware,
-    #   enabled: true,
-    #   mode: :cpu,
-    #   interval: 1000,
-    #   save_every: 100,
-    #   path: 'tmp/stackprof/'
-    # )
+    config.action_dispatch.signed_cookie_digest = "SHA256"
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

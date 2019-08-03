@@ -26,6 +26,6 @@ module Bookstore
 
     config.action_dispatch.signed_cookie_digest = "SHA256"
 
-    config.active_job.queue_adapter = :sidekiq
+    # config.active_job.queue_adapter = :sidekiq
   end
 end

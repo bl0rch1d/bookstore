@@ -1,1 +1,1 @@
-worker: bundle exec sidekiq -c 5 -q default -q mailers -q mailer
+sidekiq -C config/sidekiq.yml

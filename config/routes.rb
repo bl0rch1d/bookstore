@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: '/letter_opener'
 
   mount Sidekiq::Web => '/sidekiq'
   
@@ -11,29 +11,25 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
-    confirmations: 'confirmations'
+    confirmations: 'users/confirmations',
+    registrations: 'users/registrations'
   }
+
+  devise_scope :user do
+    get  'users/fast_new',    to: 'users/registrations#fast_new'
+    post 'users/fast_create', to: 'users/registrations#fast_create'
+  end
 
   resources :checkout, only: %i[index show update]
 
-  devise_scope :user do
-    get  'users/fast_new',          to: 'registrations#fast_new'
-    post 'users/fast_create',       to: 'registrations#fast_create'
-    
-    get 'users/privacy'
-    
-    get 'users/addresses'
-    patch 'users/addresses',        to: 'users#update_address'
-    
-    patch 'users/update_email'
-    patch 'users/update_password'
-    
-    delete 'users/destroy'
+  resource :addresses, only: %i[edit update] do
+    patch :edit, on: :collection, action: :update
   end
 
   resource :coupon, only: :create, action: :apply
 
   resources :order_items, only: %i[create update destroy]
+  
   resources :cart, only: :index
 
   resources :orders, only: %i[index show]

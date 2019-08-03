@@ -1,13 +1,14 @@
 CATEGORIES = ['Mobile development', 'Photo', 'Web design', 'Web development'].freeze
 MATERIALS = ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].freeze
-LIMIT = 50
+SEEDS_COUNT = 50
+SHIPPING_METHODS_COUNT = 3
 BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 
 COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
 # COUPON_EXPIRE_DATE_RANGE = (0.9..1.009).freeze
 COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(email: 'kojima_genius@example.com', password: 'password', password_confirmation: 'password')
 
 CATEGORIES.each do |category|
   Category.create!(title: category)
@@ -17,7 +18,7 @@ MATERIALS.each do |material|
   Material.create!(title: material)
 end
 
-3.times do
+SHIPPING_METHODS_COUNT.times do
   ShippingMethod.create! do |method|
     method.title    = FFaker::CheesyLingo.unique.title
     method.min_days = rand(1..5)
@@ -26,7 +27,7 @@ end
   end
 end
 
-LIMIT.times do |index|
+SEEDS_COUNT.times do |index|
   Author.create! do |author|
     author.first_name = FFaker::Name.unique.first_name
     author.last_name  = FFaker::Name.last_name
@@ -47,18 +48,18 @@ LIMIT.times do |index|
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end
 
-  # User.create! do |user|
-  #   user.email    = FFaker::Internet.unique.email
-  #   user.password = FFaker::Internet.password
-  # end
+  User.create! do |user|
+    user.email    = FFaker::Internet.unique.email
+    user.password = FFaker::Internet.password
+  end
 
-  # Review.create! do |review|
-  #   review.title        = FFaker::Book.title
-  #   review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
-  #   review.rating       = rand(1..5)
-  #   review.user_id      = User.all.sample.id
-  #   review.book_id      = Book.all.sample.id
-  # end
+  Review.create! do |review|
+    review.title        = FFaker::Book.title
+    review.body         = FFaker::HipsterIpsum.words(rand(5..30)).join(' ')
+    review.rating       = rand(1..5)
+    review.user_id      = User.all.sample.id
+    review.book_id      = Book.all.sample.id
+  end
 
   # ShippingMethod.create! do |method|
   #   method.title    = FFaker::CheesyLingo.unique.title

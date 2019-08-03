@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
     if result.success?
       flash[:notice] = I18n.t('review.notice.sent')
     else
-      flash[:alert] = result['result.contract.default'].errors.messages
+      flash[:alert] = result['result.contract.default'].errors.full_messages
     end
 
     redirect_to book_url(params[:book_id])

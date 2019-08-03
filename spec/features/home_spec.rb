@@ -30,13 +30,13 @@ RSpec.describe 'Home page', type: :feature do
   end
 
   # === Blob Error
-  # it 'User can see bestsellers' do
-  #   within '#bestsellers' do
-  #     expect(page).to have_selector('.col-sm-6.col-md-3', count: Category.all.count)
+  it 'User can see bestsellers' do
+    within '#bestsellers' do
+      expect(page).to have_selector('.col-sm-6.col-md-3', count: Category.all.count)
 
-  #     all('a', visible: false)[0].click
+      all('a', visible: false)[0].click
 
-  #     expect(page).to have_current_path(book_path(category.books.first.id))
-  #   end
-  # end
+      expect(page).to have_current_path(book_path(category.books.first.id))
+    end
+  end
 end

@@ -1,4 +1,6 @@
 RSpec.describe AuthorsBook, type: :model do
-  it { is_expected.to belong_to(:author) }
-  it { is_expected.to belong_to(:book) }
+  context 'relations' do
+    it { is_expected.to belong_to(:author) }
+    it { is_expected.to belong_to(:book) }
+  end
 end

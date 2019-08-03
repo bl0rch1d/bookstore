@@ -1,10 +1,12 @@
 RSpec.describe Review, type: :model do
-  subject(:review) { create :review }
+  context 'relations' do
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:book) }
+  end
 
-  it { is_expected.to belong_to(:user) }
-  it { is_expected.to belong_to(:book) }
+  context 'states' do
+    subject(:review) { create :review }
 
-  context 'when aasm state' do
     it 'unprocessed -> approved' do
       expect(review).to transition_from(:unprocessed).to(:approved).on_event(:approve)
     end

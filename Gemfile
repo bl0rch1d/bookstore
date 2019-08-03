@@ -10,6 +10,7 @@ gem 'rails', '~> 5.2.3'
 
 # DB
 gem 'pg', '~> 1.1'
+gem 'redis-rails', '~> 5.0', '>= 5.0.2'
 # gem 'sqlite3'
 
 # JS/CSS
@@ -63,6 +64,12 @@ gem 'ffaker', '~> 2.11'
 # Email client emulation
 gem 'letter_opener', '~> 1.7'
 gem 'letter_opener_web', '~> 1.3'
+
+# BG job processing
+gem 'sidekiq', '~> 5.2', '>= 5.2.7'
+
+# Cloud storage
+gem 'aws-sdk-s3', '~> 1.46', require: false
 
 group :development, :test do
   # Debug

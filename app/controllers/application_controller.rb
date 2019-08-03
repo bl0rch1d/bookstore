@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: -> { sign_out current_user }
+
   rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
 
   rescue_from Wicked::Wizard::InvalidStepError, with: :page_not_found

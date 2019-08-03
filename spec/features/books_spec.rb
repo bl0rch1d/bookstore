@@ -48,13 +48,15 @@ RSpec.describe 'Books page', type: :feature do
 
       within '#new_review' do
         fill_in 'review[title]', with: ''
-        fill_in 'review[body]', with: 'sasassas'
+        fill_in 'review[body]', with: ''
         select '5', from: 'review[rating]'
 
         click_button('Post')
       end
 
-      expect(page).to have_content("can't be blank")
+      expect(page).to have_content("Title can't be blank")
+      expect(page).to have_content("Body can't be blank")
+      expect(page).to have_content('Body is invalid')
     end
   end
 

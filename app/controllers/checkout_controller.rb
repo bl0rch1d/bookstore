@@ -1,7 +1,8 @@
+# rubocop: disable Metrics/ClassLength
 class CheckoutController < ApplicationController
   include Wicked::Wizard
 
-  before_action :fast_authenticate_user!
+  before_action :fast_authenticate_user!, :link_user_to_order
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -25,6 +26,10 @@ class CheckoutController < ApplicationController
 
   private
 
+  def link_user_to_order
+    Checkout::Initialize.call(checkout_params) unless current_order.user
+  end
+
   def fast_authenticate_user!
     redirect_to users_fast_new_path unless current_user
   end
@@ -33,18 +38,16 @@ class CheckoutController < ApplicationController
     {
       'current_order' => current_order,
       'current_user' => current_user,
+      'step' => @step,
       'shipping_method_id' => params.dig(:order, :shipping_method_id),
       'billing_address_params' => params.dig(:order, :billing_address),
       'shipping_address_params' => params.dig(:order, :shipping_address),
       'use_billing_address' => params.dig(:order, :use_billing) == 'true',
-      'session' => session,
-      'credit_card' => params.dig(:order, :credit_card),
-      'step' => @step
+      'credit_card' => params.dig(:order, :credit_card)
     }
   end
 
   def address
-    Checkout::Initialize.call(checkout_params)
     result = Checkout::Addresses::Present.call(checkout_params)
 
     if result.success?
@@ -83,7 +86,7 @@ class CheckoutController < ApplicationController
     if result.success?
       render_wizard current_order
     else
-      flash.alert = "Shipping method can't be blank"
+      flash.alert = I18n.t('checkout.shipping.errors.blank')
       render_wizard
     end
   end
@@ -131,16 +134,17 @@ class CheckoutController < ApplicationController
   end
 
   def complete
-    result = Checkout::Complete.call(checkout_params)
+    result = Checkout::Complete.call(checkout_params.merge('session' => session))
 
     if result.success?
       @order = result['model'].decorate
 
       render_wizard
     else
-      @order = current_user.orders.last.decorate
+      @order = current_user.orders.completed.last.decorate
 
       render 'complete'
     end
   end
 end
+# rubocop: enable Metrics/ClassLength

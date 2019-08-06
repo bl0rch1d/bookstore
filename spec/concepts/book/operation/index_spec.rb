@@ -10,7 +10,7 @@ RSpec.describe Book::Index do
   end
 
   describe 'Success' do
-    let(:sort_by) { 'title_ascending' }
+    let(:sort_by) { I18n.t('sortings.system.title_ascending') }
     let(:category_id) { '0' }
 
     it 'returns paginated list of books' do
@@ -26,9 +26,9 @@ RSpec.describe Book::Index do
   describe 'Failure' do
     context 'when page is out of limits' do
       let(:page) { 9999 }
-      let(:sort_by) { 'title_ascending' }
+      let(:sort_by) { I18n.t('sortings.system.title_ascending') }
       let(:category_id) { '0' }
-      let(:errors) { ['Page is out of limits'] }
+      let(:errors) { [I18n.t('errors.format', attribute: :Page, message: I18n.t('validation_errors.out_of_limits'))] }
 
       it 'has validation errors' do
         expect(result['contract.default'].errors.full_messages).to match errors
@@ -38,7 +38,7 @@ RSpec.describe Book::Index do
 
     context 'when category is invalid' do
       let(:page) { 1 }
-      let(:sort_by) { 'title_ascending' }
+      let(:sort_by) { I18n.t('sortings.system.title_ascending') }
       let(:category_id) { 'dsadas' }
 
       it do

@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   belongs_to :shipping_method, optional: true
   belongs_to :user, optional: true
 
-  scope :completed, -> { where(completed_at) }
+  scope :completed, -> { where.not(completed_at: nil) }
 
   aasm column: :state do
     state :in_progress, initial: true

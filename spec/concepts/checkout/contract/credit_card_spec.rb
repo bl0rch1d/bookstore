@@ -13,11 +13,15 @@ RSpec.describe Checkout::Contract::CreditCard do
     context 'when credit_card params invalid' do
       let(:errors) do
         {
-          card_name: ["can't be blank", 'is invalid'],
-          number: ["can't be blank", 'is invalid', 'is too short (minimum is 16 characters)'],
-          cvv: ["can't be blank", 'is too short (minimum is 3 characters)'],
-          expiration_date: ["can't be blank", 'is invalid'],
-          order_id: ['is not a number']
+          card_name: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          number: [
+            I18n.t('errors.messages.blank'),
+            I18n.t('errors.messages.invalid'),
+            I18n.t('errors.messages.too_short.other', count: 16)
+          ],
+          cvv: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.too_short.other', count: 3)],
+          expiration_date: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          order_id: [I18n.t('errors.messages.not_a_number')]
         }
       end
 

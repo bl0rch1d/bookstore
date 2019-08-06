@@ -10,7 +10,7 @@ class AddressesController < ApplicationController
   def update
     result = Address::Update.call(params.merge('current_user' => current_user))
 
-    flash.notice = I18n.t('user.notice.addresses_updated') if result.success?
+    flash.notice = I18n.t('user.notice.address_updated') if result.success?
 
     expose_address_forms(result)
 

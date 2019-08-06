@@ -16,62 +16,6 @@ RSpec.describe OrderItem::Contract::Create do
   end
 
   describe 'Failure' do
-    context 'when book_id is not present' do
-      let(:params) do
-        {
-          quantity: 1.0,
-          subtotal: 1.0,
-          price: 1.0,
-          order_id: create(:order).id
-        }
-      end
-
-      let(:errors) { { book_id: ["can't be blank", 'is not a number'] } }
-
-      it do
-        expect(contract.validate(params)).to be_falsey
-        expect(contract.errors.messages).to eq(errors)
-      end
-    end
-
-    context 'when book_id is not a number' do
-      let(:params) do
-        {
-          quantity: 1.0,
-          subtotal: 1.0,
-          price: 1.0,
-          book_id: 'dsdds',
-          order_id: create(:order).id
-        }
-      end
-
-      let(:errors) { { book_id: ['is not a number'] } }
-
-      it do
-        expect(contract.validate(params)).to be_falsey
-        expect(contract.errors.messages).to eq(errors)
-      end
-    end
-
-    context 'when book_id is negative' do
-      let(:params) do
-        {
-          quantity: 1.0,
-          subtotal: 1.0,
-          price: 1.0,
-          book_id: -10,
-          order_id: create(:order).id
-        }
-      end
-
-      let(:errors) { { book_id: ['must be greater than or equal to 1'] } }
-
-      it do
-        expect(contract.validate(params)).to be_falsey
-        expect(contract.errors.messages).to eq(errors)
-      end
-    end
-
     context 'when quantity is not a number' do
       let(:params) do
         {
@@ -83,7 +27,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { quantity: ['is not a number'] } }
+      let(:errors) { { quantity: [I18n.t('errors.messages.not_a_number')] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -102,7 +46,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { quantity: ['must be greater than or equal to 1'] } }
+      let(:errors) { { quantity: [I18n.t('errors.messages.greater_than_or_equal_to', count: 1)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -121,7 +65,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { quantity: ['must be less than or equal to 100'] } }
+      let(:errors) { { quantity: [I18n.t('errors.messages.less_than_or_equal_to', count: 100)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -140,7 +84,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { price: ['must be greater than or equal to 0'] } }
+      let(:errors) { { price: [I18n.t('errors.messages.greater_than_or_equal_to', count: 0)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -159,7 +103,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { price: ['must be less than or equal to 100000'] } }
+      let(:errors) { { price: [I18n.t('errors.messages.less_than_or_equal_to', count: 100_000)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -178,7 +122,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { subtotal: ['must be greater than or equal to 0'] } }
+      let(:errors) { { subtotal: [I18n.t('errors.messages.greater_than_or_equal_to', count: 0)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -197,7 +141,7 @@ RSpec.describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { subtotal: ['must be less than or equal to 100000'] } }
+      let(:errors) { { subtotal: [I18n.t('errors.messages.less_than_or_equal_to', count: 100_000)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey

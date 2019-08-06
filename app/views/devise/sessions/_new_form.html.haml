@@ -1,12 +1,12 @@
 .general-form
   = form_with scope: :user, url: new_session_path(@user), local: true, id: 'new_session' do |f|
     .form-group.mb-30
-      = f.label :user_email, t("labels.email"), class: "control-label input-label"
-      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+      = f.label :user_email, t("form.labels.email"), class: "control-label input-label"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("form.placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
     .form-group.mb-30
-      = f.label :user_password, t("labels.password"), class: "control-label input-label"
-      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("placeholders.password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
-      = link_to t("password.forgot"), new_user_password_path, class: "help-block in-gold-500"
+      = f.label :user_password, t("form.labels.password"), class: "control-label input-label"
+      = f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("form.placeholders.password"), pattern: "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$"
+      = link_to t("user.password.forgot"), new_user_password_path, class: "help-block in-gold-500"
 
     - if devise_mapping.rememberable?
       .form-group.checkbox.text-center.mb-30

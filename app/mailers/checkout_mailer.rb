@@ -3,6 +3,6 @@ class CheckoutMailer < ApplicationMailer
     @user = user
     @order = order.decorate
 
-    mail(to: @user.email, subject: "Complete Order ##{@order.number}")
+    mail(to: @user.email, subject: I18n.t('order.mailer.subject', order_number: @order.number))
   end
 end

@@ -1,0 +1,22 @@
+= builder.simple_fields_for id, form do |f|
+  = f.hidden_field :addressable_type, value: a_type
+  = f.hidden_field :addressable_id, value: a_id
+
+  .form-group
+    = f.input :first_name,    placeholder: t("form.placeholders.first_name")
+  .form-group
+    = f.input :last_name,     placeholder: t("form.placeholders.last_name")
+  .form-group
+    = f.input :address_line,  placeholder: t("form.placeholders.address")
+  .form-group
+    = f.input :city,          placeholder: t("form.placeholders.city")
+
+  .form-group
+    = f.label :country, class: 'control-label input-label'
+    = f.country_select :country, { include_blank: t("form.placeholders.country") }, class: "form-control"
+    = f.error :country, class: 'text-danger'
+
+  .form-group
+    = f.input :zip,   placeholder: t("form.placeholders.zip")
+  .form-group
+    = f.input :phone, placeholder: t("form.placeholders.phone")

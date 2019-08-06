@@ -1,24 +1,34 @@
 RSpec.describe OrderItem::Update do
-  let(:result) { described_class.call(id: id, quantity: quantity) }
+  let(:result) { described_class.call(params) }
 
-  let(:order_item) { create :order_item }
+  let(:book) { create(:book, price: 0.303e2) }
+  let!(:order_item) { create(:order_item, book: book, price: book.price) }
 
   describe 'Success' do
-    let(:quantity) { 3 }
-    let(:id) { order_item.id }
+    [1, -1, 3, 4, 5].each do |quantity|
+      it 'correct price and subtotal' do
+        old_quantity = OrderItem.last.quantity
 
-    it 'updates order item' do
-      expect(result['model']).to be_a(OrderItem)
-      expect(result['contract.default'].errors.full_messages).to be_empty
+        result = described_class.call(id: order_item.id, order_item: { quantity: quantity })
 
-      expect(result).to be_success
+        expect(result).to be_success
+
+        expect(OrderItem.last.quantity - quantity).to eq(old_quantity)
+
+        expect(OrderItem.last.price).to eq(OrderItem.last.book.price)
+        expect(OrderItem.last.subtotal).to eq(OrderItem.last.price * (old_quantity + quantity))
+      end
     end
   end
 
   describe 'Failure' do
     context 'when id is invalid' do
-      let(:quantity) { 2 }
-      let(:id) { 'dsadad' }
+      let(:params) do
+        {
+          id: 'ddd',
+          order_item: { quantity: 200 }
+        }
+      end
 
       it do
         expect(result['model']).to eq(nil)
@@ -27,10 +37,22 @@ RSpec.describe OrderItem::Update do
     end
 
     context 'when quantity is too big' do
-      let(:quantity) { 200 }
-      let(:id) { order_item.id }
+      let(:params) do
+        {
+          id: order_item.id,
+          order_item: { quantity: 200 }
+        }
+      end
 
-      let(:error) { ['Quantity must be less than or equal to 100'] }
+      let(:error) do
+        [
+          I18n.t(
+            'errors.format',
+            attribute: :Quantity,
+            message: I18n.t('errors.messages.less_than_or_equal_to', count: 100)
+          )
+        ]
+      end
 
       it do
         expect(result['contract.default'].errors.full_messages).to eq(error)

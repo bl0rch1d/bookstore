@@ -24,8 +24,6 @@ module Bookstore
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
-    config.action_dispatch.signed_cookie_digest = "SHA256"
-
-    # config.active_job.queue_adapter = :sidekiq
+    config.action_dispatch.signed_cookie_digest = 'SHA256'
   end
 end

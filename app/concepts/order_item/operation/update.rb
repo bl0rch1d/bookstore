@@ -1,20 +1,16 @@
 class OrderItem::Update < Trailblazer::Operation
   step Model(OrderItem, :find_by), fail_fast: true
   step Contract::Build(constant: OrderItem::Contract::Create)
-  success :update_attributes
-  step :validate, fail_fast: true
+  success :quantity
+  success :subtotal
+  step Contract::Validate(key: :order_item), fail_fast: true
   step Contract::Persist()
 
-  def update_attributes(ctx, params:, **)
-    quantity = ctx['model'].quantity + (params[:quantity] || 1).to_f
-
-    subtotal = ctx['model'].price * quantity
-
-    ctx['model'].quantity = quantity
-    ctx['model'].subtotal = subtotal
+  def quantity(ctx, params:, **)
+    params[:order_item][:quantity] = ctx['model'].quantity + params[:order_item][:quantity].to_f
   end
 
-  def validate(ctx, params:, **)
-    ctx['contract.default'].validate(ctx['model'].attributes)
+  def subtotal(_ctx, model:, params:, **)
+    params[:order_item][:subtotal] = model.price * params[:order_item][:quantity].to_f
   end
 end

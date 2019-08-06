@@ -11,12 +11,12 @@
     .col-sm-3
       = render 'payment_info'
   
-  = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: false, static: false})
-  = render(partial: 'cart/items', locals: {order: current_order, with_show_link: false, static: false})
+  = render(partial: 'shared/items_mobile', locals: {order: current_order, with_show_link: false, static: false})
+  = render(partial: 'shared/items', locals: {order: current_order, with_show_link: false, static: false})
   
   .text-center.general-text-right
-    %p.in-gold-500.font-18= t("order_summary.summary")
+    %p.in-gold-500.font-18= t("order.summary.summary")
     %table.general-summary-table.general-summary-table-right.general-text-right
-      = render 'cart/order_summary'
+      = render 'shared/order_summary'
   
   = button_to t("form.place_order"), wizard_path, method: :put, class: "btn btn-default mb-20 center-block"

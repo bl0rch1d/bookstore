@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Wicked::Wizard::InvalidStepError, with: :page_not_found
 
-  helper_method :current_order
+  helper_method :current_order, :contract_errors
 
   private
 
@@ -33,5 +33,9 @@ class ApplicationController < ActionController::Base
   def expose_address_forms(result)
     @billing_address_form   = result['billing_address_form']
     @shipping_address_form  = result['shipping_address_form']
+  end
+
+  def operation_errors(result)
+    result['contract.default'] ? result['contract.default'].errors.full_messages : I18n.t('form.invalid_params')
   end
 end

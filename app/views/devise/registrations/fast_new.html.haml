@@ -19,12 +19,12 @@
       %p.general-login-text.quick-reg-or= t("auth.or")
 
     .general-form
-      %h3.in-grey-500= t("fast_auth.quick")
-      %p.general-login-text= t("password_later")
+      %h3.in-grey-500= t("user.fast_auth.quick")
+      %p.general-login-text= t("user.fast_auth.password_later")
       
       = form_with scope: :user, url: users_fast_create_path, local: true, id: 'fastCreate' do |f|
         .form-group.mb-30
-          = f.label :user_email, t("labels.email"), class: "control-label input-label"
-          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          = f.label :user_email, t("form.labels.email"), class: "control-label input-label"
+          = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("form.placeholders.email"), pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         .text-center
-          = f.submit t("fast_auth.continue"), class: "btn btn-default mb-20"
+          = f.submit t("user.fast_auth.continue"), class: "btn btn-default mb-20"

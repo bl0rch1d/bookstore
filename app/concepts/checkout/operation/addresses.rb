@@ -19,25 +19,23 @@ class Checkout::Addresses < Trailblazer::Operation
   end
 
   step Nested(Present)
+  success :extract_params
   step :validate
-  success :set_addresses
+  step :set_addresses
 
-  def validate(ctx, params:, **)
-    return ctx['billing_address_form'].validate(params['billing_address_params']) if params['use_billing_address']
+  def extract_params(ctx, params:, **)
+    ctx['billing_params'] = params['billing_address_params']
+    ctx['shipping_params'] = params['use_billing_address'] ? ctx['billing_params'] : params['shipping_address_params']
+  end
 
-    billing = ctx['billing_address_form'].validate(params['billing_address_params'])
-    shipping = ctx['shipping_address_form'].validate(params['shipping_address_params'])
+  def validate(ctx, **)
+    billing = ctx['billing_address_form'].validate(ctx['billing_params'])
+    shipping = ctx['shipping_address_form'].validate(ctx['shipping_params'])
 
     billing && shipping
   end
 
-  def set_addresses(_ctx, params:, **)
-    params['current_order'].billing_address = BillingAddress.new(params['billing_address_params'].to_unsafe_h)
-
-    params['current_order'].shipping_address = if params['use_billing_address']
-                                                 ShippingAddress.new(params['billing_address_params'].to_unsafe_h)
-                                               else
-                                                 ShippingAddress.new(params['shipping_address_params'].to_unsafe_h)
-                                               end
+  def set_addresses(ctx, **)
+    ctx['billing_address_form'].save && ctx['shipping_address_form'].save
   end
 end

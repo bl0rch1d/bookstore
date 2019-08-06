@@ -23,21 +23,27 @@ RSpec.describe Checkout::Addresses do
     context 'when Address' do
       let(:result) { described_class.call(params) }
 
-      let(:order) { create(:order, :with_order_items, user: user) }
+      let!(:order) { create(:order, :with_order_items, user: user, state: 'in_progress') }
 
       let(:params) do
         {
           'current_order' => order,
           'current_user' => user,
           'step' => :address,
-          'billing_address_params' => ActionController::Parameters.new(attributes_for(:billing_address)),
-          'shipping_address_params' => ActionController::Parameters.new(attributes_for(:shipping_address)),
+          'billing_address_params' => ActionController::Parameters.new(
+            attributes_for(:billing_address).merge(addressable_id: order.id, addressable_type: 'Order')
+          ),
+          'shipping_address_params' => ActionController::Parameters.new(
+            attributes_for(:shipping_address).merge(addressable_id: order.id, addressable_type: 'Order')
+          ),
           'use_billing_address' => false
         }
       end
 
       it 'Billing and Shipping' do
         expect(result).to be_success
+
+        order.reload
 
         expect(order.billing_address).to be_a(BillingAddress)
         expect(order.shipping_address).to be_a(ShippingAddress)
@@ -51,13 +57,17 @@ RSpec.describe Checkout::Addresses do
             'current_order' => order,
             'current_user' => user,
             'step' => :address,
-            'billing_address_params' => ActionController::Parameters.new(attributes_for(:billing_address).except(:type)),
+            'billing_address_params' => attributes_for(:billing_address).merge(
+              addressable_id: order.id, addressable_type: 'Order'
+            ).except(:type),
             'use_billing_address' => true
           }
         end
 
         it 'Billing and Shipping with billing_address attributes' do
           expect(result).to be_success
+
+          order.reload
 
           expect(order.billing_address).to be_a(BillingAddress)
           expect(order.shipping_address).to be_a(ShippingAddress)

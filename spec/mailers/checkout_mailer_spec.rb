@@ -5,9 +5,9 @@ RSpec.describe CheckoutMailer, type: :mailer do
     let(:mail) { described_class.complete(order.user, order) }
 
     it 'renders the headers' do
-      expect(mail.subject).to eq("Complete Order ##{order.number}")
+      expect(mail.subject).to eq(I18n.t('order.mailer.subject', order_number: order.number))
       expect(mail.to).to eq([order.user.email])
-      expect(mail.from).to eq(['bookstore@bookstore_diz.com'])
+      expect(mail.from).to eq([I18n.t('store.email')])
     end
 
     it 'renders the body' do

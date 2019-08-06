@@ -38,7 +38,7 @@ Metrics/ModuleLength:
     - 'spec/**/*.rb'
 
 Metrics/LineLength:
-  Max: 120
+  Max: 121
 
 Documentation:
   Enabled: false
@@ -47,8 +47,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/ClassAndModuleChildren:
-  Exclude:
-    - 'app/concepts/**/**/*'
+  Enabled: false
 
 AllCops:
   Exclude:
@@ -56,5 +55,5 @@ AllCops:
     - '*.gemspec'
     - 'db/**/*'
     - 'config/**/*'
-    - 'TODO.rb'
+    - 'spec/rails_helper.rb'
   TargetRubyVersion: 2.6.3

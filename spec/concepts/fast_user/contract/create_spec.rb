@@ -1,4 +1,4 @@
-RSpec.describe User::Contract::Create do
+RSpec.describe FastUser::Contract::Create do
   let(:contract) { described_class.new(User.new) }
 
   describe 'Success' do
@@ -13,8 +13,8 @@ RSpec.describe User::Contract::Create do
     context 'when user params invalid' do
       let(:errors) do
         {
-          email: ["can't be blank", 'is invalid'],
-          password: ["can't be blank", 'is too short (minimum is 8 characters)']
+          email: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          password: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.too_short.other', count: 8)]
         }
       end
 

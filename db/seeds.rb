@@ -8,7 +8,7 @@ COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
 # COUPON_EXPIRE_DATE_RANGE = (0.9..1.009).freeze
 COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
 
-AdminUser.create!(email: 'kojima_genius@example.com', password: 'KaminoAlive', password_confirmation: 'KaminoAlive')
+AdminUser.create!(email: 'kojima_genius@example.com', password: 'KaminoAlive', password_confirmation: 'KaminoAlive') if Rails.env.development?
 
 CATEGORIES.each do |category|
   Category.create!(title: category)

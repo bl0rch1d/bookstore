@@ -25,14 +25,14 @@ class Address::Update < Trailblazer::Operation
     ctx['shipping_params'] = params.dig(:user, :shipping_address_attributes)
   end
 
-  def validate(ctx, params:, **)
+  def validate(ctx, **)
     billing = ctx['billing_address_form'].validate(ctx['billing_params']) if ctx['billing_params']
     shipping = ctx['shipping_address_form'].validate(ctx['shipping_params']) if ctx['shipping_params']
 
     billing || shipping
   end
 
-  def persist(ctx, params:, **)
+  def persist(ctx, **)
     ctx['billing_address_form'].save || ctx['shipping_address_form'].save
   end
 end

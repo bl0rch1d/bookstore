@@ -7,7 +7,7 @@ ActiveAdmin.register Book do
   index do
     selectable_column
 
-    column I18n.t('books.cover') do |book|
+    column I18n.t('book.cover') do |book|
       image_tag book.thumb if book.images.any?
     end
 
@@ -19,7 +19,7 @@ ActiveAdmin.register Book do
 
     column :authors, &:format_authors
 
-    column I18n.t('books.short_description'), &:short_description
+    column I18n.t('book.short_description'), &:short_description
 
     column :price do |book|
       number_to_currency(book.price, unit: I18n.t('currency.euro'))
@@ -84,7 +84,7 @@ ActiveAdmin.register Book do
     f.object.images.each do |image|
       span image_tag image.variant(resize: I18n.t('resize.thumb'))
       span link_to(I18n.t('link_to.delete'), delete_book_image_admin_book_path(image.id),
-                   method: :delete, data: { confirm: I18n.t('books.image_remove_confirmation') })
+                   method: :delete, data: { confirm: I18n.t('book.image_remove_confirmation') })
     end
 
     f.actions

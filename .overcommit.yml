@@ -23,10 +23,14 @@ PreCommit:
 
   MergeConflicts:
     enabled: true
-    
+
+  TrailingWhitespace:
+    enabled: true
+    exclude: ['vendor/**/*', 'spec/support/vcr_cassets/**/*']
+
   YamlSyntax:
     enabled: true
-    
+
   BundleCheck:
     enabled: true
 

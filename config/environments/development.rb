@@ -1,21 +1,4 @@
 Rails.application.configure do
-  config.after_initialize do
-    Bullet.enable         = true
-    Bullet.bullet_logger  = true
-    Bullet.console        = true
-    Bullet.rails_logger   = true
-    Bullet.add_footer     = true
-  end
-
-  config.middleware.use(
-    StackProf::Middleware,
-    enabled: true,
-    mode: :cpu,
-    interval: 1000,
-    save_every: 100,
-    path: 'tmp/stackprof/'
-  )
-  
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.active_job.queue_adapter = :sidekiq
@@ -50,11 +33,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-
-  # ================== CUSTOM ==================
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_caching = false
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
 

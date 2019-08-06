@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener'
 
   mount Sidekiq::Web => '/sidekiq'
-  
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resource :coupon, only: :create, action: :apply
 
   resources :order_items, only: %i[create update destroy]
-  
+
   resources :cart, only: :index
 
   resources :orders, only: %i[index show]

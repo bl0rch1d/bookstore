@@ -3,6 +3,6 @@ class FastRegistrationMailer < ApplicationMailer
     @user = user
     @password = password
 
-    mail(to: @user.email, subject: "Temporary password for #{@user.email}.")
+    mail(to: @user.email, subject: I18n.t('user.mailer.subject', user_email: @user.email))
   end
 end

@@ -1,40 +1,53 @@
-# class BestSellersQuery
-#   def initialize(categories)
-#     @categories = categories
-#   end
-
-#   def call
-#     @categories.map do |category|
-#       order_items_books = OrderItem.includes(:book)
-#                                    .where(order: Order.delivered, book: Book.where(category: category))
-#                                    .group_by(&:book)
-
-#       total_quantity = order_items_books.map { |book, item| [book, item.sum(&:quantity)] }
-
-#       total_quantity.sort_by(&:second).reverse.dig(0, 0) || category.books.first
-#     end
-#   end
-# end
-
-# === TODO: Refactor ===
 RSpec.describe BestSellersQuery do
   let(:result) { described_class.new(Category.all).call }
 
-  context 'when correct query result' do
-    # 4.times do
-    #   it 'works' do
-    #     Book.find_each(&:destroy!) if Book.all.any?
+  5.times do
+    let!(:categories) { create_list(:category, 4, :with_books) }
 
-    #     category_coff = rand(4..10)
-    #     coff = rand(5..10)
+    before do
+      create_list(
+        :order_item, 5,
+        book: categories[rand(1..3)].books[rand(1..4)],
+        order: create(:order, state: I18n.t('order.filter.delivered'))
+      )
+    end
 
-    #     create_list(:category, category_coff)
-    #     Category.all.each { |category| create_list(:book, coff, category: category) }
-    #     create_list(:order_item, coff * category_coff, book: Book.all.sample)
+    let!(:best_1) do
+      create(
+        :order_item,
+        book: categories[0].books[3],
+        quantity: 200,
+        order: create(:order, state: I18n.t('order.filter.delivered'))
+      )
+    end
 
-    #     expect(result.size).to be(Category.all.size)
-    #     expect(result.sample).to be_a(Book)
-    #   end
-    # end
+    let!(:best_2) do
+      create(
+        :order_item,
+        book: categories[1].books[4],
+        quantity: 200,
+        order: create(:order, state: I18n.t('order.filter.delivered'))
+      )
+    end
+
+    let!(:best_3) do
+      create(
+        :order_item,
+        book: categories[2].books[2],
+        quantity: 200,
+        order: create(:order, state: I18n.t('order.filter.delivered'))
+      )
+    end
+
+    let!(:best_4) do
+      create(
+        :order_item,
+        book: categories[3].books[1],
+        quantity: 200,
+        order: create(:order, state: I18n.t('order.filter.delivered'))
+      )
+    end
+
+    it { expect(result).to eq([best_1.book, best_2.book, best_3.book, best_4.book]) }
   end
 end

@@ -13,13 +13,13 @@ RSpec.describe Address::Contract::Create do
     context 'when address params invalid' do
       let(:errors) do
         {
-          first_name: ["can't be blank", 'is invalid'],
-          last_name: ["can't be blank", 'is invalid'],
-          address_line: ["can't be blank", 'is invalid'],
-          city: ["can't be blank", 'is invalid'],
-          country: ["can't be blank", 'is invalid'],
-          zip: ["can't be blank", 'is invalid'],
-          phone: ["can't be blank", 'is invalid']
+          first_name: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          last_name: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          address_line: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          city: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          country: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          zip: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
+          phone: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')]
         }
       end
 

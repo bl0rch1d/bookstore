@@ -1,8 +1,8 @@
 class OrderItem::Delete < Trailblazer::Operation
-  step Model(OrderItem, :find_by), fail_fast: true
-  step :delete
+  step Model(OrderItem, :find_by)
+  step :destroy
 
-  def delete(ctx, **)
+  def destroy(ctx, **)
     ctx['model'].destroy
   end
 end

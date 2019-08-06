@@ -1,19 +1,50 @@
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-
 en:
-  store_title: "Bookstore"
+  store:
+    title: "Bookstore"
+    welcome: "Welcome to our amazing Bookstore!"
+    description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+    get_started: "Get Started"
+    email: "support@bookstore.com"
+    phone: "(555)-555-5555"
+    catalog: "Catalog"
+    menu:
+      home: "Home"
+      my_account: "My account"
+      shop: "Shop"
+      books: "Books"
+      orders: "Orders"  
+      settings: "Settings"
+      privacy: "Privacy"
 
-  welcome: "Welcome to our amazing Bookstore!"
-  description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
-  get_started: "Get Started"
+    button:
+      sort_by: "Sort by"
+      buy_now: "Buy Now"
+      next: "Next"
+      prev: "Previous"
+      cart: "Cart"
+      add_to_cart: "Add to cart"
 
-  store_email: "support@bookstore.com"
-  store_phone: "(555)-555-5555"
+    not_found:
+      message: "The page you were looking for doesn't exist."
+  
+  link_to:
+    show: "show"
+    delete: "delete"
+    edit: 'edit'
+
+  resize:
+    thumb: '50x50'
+    small: '150x150'
+    middle: '200x200'
+    cover: '250x250'
+
+  zero_price: "€0.00"
+
+  currency:
+    euro: '€'
+
+  validation_errors:
+    out_of_limits: "is out of limits"
 
   auth:
     have_an_account: "Already have an account?"
@@ -22,28 +53,21 @@ en:
     sign_out: "Sign out"
     log_in: "Log in"
     or: "Or"
+    errors:
+      email_taken: 'Email has already been taken'
     remember: "Remember me"
+    confirmation:
+      not_confirmed: 'You have to confirm your email address before continuing.'
+      not_receive: "Didn't receive confirmation instructions?"
+    lock:
+      not_receive: "Didn't receive unlock instructions?"
 
-  store_menu:
-    home: "Home"
-    my_account: "My account"
-    shop: "Shop"
-    books: "Books"
-  
-  user_menu:
-    orders: "Orders"
-    settings: "Settings"
-  
   categories:
     all: 'All'
     mobile_development: 'Mobile development'
     photo: 'Photo'
     web_design: 'Web design'
     web_development: 'Web development'
-
-  catalog: "Catalog"
-
-  sort_by: "Sort by"
 
   sortings:
     text:
@@ -60,8 +84,6 @@ en:
       low_price:  "low_price"
       title_ascending: "title_ascending"
       title_descending: "title_descending"
-
-  add_to_cart: "Add to cart"
 
   review:
     write: "Write a Review"
@@ -81,26 +103,19 @@ en:
     notice:
       sent: "Thanks for Review. It will be published as soon as Admin will approve it."
 
-  link_to:
-    show: "show"
-    delete: "delete"
-
-  back_to_results: "Back to results"
-
-  read_less: "Read less"
-  read_more: "Read more"
-
   book:
     description: "Description"
     year: "Year of publication"
     dimensions: "Dimensions"
     materials: "Materials"
     best_sellers: "Best Sellers"
-  
-  buy_now: "Buy Now"
-  next: "Next"
-  prev: "Previous"
-  cart: "Cart"
+    read_less: "Read less"
+    read_more: "Read more"
+    back_to_results: "Back to results"
+    cover: "Book cover"
+    short_description: "Short Description"
+    images: "Book Images"
+    image_remove_confirmation: "Are you sure?"
 
   coupon:
     enter_code: "Enter Your Coupon Code"
@@ -122,44 +137,29 @@ en:
       updated: "Item has been updated"
       removed: "Item has been removed"
 
-  order_summary:
-    summary: "Order Summary"
-    item_total: "Item Total:"
-    coupon: "Coupon:"
-    shipping: "Shipping:"
-    order_total: "Order Total:"
-
   address:
     title: "Address"
     billing: "Billing Address"
     shipping: "Shipping Address"
     use_billing: "Use Billing Adress"
 
-  privacy: "Privacy"
-
-  checkout: "Checkout"
-
-  edit_link: "edit"
-  
-  shipping:
-    title: "Shipping"
-    method: "Method"
-    days: "Days"
-    price: "Price"
-    interval: "%{min} to %{max} days"
-
-  payment:
-    info: "Payment Information"
-  
-  credit_card:
-    title: "Credit card"
-    hint: "3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front"
-
-  form:
-    all_fields_required: "all fields are required"
-    save_and_continue: "Save and Continue"
-    place_order: "Place order"
-    save: "save"
+  checkout:
+    button: "Checkout"
+    thanks: "Thank You for your Order!"
+    back: "Back to Store"
+    shipping:
+      title: "Shipping"
+      method: "Method"
+      days: "Days"
+      price: "Price"
+      interval: "%{min} to %{max} days"
+      errors:
+        blank: "Shipping method can't be blank"
+    payment:
+      info: "Payment Information"
+    credit_card:
+      title: "Credit card"
+      hint: "3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front"
 
   order:
     no_orders: "No Orders yet"
@@ -187,80 +187,73 @@ en:
       cancel: "Cancel"
     validation_errors:
       sort_by: '%{value} is not a valid filter'
+    summary:
+      summary: "Order Summary"
+      item_total: "Item Total:"
+      coupon: "Coupon:"
+      shipping: "Shipping:"
+      order_total: "Order Total:"
+    mailer:
+      subject: "Complete Order #%{order_number}"
 
-  checkout_complete:
-    thanks: "Thank You for your Order!"
-    back: "Back to Store"
-
-  password:
-    edit: "Change your password"
-    save: "Save Password"
-    forgot: "Forgot your password?"
-    reset_email: "Email Instructions"
-    reset_info: "We'll email you instructions on how to reset it"
-    cancel: "Cancel"
-
-  fast_auth:
-    returning: "Returning Customer"
-    new: "New Customer"
-    quick: "Quick Register"
-    password_later: "You will be able to edit password later"
-    continue: "Contine to Checkout"
+  user:
+    confirmation:
+      resend: 'Resend confirmation instructions'
+    notice:
+      email_updated: "Email has been updated"
+      address_updated: "Address has been updated"
+      password_updated: "Password has been updated"
+      account_removed: "Account has been removed"
+    password:
+      edit: "Change your password"
+      save: "Save Password"
+      forgot: "Forgot your password?"
+      reset_email: "Email Instructions"
+      reset_info: "We'll email you instructions on how to reset it"
+      cancel: "Cancel"
+    remove_account:
+      title: "Remove Account"
+      confirmation: "I understand that all data will be lost"
+      remove: "Please Remove My Account"
+    fast_auth:
+      returning: "Returning Customer"
+      new: "New Customer"
+      quick: "Quick Register"
+      password_later: "You will be able to edit password later"
+      continue: "Contine to Checkout"
+    mailer:
+      subject: "Temporary password for %{user_email}."
     
-  labels:
-    email: "Email"
-    password: "Password"
-    new_password: "New password"
-    password_confirmation: "Password confirmation"
-
-  remove_account:
-    title: "Remove Account"
-    confirmation: "I understand that all data will be lost"
-    remove: "Please Remove My Account"
-
-  zero_price: "€0.00"
-
-  placeholders:
-    only_one_coupon: "Only one coupon can be applied"
-    first_name: "first name"
-    last_name: "last name"
-    address: "address"
-    city: "city"
-    zip: "zip"
-    country: "country"
-    phone: "Example +355 66 123 4567"
-    card_number: "card number"
-    name_of_card: "name of card"
-    card_expiration: "MM / YY"
-    cvv: "cvv"
-    new_password: "new password"
-    confirm_password: "confirm password"
-    enter_email: "Enter your email"
-    email: "email"
-    password: "password"
-    current_password: "current_password"
+  form:
+    all_fields_required: "all fields are required"
+    save_and_continue: "Save and Continue"
+    place_order: "Place order"
+    save: "save"
+    invalid_params: 'Invalid params'
+    labels:
+      email: "Email"
+      password: "Password"
+      new_password: "New password"
+      password_confirmation: "Password confirmation"
+    placeholders:
+      country: 'Select a country'
+      only_one_coupon: "Only one coupon can be applied"
+      first_name: "First Name"
+      last_name: "Last Name"
+      address: "Address line"
+      city: "city"
+      zip: "zip"
+      phone: "Example +355 66 123 4567"
+      card_number: "card number"
+      name_of_card: "name of card"
+      card_expiration: "MM / YY"
+      cvv: "cvv"
+      new_password: "new password"
+      confirm_password: "confirm password"
+      enter_email: "Enter your email"
+      email: "email"
+      password: "password"
+      current_password: "current password"
 
   authors:
     full_name: "Full name"
-
-  books:
-    cover: "Book cover"
-    short_description: "Short Description"
-    images: "Book Images"
-    image_remove_confirmation: "Are you sure?"
-
-  user:
-    notice:
-      email_updated: "Email has been updated"
-      addresses_updated: "Addresses has been updated"
-      password_updated: "Password has been updated"
-      account_removed: "Account has been removed"
-
-  resize:
-    thumb: '50x50'
-    small: '150x150'
-    middle: '200x200'
-    cover: '250x250'
-
-  currency:
-    euro: '€'

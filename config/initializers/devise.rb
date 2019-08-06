@@ -16,7 +16,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'bookstore@gmail.com'
+  config.mailer_sender = 'support@bookstore.com'
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Devise::Mailer'
@@ -260,8 +260,8 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   config.omniauth :facebook, Rails.application.credentials.fb_test[:id],
-                             Rails.application.credentials.fb_test[:secret],
-                             callback_url: 'localhost'
+                  Rails.application.credentials.fb_test[:secret],
+                  callback_url: 'localhost'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

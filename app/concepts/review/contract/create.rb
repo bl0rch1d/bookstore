@@ -19,5 +19,9 @@ module Review::Contract
       only_integer: true,
       greater_than_or_equal_to: ApplicationRecord::MIN_ID_VALUE
     }
+
+    def rating=(value)
+      super value.to_i
+    end
   end
 end

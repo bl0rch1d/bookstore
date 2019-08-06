@@ -10,7 +10,7 @@ RSpec.describe Book::Contract::Show do
   describe 'Failure' do
     context 'when id is not present' do
       let(:params) { {} }
-      let(:errors) { { id: ["can't be blank", 'is not a number'] } }
+      let(:errors) { { id: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.not_a_number')] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -20,7 +20,7 @@ RSpec.describe Book::Contract::Show do
 
     context 'when id is not a number' do
       let(:params) { { id: 'ssss' } }
-      let(:error) { { id: ['is not a number'] } }
+      let(:error) { { id: [I18n.t('errors.messages.not_a_number')] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -30,7 +30,7 @@ RSpec.describe Book::Contract::Show do
 
     context 'when id is too small' do
       let(:params) { { id: 0 } }
-      let(:error) { { id: ['must be greater than or equal to 1'] } }
+      let(:error) { { id: [I18n.t('errors.messages.greater_than_or_equal_to', count: 1)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey

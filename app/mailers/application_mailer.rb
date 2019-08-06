@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'bookstore@bookstore_diz.com'
+  default from: I18n.t('store.email')
   layout 'mailer'
 end

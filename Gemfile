@@ -9,9 +9,9 @@ gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
 
 # DB
+gem 'hiredis', '~> 0.6.3'
 gem 'pg', '~> 1.1'
-gem 'redis-rails', '~> 5.0', '>= 5.0.2'
-# gem 'sqlite3'
+gem 'redis', '~> 4.1'
 
 # JS/CSS
 gem 'bootstrap-sass', '~> 3.4'
@@ -81,7 +81,6 @@ group :development, :test do
 
   # Test bundle
   gem 'capybara', '>= 2.15'
-  # gem 'capybara-email', '~> 3.0', '>= 3.0.1'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'

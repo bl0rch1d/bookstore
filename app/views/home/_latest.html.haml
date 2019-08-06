@@ -9,7 +9,10 @@
         .row
           .col-sm-5
             .general-img-wrap
-              = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+              - if book.images
+                = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+              - else
+                = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
           .col-sm-7
             .mb-60
               %h1= book.title
@@ -17,12 +20,12 @@
               %p.lead.small= book.format_authors
               .general-align 
                 - if book.quantity > 0
-                  = link_to t("buy_now"), order_items_path(book_id: book), method: :post, class: "btn-primary btn"
+                  = link_to t("store.button.buy_now"), order_items_path(order_item: { book_id: book, order_id: current_order, quantity: 1 }), method: :post, class: "btn-primary btn"
                 - else
-                  %button.disabled.btn= t("buy_now")
+                  %button.disabled.btn= t("store.button.buy_now")
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
-    %span.sr-only= t("prev")
+    %span.sr-only= t("store.button.prev")
   %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
     %span.icon-next{'aria-hidden': "true"}
-    %span.sr-only= t("next")
+    %span.sr-only= t("store.button.next")

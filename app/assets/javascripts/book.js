@@ -1,6 +1,6 @@
 "use strict";
 
-const MAX_ITEM_QUANTITY = 10;
+const MAX_ITEM_QUANTITY = 100;
 
 let toggleDescription = () => {
     document.getElementById("short_description").classList.toggle("hidden");

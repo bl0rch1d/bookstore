@@ -3,7 +3,7 @@ class Checkout::Shipping < Trailblazer::Operation
     step Policy::Guard(Checkout::Policy::CheckoutGuard.new), fail_fast: true
     step :model
 
-    def model(ctx, params:, **)
+    def model(ctx, **)
       ctx['model'] = ShippingMethod.all
     end
   end

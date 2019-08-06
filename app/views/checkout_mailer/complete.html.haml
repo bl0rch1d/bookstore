@@ -41,17 +41,17 @@
       %td Checkout
       %td
     %tr
-      %td= t("order_summary.item_total")
+      %td= t("order.summary.item_total")
       %td= number_to_currency(@order.subtotal, unit: t('currency.euro'))
     %tr
       - if @order.coupon
-        %td= t("order_summary.coupon")
+        %td= t("order.summary.coupon")
         %td= number_to_currency(@order.coupon.calculated_discount, unit: t('currency.euro'))
     %tr
-      %td= t("order_summary.shipping")
+      %td= t("order.summary.shipping")
       %td= number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
     %tr
       %td
-        %b= t("order_summary.order_total")
+        %b= t("order.summary.order_total")
       %td 
         %b= number_to_currency(@order.total, unit: t('currency.euro'))

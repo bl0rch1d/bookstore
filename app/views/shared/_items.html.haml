@@ -18,10 +18,16 @@
           %td
             .general-img-wrap-table
               - if with_show_link
-                = link_to book_path(item.book) do
-                  = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
+                - if item.book.images
+                  = link_to book_path(item.book) do
+                    = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
+                - else
+                  = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
               - else
-                = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
+                - if item.book.images
+                  = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
+                - else
+                  = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
           
           %td
             - if with_show_link
@@ -36,14 +42,14 @@
             .input-group
               - unless static
                 - if item.quantity > 1
-                  = link_to order_item_path(item, quantity: -1, book_id: item.book), method: :patch, class: "input-link", id: 'decrement' do
+                  = link_to order_item_path(item, order_item: { quantity: -1 }), method: :patch, class: "input-link", id: 'decrement' do
                     %i.fa.fa-minus.line-heaght-40
                 - else
                   %a.input-link
                     %i.fa.fa-minus.line-heaght-40
                 
                 %input.form-control.quantity-input{type: "text", value: "#{item.quantity}", disabled: true}
-                = link_to order_item_path(item, quantity: 1, book_id: item.book), method: :patch, class: "input-link", id: 'increment' do
+                = link_to order_item_path(item, order_item: { quantity: 1 }), method: :patch, class: "input-link", id: 'increment' do
                   %i.fa.fa-plus.line-heaght-40
 
               - else

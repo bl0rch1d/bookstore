@@ -5,12 +5,15 @@
       .col-sm-6.col-md-3
         .general-thumb-wrap
           .thumbnail.general-thumbnail
-            = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+            - if book.images
+              = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+            - else
+              = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
             .thumb-hover
               .general-thumb-link-wrap
                 = link_to book_path(book.id), class: "thumb-hover-link" do
                   %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                = link_to order_items_path(book_id: book), method: :post, class: "thumb-hover-link", id: 'AddToCartLink' do
+                = link_to order_items_path(order_item: { book_id: book, order_id: current_order, quantity: 1 }), method: :post, class: "thumb-hover-link", id: 'AddToCartLink' do
                   %i.fa.fa-shopping-cart.thumb-icon
         .mb-35
           .clearfix

@@ -10,7 +10,7 @@ RSpec.describe Order::Contract::Show do
   describe 'Failure' do
     context 'when id not a number' do
       let(:params) { { id: 'dsd' } }
-      let(:error) { ['Id is not a number'] }
+      let(:error) { [I18n.t('errors.format', attribute: :Id, message: I18n.t('errors.messages.not_a_number'))] }
 
       it do
         expect(contract.validate(params)).to be_falsey

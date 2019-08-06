@@ -16,7 +16,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Newest first' do
-    let(:params) { { sort_by: 'newest' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.newest') } }
 
     it 'newest' do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -26,7 +26,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Popular first' do
-    let(:params) { { sort_by: 'popular' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.popular') } }
 
     it 'popular' do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -36,7 +36,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Price: High to low' do
-    let(:params) { { sort_by: 'high_price' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.high_price') } }
 
     it 'descending_price' do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -46,7 +46,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Price: Low to high' do
-    let(:params) { { sort_by: 'low_price' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.low_price') } }
 
     it 'ascending_price' do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -56,7 +56,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Title: A - Z' do
-    let(:params) { { sort_by: 'title_ascending' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.title_ascending') } }
 
     it 'ascending_title' do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -66,7 +66,7 @@ RSpec.describe Book::Query::Index do
   end
 
   context 'when Title: Z - A' do
-    let(:params) { { sort_by: 'title_descending' } }
+    let(:params) { { sort_by: I18n.t('sortings.system.title_descending') } }
 
     it 'descending_title' do
       expect(result).to be_a(ActiveRecord::Relation)

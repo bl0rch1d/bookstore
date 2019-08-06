@@ -1,9 +1,9 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin= t("cart")
+  %h1.general-title-margin= t("store.button.cart")
   
   - if current_order.order_items.any?
-    = render(partial: 'cart/items_mobile', locals: {order: current_order, with_show_link: true, static: false})
-    = render(partial: 'cart/items', locals: {order: current_order, with_show_link: true, static: false})
+    = render(partial: 'shared/items_mobile', locals: {order: current_order, with_show_link: true, static: false})
+    = render(partial: 'shared/items', locals: {order: current_order, with_show_link: true, static: false})
 
   - else
     .text-center.empty-cart-icon
@@ -17,18 +17,18 @@
         - else
           .input-group.general-input-group
             %label.input-label= t("coupon.enter_code")
-            %input.form-control.mb-30{type: "text", placeholder: t("placeholders.only_one_coupon"), disabled: true}
+            %input.form-control.mb-30{type: "text", placeholder: t("form.placeholders.only_one_coupon"), disabled: true}
             %div
               %button.btn.btn-primary.mr-5.mb-15.disabled= t("coupon.apply")
 
       .col-sm-8
         .res-mr-200.text-center.general-text-right
-          %p.in-gold-500.font-18= t("order_summary.summary")
+          %p.in-gold-500.font-18= t("order.summary.summary")
           %table.general-summary-table.general-summary-table-right.general-text-right
-            = render 'order_summary'
+            = render 'shared/order_summary'
   
   .text-center
     - if current_order.order_items.any?
-      = link_to t("checkout"), checkout_path(:address), role: "button", class: "btn btn-default mb-20"
+      = link_to t("checkout.button"), checkout_path(:address), role: "button", class: "btn btn-default mb-20"
     - else
-      %button.btn.btn-default.mb-20.disabled Checkout
+      %button.btn.btn-default.mb-20.disabled= t('checkout.button')

@@ -1,29 +1,56 @@
 RSpec.describe 'Fast registration', type: :feature do
-  it 'user can register without password' do
-    create :book
+  let(:values) do
+    {
+      valid: {
+        email: 'qwerty@example.com'
+      }
+    }
+  end
 
-    visit root_path
+  context 'when user registering without password' do
+    before do
+      create :book
 
-    click_link('Buy Now')
+      visit root_path
 
-    visit cart_index_path
+      click_link(I18n.t('store.button.buy_now'))
 
-    click_link('Checkout')
-
-    expect(page).to have_current_path('/users/fast_new')
-
-    within '#fastCreate' do
-      fill_in 'user[email]',	with: 'qwerty@example.com'
-
-      click_button('Contine to Checkout')
+      visit cart_index_path
     end
 
-    expect(page).to have_content('You have to confirm your email address before continuing.')
+    it 'with valid email' do
+      click_link(I18n.t('checkout.button'))
 
-    # Because email delivered with delay
-    sleep 1
+      expect(page).to have_current_path('/users/fast_new')
 
-    ctoken = ActionMailer::Base.deliveries.last.body.raw_source.match(/confirmation_token=[\w*-]+/)
-    visit "/users/confirmation?#{ctoken}"
+      within '#fastCreate' do
+        fill_in 'user[email]',	with: values[:valid][:email]
+
+        click_button(I18n.t('user.fast_auth.continue'))
+      end
+
+      expect(page).to have_content(I18n.t('auth.confirmation.not_confirmed'))
+
+      # Because email delivered with delay
+      sleep 1
+
+      ctoken = ActionMailer::Base.deliveries.last.body.raw_source.match(/confirmation_token=[\w*-]+/)
+      visit "/users/confirmation?#{ctoken}"
+    end
+
+    it 'gets notice if user already exists' do
+      click_link(I18n.t('checkout.button'))
+
+      expect(page).to have_current_path('/users/fast_new')
+
+      create(:user, email: values[:valid][:email])
+
+      within '#fastCreate' do
+        fill_in 'user[email]',	with: values[:valid][:email]
+        click_button(I18n.t('user.fast_auth.continue'))
+      end
+
+      expect(page).to have_content(I18n.t('auth.errors.email_taken'))
+    end
   end
 end

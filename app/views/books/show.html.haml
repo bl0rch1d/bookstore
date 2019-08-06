@@ -6,9 +6,12 @@
   .row
     .col-sm-6
       .product-gallery
-        .mb-20
-          = image_tag(@book.cover, class: 'img-responsive')
-        = render 'images'
+        - if @book.images
+          .mb-20
+            = image_tag(@book.cover, class: 'img-responsive')
+          = render 'images'
+        - else
+          = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
     
     .col-sm-6#book_info.mb-30
       %h1.mt-res-0= @book.title

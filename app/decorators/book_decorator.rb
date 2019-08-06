@@ -1,6 +1,4 @@
 class BookDecorator < Draper::Decorator
-  include ActionView::Helpers
-
   delegate_all
 
   def thumb

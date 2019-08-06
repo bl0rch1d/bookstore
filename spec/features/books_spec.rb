@@ -1,12 +1,25 @@
-require_relative 'feature_spec_helper'
+require_relative '../support/helpers/feature_spec_helper'
 
 RSpec.describe 'Books page', type: :feature do
   let!(:book) { create(:book) }
 
+  let(:values) do
+    {
+      valid: {
+        title: 'title',
+        body: 'body messages for book review'
+      },
+
+      invalid: {
+        blank: ''
+      }
+    }
+  end
+
   it 'user can put book into a “shopping cart”' do
     visit book_path(book.id)
 
-    find("input[value='Add to cart']").click
+    find("input[value='#{I18n.t('store.button.add_to_cart')}']").click
 
     expect(page).to have_content(I18n.t('order_item.notice.added'))
   end
@@ -33,11 +46,11 @@ RSpec.describe 'Books page', type: :feature do
       visit book_path(book.id)
 
       within '#new_review' do
-        fill_in 'review[title]', with: 'TITLE'
-        fill_in 'review[body]', with: 'dsadsaddadadsadasdadsdadad'
-        select '5', from: 'review[rating]'
+        fill_in 'review[title]', with: values[:valid][:title]
+        fill_in 'review[body]', with: values[:valid][:body]
+        select rand(1..5), from: 'review[rating]'
 
-        click_button('Post')
+        click_button(I18n.t('review.post'))
       end
 
       expect(page).to have_content(I18n.t('review.notice.sent'))
@@ -47,22 +60,22 @@ RSpec.describe 'Books page', type: :feature do
       visit book_path(book.id)
 
       within '#new_review' do
-        fill_in 'review[title]', with: ''
-        fill_in 'review[body]', with: ''
-        select '5', from: 'review[rating]'
+        fill_in 'review[title]', with: values[:invalid][:blank]
+        fill_in 'review[body]', with: values[:invalid][:blank]
+        select rand(1..5), from: 'review[rating]'
 
-        click_button('Post')
+        click_button(I18n.t('review.post'))
       end
 
-      expect(page).to have_content("Title can't be blank")
-      expect(page).to have_content("Body can't be blank")
-      expect(page).to have_content('Body is invalid')
+      expect(page).to have_content(I18n.t('errors.format', attribute: :Title, message: I18n.t('errors.messages.blank')))
+      expect(page).to have_content(I18n.t('errors.format', attribute: :Body, message: I18n.t('errors.messages.blank')))
+      expect(page).to have_content(I18n.t('errors.format', attribute: :Body, message: I18n.t('errors.messages.invalid')))
     end
   end
 
   it 'book was not found' do
     visit book_path(123_456_789)
 
-    expect(page).to have_content("The page you were looking for doesn't exist.")
+    expect(page).to have_content(I18n.t('store.not_found.message'))
   end
 end

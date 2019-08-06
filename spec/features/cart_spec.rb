@@ -1,13 +1,13 @@
 RSpec.describe 'Cart', type: :feature do
-  let!(:book) { create :book }
-
   before do
+    create :book
+
     visit root_path
-    click_link('Buy Now')
+    click_link(I18n.t('store.button.buy_now'))
 
     find_link('AddToCartLink', match: :first, visible: false).click
 
-    click_link('Buy Now')
+    click_link(I18n.t('store.button.buy_now'))
 
     visit cart_index_path
   end
@@ -38,7 +38,7 @@ RSpec.describe 'Cart', type: :feature do
       within('#applyCoupon') do
         fill_in 'code',	with: create(:coupon).code
 
-        click_button('Apply Coupon')
+        click_button(I18n.t('coupon.apply'))
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe 'Cart', type: :feature do
     end
 
     it 'user can apply only one coupon' do
-      expect(find("input[placeholder='Only one coupon can be applied']")).to be_truthy
+      expect(find("input[placeholder='#{I18n.t('form.placeholders.only_one_coupon')}']")).to be_truthy
     end
   end
 end

@@ -1,7 +1,7 @@
-class User::Create < Trailblazer::Operation
+class FastUser::Create < Trailblazer::Operation
   step Model(User, :new)
-  step Contract::Build(constant: User::Contract::Create)
-  step Contract::Validate()
+  step Contract::Build(constant: FastUser::Contract::Create)
+  step Contract::Validate(), fail_fast: true
   step Contract::Persist()
   step :mail
 

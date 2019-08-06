@@ -4,7 +4,7 @@ FactoryBot.define do
 
     description { FFaker::Book.description }
     price { rand(5.0..200.00) }
-    quantity { rand(1..10) }
+    quantity { rand(10..50) }
     height { rand(1.0..10.0).round(1) }
     width { rand(1.0..10.0).round(1) }
     depth { rand(1.0..10.0).round(1) }

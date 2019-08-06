@@ -2,10 +2,13 @@ RSpec.describe OrderItem::Delete do
   let(:result) { described_class.call(id: order_item_id) }
 
   describe 'Success' do
-    let(:order_item_id) { create(:order_item).id }
+    # rubocop: disable RSpec/LetSetup
+    let!(:order_item_id) { create(:order, :with_order_items).order_items.first.id }
+    # rubocop: enable RSpec/LetSetup
 
     it 'Removes order item' do
-      expect(result['model']).to be_a(OrderItem)
+      expect { result }.to change { Order.last.order_items.size }.by(-1)
+
       expect(result).to be_success
     end
   end

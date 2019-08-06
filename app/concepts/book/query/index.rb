@@ -2,6 +2,7 @@ module Book::Query
   class Index
     SORTINGS = %w[newest popular high_price low_price title_ascending title_descending].freeze
 
+    # rubocop: disable Metrics/AbcSize, CyclomaticComplexity
     def call(params)
       @params = params
 
@@ -15,6 +16,7 @@ module Book::Query
       else title_ascending(from_category)
       end
     end
+    # rubocop: enable Metrics/AbcSize, CyclomaticComplexity
 
     private
 

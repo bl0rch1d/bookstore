@@ -10,9 +10,9 @@ RSpec.describe 'Shop page', type: :feature do
   it 'user can sort books' do
     visit category_books_path(0)
 
-    find_link('Title: A - Z').click
+    find_link(I18n.t('sortings.text.title_ascending')).click
 
-    find_link('Price: High to low').click
+    find_link(I18n.t('sortings.text.high_price')).click
 
     find('.book_price', match: :first)
 

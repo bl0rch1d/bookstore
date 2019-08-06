@@ -8,7 +8,7 @@ class Coupon::Apply < Trailblazer::Operation
     ctx['model'] = Coupon.find_by(code: params[:code])
   end
 
-  def expired?(ctx, params:, **)
+  def expired?(ctx, **)
     ctx['coupon.relevant'] = Time.now.to_i <= ctx['model'].expire_date.to_i
   end
 

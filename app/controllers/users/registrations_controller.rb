@@ -4,12 +4,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def fast_create
-    result = User::Create.call(email: params[:user][:email], password: Devise.friendly_token.first(8))
+    result = FastUser::Create.call(email: user_params[:email], password: Devise.friendly_token.first(8))
 
     if result.success?
       sign_up(:user, result['model'])
     else
-      flash.alert = result['contract.default'].errors.full_messages
+      flash.alert = operation_errors(result)
       redirect_to users_fast_new_path
     end
   end

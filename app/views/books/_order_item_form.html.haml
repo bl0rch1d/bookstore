@@ -1,11 +1,14 @@
-= form_with(model: current_order.order_items, url: order_items_path(book_id: @book), method: :post, local: true) do |f|
+= form_with(model: current_order.order_items, url: order_items_path, method: :post, local: true) do |f|
+  = f.hidden_field :book_id, value: @book.id
+  = f.hidden_field :order_id, value: current_order.id
+
   .col-xs-5.col-md-3
     .input-group.general-position
       %a.input-link
         %i.fa.fa-minus.line-height-40{onclick: "decrementQuantity()"}
-      = f.text_field :quantity, class: "form-control quantity-input", value: "1", id: "quantity_input"
+      = f.text_field :quantity, class: "form-control quantity-input", value: "1", id: "quantity_input", type: 'number', min: 1
       %a.input-link
         %i.fa.fa-plus.line-height-40{onclick: "incrementQuantity()"}
   .col-xs-7.col-md-5
-    = f.submit t("add_to_cart"), class: "btn btn-default pull-right general-position" do
+    = f.submit t("store.button.add_to_cart"), class: "btn btn-default pull-right general-position" do
       %button

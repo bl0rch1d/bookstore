@@ -2,13 +2,15 @@ RSpec.describe BookDecorator do
   subject(:book) { create(:book, :with_many_images).decorate }
 
   it '#thumb' do
-    expect(book.thumb.variation.transformations[:resize]).to eq(book.images.first.variant(resize: I18n.t('resize.thumb'))
-                                                              .variation.transformations[:resize])
+    resize_value = book.images.first.variant(resize: I18n.t('resize.thumb')).variation.transformations[:resize]
+
+    expect(book.thumb.variation.transformations[:resize]).to eq(resize_value)
   end
 
   it '#cover' do
-    expect(book.cover.variation.transformations[:resize]).to eq(book.images.first.variant(resize: I18n.t('resize.cover'))
-                                                              .variation.transformations[:resize])
+    resize_value = book.images.first.variant(resize: I18n.t('resize.cover')).variation.transformations[:resize]
+
+    expect(book.cover.variation.transformations[:resize]).to eq(resize_value)
   end
 
   it '#additional_images' do

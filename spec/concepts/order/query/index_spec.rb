@@ -14,7 +14,7 @@ RSpec.describe Order::Query::Index do
 
   context 'when in_progress' do
     let(:user) { create :user, :with_orders }
-    let(:params) { { sort_by: 'in_progress' } }
+    let(:params) { { sort_by: I18n.t('order.filter.in_progress') } }
 
     it do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -25,7 +25,7 @@ RSpec.describe Order::Query::Index do
 
   context 'when in_delivery' do
     let(:user) { create :user, :with_orders }
-    let(:params) { { sort_by: 'in_delivery' } }
+    let(:params) { { sort_by: I18n.t('order.filter.in_delivery') } }
 
     it do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -36,7 +36,7 @@ RSpec.describe Order::Query::Index do
 
   context 'when delivered' do
     let(:user) { create :user, :with_orders }
-    let(:params) { { sort_by: 'delivered' } }
+    let(:params) { { sort_by: I18n.t('order.filter.delivered') } }
 
     it do
       expect(result).to be_a(ActiveRecord::Relation)
@@ -47,7 +47,7 @@ RSpec.describe Order::Query::Index do
 
   context 'when canceled' do
     let(:user) { create :user, :with_orders }
-    let(:params) { { sort_by: 'canceled' } }
+    let(:params) { { sort_by: I18n.t('order.filter.canceled') } }
 
     it do
       expect(result).to be_a(ActiveRecord::Relation)

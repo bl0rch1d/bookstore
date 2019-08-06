@@ -1,7 +1,7 @@
 def register_user
   visit root_path
 
-  click_link('My account')
+  click_link('My Account')
   click_link('Sign up')
 
   within '#new_user' do
@@ -18,7 +18,7 @@ end
 def sign_in_user
   visit root_path
 
-  click_link('My account')
+  click_link('My Account')
   click_link('Log in')
 
   within '#new_session' do

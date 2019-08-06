@@ -1,4 +1,4 @@
-module User::Contract
+module FastUser::Contract
   class Create < Reform::Form
     property :email
     property :password

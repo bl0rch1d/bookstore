@@ -1,1 +1,0 @@
-Rails.application.config.session_store :cache_store, key: "_#{Rails.application.class.parent_name.downcase}_session" if Rails.env.production?

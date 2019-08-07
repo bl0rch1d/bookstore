@@ -25,5 +25,7 @@ module Bookstore
     end
 
     config.action_dispatch.signed_cookie_digest = 'SHA256'
+
+    config.session_store :cache_store, key: "_#{Rails.application.class.parent_name.downcase}_session"
   end
 end

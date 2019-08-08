@@ -308,8 +308,6 @@ GEM
     psych (3.1.0)
     public_suffix (3.1.1)
     puma (3.12.1)
-    pundit (2.0.1)
-      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
@@ -580,7 +578,6 @@ DEPENDENCIES
   pg (~> 1.1)
   pry (~> 0.12.2)
   puma (~> 3.11)
-  pundit (~> 2.0, >= 2.0.1)
   rack_session_access (~> 0.2.0)
   rails (~> 5.2.3)
   rails_best_practices (~> 1.19)

@@ -54,7 +54,7 @@ SEEDS_COUNT.times do |index|
 end
 
 Book.all.each do |book|
-  skip = [true, false].sample
+  skip = [false, true, false].sample
 
   return if skip
 

@@ -10,7 +10,7 @@
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
       .filter-link
-        = link_to  t('categories.all'), category_books_path(0), class: "collapse-link"
+        = link_to  t('categories.all'), books_path, class: "collapse-link"
         %span.badge.general-badge= Book.count
     
     - Category.all.each do |category|

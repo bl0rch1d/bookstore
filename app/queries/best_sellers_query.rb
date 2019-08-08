@@ -3,6 +3,7 @@ class BestSellersQuery
     @categories = categories
   end
 
+  # === TODO: SQL? ===
   def call
     @categories.map do |category|
       order_items_books = OrderItem.includes(:book)

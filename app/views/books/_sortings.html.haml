@@ -1,13 +1,9 @@
 %ul.dropdown-menu.sorting_menu
-  %li
-    = link_to t("sortings.text.newest"), category_books_path(params[:category_id], sort_by: t("sortings.system.newest"))
-  %li
-    = link_to t("sortings.text.popular"), category_books_path(params[:category_id], sort_by: t("sortings.system.popular"))
-  %li
-    = link_to t("sortings.text.low_price"), category_books_path(params[:category_id], sort_by: t("sortings.system.low_price"))
-  %li
-    = link_to t("sortings.text.high_price"), category_books_path(params[:category_id], sort_by: t("sortings.system.high_price"))
-  %li
-    = link_to t("sortings.text.title_ascending"), category_books_path(params[:category_id], sort_by: t("sortings.system.title_ascending"))
-  %li
-    = link_to t("sortings.text.title_descending"), category_books_path(params[:category_id], sort_by: t("sortings.system.title_descending"))
+  - unless params[:category_id]
+    - t('sortings.text').values.each_index do |index|
+      %li
+        = link_to t('sortings.text').values[index], books_path(sort_by: t("sortings.system").values[index])
+  - else
+    - t('sortings.text').values.each_index do |index|
+      %li
+        = link_to t('sortings.text').values[index], category_books_path(params[:category_id], sort_by: t("sortings.system").values[index])

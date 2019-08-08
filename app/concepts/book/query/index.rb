@@ -21,7 +21,9 @@ module Book::Query
     private
 
     def from_category
-      (Category.all.where(id: @params[:category_id])[0]&.books || Book.all).includes(:images_attachments, :authors)
+      category_books = (@params[:category_id] ? Category.find(@params[:category_id]).books : Book.all)
+
+      category_books.includes(:images_attachments, :authors)
     end
 
     def newest(books)

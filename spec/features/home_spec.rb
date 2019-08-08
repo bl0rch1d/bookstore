@@ -5,7 +5,7 @@ RSpec.describe 'Home page', type: :feature do
     visit(root_path)
   end
 
-  it 'User can see latest books slider and buy it' do
+  it 'User can see latest books' do
     within '.carousel.slide' do
       expect(page).to have_selector('.item', count: 3, visible: false)
 
@@ -19,8 +19,25 @@ RSpec.describe 'Home page', type: :feature do
     end
   end
 
-  it 'User can click the get started button and come to books page' do
-    click_link(I18n.t('store.get_started'))
-    expect(page).to have_current_path(category_books_path(0))
+  it 'User can see bestsellers'
+
+  it 'User can go to book page'
+
+  context 'when adding book to cart' do
+    it 'via buy_now button'
+    it 'via add_to_cart icon'
+  end
+
+  context 'when User goes to Catalog page' do
+    it 'via Catalog menu'
+    it 'via get_started button' do
+      click_link(I18n.t('store.get_started'))
+      expect(page).to have_current_path(books_path)
+    end
+  end
+
+  context 'when User logged in' do
+    it 'User can go to settings page'
+    it 'User can go to orders page'
   end
 end

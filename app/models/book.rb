@@ -29,7 +29,10 @@ class Book < ApplicationRecord
     less_than_or_equal_to: MAX_QUANTITY
   }
 
+  # === TODO ===
   scope :most_popular,     -> { order('created_at ASC') }
+  # ============
+
   scope :most_recent,      -> { order('created_at DESC') }
 
   scope :ascending_title,  -> { order('title ASC') }

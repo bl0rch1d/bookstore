@@ -33,7 +33,7 @@ gem 'devise', '~> 4.6'
 gem 'omniauth-facebook', '~> 5.0'
 
 # Authorization
-gem 'pundit', '~> 2.0', '>= 2.0.1'
+# gem 'pundit', '~> 2.0', '>= 2.0.1'
 
 # Admin panel
 gem 'activeadmin', '~> 2.1'

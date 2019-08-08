@@ -1,9 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
 
   ActiveAdmin.routes(self)
 
@@ -39,8 +39,8 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: :create
-
-  resources :books, only: :show
+  
+  resources :books, only: %i[index show]
 
   root 'pages#home'
 end

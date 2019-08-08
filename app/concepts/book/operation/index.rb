@@ -1,5 +1,4 @@
 class Book::Index < Trailblazer::Operation
-  step Policy::Guard(Book::Policy::IndexGuard.new), fail_fast: true
   step Contract::Build(constant: Book::Contract::Index)
   step Contract::Validate(), fail_fast: true
 

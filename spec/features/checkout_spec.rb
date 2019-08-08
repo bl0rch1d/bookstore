@@ -97,7 +97,7 @@
 
 #       click_button(I18n.t('checkout.back'))
 
-#       expect(page).to have_current_path(category_books_path(0))
+#       expect(page).to have_current_path(books_path)
 #     end
 
 #     it 'User can buy book through checkout flow user only billing_address' do
@@ -161,7 +161,7 @@
 
 #       click_button(I18n.t('checkout.back'))
 
-#       expect(page).to have_current_path(category_books_path(0))
+#       expect(page).to have_current_path(books_path)
 #     end
 #   end
 

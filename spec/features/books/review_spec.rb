@@ -1,6 +1,6 @@
 # require_relative '../support/helpers/feature_spec_helper'
 
-RSpec.describe 'Books page', type: :feature do
+RSpec.describe 'Review', type: :feature do
   let!(:book) { create(:book) }
 
   let(:values) do
@@ -14,26 +14,6 @@ RSpec.describe 'Books page', type: :feature do
         blank: ''
       }
     }
-  end
-
-  it 'user can put book into a “shopping cart”' do
-    visit book_path(book.id)
-
-    find("input[value='#{I18n.t('store.button.add_to_cart')}']").click
-
-    expect(page).to have_content(I18n.t('order_item.notice.added'))
-  end
-
-  it 'user can view detailed information on a book' do
-    visit category_books_path(0)
-
-    find_link(class: 'book_path_link', visible: false).click
-
-    expect(page).to have_content(book.title)
-    expect(page).to have_content(book.decorate.format_authors)
-    expect(page).to have_content(book.decorate.short_description)
-    expect(page).to have_content(book.price)
-    expect(page).to have_content(book.year)
   end
 
   # === TODO ===
@@ -85,10 +65,4 @@ RSpec.describe 'Books page', type: :feature do
   #     )
   #   end
   # end
-
-  it 'book was not found' do
-    visit book_path(123_456_789)
-
-    expect(page).to have_content(I18n.t('store.not_found.message'))
-  end
 end

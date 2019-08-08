@@ -9,7 +9,7 @@
         .row
           .col-sm-5
             .general-img-wrap
-              - if book.images
+              - if book.images.any?
                 = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
               - else
                 = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')

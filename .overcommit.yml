@@ -58,3 +58,18 @@ PreCommit:
 
   LineEndings:
     enabled: true
+
+  RailsBestPractices:
+    enabled: true
+  
+  RailsSchemaUpToDate:
+    enabled: true
+
+  HamlLint:
+    enabled: true
+  Reek:
+    enabled: true
+
+PrePush:
+  Brakeman:
+    enabled: true

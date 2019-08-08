@@ -3,12 +3,13 @@ RSpec.describe Review::Create do
 
   describe 'Success' do
     let(:current_user) { create :user }
-    let(:review_params) { attributes_for(:review) }
+    let(:review_params) { attributes_for(:review, user_id: current_user.id) }
 
     let(:params) { review_params.merge(current_user: current_user) }
 
     it 'Creates a review' do
       expect(result['model']).to be_a(Review)
+
       expect(result['result.contract.default']).to be_success
       expect(Review.last.body).to eq(review_params[:body])
 

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     post 'users/fast_create', to: 'users/registrations#fast_create'
   end
 
-  resources :checkout, only: %i[index show update]
+  resources :checkout_steps, only: %i[index show update]
 
   resource :addresses, only: %i[edit update] do
     patch :edit, on: :collection, action: :update
@@ -42,5 +42,5 @@ Rails.application.routes.draw do
 
   resources :books, only: :show
 
-  root 'home#index'
+  root 'pages#home'
 end

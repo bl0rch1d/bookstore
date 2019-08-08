@@ -15,11 +15,6 @@ module Review::Contract
     validates :body, :rating, presence: true, length: { maximum: BODY_LENGTH }, format: { with: TEXT_REGEX }
     validates :rating, numericality: { only_integer: true }, inclusion: { in: RATING_RANGE }
 
-    validates :user_id, :book_id, presence: true, numericality: {
-      only_integer: true,
-      greater_than_or_equal_to: ApplicationRecord::MIN_ID_VALUE
-    }
-
     def rating=(value)
       super value.to_i
     end

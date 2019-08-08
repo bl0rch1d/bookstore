@@ -29,6 +29,6 @@
   
   .text-center
     - if current_order.order_items.any?
-      = link_to t("checkout.button"), checkout_path(:address), role: "button", class: "btn btn-default mb-20"
+      = link_to t("checkout.button"), checkout_step_path(:address), role: "button", class: "btn btn-default mb-20"
     - else
       %button.btn.btn-default.mb-20.disabled= t('checkout.button')

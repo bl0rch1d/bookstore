@@ -10,8 +10,11 @@
         .col-xs-6.col-sm-3
           .general-thumb-wrap
             .thumbnail.general-thumbnail
-              %img
+              - if book.images.any?
                 = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+              - else
+                = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
+                
               .thumb-hover
                 .general-thumb-link-wrap
                   = link_to book_path(book), class: "thumb-hover-link book_path_link" do

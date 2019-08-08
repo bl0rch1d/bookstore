@@ -1,5 +1,5 @@
 # rubocop: disable Metrics/ClassLength
-class CheckoutController < ApplicationController
+class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
 
   before_action :fast_authenticate_user!, :link_user_to_order

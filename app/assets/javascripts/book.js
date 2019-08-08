@@ -20,6 +20,8 @@ let decrementQuantity = () => {
 }
 
 document.addEventListener("click", (event) => {
+  console.log(event.target)
+
   let descriptionTriggers = [document.getElementById("full_description_show"), document.getElementById("full_description_hide")];
   
   if (descriptionTriggers.includes(event.target)) { toggleDescription(); }

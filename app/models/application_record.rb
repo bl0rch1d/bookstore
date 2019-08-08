@@ -5,6 +5,4 @@ class ApplicationRecord < ActiveRecord::Base
 
   MAX_PRICE = 100_000
   MIN_PRICE = 0
-
-  MIN_ID_VALUE = 1
 end

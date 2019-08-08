@@ -5,13 +5,13 @@
         %span{'aria-hidden': "true"} &times;
       .general-img-wrap-table
         - if with_show_link
-          - if item.book.images
+          - if item.book.images.any?
             = link_to book_path(item.book) do
               = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
           - else
             = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
         - else
-          - if item.book.images
+          - if item.book.images.any?
             = image_tag(item.book.images.first.variant(resize: t('resize.small')), class: 'cart-img-shadow pull-left')
           - else
             = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')

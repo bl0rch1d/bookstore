@@ -27,10 +27,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'country_select', '~> 4.0'
 gem 'simple_form', '~> 4.1'
 
-# Auth
+# Authentication
 gem 'devise', '~> 4.6'
 # gem 'devise-security', '~> 0.14.3'
 gem 'omniauth-facebook', '~> 5.0'
+
+# Authorization
+gem 'pundit', '~> 2.0', '>= 2.0.1'
 
 # Admin panel
 gem 'activeadmin', '~> 2.1'
@@ -81,6 +84,7 @@ group :development, :test do
 
   # Test bundle
   gem 'capybara', '>= 2.15'
+  gem 'rack_session_access', '~> 0.2.0'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'
@@ -109,6 +113,7 @@ group :development do
 
   # Linters
   gem 'fasterer', '~> 0.5.1'
+  gem 'haml_lint', '~> 0.32.0'
   gem 'overcommit', '~> 0.22.0'
   gem 'rails_best_practices', '~> 1.19'
   gem 'reek', '~> 5.4'

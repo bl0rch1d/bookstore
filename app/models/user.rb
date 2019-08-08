@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # === for prod ===
   devise :database_authenticatable, :registerable, :confirmable, :validatable,
-         :recoverable, :rememberable, :trackable, :omniauthable
+         :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: [:facebook]
 
   attr_accessor :remove_account
 

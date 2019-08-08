@@ -6,7 +6,7 @@
   .row
     .col-sm-6
       .product-gallery
-        - if @book.images
+        - if @book.images.any?
           .mb-20
             = image_tag(@book.cover, class: 'img-responsive')
           = render 'images'
@@ -25,10 +25,10 @@
         %p= t("book.description")
         %p.lead.small.line-height-2#short_description
           = @book.short_description
-          %a.in-gold-500.ml-10#full_description_show= t("read_more")
+          %a.in-gold-500.ml-10#full_description_show= t("book.read_more")
         %p.lead.small.line-height-2#full_description.hidden
           = @book.description
-          %a.in-gold-500.ml-10#full_description_hide= t("read_less")
+          %a.in-gold-500.ml-10#full_description_hide= t("book.read_less")
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left= t("book.year")

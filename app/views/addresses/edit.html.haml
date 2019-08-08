@@ -1,16 +1,16 @@
 %main.container
-  %h1.general-title-margi= t("store.menu.settings")
+  %h1.general-title-margi= t('store.menu.settings')
   %ul.nav.clearfix.mb-20
     %li.user-tab-link
-      = link_to t("address.title"), edit_addresses_path
+      = link_to t('address.title'), edit_addresses_path
     %li.user-tab-link
-      = link_to t("store.menu.privacy"), edit_user_registration_path
-  
+      = link_to t('store.menu.privacy'), edit_user_registration_path
+
   .tab-content
     .hidden-xs.hidden-sm
       .row
         .col-md-5
-          %h3.general-subtitle.mt-0= t("address.billing")
+          %h3.general-subtitle.mt-0= t('address.billing')
           %p.general-info-text= t("form.all_fields_required")
         .col-md-5.col-md-offset-1
           %h3.general-subtitle.mt-0= t("address.shipping")
@@ -25,7 +25,7 @@
 
           = render partial: 'shared/address_form', locals: { builder: form, id: :billing_address, form: @billing_address_form, a_type: 'User', a_id: current_user.id }
           = form.submit t("form.save"), class: "btn btn-default center-block mb-20 mt-25", id: 'billingSave'
-        
+
       = simple_form_for current_user, url: edit_addresses_path, method: :patch do |form|
         .col-md-5.col-md-offset-1.mb-25
           .visible-xs.visible-sm

@@ -1,12 +1,5 @@
 module Order::Query
   class Index
-    # def self.call(user, params)
-    #   query = new
-    #   query.instance_variable_set(:@params, params)
-    #   query.instance_variable_set(:@user, user)
-    #   query.perform
-    # end
-
     def call(user, params)
       @params = params
       @user = user
@@ -16,7 +9,7 @@ module Order::Query
       when I18n.t('order.filter.in_delivery')  then in_delivery
       when I18n.t('order.filter.delivered')    then delivered
       when I18n.t('order.filter.canceled')     then canceled
-      when 'all'                               then orders
+      when I18n.t('order.all')                 then orders
       else in_progress
       end
     end
@@ -30,7 +23,7 @@ module Order::Query
     delegate :canceled,    to: :orders
 
     def orders
-      @user.orders
+      @user.orders.completed
     end
   end
 end

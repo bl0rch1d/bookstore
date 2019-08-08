@@ -19,9 +19,9 @@ module Bookstore
     # config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
 
-    config.generators do |g|
-      g.test_framework :rspec
-      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    config.generators do |generator|
+      generator.test_framework :rspec
+      generator.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
     config.action_dispatch.signed_cookie_digest = 'SHA256'

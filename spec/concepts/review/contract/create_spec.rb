@@ -13,8 +13,6 @@ RSpec.describe Review::Contract::Create do
     context 'when review params invalid' do
       let(:errors) do
         {
-          user_id: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.not_a_number')],
-          book_id: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.not_a_number')],
           title: [I18n.t('errors.messages.blank')],
           body: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
           rating: [

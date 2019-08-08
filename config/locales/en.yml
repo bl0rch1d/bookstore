@@ -43,8 +43,18 @@ en:
   currency:
     euro: '€'
 
+  notices:
+    facebook:
+      error_authentication: Something went wrong, invalid Facebook data
+      error: Something went wrong, can not log in via Facebook
+
   validation_errors:
     out_of_limits: "is out of limits"
+  
+  validation_notices:
+    blank: 'Please fill out this field'
+    invalid_format: "Please include an '@' in the email address. '%{value}' is missing an '@'"
+    incomplete_format: "Please enter a part following '@'. '%{value}' is incomplete."
 
   auth:
     have_an_account: "Already have an account?"
@@ -170,6 +180,7 @@ en:
     order_number: "Order #%{number}"
     phone: "Phone %{phone}"
     my: "My Orders"
+    all: 'all'
     states:
       in_progress: "In progress"
       in_delivery: "In delivery"

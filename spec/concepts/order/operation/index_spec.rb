@@ -11,16 +11,4 @@ RSpec.describe Order::Index do
       expect(result).to be_success
     end
   end
-
-  describe 'Failure' do
-    context 'when invalid parameters' do
-      let(:user) { create :user, :with_orders }
-      let(:params) { { sort_by: 23 } }
-
-      it do
-        expect(result['model']).to be_nil
-        expect(result).to be_failure
-      end
-    end
-  end
 end

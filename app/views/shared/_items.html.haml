@@ -40,14 +40,14 @@
                 %input.form-control.quantity-input{ type: 'text', value: item.quantity.to_s, disabled: true }
               - else
                 - if item.quantity > 1
-                  = link_to order_item_path(item, order_item: { quantity: -1 }), method: :patch, class: 'input-link', id: 'decrement' do
+                  = link_to order_order_item_path(current_order, item, order_item: { quantity: -1 }), method: :patch, class: 'input-link', id: 'decrement' do
                     %i.fa.fa-minus.line-heaght-40
                 - else
                   %a.input-link
                     %i.fa.fa-minus.line-heaght-40
 
                 %input.form-control.quantity-input{ type: 'text', value: item.quantity.to_s, disabled: true }
-                = link_to order_item_path(item, order_item: { quantity: 1 }), method: :patch, class: 'input-link', id: 'increment' do
+                = link_to order_order_item_path(current_order, item, order_item: { quantity: 1 }), method: :patch, class: 'input-link', id: 'increment' do
                   %i.fa.fa-plus.line-heaght-40
 
 
@@ -55,5 +55,5 @@
             %span.font-16.in-gold-500= number_to_currency(item.subtotal, unit: t('currency.euro'))
           %td
             - unless static
-              = link_to order_item_path(item), method: :delete, class: 'close general-cart-close' do
+              = link_to order_order_item_path(current_order, item), method: :delete, class: 'close general-cart-close' do
                 %span{ 'aria-hidden': 'true' } &times;

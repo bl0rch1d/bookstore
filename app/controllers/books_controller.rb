@@ -2,8 +2,6 @@ class BooksController < ApplicationController
   def index
     result = Book::Index.call(params)
 
-    # binding.pry
-
     return redirect_to(books_path) unless result.success?
 
     @pagy = result['pagy']

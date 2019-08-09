@@ -15,7 +15,7 @@ describe 'Fast registration', type: :feature do
 
       click_link(I18n.t('store.button.buy_now'))
 
-      visit cart_index_path
+      visit order_order_items_path(Order.last)
     end
 
     it 'with valid email' do

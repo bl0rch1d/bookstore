@@ -20,7 +20,7 @@
               %p.lead.small= book.format_authors
               .general-align
                 - if book.quantity.positive?
-                  = link_to(t('store.button.buy_now'), order_items_path(order_item: { book_id: book, order_id: current_order, quantity: 1 }),
+                  = link_to(t('store.button.buy_now'), order_order_items_path(current_order, order_item: { book_id: book, order_id: current_order, quantity: 1 }),
                                                         method: :post,
                                                         class: 'btn-primary btn')
                 - else

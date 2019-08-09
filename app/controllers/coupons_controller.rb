@@ -4,7 +4,7 @@ class CouponsController < ApplicationController
 
     check_result(result)
 
-    redirect_to cart_index_path
+    redirect_to order_order_items_path(current_order)
   end
 
   def check_result(result)

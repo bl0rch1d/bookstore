@@ -1,4 +1,8 @@
 class OrderItemsController < ApplicationController
+  def index
+    @items = OrderItem::Index.call(order: current_order)['model']
+  end
+
   def create
     result = OrderItem::Create.call(params)
 

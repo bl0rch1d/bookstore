@@ -9,7 +9,7 @@ describe 'Cart', type: :feature do
 
     click_link(I18n.t('store.button.buy_now'))
 
-    visit cart_index_path
+    visit order_order_items_path(Order.last)
   end
 
   context 'when user updates order_items' do

@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     post 'users/fast_create', to: 'users/registrations#fast_create'
   end
 
+  resources :users, only: [] do
+    resources :orders, only: %i[index show]
+  end
+
   resources :checkout_steps, only: %i[index show update]
 
   resource :addresses, only: %i[edit update] do
@@ -28,11 +32,9 @@ Rails.application.routes.draw do
 
   resource :coupon, only: :create, action: :apply
 
-  resources :order_items, only: %i[create update destroy]
-
-  resources :cart, only: :index
-
-  resources :orders, only: %i[index show]
+  resources :orders, only: [] do
+    resources :order_items
+  end
 
   resources :categories, only: [] do
     resources :books, only: :index

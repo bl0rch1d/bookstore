@@ -139,7 +139,7 @@ en:
     product: "Product"
     price: "Price"
     quantity: "Quantity"
-    sub_total: "Subtotal"
+    subtotal: "Subtotal"
     errors:
       no_items: "Add items first!"
     notice:

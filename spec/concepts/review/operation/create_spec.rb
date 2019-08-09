@@ -1,4 +1,4 @@
-RSpec.describe Review::Create do
+describe Review::Create do
   let(:result) { described_class.call(params) }
 
   describe 'Success' do

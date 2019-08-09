@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Contract::Create do
+describe OrderItem::Contract::Create do
   let(:contract) { described_class.new(OrderItem.new) }
 
   describe 'Success' do

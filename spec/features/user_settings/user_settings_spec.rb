@@ -1,7 +1,7 @@
 # require_relative '../support/helpers/feature_spec_helper'
 
 # === TODO ===
-# RSpec.describe 'User settings page', type: :feature do
+# describe 'User settings page', type: :feature do
 #   let(:values) do
 #     {
 #       valid: {

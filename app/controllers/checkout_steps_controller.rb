@@ -2,7 +2,7 @@
 class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
 
-  before_action :fast_authenticate_user!, :link_user_to_order
+  before_action :fast_authenticate_user!, :initialize_user
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -26,7 +26,7 @@ class CheckoutStepsController < ApplicationController
 
   private
 
-  def link_user_to_order
+  def initialize_user
     Checkout::Initialize.call(checkout_params) unless current_order.user
   end
 
@@ -34,21 +34,24 @@ class CheckoutStepsController < ApplicationController
     redirect_to users_fast_new_path unless current_user
   end
 
-  def checkout_params
+  def service_params
     {
       'current_order' => current_order,
       'current_user' => current_user,
-      'step' => @step,
-      'shipping_method_id' => params.dig(:order, :shipping_method_id),
+      'step' => @step
+    }
+  end
+
+  def address_params
+    {
       'billing_address_params' => params.dig(:order, :billing_address),
       'shipping_address_params' => params.dig(:order, :shipping_address),
-      'use_billing_address' => params.dig(:order, :use_billing) == 'true',
-      'credit_card' => params.dig(:order, :credit_card)
+      'use_billing_address' => params.dig(:order, :use_billing) == 'true'
     }
   end
 
   def address
-    result = Checkout::Addresses::Present.call(checkout_params)
+    result = Checkout::Addresses::Present.call(service_params)
 
     if result.success?
       expose_address_forms(result)
@@ -59,7 +62,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_address
-    result = Checkout::Addresses.call(checkout_params)
+    result = Checkout::Addresses.call(service_params.merge(address_params))
 
     if result.success?
       render_wizard current_order
@@ -70,7 +73,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def shipping
-    result = Checkout::Shipping::Present.call(checkout_params)
+    result = Checkout::Shipping::Present.call(service_params)
 
     if result.success?
       @shipping_methods = result['model']
@@ -81,7 +84,9 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_shipping
-    result = Checkout::Shipping.call(checkout_params)
+    result = Checkout::Shipping.call(service_params.merge(
+                                       'shipping_method_id' => params.dig(:order, :shipping_method_id)
+                                     ))
 
     if result.success?
       render_wizard current_order
@@ -92,7 +97,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def payment
-    result = Checkout::Payment::Present.call(checkout_params)
+    result = Checkout::Payment::Present.call(service_params)
 
     if result.success?
       @credit_card_form = result['contract.default']
@@ -103,7 +108,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_payment
-    result = Checkout::Payment.call(checkout_params)
+    result = Checkout::Payment.call(service_params.merge('credit_card' => params.dig(:order, :credit_card)))
 
     if result.success?
       render_wizard current_order
@@ -114,7 +119,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def confirm
-    result = Checkout::Confirm::Present.call(checkout_params)
+    result = Checkout::Confirm::Present.call(service_params)
 
     if result.success?
       render_wizard
@@ -124,7 +129,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def finalize_order
-    result = Checkout::Confirm.call(checkout_params)
+    result = Checkout::Confirm.call(service_params)
 
     if result.success?
       render_wizard current_order
@@ -134,7 +139,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def complete
-    result = Checkout::Complete.call(checkout_params.merge('session' => session))
+    result = Checkout::Complete.call(service_params.merge('session' => session))
 
     if result.success?
       @order = result['model'].decorate

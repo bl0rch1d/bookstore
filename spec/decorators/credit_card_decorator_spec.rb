@@ -1,4 +1,4 @@
-RSpec.describe CreditCardDecorator do
+describe CreditCardDecorator do
   subject(:credit_card) { create(:credit_card).decorate }
 
   it '#secure_number' do

@@ -4,7 +4,7 @@
       %table.table
         %tr
           %td.col-half
-            %span.in-grey-600= t("checkout.shipping.method")
+            %span.in-grey-600= t('checkout.shipping.method')
           %td.col-half
             .form-group.radio.mt-0.mb-0
               %label.radio-label
@@ -13,11 +13,11 @@
                 %span.radio-text= shipping_method.title
         %tr
           %td
-            %span.in-grey-600= t("checkout.shipping.days")
+            %span.in-grey-600= t('checkout.shipping.days')
           %td
-            %span.font-16.fw-300= t("checkout.shipping.interval", min: shipping_method.min_days, max: shipping_method.max_days)
+            %span.font-16.fw-300= t('checkout.shipping.interval', min: shipping_method.min_days, max: shipping_method.max_days)
         %tr
           %td
-            %span.in-grey-600= t("checkout.shipping.price")
+            %span.in-grey-600= t('checkout.shipping.price')
           %td
             %span.font-16.in-gold-500= number_to_currency(shipping_method.price, unit: t('currency.euro'))

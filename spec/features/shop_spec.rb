@@ -1,4 +1,4 @@
-RSpec.describe 'Shop page', type: :feature do
+describe 'Shop page', type: :feature do
   let!(:books) { create_list(:book, 10) }
 
   it 'User can navigate by categories' do

@@ -1,4 +1,4 @@
-RSpec.describe CheckoutMailer, type: :mailer do
+describe CheckoutMailer, type: :mailer do
   let!(:order) { create :order, :full }
 
   describe 'complete  ' do

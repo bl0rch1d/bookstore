@@ -1,4 +1,4 @@
-RSpec.describe Review::Policy::CreateGuard do
+describe Review::Policy::CreateGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 
   let(:user) { create(:user) }

@@ -1,22 +1,22 @@
 %main.container.general-main-wrap
-  %h1.mt-0.mb-25= t("order.my")
-  %p.lead.small.mb-10.visible-xs= t("sort_by")
+  %h1.mt-0.mb-25= t('order.my')
+  %p.lead.small.mb-10.visible-xs= t('sort_by')
   .dropdowns.dropdown.general-order-dropdown
-    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+    %a.dropdown-toggle.lead.small{ href: '#', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }
       = t("order.states.#{params[:sort_by] || :in_progress}")
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       %li
         = link_to 'all', orders_path(sort_by: 'all')
       %li
-        = link_to t("order.states.in_progress"), orders_path(sort_by: 'in_progress')
+        = link_to t('order.states.in_progress'), orders_path(sort_by: 'in_progress')
       %li
-        = link_to t("order.states.in_delivery"), orders_path(sort_by: 'in_delivery')
+        = link_to t('order.states.in_delivery'), orders_path(sort_by: 'in_delivery')
       %li
-        = link_to t("order.states.delivered"), orders_path(sort_by: 'delivered')
+        = link_to t('order.states.delivered'), orders_path(sort_by: 'delivered')
       %li
-        = link_to t("order.states.canceled"), orders_path(sort_by: 'canceled')
-  
+        = link_to t('order.states.canceled'), orders_path(sort_by: 'canceled')
+
   = render 'orders_mobile'
-  
+
   = render 'orders'

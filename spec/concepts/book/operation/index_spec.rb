@@ -1,4 +1,4 @@
-RSpec.describe Book::Index do
+describe Book::Index do
   subject(:result) { described_class.call(params) }
 
   let(:params) { { category_id: category_id, sort_by: sort_by, page: page, items: items } }

@@ -1,4 +1,4 @@
-RSpec.describe 'Home page', type: :feature do
+describe 'Home page', type: :feature do
   before do
     create(:category, :with_books)
 

@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Create do
+describe OrderItem::Create do
   let(:result) { described_class.call(params) }
 
   let(:current_order) { create :order }

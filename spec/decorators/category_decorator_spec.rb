@@ -1,4 +1,4 @@
-RSpec.describe CategoryDecorator do
+describe CategoryDecorator do
   subject(:category) { create(:category).decorate }
 
   it '#system_format' do

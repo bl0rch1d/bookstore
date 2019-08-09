@@ -1,4 +1,4 @@
-RSpec.describe FastUser::Contract::Create do
+describe FastUser::Contract::Create do
   let(:contract) { described_class.new(User.new) }
 
   describe 'Success' do

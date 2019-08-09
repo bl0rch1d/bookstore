@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Policy::CreateGuard do
+describe OrderItem::Policy::CreateGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 
   describe 'Success' do

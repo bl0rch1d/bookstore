@@ -1,4 +1,4 @@
-RSpec.describe Order::Query::Index do
+describe Order::Query::Index do
   let(:result) { described_class.new.call(user, params) }
 
   context 'when default' do

@@ -1,7 +1,7 @@
 = form_with scope: current_order.coupon, url: coupon_path(order_id: current_order), method: :post, local: true, id: 'applyCoupon' do |f|
   .input-group.general-input-group
-    %label.input-label= t("coupon.enter_code")
+    %label.input-label= t('coupon.enter_code')
     = f.text_field :code, class: 'form-control mb-30', required: true
     %div
-      = f.submit t("coupon.apply"), class: 'btn btn-primary mr-5 mb-15' do
+      = f.submit t('coupon.apply'), class: 'btn btn-primary mr-5 mb-15' do
         %button

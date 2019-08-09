@@ -1,4 +1,4 @@
-RSpec.describe AuthorDecorator do
+describe AuthorDecorator do
   subject(:author) { create(:author).decorate }
 
   it '#full_name' do

@@ -1,7 +1,7 @@
 .mb-80
   - if @reviews
-    %h3.in-gold-500.mb-25= t("review.reviews_with_size", size: @reviews.size)
-    - @reviews.each do |review| 
+    %h3.in-gold-500.mb-25= t('review.reviews_with_size', size: @reviews.size)
+    - @reviews.each do |review|
       .general-message-wrap.divider-lg
         .clearfix
           %span.img-circle.logo-size.inlide-block.pull-left.logo-empty= review.user.initials
@@ -10,11 +10,11 @@
               .general-message-date.hidden-xs= review.created_at
               .max-240
                 - if review.verified
-                  .general-message-verified.pull-right= t("review.verified")
+                  .general-message-verified.pull-right= t('review.verified')
                 .general-message-name= review.user.full_name
             .mb-15
               - review.rating.times do
                 %i.fa.fa-star.rate-star
               - (5 - review.rating).times do
-                %i.fa.fa-star.rate-empty  
+                %i.fa.fa-star.rate-empty
             %p= review.body

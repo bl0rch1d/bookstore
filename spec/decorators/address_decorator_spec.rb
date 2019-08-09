@@ -1,4 +1,4 @@
-RSpec.describe AddressDecorator do
+describe AddressDecorator do
   subject(:address) { create(:shipping_address, :for_order).decorate }
 
   it '#full_name' do

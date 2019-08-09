@@ -1,7 +1,7 @@
 # require_relative '../support/helpers/feature_spec_helper'
 
 # === TODO ===
-# RSpec.describe 'Checkout', type: :feature do
+# describe 'Checkout', type: :feature do
 #   let!(:shipping_method) { create(:shipping_method) }
 
 #   let(:values) do

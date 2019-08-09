@@ -1,4 +1,4 @@
-RSpec.describe Author, type: :model do
+describe Author, type: :model do
   context 'relations' do
     it { is_expected.to have_many(:authors_books).dependent(:destroy) }
     it { is_expected.to have_many(:books).through(:authors_books) }

@@ -1,4 +1,4 @@
-RSpec.describe Order::Policy::ShowPolicy do
+describe Order::Policy::ShowPolicy do
   let(:policy) { described_class.new(user, record) }
 
   describe 'Success' do

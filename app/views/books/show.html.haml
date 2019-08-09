@@ -1,8 +1,7 @@
 %main.container
   = link_to @path, class: 'general-back-link' do
-    %i.fa.fa-long-arrow-left.mr-15
-    =t("back_to_results")
-  
+    %i.fa.fa-long-arrow-left.mr-15= t('back_to_results')
+
   .row
     .col-sm-6
       .product-gallery
@@ -12,8 +11,8 @@
           = render 'images'
         - else
           = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
-    
-    .col-sm-6#book_info.mb-30
+
+    .col-sm-6.mb-30#book_info
       %h1.mt-res-0= @book.title
       %p.lead.small= @book.format_authors
       .row
@@ -22,26 +21,26 @@
         = render 'order_item_form'
 
       .general-info-wrap.divider-lg
-        %p= t("book.description")
+        %p= t('book.description')
         %p.lead.small.line-height-2#short_description
           = @book.short_description
-          %a.in-gold-500.ml-10#full_description_show= t("book.read_more")
-        %p.lead.small.line-height-2#full_description.hidden
+          %a.in-gold-500.ml-10#full_description_show= t('book.read_more')
+        %p.lead.small.line-height-2.hidden#full_description
           = @book.description
-          %a.in-gold-500.ml-10#full_description_hide= t("book.read_less")
+          %a.in-gold-500.ml-10#full_description_hide= t('book.read_less')
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left= t("book.year")
+          %p.pull-left= t('book.year')
           %p.lead.small.pull-right= @book.year
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left= t("book.dimensions")
+          %p.pull-left= t('book.dimensions')
           %p.lead.small.pull-right= @book.dimensions
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left= t("book.materials")
+          %p.pull-left= t('book.materials')
           %p.lead.small.pull-right= @book.inline_materials
-  
+
     - if user_signed_in?
       = render(file: 'app/views/reviews/new')
 

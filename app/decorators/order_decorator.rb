@@ -19,4 +19,8 @@ class OrderDecorator < Draper::Decorator
   def generate_number
     'R' + Array.new(6) { rand(1..9) }.join
   end
+
+  delegate :title, to: :shipping_method, prefix: true
+
+  delegate :expiration_date, to: :credit_card, prefix: true
 end

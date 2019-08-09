@@ -1,42 +1,44 @@
 %main.container
   = render 'progress_bar'
-  
-  = simple_form_for current_order, url: wizard_path, method: :put, class: "res-mb-100" do |form|
+
+  = simple_form_for current_order, url: wizard_path, method: :put, class: 'res-mb-100' do |form|
     .hidden-xs.hidden-sm
       .row
         .col-md-5
-          %h3.general-subtitle= t("address.billing")
-          %p.general-info-text= t("form.all_fields_required")
-        
+          %h3.general-subtitle= t('address.billing')
+          %p.general-info-text= t('form.all_fields_required')
+
         .col-md-5.col-md-offset-1
-          %h3.general-subtitle= t("address.shipping")
-          %p.general-info-text= t("form.all_fields_required")
-  
+          %h3.general-subtitle= t('address.shipping')
+          %p.general-info-text= t('form.all_fields_required')
+
     .row
       .col-md-5.mb-40
         .visible-xs.visible-sm
-          %h3.general-subtitle= t("address.billing")
-          %p.general-info-text= t("form.all_fields_required")
+          %h3.general-subtitle= t('address.billing')
+          %p.general-info-text= t('form.all_fields_required')
 
-        = render partial: 'shared/address_form', locals: { builder: form, id: :billing_address, form: @billing_address_form, a_type: 'Order', a_id: current_order.id }
+        = render(partial: 'shared/address_form',
+                  locals: { builder: form, id: :billing_address, form: @billing_address_form, a_type: 'Order', a_id: current_order.id })
 
       .col-md-5.col-md-offset-1.mb-60#shippingAddress
         .visible-xs.visible-sm
-          %h3.general-subtitle= t("address.shipping")
-          %p.general-info-text= t("form.all_fields_required")
+          %h3.general-subtitle= t('address.shipping')
+          %p.general-info-text= t('form.all_fields_required')
 
-        = render partial: 'shared/address_form', locals: { builder: form, id: :shipping_address, form: @shipping_address_form, a_type: 'Order', a_id: current_order.id }
-          
-        .form-group.checkbox.use-billing{onmousedown: "toggleShippingForm();"}
+        = render(partial: 'shared/address_form',
+                  locals: { builder: form, id: :shipping_address, form: @shipping_address_form, a_type: 'Order', a_id: current_order.id })
+
+        .form-group.checkbox.use-billing{ onmousedown: 'toggleShippingForm();' }
           %label.checkbox-label
             = form.check_box :use_billing, { class: 'checkbox-input', hidden: 'true', id: 'useBilling' }, 'true', 'false'
             %span.checkbox-icon
               %i.fa.fa-check
-            %span.checkbox-text.noselect= t("address.use_billing")
-            
+            %span.checkbox-text.noselect= t('address.use_billing')
+
     .general-text-align.mb-60
-      %p.in-gold-500.font-18= t("order.summary.summary")
+      %p.in-gold-500.font-18= t('order.summary.summary')
       %table.general-summary-table
         = render 'shared/order_summary'
 
-      = form.submit t("form.save_and_continue"), class: "btn btn-default center-block mb-20"
+      = form.submit t('form.save_and_continue'), class: 'btn btn-default center-block mb-20'

@@ -1,4 +1,4 @@
-RSpec.describe 'Cart', type: :feature do
+describe 'Cart', type: :feature do
   before do
     create :book
 

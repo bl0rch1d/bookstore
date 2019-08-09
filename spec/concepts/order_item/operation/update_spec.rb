@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Update do
+describe OrderItem::Update do
   let(:result) { described_class.call(params) }
 
   let(:book) { create(:book, price: 0.303e2) }

@@ -1,4 +1,4 @@
-RSpec.describe Order::Show do
+describe Order::Show do
   let(:result) { described_class.call(params, 'current_user' => user) }
 
   describe 'Success' do

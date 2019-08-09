@@ -1,18 +1,28 @@
 %main.container.general-main-wrap.mt-100
   .text-center
-    %p.in-gold-500.font-18.mb-25= t("user.password.edit")
-  
+    %p.in-gold-500.font-18.mb-25= t('user.password.edit')
+
   .general-form
     = form_with(scope: resource_name, url: password_path(resource_name), method: :put) do |f|
-      = render "devise/shared/error_messages", resource: resource
+      = render 'devise/shared/error_messages', resource: resource
       = f.hidden_field :reset_password_token
-      
+
       .form-group.mb-30
-        = f.label :password, t("form.labels.new_password")
-        = f.password_field :password,  placeholder: t("form.placeholders.new_password"), class: "form-control", id: "new_password", pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+        = f.label :password, t('form.labels.new_password')
+        = f.password_field(:password,
+                          class: 'form-control',
+                          id: 'new_password',
+                          required: true,
+                          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+                          placeholder: t('form.placeholders.new_password'))
       .form-group.mb-40
-        = f.label :password_confirmation, t("form.labels.password_confirmation")
-        = f.password_field :password_confirmation,  placeholder: t("form.placeholders.confirm_password"), class: "form-control", id: "confirm_password", pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-      
+        = f.label :password_confirmation, t('form.labels.password_confirmation')
+        = f.password_field(:password_confirmation,
+                          class: 'form-control',
+                          id: 'confirm_password',
+                          required: true,
+                          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+                          placeholder: t('form.placeholders.confirm_password'))
+
       .text-center
-        = f.submit t("form.save"), class: "btn btn-default mb-10"
+        = f.submit t('form.save'), class: 'btn btn-default mb-10'

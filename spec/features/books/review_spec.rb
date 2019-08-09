@@ -1,6 +1,6 @@
 # require_relative '../support/helpers/feature_spec_helper'
 
-RSpec.describe 'Review', type: :feature do
+describe 'Review', type: :feature do
   let!(:book) { create(:book) }
 
   let(:values) do

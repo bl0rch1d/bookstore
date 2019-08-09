@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Addresses do
+describe Checkout::Addresses do
   let(:user) { create :user }
 
   describe 'Success' do

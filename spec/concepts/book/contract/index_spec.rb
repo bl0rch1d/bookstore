@@ -1,4 +1,4 @@
-RSpec.describe Book::Contract::Index do
+describe Book::Contract::Index do
   let(:contract) { described_class.new(page: nil, sort_by: nil, category_id: nil) }
 
   describe 'Success' do

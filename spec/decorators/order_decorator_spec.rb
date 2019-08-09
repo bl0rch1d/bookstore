@@ -1,4 +1,4 @@
-RSpec.describe OrderDecorator do
+describe OrderDecorator do
   subject(:order) { create(:order, :full).decorate }
 
   it '#decorates coupon' do

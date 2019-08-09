@@ -1,14 +1,14 @@
-= render "devise/shared/error_messages"
+= render 'devise/shared/error_messages'
 %main.container.general-main-wrap
   .text-center
-    %h3.general-login-title= t("auth.log_in")
-    
+    %h3.general-login-title= t('auth.log_in')
+
     = render 'devise/providers/facebook'
-    
-    %p.general-login-text= t("auth.or")
-  
+
+    %p.general-login-text= t('auth.or')
+
   = render 'new_form'
-  
+
   %p.general-sign-text.text-center
-    = t("auth.have_no_an_account")
-    = link_to t("auth.sign_up"), new_user_registration_path, class: "in-gold-500"
+    = t('auth.have_no_an_account')
+    = link_to t('auth.sign_up'), new_user_registration_path, class: 'in-gold-500'

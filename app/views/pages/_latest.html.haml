@@ -1,11 +1,11 @@
-#slider.carousel.slide{'data-ride': "carousel"}
+.carousel.slide#slider{ 'data-ride': 'carousel' }
   %ol.carousel-indicators
-    %li.active{'data-target': "#slider", 'data-slide-to': "0"}
-    %li{'data-target': "#slider", 'data-slide-to': "1"}
-    %li{'data-target': "#slider", 'data-slide-to': "2"}
-  .carousel-inner{role: "listbox"}
+    %li.active{ 'data-target': '#slider', 'data-slide-to': '0' }
+    %li{ 'data-target': '#slider', 'data-slide-to': '1' }
+    %li{ 'data-target': '#slider', 'data-slide-to': '2' }
+  .carousel-inner{ role: 'listbox' }
     - @latest_books.each_with_index do |book, index|
-      .item{ class: ("active" if index.zero? ) }
+      .item{ class: ('active' if index.zero?) }
         .row
           .col-sm-5
             .general-img-wrap
@@ -18,14 +18,16 @@
               %h1= book.title
               %p.lead= book.description
               %p.lead.small= book.format_authors
-              .general-align 
-                - if book.quantity > 0
-                  = link_to t("store.button.buy_now"), order_items_path(order_item: { book_id: book, order_id: current_order, quantity: 1 }), method: :post, class: "btn-primary btn"
+              .general-align
+                - if book.quantity.positive?
+                  = link_to(t('store.button.buy_now'), order_items_path(order_item: { book_id: book, order_id: current_order, quantity: 1 }),
+                                                        method: :post,
+                                                        class: 'btn-primary btn')
                 - else
-                  %button.disabled.btn= t("store.button.buy_now")
-  %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
-    %span.icon-prev{'aria-hidden': "true"}
-    %span.sr-only= t("store.button.prev")
-  %a.right.carousel-control{href: "#slider", role: "button", 'data-slide': "next"}
-    %span.icon-next{'aria-hidden': "true"}
-    %span.sr-only= t("store.button.next")
+                  %button.disabled.btn= t('store.button.buy_now')
+  %a.left.carousel-control{ href: '#slider', role: 'button', 'data-slide': 'prev' }
+    %span.icon-prev{ 'aria-hidden': 'true' }
+    %span.sr-only= t('store.button.prev')
+  %a.right.carousel-control{ href: '#slider', role: 'button', 'data-slide': 'next' }
+    %span.icon-next{ 'aria-hidden': 'true' }
+    %span.sr-only= t('store.button.next')

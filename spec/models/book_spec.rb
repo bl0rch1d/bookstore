@@ -1,4 +1,4 @@
-RSpec.describe Book, type: :model do
+describe Book, type: :model do
   context 'relations' do
     it { is_expected.to belong_to(:category) }
 

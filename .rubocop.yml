@@ -49,6 +49,10 @@ Style/FrozenStringLiteralComment:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/IdenticalConditionalBranches:
+  Exclude:
+    - 'app/views/**/*'
+
 AllCops:
   Exclude:
     - 'bin/*'

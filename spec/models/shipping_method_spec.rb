@@ -1,4 +1,4 @@
-RSpec.describe ShippingMethod, type: :model do
+describe ShippingMethod, type: :model do
   context 'relations' do
     it { is_expected.to have_many(:orders).dependent(:destroy) }
   end

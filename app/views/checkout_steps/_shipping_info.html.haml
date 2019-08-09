@@ -1,6 +1,6 @@
-%h3.general-subtitle= t("checkout.shipping.title")
+%h3.general-subtitle= t('checkout.shipping.title')
 %p.general-address
   = current_order.shipping_method.title
-  %span= link_to t("link_to.edit"), wizard_path(:shipping), class: 'general-edit'
+  %span= link_to t('link_to.edit'), wizard_path(:shipping), class: 'general-edit'
   %br
   = number_to_currency(current_order.shipping_method.price, unit: t('currency.euro'))

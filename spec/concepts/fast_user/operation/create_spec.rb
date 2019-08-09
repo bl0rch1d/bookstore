@@ -1,4 +1,4 @@
-RSpec.describe FastUser::Create do
+describe FastUser::Create do
   let(:result) { described_class.call(user_params) }
 
   describe 'Success' do

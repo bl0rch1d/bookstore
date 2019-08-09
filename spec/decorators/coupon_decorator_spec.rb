@@ -1,4 +1,4 @@
-RSpec.describe CouponDecorator do
+describe CouponDecorator do
   subject(:coupon) { create(:coupon).decorate }
 
   it '#format_discount' do

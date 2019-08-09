@@ -3,3 +3,11 @@ linters:
     max: 160
   InstanceVariables:
     enabled: false
+  IdNames:
+    enabled: false
+  InlineStyles:
+    exclude:
+      - 'app/views/fast_registration_mailer/*'
+      - 'app/views/checkout_mailer/*'
+  UnnecessaryStringOutput:
+    enabled: false

@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Index do
+describe OrderItem::Index do
   let(:result) { described_class.call(order: current_order) }
 
   describe 'Success' do

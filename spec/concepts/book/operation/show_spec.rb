@@ -1,4 +1,4 @@
-RSpec.describe Book::Show do
+describe Book::Show do
   subject(:result) { described_class.call(params) }
 
   let(:params) { { id: 4 } }

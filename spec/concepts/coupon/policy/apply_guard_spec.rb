@@ -1,4 +1,4 @@
-RSpec.describe Coupon::Policy::ApplyGuard do
+describe Coupon::Policy::ApplyGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 
   describe 'Success' do

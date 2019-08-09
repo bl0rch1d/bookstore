@@ -1,4 +1,4 @@
-RSpec.describe Address::Update do
+describe Address::Update do
   let(:user) { create(:user) }
   let(:addressable) { { addressable_type: 'User', addressable_id: user.id } }
 

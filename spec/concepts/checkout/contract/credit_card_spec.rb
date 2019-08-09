@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Contract::CreditCard do
+describe Checkout::Contract::CreditCard do
   let(:contract) { described_class.new(CreditCard.new) }
 
   describe 'Success' do

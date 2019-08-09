@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :order do
     user
-    state { I18n.t('order.filter').map(&:second).sample }
+    state { I18n.t('order.filter').values.sample }
 
     trait :with_order_items do
       order_items { create_list(:order_item, 5) }

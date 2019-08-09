@@ -1,4 +1,4 @@
-RSpec.describe Order::Index do
+describe Order::Index do
   subject(:result) { described_class.call(params, 'current_user' => user) }
 
   describe 'Success' do

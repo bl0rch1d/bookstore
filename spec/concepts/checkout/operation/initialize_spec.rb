@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Initialize do
+describe Checkout::Initialize do
   let(:result) { described_class.call(params) }
 
   let(:user) { create :user }

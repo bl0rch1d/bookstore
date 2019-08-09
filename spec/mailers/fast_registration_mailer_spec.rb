@@ -1,4 +1,4 @@
-RSpec.describe FastRegistrationMailer, type: :mailer do
+describe FastRegistrationMailer, type: :mailer do
   let!(:user) { create :user }
 
   describe 'temporary_password  ' do

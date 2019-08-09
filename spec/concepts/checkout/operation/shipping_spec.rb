@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Shipping do
+describe Checkout::Shipping do
   let(:user) { create :user }
 
   describe 'Success' do

@@ -1,4 +1,4 @@
-RSpec.describe ReviewDecorator do
+describe ReviewDecorator do
   subject(:review) { create(:review).decorate }
 
   it 'decorates user' do

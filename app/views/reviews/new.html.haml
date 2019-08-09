@@ -1,6 +1,6 @@
 .mb-80
-  %h3= t("review.write")
-  %p.general-info-text= t("review.score")
+  %h3= t('review.write')
+  %p.general-info-text= t('review.score')
   .row
     = form_with scope: current_user.reviews, url: reviews_path(book_id: @book.id), method: :post, local: true, id: 'new_review' do |f|
       = f.hidden_field :user_id, value: current_user.id
@@ -11,11 +11,11 @@
       .col-md-8
         .mb-40
           .form-group
-            = f.label :title, t("review.title"), class: "control-label input-label in-grey-600"
-            = f.text_field :title, class: "form-control", id: "title"
+            = f.label :title, t('review.title'), class: 'control-label input-label in-grey-600'
+            = f.text_field :title, class: 'form-control', id: 'title'
           .form-group
-            = f.label :body, t("review.review"), class: "control-label input-label in-grey-600"
-            = f.text_area :body, class: "form-control", id: "body"
+            = f.label :body, t('review.review'), class: 'control-label input-label in-grey-600'
+            = f.text_area :body, class: 'form-control', id: 'body'
         .text-right
-          = f.submit t("review.post"), class: "btn btn-primary mb-20" do
+          = f.submit t('review.post'), class: 'btn btn-primary mb-20' do
             %button

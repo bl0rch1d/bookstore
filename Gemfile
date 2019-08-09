@@ -33,7 +33,7 @@ gem 'devise', '~> 4.6'
 gem 'omniauth-facebook', '~> 5.0'
 
 # Authorization
-# gem 'pundit', '~> 2.0', '>= 2.0.1'
+gem 'cancancan', '~> 3.0', '>= 3.0.1'
 
 # Admin panel
 gem 'activeadmin', '~> 2.1'
@@ -99,6 +99,7 @@ group :development, :test do
   gem 'bullet', '~> 6.0', '>= 6.0.1'
 
   # Profiler
+  gem 'flamegraph', '~> 0.9.5'
   gem 'stackprof', '~> 0.2.12'
 end
 

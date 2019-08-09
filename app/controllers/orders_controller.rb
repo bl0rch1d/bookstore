@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   def index
     result = Order::Index.call(params, 'current_user' => current_user)
 
-    return redirect_to(orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
+    return redirect_to(user_orders_path(sort_by: I18n.t('order.filter.in_progress'))) unless result.success?
 
     @orders = OrderDecorator.decorate_collection(result['model'])
   end

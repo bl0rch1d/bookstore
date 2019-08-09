@@ -1,20 +1,20 @@
 .hidden-xs.clearfix
   .dropdowns.pull-right
     .dropdown.width-240
-      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      %a.dropdown-toggle.lead.small{ href: '#', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }
         = t("sortings.text.#{params[:sort_by] || :title_ascending}")
         %i.fa.fa-angle-down.dropdown-icon.pull-right
-      
+
       = render 'sortings'
 
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
       .filter-link
-        = link_to  t('categories.all'), books_path, class: "collapse-link"
+        = link_to  t('categories.all'), books_path, class: 'collapse-link'
         %span.badge.general-badge= Book.count
-    
+
     - Category.all.each do |category|
       %li.mr-35
         .filter-link
-          = link_to category.title, category_books_path(category), class: "collapse-link"
+          = link_to category.title, category_books_path(category), class: 'collapse-link'
           %span.badge.general-badge= category.books.count

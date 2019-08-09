@@ -1,4 +1,4 @@
-RSpec.describe 'Fast registration', type: :feature do
+describe 'Fast registration', type: :feature do
   let(:values) do
     {
       valid: {

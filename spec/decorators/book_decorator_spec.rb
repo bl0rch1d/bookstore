@@ -1,4 +1,4 @@
-RSpec.describe BookDecorator do
+describe BookDecorator do
   subject(:book) { create(:book, :with_many_images).decorate }
 
   it '#thumb' do

@@ -1,4 +1,4 @@
-RSpec.describe 'Sign up', type: :feature do
+describe 'Sign up', type: :feature do
   let(:user) { create(:user) }
 
   context 'when user can sign up' do

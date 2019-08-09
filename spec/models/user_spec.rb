@@ -1,4 +1,4 @@
-RSpec.describe User, type: :model do
+describe User, type: :model do
   context 'relations' do
     it { is_expected.to have_many(:reviews).dependent(:destroy) }
     it { is_expected.to have_many(:orders).dependent(:destroy) }

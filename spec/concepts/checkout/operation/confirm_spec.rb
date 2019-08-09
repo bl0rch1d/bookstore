@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Confirm do
+describe Checkout::Confirm do
   let(:user) { create :user }
 
   describe 'Success' do

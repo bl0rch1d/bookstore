@@ -1,4 +1,4 @@
-RSpec.describe Address::Contract::Create do
+describe Address::Contract::Create do
   let(:contract) { described_class.new(Address.new) }
 
   describe 'Success' do

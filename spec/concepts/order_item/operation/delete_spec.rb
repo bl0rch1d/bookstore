@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Delete do
+describe OrderItem::Delete do
   let(:result) { described_class.call(id: order_item_id) }
 
   describe 'Success' do

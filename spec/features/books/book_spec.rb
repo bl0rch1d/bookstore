@@ -1,4 +1,4 @@
-RSpec.describe 'Books page', type: :feature do
+describe 'Books page', type: :feature do
   let!(:book) { create(:book) }
 
   it 'user can put book into a “shopping cart”' do

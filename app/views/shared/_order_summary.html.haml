@@ -1,54 +1,54 @@
 - if defined? step
-  
+
   %tr
     %td
-      %p.font-16= t("order.summary.item_total")
+      %p.font-16= t('order.summary.item_total')
     %td
       %p.font-16= number_to_currency(current_order.subtotal, unit: t('currency.euro'))
-  
+
   %tr
     %td
-      %p.font-16= t("order.summary.coupon")
+      %p.font-16= t('order.summary.coupon')
     %td
       - if current_order.coupon
         %p.font-16= number_to_currency(current_order.coupon.calculated_discount, unit: t('currency.euro'))
       - else
-        %p.font-16= t("zero_price")
-  
+        %p.font-16= t('zero_price')
+
   %tr
     %td
-      %p.font-16= t("order.summary.shipping")
+      %p.font-16= t('order.summary.shipping')
     %td
       - if current_order.shipping_method
         %p.font-16= number_to_currency(current_order.shipping_method.price, unit: t('currency.euro'))
       - else
-        %p.font-16= t("zero_price")
-  
+        %p.font-16= t('zero_price')
+
   %tr
     %td
-      %strong.font-18= t("order.summary.order_total")
+      %strong.font-18= t('order.summary.order_total')
     %td
       %strong.font-18= number_to_currency(current_order.total, unit: t('currency.euro'))
 
 - else
-  
+
   %tr
     %td
-      %p.font-16= t("order.summary.item_total")
+      %p.font-16= t('order.summary.item_total')
     %td
       %p.font-16= number_to_currency(current_order.subtotal, unit: t('currency.euro'))
-  
+
   %tr
     %td
-      %p.font-16= t("order.summary.coupon")
+      %p.font-16= t('order.summary.coupon')
     %td
       - if current_order.coupon
         %p.font-16= number_to_currency(current_order.coupon.calculated_discount, unit: t('currency.euro'))
       - else
-        %p.font-16= t("zero_price")
-  
+        %p.font-16= t('zero_price')
+
   %tr
     %td
-      %strong.font-18= t("order.summary.order_total")
+      %strong.font-18= t('order.summary.order_total')
     %td
       %strong.font-18= number_to_currency(current_order.total, unit: t('currency.euro'))

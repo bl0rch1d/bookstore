@@ -1,4 +1,4 @@
-RSpec.describe Checkout::Policy::CheckoutGuard do
+describe Checkout::Policy::CheckoutGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 
   let(:user) { create(:user) }

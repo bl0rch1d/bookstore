@@ -1,4 +1,4 @@
-RSpec.describe OrderItem::Policy::IndexGuard do
+describe OrderItem::Policy::IndexGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 
   describe 'Success' do

@@ -1,4 +1,4 @@
-RSpec.describe Coupon, type: :model do
+describe Coupon, type: :model do
   context 'relations' do
     it { is_expected.to belong_to(:order).optional }
   end

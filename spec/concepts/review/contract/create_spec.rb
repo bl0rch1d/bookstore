@@ -1,4 +1,4 @@
-RSpec.describe Review::Contract::Create do
+describe Review::Contract::Create do
   let(:contract) { described_class.new(Review.new) }
 
   describe 'Success' do

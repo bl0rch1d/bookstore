@@ -1,4 +1,4 @@
-RSpec.describe UserDecorator, type: :decorator do
+describe UserDecorator, type: :decorator do
   subject(:user) { create(:user, :with_addresses).decorate }
 
   it { expect(user.billing_address).to respond_to(:city_zip) }

@@ -3,11 +3,11 @@
     %thead
       %tr
         %th.col-method
-          %span.in-grey-600.ml-40= t("checkout.shipping.method")
+          %span.in-grey-600.ml-40= t('checkout.shipping.method')
         %th
-          %span.in-grey-600= t("checkout.shipping.days")
+          %span.in-grey-600= t('checkout.shipping.days')
         %th
-          %span.in-grey-600= t("checkout.shipping.price")
+          %span.in-grey-600= t('checkout.shipping.price')
     %tbody
       - ShippingMethod.all.each do |shipping_method|
         %tr
@@ -18,6 +18,6 @@
                 %span.radio-icon
                 %span.radio-text= shipping_method.title
           %td
-            %span= t("checkout.shipping.interval", min: shipping_method.min_days, max: shipping_method.max_days)
+            %span= t('checkout.shipping.interval', min: shipping_method.min_days, max: shipping_method.max_days)
           %td
             %span.font-16.in-gold-500= number_to_currency(shipping_method.price, unit: t('currency.euro'))

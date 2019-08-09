@@ -54,10 +54,6 @@ SEEDS_COUNT.times do |index|
 end
 
 Book.all.each do |book|
-  skip = [false, true, false].sample
-
-  return if skip
-
   rand(0..4).times do
     book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
   end

@@ -1,4 +1,4 @@
-RSpec.describe Coupon::Apply do
+describe Coupon::Apply do
   let(:result) { described_class.call(code: code, order: order) }
 
   let(:coupon) { create :coupon }

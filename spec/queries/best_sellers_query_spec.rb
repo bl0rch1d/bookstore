@@ -1,4 +1,4 @@
-RSpec.describe BestSellersQuery do
+describe BestSellersQuery do
   let(:result) { described_class.new(Category.all).call }
 
   5.times do

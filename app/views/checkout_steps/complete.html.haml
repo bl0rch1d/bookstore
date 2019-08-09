@@ -1,14 +1,14 @@
 %main.container.general-main-wrap
   = render 'progress_bar'
-  
+
   .text-center.mb-40
-    %h3.general-subtitle= t("checkout.thanks")
+    %h3.general-subtitle= t('checkout.thanks')
     %p.fw-300= "An order confirmation has been sent to #{current_user.email}"
-  
+
   .row.mb-20
     .col-sm-6
       .visible-xs
-        %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
+        %p.general-order-number.mb-0= t('order.order_number', number: @order.number)
         %p.general-address.mb-30= @order.completed_at
       %p.general-address
         = @order.shipping_address.full_name
@@ -19,18 +19,18 @@
         %br
         = @order.shipping_address.country
         %br
-        = t("order.phone", phone: @order.shipping_address.phone)
-    
+        = t('order.phone', phone: @order.shipping_address.phone)
+
     .col-sm-6.hidden-xs.text-right
-      %p.general-order-number.mb-0= t("order.order_number", number: @order.number)
+      %p.general-order-number.mb-0= t('order.order_number', number: @order.number)
       %p.general-address.mb-30= @order.completed_at
 
-  = render(partial: 'shared/items_mobile', locals: {order: @order, with_show_link: false, static: true})
-  = render(partial: 'shared/items', locals: {order: @order, with_show_link: false, static: true})
-  
+  = render(partial: 'shared/items_mobile', locals: { order: @order, with_show_link: false, static: true })
+  = render(partial: 'shared/items', locals: { order: @order, with_show_link: false, static: true })
+
   .text-center.general-text-right
-    %p.in-gold-500.font-18= t("order.summary.summary")
+    %p.in-gold-500.font-18= t('order.summary.summary')
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render 'shared/order_summary'
-  
-  = button_to t("checkout.back"), books_path, method: :get, class: "btn btn-default mb-20 center-block"
+
+  = button_to t('checkout.back'), books_path, method: :get, class: 'btn btn-default mb-20 center-block'

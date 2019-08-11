@@ -14,17 +14,4 @@ describe Book::Show do
       expect(result).to be_success
     end
   end
-
-  # === TODO ===
-  # describe 'Failure' do
-  #   before do
-  #     create_list(:book, 1)
-  #   end
-
-  #   it do
-  #     expect(result['model']).to eq(nil)
-
-  #     expect(result).to be_failure
-  #   end
-  # end
 end

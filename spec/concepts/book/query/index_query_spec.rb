@@ -11,7 +11,7 @@ describe Book::Query::Index do
     it 'title ascending' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.ascending_title)
+      expect(result).to eq(Book.ascending_title)
     end
   end
 
@@ -21,7 +21,7 @@ describe Book::Query::Index do
     it 'newest' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.most_recent)
+      expect(result).to eq(Book.most_recent)
     end
   end
 
@@ -31,7 +31,7 @@ describe Book::Query::Index do
     it 'popular' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.most_popular)
+      expect(result).to eq(Book.left_outer_joins(:order_items).group(:id).order('count(order_items.id) desc'))
     end
   end
 
@@ -41,7 +41,7 @@ describe Book::Query::Index do
     it 'descending_price' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.descending_price)
+      expect(result).to eq(Book.descending_price)
     end
   end
 
@@ -51,7 +51,7 @@ describe Book::Query::Index do
     it 'ascending_price' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.ascending_price)
+      expect(result).to eq(Book.ascending_price)
     end
   end
 
@@ -61,7 +61,7 @@ describe Book::Query::Index do
     it 'ascending_title' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.ascending_title)
+      expect(result).to eq(Book.ascending_title)
     end
   end
 
@@ -71,7 +71,7 @@ describe Book::Query::Index do
     it 'descending_title' do
       expect(result).to be_a(ActiveRecord::Relation)
       expect(result.sample).to be_a(Book)
-      expect(result).to eq(Book.all.descending_title)
+      expect(result).to eq(Book.descending_title)
     end
   end
 end

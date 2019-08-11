@@ -36,17 +36,6 @@ describe Book::Index do
       end
     end
 
-    # === TODO ===
-    # context 'when category is invalid' do
-    #   let(:page) { 1 }
-    #   let(:sort_by) { I18n.t('sortings.system.title_ascending') }
-    #   let(:category_id) { 'dsadas' }
-
-    #   it do
-    #     expect(result).to be_failure
-    #   end
-    # end
-
     context 'when sorting is invalid' do
       let(:page) { 1 }
       let(:sort_by) { 'dsadas' }

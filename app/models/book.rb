@@ -29,9 +29,7 @@ class Book < ApplicationRecord
     less_than_or_equal_to: MAX_QUANTITY
   }
 
-  # === TODO ===
-  scope :most_popular,     -> { order('created_at ASC') }
-  # ============
+  scope :most_popular,     -> { left_outer_joins(:order_items).group(:id).order('count(order_items.id) desc') }
 
   scope :most_recent,      -> { order('created_at DESC') }
 
@@ -41,7 +39,5 @@ class Book < ApplicationRecord
   scope :ascending_price,  -> { order('price ASC') }
   scope :descending_price, -> { order('price DESC') }
 
-  def self.latest
-    Book.all.last(3)
-  end
+  scope :latest,           -> { last(3) }
 end

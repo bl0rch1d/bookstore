@@ -1,9 +1,11 @@
 describe Address::Update do
+  let(:result) { described_class.call(params) }
   let(:user) { create(:user) }
   let(:addressable) { { addressable_type: 'User', addressable_id: user.id } }
 
   describe 'Success' do
     context 'when Present' do
+      let(:result) { described_class::Present.call(params) }
       let(:params) do
         {
           user: {
@@ -11,11 +13,9 @@ describe Address::Update do
             shipping_address_attributes: attributes_for(:shipping_address).merge(addressable)
           },
 
-          'current_user' => user
+          current_user: user
         }
       end
-
-      let(:result) { described_class::Present.call(params) }
 
       it 'creates forms' do
         expect(result['billing_address_form']).to be_a(Address::Contract::Create)
@@ -26,8 +26,6 @@ describe Address::Update do
     end
 
     context 'when Operation' do
-      let(:result) { described_class.call(params) }
-
       context 'when billing address' do
         let(:params) do
           {
@@ -35,7 +33,7 @@ describe Address::Update do
               billing_address_attributes: attributes_for(:billing_address).merge(addressable)
             },
 
-            'current_user' => user
+            current_user: user
           }
         end
 
@@ -52,7 +50,7 @@ describe Address::Update do
               shipping_address_attributes: attributes_for(:shipping_address).merge(addressable)
             },
 
-            'current_user' => user
+            current_user: user
           }
         end
 
@@ -65,19 +63,35 @@ describe Address::Update do
   end
 
   describe 'Failure' do
-    let(:result) { described_class.call(params) }
+    context 'when policy failed' do
+      let(:invalid_addressable) { { addressable_type: 'User', addressable_id: create(:user).id } }
 
-    let(:params) do
-      {
-        user: {
-          billing_address_attributes: attributes_for(:book),
-          shipping_address_attributes: attributes_for(:user)
-        },
+      let(:params) do
+        {
+          user: {
+            billing_address_attributes: attributes_for(:billing_address).merge(invalid_addressable)
+          },
 
-        'current_user' => user
-      }
+          current_user: user
+        }
+      end
+
+      it { expect(result).to be_failure }
     end
 
-    it { expect(result).to be_failure }
+    context 'when invalid params' do
+      let(:params) do
+        {
+          user: {
+            billing_address_attributes: attributes_for(:book),
+            shipping_address_attributes: attributes_for(:user)
+          },
+
+          current_user: user
+        }
+      end
+
+      it { expect(result).to be_failure }
+    end
   end
 end

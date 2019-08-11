@@ -1,8 +1,9 @@
 describe Order::Query::Index do
   let(:result) { described_class.new.call(user, params) }
 
+  let(:user) { create :user, :with_orders }
+
   context 'when default' do
-    let(:user) { create :user, :with_orders }
     let(:params) { {} }
 
     it 'in_progress' do
@@ -12,8 +13,16 @@ describe Order::Query::Index do
     end
   end
 
+  context 'when all' do
+    let(:params) { { sort_by: I18n.t('order.all') } }
+
+    it do
+      expect(result).to be_a(ActiveRecord::Relation)
+      expect(result.sample).to be_a(Order)
+    end
+  end
+
   context 'when in_progress' do
-    let(:user) { create :user, :with_orders }
     let(:params) { { sort_by: I18n.t('order.filter.in_progress') } }
 
     it do
@@ -24,7 +33,6 @@ describe Order::Query::Index do
   end
 
   context 'when in_delivery' do
-    let(:user) { create :user, :with_orders }
     let(:params) { { sort_by: I18n.t('order.filter.in_delivery') } }
 
     it do
@@ -35,7 +43,6 @@ describe Order::Query::Index do
   end
 
   context 'when delivered' do
-    let(:user) { create :user, :with_orders }
     let(:params) { { sort_by: I18n.t('order.filter.delivered') } }
 
     it do
@@ -46,7 +53,6 @@ describe Order::Query::Index do
   end
 
   context 'when canceled' do
-    let(:user) { create :user, :with_orders }
     let(:params) { { sort_by: I18n.t('order.filter.canceled') } }
 
     it do
@@ -57,7 +63,6 @@ describe Order::Query::Index do
   end
 
   context 'when something else' do
-    let(:user) { create :user, :with_orders }
     let(:params) { { sort_by: 'dsadasdasd' } }
 
     it do

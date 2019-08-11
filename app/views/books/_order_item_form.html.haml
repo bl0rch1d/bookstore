@@ -1,6 +1,5 @@
 = form_with(model: current_order.order_items, url: order_order_items_path(current_order), method: :post, local: true) do |f|
   = f.hidden_field :book_id, value: @book.id
-  = f.hidden_field :order_id, value: current_order.id
 
   .col-xs-5.col-md-3
     .input-group.general-position

@@ -1,24 +1,35 @@
 describe OrderItem::Delete do
-  let(:result) { described_class.call(id: order_item_id) }
+  let(:result) { described_class.call(params) }
+
+  let!(:current_order) { create(:order, :at_address_step) }
 
   describe 'Success' do
-    # rubocop: disable RSpec/LetSetup
-    let!(:order_item_id) { create(:order, :with_order_items).order_items.first.id }
-    # rubocop: enable RSpec/LetSetup
+    let(:params) do
+      {
+        current_order: current_order,
+        order_id: current_order.id,
+        id: current_order.order_items.first.id
+      }
+    end
 
     it 'Removes order item' do
       expect { result }.to change { Order.last.order_items.size }.by(-1)
-
       expect(result).to be_success
     end
   end
 
   describe 'Failure' do
-    context 'when order item not found' do
-      let(:order_item_id) { 999_999 }
+    context 'when policy fails' do
+      let(:params) do
+        {
+          current_order: current_order,
+          order_id: current_order.id,
+          id: 343
+        }
+      end
 
       it do
-        expect(result['model']).to eq(nil)
+        expect(result['result.policy.user']).to be_failure
         expect(result).to be_failure
       end
     end

@@ -12,10 +12,11 @@
         .mb-40
           .form-group
             = f.label :title, t('review.title'), class: 'control-label input-label in-grey-600'
-            = f.text_field :title, class: 'form-control', id: 'title'
+            = f.text_field :title, class: 'form-control', id: 'title', required: true
           .form-group
             = f.label :body, t('review.review'), class: 'control-label input-label in-grey-600'
-            = f.text_area :body, class: 'form-control', id: 'body'
+            = f.text_area :body, class: 'form-control', id: 'body', required: true
+
         .text-right
           = f.submit t('review.post'), class: 'btn btn-primary mb-20' do
             %button

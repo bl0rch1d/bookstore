@@ -1,5 +1,5 @@
 class OrderItem::Create < Trailblazer::Operation
-  step Policy::Guard(OrderItem::Policy::CreateGuard.new), fail_fast: true
+  step Policy::Guard(OrderItem::Policy::CreateGuard.new, name: :user), fail_fast: true
   step :model
   step Contract::Build(constant: OrderItem::Contract::Create)
   success :quantity
@@ -9,7 +9,7 @@ class OrderItem::Create < Trailblazer::Operation
 
   def model(ctx, params:, **)
     ctx['model'] = OrderItem.find_or_create_by(
-      order_id: params[:order_item][:order_id],
+      order_id: params[:order_id],
       book_id: params[:order_item][:book_id]
     )
   end

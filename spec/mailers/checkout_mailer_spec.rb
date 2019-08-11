@@ -1,5 +1,5 @@
 describe CheckoutMailer, type: :mailer do
-  let!(:order) { create :order, :full }
+  let!(:order) { create :order, :at_complete_step }
 
   describe 'complete  ' do
     let(:mail) { described_class.complete(order.user, order) }

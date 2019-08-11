@@ -7,14 +7,14 @@
                       autocomplete: 'email',
                       class: 'form-control',
                       placeholder: t('form.placeholders.email'),
-                      pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
+                      pattern: '\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\z')
     .form-group.mb-30
       = f.label :user_password, t('form.labels.password'), class: 'control-label input-label'
       = f.password_field(:password,
                       autocomplete: 'new password',
                       class: 'form-control',
                       placeholder: t('form.placeholders.password'),
-                      pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$')
+                      pattern: '\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\z')
 
       = link_to t('user.password.forgot'), new_user_password_path, class: 'help-block in-gold-500'
 

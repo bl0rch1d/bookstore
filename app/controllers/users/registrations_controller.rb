@@ -9,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if result.success?
       sign_up(:user, result['model'])
     else
-      flash.alert = operation_errors(result)
+      flash.alert = contract_errors(result)
       redirect_to users_fast_new_path
     end
   end

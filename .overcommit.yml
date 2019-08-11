@@ -28,6 +28,22 @@ PreCommit:
     enabled: true
     exclude: ['vendor/**/*', 'spec/support/vcr_cassets/**/*']
 
+  BundleOutdated:
+    enabled: true
+
+  ExecutePermissions:
+    enabled: false
+
+  ForbiddenBranches:
+    enabled: true
+    branch_patterns: ['master']
+
+  LineEndings:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: true
+
   YamlSyntax:
     enabled: true
 
@@ -43,33 +59,8 @@ PreCommit:
   BundleAudit:
     enabled: true
 
-  RSpec:
-    enabled: true
-
-  BundleOutdated:
-    enabled: true
-
-  ExecutePermissions:
-    enabled: false
-
-  ForbiddenBranches:
-    enabled: true
-    branch_patterns: ['master']
-
-  LineEndings:
-    enabled: true
-
-  RailsBestPractices:
-    enabled: true
-  
-  RailsSchemaUpToDate:
-    enabled: true
+  # RailsBestPractices:
+  #   enabled: true
 
   HamlLint:
-    enabled: true
-  Reek:
-    enabled: true
-
-PrePush:
-  Brakeman:
     enabled: true

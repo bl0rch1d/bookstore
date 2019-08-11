@@ -19,7 +19,7 @@
                 .general-thumb-link-wrap
                   = link_to book_path(book), class: 'thumb-hover-link book_path_link' do
                     %i.fa.fa-eye.thumb-icon{ 'aria-hidden': 'true' }
-                  = link_to order_order_items_path(current_order, order_item: { book_id: book, order_id: current_order, quantity: 1 }), method: :post, class: 'thumb-hover-link' do
+                  = link_to order_order_items_path(current_order, order_item: { book_id: book, quantity: 1 }), method: :post, class: 'thumb-hover-link' do
                     %i.fa.fa-shopping-cart.thumb-icon
           .general-thumb-info
             %p.title.book-title= book.title
@@ -27,5 +27,7 @@
             %span.divider-sm
             %p.lead.small.catalog-authors= book.format_authors
 
+    -# rubocop:disable Rails/OutputSafety
     .text-center
       = raw pagy_bootstrap_nav(@pagy)
+    -# rubocop:enable Rails/OutputSafety

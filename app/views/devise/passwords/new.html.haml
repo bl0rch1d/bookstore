@@ -5,7 +5,7 @@
     %p.general-password-text= t('user.password.reset_info')
 
   .general-form
-    = form_with(scope: resource_name, url: password_path(resource_name), method: :post) do |f|
+    = form_with(scope: resource_name, url: password_path(resource_name), local: true, html: { method: :post }) do |f|
       = render 'devise/shared/error_messages', resource: resource
 
       .form-group.mb-25
@@ -15,7 +15,7 @@
                         class: 'form-control',
                         required: true,
                         placeholder: t('form.placeholders.enter_email'),
-                        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$")
+                        pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
 
       = f.submit t('user.password.reset_email'), class: 'btn btn-default mb-20 center-block'
 

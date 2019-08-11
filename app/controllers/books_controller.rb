@@ -14,6 +14,7 @@ class BooksController < ApplicationController
     @path = request.referer.presence || root_path
 
     @book = result['model'].decorate
+
     @reviews = ReviewDecorator.decorate_collection(@book.reviews.approved)
   end
 end

@@ -29,11 +29,7 @@ gem 'simple_form', '~> 4.1'
 
 # Authentication
 gem 'devise', '~> 4.6'
-# gem 'devise-security', '~> 0.14.3'
 gem 'omniauth-facebook', '~> 5.0'
-
-# Authorization
-gem 'cancancan', '~> 3.0', '>= 3.0.1'
 
 # Admin panel
 gem 'activeadmin', '~> 2.1'
@@ -117,7 +113,6 @@ group :development do
   gem 'haml_lint', '~> 0.32.0'
   gem 'overcommit', '~> 0.22.0'
   gem 'rails_best_practices', '~> 1.19'
-  gem 'reek', '~> 5.4'
   gem 'rubocop', '~> 0.72.0'
   gem 'rubocop-i18n', '~> 2.0'
   gem 'rubocop-performance', '~> 1.4'

@@ -5,15 +5,21 @@ describe OrderItem::Create do
   let(:book) { create :book }
 
   describe 'Success' do
+    let!(:model) { create(:order_item, book: book, order: current_order) }
+
     let(:params) do
-      { order_item: {
-        quantity: 5,
-        book_id: book.id,
-        order_id: current_order.id
-      } }
+      {
+        order_item: {
+          quantity: 5,
+          book_id: book.id
+        },
+
+        order_id: current_order.id,
+        current_order: current_order
+      }
     end
 
-    it "Creates order item via 'Buy Now' button and 'Add to cart' icon" do
+    it "Creates order item via 'Buy Now' button or 'Add to cart' icon" do
       expect(result['model'].price).to eq(book.price)
       expect(result['model'].subtotal).to eq(book.price * result['model'].quantity)
 
@@ -30,14 +36,16 @@ describe OrderItem::Create do
     context 'when order_item is already present' do
       let!(:book) { create(:book, price: 0.1393e3) }
 
-      let!(:model) { create(:order_item, book: book) }
-
       let(:params) do
-        { order_item: {
-          quantity: 4.0,
-          book_id: book.id,
-          order_id: model.order.id
-        } }
+        {
+          order_item: {
+            quantity: 4,
+            book_id: book.id
+          },
+
+          order_id: model.order.id,
+          current_order: current_order
+        }
       end
 
       it do
@@ -62,16 +70,16 @@ describe OrderItem::Create do
     end
 
     context 'when quantity is not a number' do
-      let!(:model) { create :order_item }
-
       let(:params) do
-        { order_item: {
-          quantity: 'dddddd',
-          subtotal: 1.0,
-          price: 1.0,
-          book_id: model.book.id,
-          order_id: model.order.id
-        } }
+        {
+          order_item: {
+            quantity: 'dddddd',
+            book_id: book.id
+          },
+
+          order_id: model.order.id,
+          current_order: current_order
+        }
       end
 
       it 'updates by 0' do
@@ -89,11 +97,42 @@ describe OrderItem::Create do
   end
 
   describe 'Failure' do
-    context 'when book_id and order_id not present' do
-      let(:params) { {} }
+    context 'when policy fails' do
+      let(:params) do
+        {
+          order_item: {
+            quantity: 4,
+            book_id: book.id
+          },
+
+          order_id: create(:order).id,
+          current_order: current_order
+        }
+      end
 
       it do
-        expect(result['result.policy.default']).to be_failure
+        expect(result['result.policy.user']).to be_failure
+        expect(result).to be_failure
+      end
+    end
+
+    context 'when validation fails' do
+      let(:params) do
+        {
+          order_item: {
+            quantity: 101,
+            book_id: book.id
+          },
+
+          order_id: current_order.id,
+          current_order: current_order
+        }
+      end
+
+      let(:error) { ['Quantity must be less than or equal to 100'] }
+
+      it do
+        expect(result['contract.default'].errors.full_messages).to eq(error)
         expect(result).to be_failure
       end
     end

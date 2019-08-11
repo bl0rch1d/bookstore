@@ -1,10 +1,8 @@
-class Order::Policy::ShowPolicy
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
+class Order::Policy::ShowGuard
+  include Uber::Callable
 
-  def show?
-    @user.present? && @record.user_id == @user.id
+  def call(_ctx, params:, **)
+    params[:current_user]&.id == params[:user_id].to_i &&
+      Order.find_by(id: params[:id])&.user_id == params[:current_user].id
   end
 end

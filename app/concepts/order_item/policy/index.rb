@@ -2,6 +2,6 @@ class OrderItem::Policy::IndexGuard
   include Uber::Callable
 
   def call(_ctx, params:, **)
-    params[:order].present? && params[:order].is_a?(Order)
+    params[:order_id].to_i == params[:current_order]&.id
   end
 end

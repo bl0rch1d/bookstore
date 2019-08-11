@@ -1,4 +1,5 @@
 class OrderItem::Update < Trailblazer::Operation
+  step Policy::Guard(OrderItem::Policy::UpdateGuard.new, name: :user)
   step Model(OrderItem, :find_by), fail_fast: true
   step Contract::Build(constant: OrderItem::Contract::Create)
   success :quantity

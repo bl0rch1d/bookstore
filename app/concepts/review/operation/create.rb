@@ -1,8 +1,8 @@
 class Review::Create < Trailblazer::Operation
+  step Policy::Guard(Review::Policy::CreateGuard.new, name: :user), fail_fast: true
   step Model(Review, :new)
-  step Policy::Guard(Review::Policy::CreateGuard.new), fail_fast: true
   step Contract::Build(constant: Review::Contract::Create)
-  step Contract::Validate(), fail_fast: true
+  step Contract::Validate(key: :review), fail_fast: true
   success :define_verified
   step Contract::Persist()
 

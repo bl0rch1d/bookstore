@@ -17,7 +17,7 @@ describe UserDecorator, type: :decorator do
 
     it 'if user has billing address through orders' do
       user = create(:user).decorate
-      create(:order, :full, user: user)
+      create(:order, :at_complete_step, user: user)
 
       first_name = user.orders.first.billing_address.first_name
       last_name  = user.orders.first.billing_address.last_name

@@ -3,7 +3,7 @@
     %p.in-gold-500.font-18.mb-25= t('user.password.edit')
 
   .general-form
-    = form_with(scope: resource_name, url: password_path(resource_name), method: :put) do |f|
+    = form_with(scope: resource_name, url: password_path(resource_name), local: true, html: { method: :put }) do |f|
       = render 'devise/shared/error_messages', resource: resource
       = f.hidden_field :reset_password_token
 
@@ -13,15 +13,16 @@
                           class: 'form-control',
                           id: 'new_password',
                           required: true,
-                          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+                          pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$',
                           placeholder: t('form.placeholders.new_password'))
+
       .form-group.mb-40
         = f.label :password_confirmation, t('form.labels.password_confirmation')
         = f.password_field(:password_confirmation,
                           class: 'form-control',
                           id: 'confirm_password',
                           required: true,
-                          pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$",
+                          pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$',
                           placeholder: t('form.placeholders.confirm_password'))
 
       .text-center

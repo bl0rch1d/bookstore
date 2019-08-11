@@ -1,9 +1,16 @@
 describe Order::Show do
-  let(:result) { described_class.call(params, 'current_user' => user) }
+  let(:result) { described_class.call(params) }
+
+  let(:user) { create :user, :with_orders }
 
   describe 'Success' do
-    let(:user) { create :user, :with_orders }
-    let(:params) { { id: user.orders.sample.id } }
+    let(:params) do
+      {
+        current_user: user,
+        user_id: user.id,
+        id: user.orders.completed.first.id
+      }
+    end
 
     it 'returns order' do
       expect(result['model']).to be_a(Order)
@@ -12,24 +19,17 @@ describe Order::Show do
   end
 
   describe 'Failure' do
-    context 'when id is invalid' do
-      let(:user) { create :user, :with_orders }
-      let(:params) { { id: 'sdsdd' } }
-
-      it do
-        expect(result['model']).to be_nil
-        expect(result).to be_failure
+    context 'when policy fails' do
+      let(:params) do
+        {
+          current_user: nil,
+          user_id: user.id,
+          id: user.orders.completed.first.id
+        }
       end
-    end
-
-    context 'when policy failed' do
-      let(:another_user) { create :user, :with_orders }
-
-      let(:user) { create :user, :with_orders }
-      let(:params) { { id: another_user.orders.sample.id } }
 
       it do
-        expect(result['policy.default']).not_to be_show
+        expect(result['result.policy.user']).to be_failure
         expect(result).to be_failure
       end
     end

@@ -3,14 +3,14 @@ describe Checkout::Initialize do
 
   let(:user) { create :user }
 
-  let(:order) { create(:order, :full, user: user) }
+  let(:order) { create(:order, :at_address_step, user: user) }
 
   describe 'Success' do
     let(:params) do
       {
-        'current_order' => order,
-        'current_user' => user,
-        'step' => :address
+        current_order: order,
+        current_user: user,
+        step: :address
       }
     end
 

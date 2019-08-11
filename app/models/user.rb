@@ -1,12 +1,8 @@
 class User < ApplicationRecord
-  # === for prod ===
   devise :database_authenticatable, :registerable, :confirmable, :validatable,
          :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: [:facebook]
 
   attr_accessor :remove_account
-
-  # === for seeds ===
-  # devise :database_authenticatable, :registerable, :validatable, :omniauthable, :rememberable, :recoverable
 
   has_many :reviews, dependent: :destroy
   has_many :orders, dependent: :destroy

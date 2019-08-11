@@ -10,7 +10,7 @@ FactoryBot.define do
     end
 
     trait :with_orders do
-      orders { create_list(:order, 20, completed_at: Time.zone.now) }
+      orders { create_list(:order, 20, :at_complete_step) }
     end
   end
 end

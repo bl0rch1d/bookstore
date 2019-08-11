@@ -3,9 +3,10 @@ describe Coupon::Apply do
 
   let(:coupon) { create :coupon }
 
+  let(:order) { create :order }
+
   describe 'Success' do
     let(:code) { coupon.code }
-    let(:order) { create :order }
 
     it 'applies coupon' do
       expect(result['result.policy.default']).to be_success
@@ -17,7 +18,6 @@ describe Coupon::Apply do
   describe 'Failure' do
     context 'when coupon not exists' do
       let(:code) { 'dsadad' }
-      let(:order) { create :order }
 
       it do
         expect(result['model']).to be_nil
@@ -27,7 +27,6 @@ describe Coupon::Apply do
 
     context 'when coupon has expired' do
       let(:code) { create(:coupon, :expired).code }
-      let(:order) { create :order }
 
       it do
         expect(result['coupon.relevant']).to be_falsey

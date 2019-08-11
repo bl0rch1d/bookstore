@@ -9,7 +9,7 @@ describe 'Books page', type: :feature do
     expect(page).to have_content(I18n.t('order_item.notice.added'))
   end
 
-  it 'user can view detailed information on a book' do
+  it 'user can view detailed information about book' do
     visit books_path
 
     find_link(class: 'book_path_link', visible: false).click
@@ -29,7 +29,7 @@ describe 'Books page', type: :feature do
     expect(find('#full_description').text[0..-11]).to eq(book.description)
   end
 
-  it 'user sees error page if book not found' do
+  it 'user can see error page if book not found' do
     visit book_path(123_456_789)
 
     expect(page).to have_content(I18n.t('store.not_found.message'))

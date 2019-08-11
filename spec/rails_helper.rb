@@ -8,10 +8,10 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require "rack_session_access/capybara"
 require 'devise'
 require 'aasm/rspec'
 require 'sidekiq/testing'
-# require "rack_session_access/capybara"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -40,8 +40,8 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # Capybara.default_driver = :selenium_chrome
-  Capybara.default_driver = :selenium_chrome_headless
+  Capybara.default_driver = :selenium_chrome
+  # Capybara.default_driver = :selenium_chrome_headless
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -49,9 +49,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include FactoryBot::Syntax::Methods
-  
+
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Warden::Test::Helpers
 
   config.include Shoulda::Matchers::ActiveModel, type: :model
   config.include Shoulda::Matchers::ActiveRecord, type: :model

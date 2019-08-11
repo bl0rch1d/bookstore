@@ -13,13 +13,13 @@ describe 'Cart', type: :feature do
   end
 
   context 'when user updates order_items' do
-    it 'increments' do
+    it 'user can increment quantity' do
       find_link('increment', match: :first).click
 
       expect(page).to have_content(I18n.t('order_item.notice.updated'))
     end
 
-    it 'decrements' do
+    it 'user can decrement quantity' do
       find_link('increment', match: :first).click
       find_link('decrement', match: :first).click
 
@@ -36,7 +36,7 @@ describe 'Cart', type: :feature do
   context 'when user appling a coupon' do
     before do
       within('#applyCoupon') do
-        fill_in 'code',	with: create(:coupon).code
+        fill_in 'code', with: create(:coupon).code
 
         click_button(I18n.t('coupon.apply'))
       end

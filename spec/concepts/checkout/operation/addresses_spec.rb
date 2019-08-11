@@ -1,42 +1,43 @@
 describe Checkout::Addresses do
+  let(:present_result) { described_class::Present.call(params.merge(step: :address)) }
+  let(:result) { described_class.call(params.merge(step: :address)) }
+
   let(:user) { create :user }
+
+  let(:addressable_type) { 'Order' }
 
   describe 'Success' do
     context 'when Address::Present' do
-      let(:result) { described_class::Present.call(params) }
-
       let(:params) do
         {
-          'current_order' => create(:order, :with_order_items, user: user),
-          'current_user' => user,
-          'step' => :address
+          current_order: create(:order, :at_address_step, user: user),
+          current_user: user
         }
       end
 
       it do
-        expect(result['billing_address_form']).to be_a(Address::Contract::Create)
-        expect(result['shipping_address_form']).to be_a(Address::Contract::Create)
-        expect(result).to be_success
+        expect(present_result['billing_address_form']).to be_a(Address::Contract::Create)
+        expect(present_result['shipping_address_form']).to be_a(Address::Contract::Create)
+        expect(present_result).to be_success
       end
     end
 
     context 'when Address' do
-      let(:result) { described_class.call(params) }
-
-      let!(:order) { create(:order, :with_order_items, user: user, state: 'in_progress') }
+      let!(:order) { create(:order, :at_address_step, user: user, state: I18n.t('order.filter.in_progress')) }
 
       let(:params) do
         {
-          'current_order' => order,
-          'current_user' => user,
-          'step' => :address,
-          'billing_address_params' => ActionController::Parameters.new(
-            attributes_for(:billing_address).merge(addressable_id: order.id, addressable_type: 'Order')
+          current_order: order,
+          current_user: user,
+          billing_address_params: ActionController::Parameters.new(
+            attributes_for(:billing_address).merge(addressable_id: order.id, addressable_type: addressable_type)
           ),
-          'shipping_address_params' => ActionController::Parameters.new(
-            attributes_for(:shipping_address).merge(addressable_id: order.id, addressable_type: 'Order')
+
+          shipping_address_params: ActionController::Parameters.new(
+            attributes_for(:shipping_address).merge(addressable_id: order.id, addressable_type: addressable_type)
           ),
-          'use_billing_address' => false
+
+          use_billing_address: false
         }
       end
 
@@ -54,17 +55,17 @@ describe Checkout::Addresses do
       context 'when use_billing' do
         let(:params) do
           {
-            'current_order' => order,
-            'current_user' => user,
-            'step' => :address,
-            'billing_address_params' => attributes_for(:billing_address).merge(
-              addressable_id: order.id, addressable_type: 'Order'
-            ).except(:type),
-            'use_billing_address' => true
+            current_order: order,
+            current_user: user,
+            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address).merge(
+              addressable_id: order.id, addressable_type: addressable_type
+            ).except(:type)),
+
+            use_billing_address: true
           }
         end
 
-        it 'Billing and Shipping with billing_address attributes' do
+        it 'Shipping with billing_address attributes' do
           expect(result).to be_success
 
           order.reload
@@ -82,39 +83,56 @@ describe Checkout::Addresses do
   end
 
   describe 'Failure' do
-    let(:result) { described_class.call(params) }
-
     context 'when policy fails' do
-      let(:order) { create(:order, user: user) }
+      context 'when checkout policy fails' do
+        let(:order) { create(:order, user: user) }
 
-      let(:params) do
-        {
-          'current_order' => order,
-          'current_user' => user,
-          'step' => :address,
-          'billing_address_params' => attributes_for(:billing_address),
-          'shipping_address_params' => attributes_for(:shipping_address),
-          'use_billing_address' => false
-        }
+        let(:params) do
+          {
+            current_order: order,
+            current_user: user,
+            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address)),
+            shipping_address_params: ActionController::Parameters.new(attributes_for(:shipping_address)),
+            use_billing_address: false
+          }
+        end
+
+        it do
+          expect(result['result.policy.checkout']).to be_failure
+          expect(result).to be_failure
+        end
       end
 
-      it do
-        expect(result['result.policy.default']).to be_failure
-        expect(result).to be_failure
+      context 'when user policy fails' do
+        let(:order) { create(:order, :at_address_step, user: user) }
+
+        let(:params) do
+          {
+            current_order: order,
+            current_user: create(:user),
+            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address)),
+            shipping_address_params: ActionController::Parameters.new(attributes_for(:shipping_address)),
+            use_billing_address: false
+          }
+        end
+
+        it do
+          expect(result['result.policy.user']).to be_failure
+          expect(result).to be_failure
+        end
       end
     end
 
     context 'when invalid params' do
-      let(:order) { create(:order, :with_order_items, user: user) }
+      let(:order) { create(:order, :at_address_step, user: user) }
 
       let(:params) do
         {
-          'current_order' => order,
-          'current_user' => user,
-          'step' => :address,
-          'billing_address_params' => attributes_for(:user),
-          'shipping_address_params' => attributes_for(:book),
-          'use_billing_address' => false
+          current_order: order,
+          current_user: user,
+          billing_address_params: ActionController::Parameters.new(attributes_for(:user)),
+          shipping_address_params: ActionController::Parameters.new(attributes_for(:book)),
+          use_billing_address: false
         }
       end
 

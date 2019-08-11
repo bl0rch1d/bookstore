@@ -18,7 +18,7 @@
           %tr
             %td
               %span
-                = link_to "##{order.number}", order_path(order), class: 'general-order-number'
+                = link_to "##{order.number}", user_order_path(current_user, order), class: 'general-order-number'
             %td
               %span.in-grey-900.font-16.fw-300= order.completed_at
             %td

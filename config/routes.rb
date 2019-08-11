@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index show]
   end
 
-  resources :checkout_steps, only: %i[index show update]
+  resources :checkout_steps, only: %i[show update]
 
   resource :addresses, only: %i[edit update] do
     patch :edit, on: :collection, action: :update
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: :create
-  
+
   resources :books, only: %i[index show]
 
   root 'pages#home'

@@ -1,5 +1,5 @@
 describe OrderDecorator do
-  subject(:order) { create(:order, :full).decorate }
+  subject(:order) { create(:order, :at_complete_step).decorate }
 
   it '#decorates coupon' do
     create :coupon, order: order

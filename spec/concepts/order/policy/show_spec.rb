@@ -1,14 +1,13 @@
-describe Review::Policy::CreateGuard do
+describe Order::Policy::ShowGuard do
   let(:result) { described_class.new.call(nil, params: params) }
-
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_orders) }
 
   describe 'Success' do
     let(:params) do
       {
         current_user: user,
-        book_id: create(:book).id,
-        user_id: user.id
+        user_id: user.id,
+        id: user.orders.first.id
       }
     end
 
@@ -16,35 +15,36 @@ describe Review::Policy::CreateGuard do
   end
 
   describe 'Failure' do
-    context 'when user is not present' do
+    context 'when invalid user_id' do
       let(:params) do
         {
           current_user: user,
-          book_id: create(:book)
+          user_id: 'dsd',
+          id: user.orders.first.id
         }
       end
 
       it { expect(result).to be_falsey }
     end
 
-    context 'when current_user != form user_id' do
+    context 'when invalid id' do
       let(:params) do
         {
           current_user: user,
-          book_id: create(:book).id,
-          user_id: create(:user).id
+          user_id: user.id,
+          id: 'sss'
         }
       end
 
       it { expect(result).to be_falsey }
     end
 
-    context 'when book not exist' do
+    context 'when order not owner by current_user' do
       let(:params) do
         {
-          current_user: user,
-          book_id: 3000,
-          user_id: create(:user).id
+          current_user: create(:user),
+          user_id: user.id,
+          id: user.orders.first.id
         }
       end
 

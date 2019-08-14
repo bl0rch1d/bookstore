@@ -15,6 +15,15 @@ PreCommit:
   ALL:
     on_warn: fail
 
+  Jscs:
+    enabled: false
+
+  ScssLint:
+    enabled: false
+
+  JsHint:
+    enabled: false
+
   AuthorEmail:
     enabled: false
 
@@ -59,8 +68,8 @@ PreCommit:
   BundleAudit:
     enabled: true
 
-  # RailsBestPractices:
-  #   enabled: true
+  RailsBestPractices:
+    enabled: true
 
   HamlLint:
     enabled: true

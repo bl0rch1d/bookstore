@@ -6,6 +6,6 @@ class FastUser::Create < Trailblazer::Operation
   step :mail
 
   def mail(ctx, params:, **)
-    FastRegistrationMailer.temporary_password(ctx['model'], params[:password]).deliver_later
+    FastRegistrationMailer.temporary_password(ctx['model'].id, params[:password]).deliver_later
   end
 end

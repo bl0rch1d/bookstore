@@ -1,20 +1,22 @@
 .general-form
-  = form_with scope: :user, url: new_session_path(@user), local: true, id: 'new_session' do |f|
+  = form_with scope: :user, url: new_session_path(user), local: true, id: 'new_session' do |f|
     .form-group.mb-30
       = f.label :user_email, t('form.labels.email'), class: 'control-label input-label'
       = f.email_field(:email,
                       autofocus: true,
                       autocomplete: 'email',
                       class: 'form-control',
+                      required: true,
                       placeholder: t('form.placeholders.email'),
-                      pattern: '\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\z')
+                      pattern: ApplicationHelper::EMAIL_REGEXP)
     .form-group.mb-30
       = f.label :user_password, t('form.labels.password'), class: 'control-label input-label'
       = f.password_field(:password,
                       autocomplete: 'new password',
                       class: 'form-control',
+                      required: true,
                       placeholder: t('form.placeholders.password'),
-                      pattern: '\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\z')
+                      pattern: ApplicationHelper::PASSWORD_REGEXP)
 
       = link_to t('user.password.forgot'), new_user_password_path, class: 'help-block in-gold-500'
 

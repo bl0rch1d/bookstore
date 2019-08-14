@@ -9,7 +9,7 @@ class Coupon::Apply < Trailblazer::Operation
   end
 
   def expired?(ctx, **)
-    ctx['coupon.relevant'] = Time.now.to_i <= ctx['model'].expire_date.to_i
+    ctx['coupon.relevant'] = Time.zone.now.to_i <= ctx['model'].expire_date.to_i
   end
 
   def link_to_order(ctx, params:, **)

@@ -65,7 +65,7 @@ ActiveAdmin.register Book do
       f.input :title
       f.input :category, as: :radio
 
-      f.input :authors, as: :check_boxes, collection: Author.all.map { |author| author.decorate.full_name }
+      f.input :authors, as: :check_boxes, collection: AuthorDecorator.decorate_collection(Author.all)
 
       f.input :description
       f.input :year

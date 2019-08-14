@@ -15,14 +15,12 @@ let incrementQuantity = () => {
 
 let decrementQuantity = () => {
   let input = document.getElementById("quantity_input");
-  
+
   if (input.value > 1) { input.value--; }
 }
 
 document.addEventListener("click", (event) => {
-  console.log(event.target)
-
   let descriptionTriggers = [document.getElementById("full_description_show"), document.getElementById("full_description_hide")];
-  
+
   if (descriptionTriggers.includes(event.target)) { toggleDescription(); }
 });

@@ -8,7 +8,7 @@ class Book::Index < Trailblazer::Operation
 
   def model(ctx, params:, **)
     ctx['pagy'], ctx['model'] = ::Service::Pagy.call(
-      Book::Query::Index.new.call(params),
+      Book::Query::Index.new(params).call,
       page: params[:page],
       items: Book::PAGINATION_INDEX
     )
@@ -19,6 +19,6 @@ class Book::Index < Trailblazer::Operation
   end
 
   def overflow(ctx, **)
-    ctx['contract.default'].errors.add(:page, 'is out of limits')
+    ctx['contract.default'].errors.add(:page, I18n.t('validation_errors.out_of_limits'))
   end
 end

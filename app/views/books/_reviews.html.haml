@@ -1,7 +1,7 @@
 .mb-80
-  - if @reviews
-    %h3.in-gold-500.mb-25= t('review.reviews_with_size', size: @reviews.size)
-    - @reviews.each do |review|
+  - if reviews
+    %h3.in-gold-500.mb-25= t('review.reviews_with_size', size: reviews.size)
+    - reviews.each do |review|
       .general-message-wrap.divider-lg
         .clearfix
           %span.img-circle.logo-size.inlide-block.pull-left.logo-empty= review.user.initials

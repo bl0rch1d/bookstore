@@ -1,5 +1,5 @@
 describe Book::Query::Index do
-  let(:result) { described_class.new.call(params) }
+  let(:result) { described_class.new(params).call }
 
   before do
     create_list(:book, 30)

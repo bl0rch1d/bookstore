@@ -17,7 +17,7 @@
                         class: 'form-control',
                         required: true,
                         placeholder: t('form.placeholders.email'),
-                        pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
+                        pattern: ApplicationHelper::EMAIL_REGEXP)
 
       .form-group.mb-30
         = f.label :user_password, t('form.labels.password'), class: 'control-label input-label'
@@ -26,7 +26,8 @@
                         class: 'form-control',
                         required: true,
                         placeholder: t('form.placeholders.password'),
-                        pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$')
+                        pattern: ApplicationHelper::PASSWORD_REGEXP)
+        %span.password-format= t('form.password_format')
 
       .form-group.mb-30
         = f.label :user_password_confirmation, t('form.labels.password_confirmation'), class: 'control-label input-label'
@@ -35,7 +36,7 @@
                         class: 'form-control',
                         required: true,
                         placeholder: t('form.placeholders.confirm_password'),
-                        pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$')
+                        pattern: ApplicationHelper::PASSWORD_REGEXP)
 
       .text-center
         = f.submit t('auth.sign_up'), class: 'btn btn-default mb-20'

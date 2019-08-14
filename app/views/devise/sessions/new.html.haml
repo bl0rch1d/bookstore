@@ -7,7 +7,7 @@
 
     %p.general-login-text= t('auth.or')
 
-  = render 'new_form'
+  = render 'new_form', user: @user
 
   %p.general-sign-text.text-center
     = t('auth.have_no_an_account')

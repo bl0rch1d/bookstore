@@ -8,7 +8,7 @@
         - if @book.images.any?
           .mb-20
             = image_tag(@book.cover, class: 'img-responsive')
-          = render 'images'
+          = render 'images', book: @book
         - else
           = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
 
@@ -18,7 +18,7 @@
       .row
         .col-xs-12.col-md-4
           %p.h1.in-gold-500.mt-10= number_to_currency(@book.price, unit: t('currency.euro'))
-        = render 'order_item_form'
+        = render 'order_item_form', book: @book
 
       .general-info-wrap.divider-lg
         %p= t('book.description')
@@ -44,4 +44,4 @@
     - if user_signed_in?
       = render(file: 'app/views/reviews/new')
 
-    = render 'reviews'
+    = render 'reviews', reviews: @reviews

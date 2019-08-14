@@ -1,5 +1,5 @@
 %main.container
-  = render 'progress_bar'
+  = render 'progress_bar', next_step: @next_step
 
   = simple_form_for current_order, url: wizard_path, method: :put, class: 'res-mb-100' do |form|
     .hidden-xs.hidden-sm

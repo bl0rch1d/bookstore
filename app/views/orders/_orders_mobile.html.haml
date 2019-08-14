@@ -1,9 +1,9 @@
 .visible-xs
-  - if @orders.empty?
+  - if orders.empty?
     = render 'no_orders'
   - else
     .general-cart-item.divider-lg-bottom
-      - @orders.each do |order|
+      - orders.each do |order|
         .general-cart-item.divider-lg-bottom.pt-0
           %table.table
             %tr

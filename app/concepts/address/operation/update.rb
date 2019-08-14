@@ -31,7 +31,7 @@ class Address::Update < Trailblazer::Operation
     billing = ctx['billing_address_form'].validate(ctx['billing_params']) if ctx['billing_params']
     shipping = ctx['shipping_address_form'].validate(ctx['shipping_params']) if ctx['shipping_params']
 
-    billing || shipping
+    billing || shipping || false
   end
 
   def persist(ctx, **)

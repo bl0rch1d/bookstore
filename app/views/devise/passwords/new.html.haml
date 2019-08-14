@@ -15,7 +15,7 @@
                         class: 'form-control',
                         required: true,
                         placeholder: t('form.placeholders.enter_email'),
-                        pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
+                        pattern: ApplicationHelper::EMAIL_REGEXP)
 
       = f.submit t('user.password.reset_email'), class: 'btn btn-default mb-20 center-block'
 

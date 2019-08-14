@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resource :coupon, only: :create, action: :apply
 
   resources :orders, only: [] do
-    resources :order_items
+    resources :order_items, except: %i[show new edit]
   end
 
   resources :categories, only: [] do

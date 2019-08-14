@@ -8,7 +8,7 @@
       %p.general-login-text= t('auth.or')
 
     .general-form
-      = render 'devise/sessions/new_form'
+      = render 'devise/sessions/new_form', user: @user
 
   .col-sm-6
     .text-center
@@ -31,6 +31,6 @@
                           required: true,
                           class: 'form-control',
                           placeholder: t('form.placeholders.email'),
-                          pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$")
+                          pattern: ApplicationHelper::EMAIL_REGEXP)
         .text-center
           = f.submit t('user.fast_auth.continue'), class: 'btn btn-default mb-20'

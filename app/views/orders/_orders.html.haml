@@ -1,5 +1,5 @@
 .hidden-xs.mb-res-50
-  - if @orders.empty?
+  - if orders.empty?
     = render 'no_orders'
   - else
     %table.table.table-hover
@@ -14,7 +14,7 @@
           %th
             %span.in-grey-600= t('order.total')
       %tbody
-        - @orders.each do |order|
+        - orders.each do |order|
           %tr
             %td
               %span

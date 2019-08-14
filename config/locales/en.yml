@@ -242,6 +242,7 @@ en:
     place_order: "Place order"
     save: "save"
     invalid_params: 'Invalid params'
+    password_format: 'At least 1 lowercase letter, 1 uppercase, 1 digit and 8+ chars'
     labels:
       email: "Email"
       password: "Password"

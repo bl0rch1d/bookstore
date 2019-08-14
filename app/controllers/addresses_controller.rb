@@ -1,4 +1,6 @@
 class AddressesController < ApplicationController
+  include AddressFormHelper
+
   def edit
     result = Address::Update::Present.call(current_user: current_user)
 

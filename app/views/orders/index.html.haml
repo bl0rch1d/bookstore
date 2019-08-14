@@ -17,6 +17,6 @@
       %li
         = link_to t('order.states.canceled'), user_orders_path(current_user, sort_by: 'canceled')
 
-  = render 'orders_mobile'
+  = render 'orders_mobile', orders: @orders
 
-  = render 'orders'
+  = render 'orders', orders: @orders

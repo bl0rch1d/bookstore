@@ -13,7 +13,7 @@
                           class: 'form-control',
                           id: 'new_password',
                           required: true,
-                          pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$',
+                          pattern: ApplicationHelper::PASSWORD_REGEXP,
                           placeholder: t('form.placeholders.new_password'))
 
       .form-group.mb-40
@@ -22,7 +22,7 @@
                           class: 'form-control',
                           id: 'confirm_password',
                           required: true,
-                          pattern: '^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$',
+                          pattern: ApplicationHelper::PASSWORD_REGEXP,
                           placeholder: t('form.placeholders.confirm_password'))
 
       .text-center

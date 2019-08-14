@@ -16,6 +16,6 @@ class Checkout::Complete < Trailblazer::Operation
   end
 
   def mail(_ctx, params:, **)
-    CheckoutMailer.complete(params[:current_user], params[:current_order]).deliver_later
+    CheckoutMailer.complete(params[:current_user].id, params[:current_order].id).deliver_later
   end
 end

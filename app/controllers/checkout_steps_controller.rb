@@ -1,6 +1,7 @@
 # rubocop: disable Metrics/ClassLength
 class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
+  include AddressFormHelper
 
   before_action :fast_authenticate_user!, :initialize_user
   steps :address, :shipping, :payment, :confirm, :complete

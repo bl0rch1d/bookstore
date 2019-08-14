@@ -1,5 +1,5 @@
 %main.container.mb-res-50
-  = render 'progress_bar'
+  = render 'progress_bar', next_step: @next_step
 
   = simple_form_for current_order, url: wizard_path, method: :put do |form|
     %h3.general-subtitle= t('checkout.credit_card.title')

@@ -2,29 +2,28 @@ module Book::Query
   class Index
     SORTINGS = %w[newest popular high_price low_price title_ascending title_descending].freeze
 
-    # rubocop: disable Metrics/AbcSize, CyclomaticComplexity
-    def call(params)
+    def initialize(params)
       @params = params
 
+      @books = (@params[:category_id] ? Category.find(@params[:category_id]).books : Book.all)
+               .includes(:authors, images_attachments: :blob)
+    end
+
+    # rubocop: disable Metrics/AbcSize, CyclomaticComplexity
+    def call
       case @params[:sort_by]
-      when I18n.t('sortings.system.newest')           then newest(from_category)
-      when I18n.t('sortings.system.popular')          then popular(from_category)
-      when I18n.t('sortings.system.low_price')        then low_price(from_category)
-      when I18n.t('sortings.system.high_price')       then high_price(from_category)
-      when I18n.t('sortings.system.title_ascending')  then title_ascending(from_category)
-      when I18n.t('sortings.system.title_descending') then title_descending(from_category)
-      else title_ascending(from_category)
+      when I18n.t('sortings.system.newest')           then newest(@books)
+      when I18n.t('sortings.system.popular')          then popular(@books)
+      when I18n.t('sortings.system.low_price')        then low_price(@books)
+      when I18n.t('sortings.system.high_price')       then high_price(@books)
+      when I18n.t('sortings.system.title_ascending')  then title_ascending(@books)
+      when I18n.t('sortings.system.title_descending') then title_descending(@books)
+      else title_ascending(@books)
       end
     end
     # rubocop: enable Metrics/AbcSize, CyclomaticComplexity
 
     private
-
-    def from_category
-      category_books = (@params[:category_id] ? Category.find(@params[:category_id]).books : Book.all)
-
-      category_books.includes(:images_attachments, :authors)
-    end
 
     def newest(books)
       books.most_recent

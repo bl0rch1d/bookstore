@@ -22,19 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    @current_order ||= obtain_order
-  end
-
-  def obtain_order
-    order = Order.find_or_create_by(id: session[:current_order_id])
-    session[:current_order_id] = order.id
-
-    order.decorate
-  end
-
-  def expose_address_forms(result)
-    @billing_address_form   = result['billing_address_form']
-    @shipping_address_form  = result['shipping_address_form']
+    @current_order ||= Order::Current.call(session: session)['model'].decorate
   end
 
   def contract_errors(result)

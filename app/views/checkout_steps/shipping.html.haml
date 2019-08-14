@@ -1,12 +1,12 @@
 %main.container.general-main-wrap
-  = render 'progress_bar'
+  = render 'progress_bar', next_step: @next_step
 
   %h3.general-subtitle= t('checkout.shipping.title')
   = simple_form_for current_order, url: wizard_path, method: :put do |form|
 
-    = render partial: 'shipping_method_form_mobile', locals: { form: form }
+    = render 'shipping_method_form_mobile', form: form
 
-    = render partial: 'shipping_method_form', locals: { form: form }
+    = render 'shipping_method_form', form: form
 
     .general-text-align
       %p.in-gold-500.font-18= t('order.summary.summary')

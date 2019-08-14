@@ -7,7 +7,13 @@ BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
 COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
 
-AdminUser.create!(email: 'kojima_genius@example.com', password: 'KaminoAlive', password_confirmation: 'KaminoAlive') if Rails.env.development?
+if Rails.env.development?
+  AdminUser.create!(
+    email: 'kojima_genius@example.com',
+    password: 'KaminoAlive',
+    password_confirmation: 'KaminoAlive'
+  )
+end
 
 CATEGORIES.each do |category|
   Category.create!(title: category)
@@ -55,6 +61,10 @@ end
 
 Book.all.each do |book|
   rand(0..4).times do
-    book.images.attach(io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")), filename: "cover.jpg", content_type: "image/jpg")
+    book.images.attach(
+      io: File.open(Rails.root.join("app/assets/images/#{rand(1..9)}.jpg")),
+      filename: "cover.jpg",
+      content_type: "image/jpg"
+    )
   end
 end

@@ -12,7 +12,7 @@
                         autocomplete: 'email',
                         class: 'form-control',
                         required: true,
-                        pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$',
+                        pattern: ApplicationHelper::EMAIL_REGEXP,
                         value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
                         placeholder: t('form.placeholders.email'))
 

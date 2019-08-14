@@ -1,7 +1,6 @@
 module Book::Contract
   class Index < Reform::Form
     MIN_PAGE_VALUE = 1
-    MIN_CATEGORY_ID_VALUE = 0
 
     property :page, virtual: true, default: MIN_PAGE_VALUE
     property :sort_by, virtual: true

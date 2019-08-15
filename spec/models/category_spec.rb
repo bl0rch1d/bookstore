@@ -5,6 +5,6 @@ describe Category, type: :model do
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_length_of(:title).is_at_most(ApplicationRecord::MAX_TITLE_LENGTH) }
+    it { is_expected.to validate_length_of(:title).is_at_most(Category::TITLE_LENGTH) }
   end
 end

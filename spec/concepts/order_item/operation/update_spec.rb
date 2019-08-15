@@ -72,7 +72,7 @@ describe OrderItem::Update do
           I18n.t(
             'errors.format',
             attribute: :Quantity,
-            message: I18n.t('errors.messages.less_than_or_equal_to', count: 100)
+            message: I18n.t('errors.messages.less_than_or_equal_to', count: OrderItem::Contract::Create::MAX_QUANTITY)
           )
         ]
       end

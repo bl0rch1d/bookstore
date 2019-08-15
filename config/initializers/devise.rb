@@ -43,6 +43,13 @@ Devise.setup do |config|
 
   config.sign_out_via = :delete
 
-  config.omniauth :facebook, Rails.application.credentials.fb_prod[:id],
-                  Rails.application.credentials.fb_prod[:secret]
+  if Rails.env.production?
+    config.omniauth :facebook, Rails.application.credentials.fb_prod[:id],
+                    Rails.application.credentials.fb_prod[:secret]
+  end
+
+  if Rails.env.development? || Rails.env.test?
+    config.omniauth :facebook, Rails.application.credentials.fb_test[:id],
+                    Rails.application.credentials.fb_test[:secret]
+  end
 end

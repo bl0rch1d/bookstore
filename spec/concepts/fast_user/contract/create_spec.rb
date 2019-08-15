@@ -14,7 +14,10 @@ describe FastUser::Contract::Create do
       let(:errors) do
         {
           email: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
-          password: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.too_short.other', count: 8)]
+          password: [
+            I18n.t('errors.messages.blank'),
+            I18n.t('errors.messages.too_short.other', count: Devise.password_length.first)
+          ]
         }
       end
 

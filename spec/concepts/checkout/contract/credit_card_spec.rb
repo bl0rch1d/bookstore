@@ -17,9 +17,13 @@ describe Checkout::Contract::CreditCard do
           number: [
             I18n.t('errors.messages.blank'),
             I18n.t('errors.messages.invalid'),
-            I18n.t('errors.messages.too_short.other', count: 16)
+            I18n.t('errors.messages.too_short.other', count: described_class::NUMBER_RANGE.first)
           ],
-          cvv: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.too_short.other', count: 3)],
+          cvv: [
+            I18n.t('errors.messages.blank'),
+            I18n.t('errors.messages.too_short.other', count: described_class::CVV_RANGE.first)
+          ],
+
           expiration_date: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
           order_id: [I18n.t('errors.messages.not_a_number')]
         }

@@ -10,7 +10,7 @@ class Book::Index < Trailblazer::Operation
     ctx['pagy'], ctx['model'] = ::Service::Pagy.call(
       Book::Query::Index.new(params).call,
       page: params[:page],
-      items: Book::PAGINATION_INDEX
+      items: Book::PAGINATION_OFFSET
     )
   end
 

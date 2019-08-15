@@ -10,7 +10,7 @@ describe ShippingMethod, type: :model do
     it { is_expected.to validate_presence_of(:price) }
 
     it { is_expected.to validate_uniqueness_of(:title) }
-    it { is_expected.to validate_numericality_of(:price).is_greater_than_or_equal_to(ApplicationRecord::MIN_PRICE) }
-    it { is_expected.to validate_numericality_of(:price).is_less_than_or_equal_to(ApplicationRecord::MAX_PRICE) }
+    it { is_expected.to validate_numericality_of(:price).is_greater_than_or_equal_to(ShippingMethod::MIN_PRICE) }
+    it { is_expected.to validate_numericality_of(:price).is_less_than_or_equal_to(ShippingMethod::MAX_PRICE) }
   end
 end

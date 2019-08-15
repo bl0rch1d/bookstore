@@ -1,8 +1,13 @@
 class Book < ApplicationRecord
+  TITLE_LENGTH = 50
+
   MIN_QUANTITY = 0
   MAX_QUANTITY = 100
 
-  PAGINATION_INDEX = 12
+  MIN_PRICE    = 0
+  MAX_PRICE    = 100_000
+
+  PAGINATION_OFFSET = 12
 
   belongs_to :category
 
@@ -13,6 +18,7 @@ class Book < ApplicationRecord
   has_many :materials, through: :books_materials
 
   has_many :reviews, dependent: :destroy
+
   has_many :order_items, dependent: :destroy
 
   has_many_attached :images
@@ -20,7 +26,7 @@ class Book < ApplicationRecord
 
   validates :title, :description, :price, :year, :quantity, :height, :width, :depth, :category_id, presence: true
 
-  validates :title, uniqueness: true, length: { maximum: MAX_TITLE_LENGTH }
+  validates :title, uniqueness: true, length: { maximum: TITLE_LENGTH }
   validates :price, numericality: { greater_than_or_equal_to: MIN_PRICE, less_than_or_equal_to: MAX_PRICE }
 
   validates :quantity, numericality: {

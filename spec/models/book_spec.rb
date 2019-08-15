@@ -27,10 +27,10 @@ describe Book, type: :model do
     it { is_expected.to validate_presence_of(:width) }
 
     it { is_expected.to validate_uniqueness_of(:title) }
-    it { is_expected.to validate_length_of(:title).is_at_most(ApplicationRecord::MAX_TITLE_LENGTH) }
+    it { is_expected.to validate_length_of(:title).is_at_most(Book::TITLE_LENGTH) }
 
-    it { is_expected.to validate_numericality_of(:price).is_greater_than_or_equal_to(ApplicationRecord::MIN_PRICE) }
-    it { is_expected.to validate_numericality_of(:price).is_less_than_or_equal_to(ApplicationRecord::MAX_PRICE) }
+    it { is_expected.to validate_numericality_of(:price).is_greater_than_or_equal_to(Book::MIN_PRICE) }
+    it { is_expected.to validate_numericality_of(:price).is_less_than_or_equal_to(Book::MAX_PRICE) }
 
     it { is_expected.to validate_numericality_of(:quantity).only_integer }
     it { is_expected.to validate_numericality_of(:quantity).is_greater_than_or_equal_to(Book::MIN_QUANTITY) }

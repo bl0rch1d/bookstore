@@ -48,6 +48,9 @@ describe BestSellersQuery do
       )
     end
 
-    it { expect(result).to eq([best_1.book, best_2.book, best_3.book, best_4.book]) }
+    it 'returns AR with 4 bestsellers' do
+      expect(result).to be_a(ActiveRecord::Relation)
+      expect(result).to eq([best_1.book, best_2.book, best_3.book, best_4.book])
+    end
   end
 end

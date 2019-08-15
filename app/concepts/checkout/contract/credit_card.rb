@@ -5,7 +5,7 @@ module Checkout::Contract
     NUMBER_REGEX          = /\A[0-9]+\z/.freeze
     NUMBER_RANGE          = (16..18).freeze
     EXPIRATION_DATE_REGEX = %r{\A(0[1-9]|1[0-2])/([0-9]{2}|[0-9]{2})\z}.freeze
-    CVV_LENGTH            = (3..4).freeze
+    CVV_RANGE             = (3..4).freeze
 
     property :card_name
     property :number
@@ -18,7 +18,7 @@ module Checkout::Contract
     validates :number, format: { with: NUMBER_REGEX }, length: { in: NUMBER_RANGE }
     validates :card_name, format: { with: NAME_REGEX }, length: { maximum: NAME_LENGTH }
     validates :expiration_date, format: { with: EXPIRATION_DATE_REGEX }
-    validates :cvv, length: { in: CVV_LENGTH }
+    validates :cvv, length: { in: CVV_RANGE }
     validates :order_id, numericality: { only_indeger: true }
   end
 end

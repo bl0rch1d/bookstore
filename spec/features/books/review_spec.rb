@@ -67,7 +67,7 @@ describe 'Review', type: :feature do
 
       title_error = I18n.t('errors.format', attribute: :Title,
                                             message: I18n.t('errors.messages.too_long.other',
-                                                            count: Review::Contract::Create::MAX_TITLE_LENGTH))
+                                                            count: Review::Contract::Create::TITLE_LENGTH))
 
       body_error = I18n.t('errors.format', attribute: :Body,
                                            message: I18n.t('errors.messages.too_long.other',

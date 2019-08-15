@@ -46,7 +46,9 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { quantity: [I18n.t('errors.messages.greater_than_or_equal_to', count: 1)] } }
+      let(:errors) do
+        { quantity: [I18n.t('errors.messages.greater_than_or_equal_to', count: described_class::MIN_QUANTITY)] }
+      end
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -65,7 +67,9 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { quantity: [I18n.t('errors.messages.less_than_or_equal_to', count: 100)] } }
+      let(:errors) do
+        { quantity: [I18n.t('errors.messages.less_than_or_equal_to', count: described_class::MAX_QUANTITY)] }
+      end
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -84,7 +88,7 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { price: [I18n.t('errors.messages.greater_than_or_equal_to', count: 0)] } }
+      let(:errors) { { price: [I18n.t('errors.messages.greater_than_or_equal_to', count: described_class::MIN_PRICE)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -103,7 +107,7 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { price: [I18n.t('errors.messages.less_than_or_equal_to', count: 100_000)] } }
+      let(:errors) { { price: [I18n.t('errors.messages.less_than_or_equal_to', count: described_class::MAX_PRICE)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -122,7 +126,9 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { subtotal: [I18n.t('errors.messages.greater_than_or_equal_to', count: 0)] } }
+      let(:errors) do
+        { subtotal: [I18n.t('errors.messages.greater_than_or_equal_to', count: described_class::MIN_PRICE)] }
+      end
 
       it do
         expect(contract.validate(params)).to be_falsey
@@ -141,7 +147,7 @@ describe OrderItem::Contract::Create do
         }
       end
 
-      let(:errors) { { subtotal: [I18n.t('errors.messages.less_than_or_equal_to', count: 100_000)] } }
+      let(:errors) { { subtotal: [I18n.t('errors.messages.less_than_or_equal_to', count: described_class::MAX_PRICE)] } }
 
       it do
         expect(contract.validate(params)).to be_falsey

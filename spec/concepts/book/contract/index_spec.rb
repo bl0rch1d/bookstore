@@ -24,7 +24,7 @@ describe Book::Contract::Index do
         [
           I18n.t('errors.format',
                  attribute: :Page,
-                 message: I18n.t('errors.messages.greater_than_or_equal_to', count: 1))
+                 message: I18n.t('errors.messages.greater_than_or_equal_to', count: described_class::MIN_PAGE_VALUE))
         ]
       end
 

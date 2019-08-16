@@ -4,7 +4,7 @@ describe Checkout::Addresses do
 
   let(:user) { create :user }
 
-  let(:addressable_type) { 'Order' }
+  let(:addressable) { { addressable_id: order.id, addressable_type: 'Order' } }
 
   describe 'Success' do
     context 'when Address::Present' do
@@ -30,11 +30,11 @@ describe Checkout::Addresses do
           current_order: order,
           current_user: user,
           billing_address_params: ActionController::Parameters.new(
-            attributes_for(:billing_address).merge(addressable_id: order.id, addressable_type: addressable_type)
+            attributes_for(:billing_address).merge(addressable)
           ),
 
           shipping_address_params: ActionController::Parameters.new(
-            attributes_for(:shipping_address).merge(addressable_id: order.id, addressable_type: addressable_type)
+            attributes_for(:shipping_address).merge(addressable)
           ),
 
           use_billing_address: false
@@ -57,10 +57,9 @@ describe Checkout::Addresses do
           {
             current_order: order,
             current_user: user,
-            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address).merge(
-              addressable_id: order.id, addressable_type: addressable_type
-            ).except(:type)),
-
+            billing_address_params: ActionController::Parameters.new(
+              attributes_for(:billing_address).except(:type).merge(addressable)
+            ),
             use_billing_address: true
           }
         end
@@ -77,6 +76,74 @@ describe Checkout::Addresses do
           shipping_params = order.shipping_address.attributes.except('created_at', 'id', 'type', 'updated_at')
 
           expect(billing_params).to eq(shipping_params)
+        end
+      end
+
+      context 'when user has addresses' do
+        let(:user) { create(:user, :with_addresses) }
+
+        context 'when user uses his addresess' do
+          let(:billing_address_attributes) do
+            user.billing_address.attributes
+                .except('id', 'created_at', 'updated_at', 'type')
+                .merge(addressable)
+          end
+
+          let(:shipping_address_attributes) do
+            user.shipping_address.attributes
+                .except('id', 'created_at', 'updated_at', 'type')
+                .merge(addressable)
+          end
+
+          let(:params) do
+            {
+              current_order: order,
+              current_user: user,
+              billing_address_params: ActionController::Parameters.new(billing_address_attributes),
+              shipping_address_params: ActionController::Parameters.new(shipping_address_attributes),
+              use_billing_address: false
+            }
+          end
+
+          it 'copy user addresses and set as order addresses' do
+            expect(result).to be_success
+
+            order.reload
+
+            expect(order.billing_address).to be_a(BillingAddress)
+            expect(order.shipping_address).to be_a(ShippingAddress)
+
+            expect(user.billing_address).to be_a(BillingAddress)
+            expect(user.shipping_address).to be_a(ShippingAddress)
+          end
+        end
+
+        context 'when user enters another addresses' do
+          let(:params) do
+            {
+              current_order: order,
+              current_user: user,
+
+              billing_address_params: ActionController::Parameters.new(
+                attributes_for(:billing_address).merge(addressable)
+              ),
+
+              shipping_address_params: ActionController::Parameters.new(
+                attributes_for(:shipping_address).merge(addressable)
+              ),
+
+              use_billing_address: false
+            }
+          end
+
+          it 'setup new order addresess' do
+            expect(result).to be_success
+
+            order.reload
+
+            expect(order.billing_address).to be_a(BillingAddress)
+            expect(order.shipping_address).to be_a(ShippingAddress)
+          end
         end
       end
     end

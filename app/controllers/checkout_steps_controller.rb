@@ -69,6 +69,8 @@ class CheckoutStepsController < ApplicationController
 
     authorize!(result)
 
+    # binding.pry
+
     if result.success?
       render_wizard current_order
     else

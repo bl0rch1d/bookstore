@@ -28,7 +28,5 @@ module Address::Contract
     validates :country, :city, length: { maximum: CITY_COUNTRY_LENGTH }, format: { with: CITY_COUNTRY_REGEX }
     validates :zip, length: { maximum: ZIP_LENGTH }, format: { with: ZIP_REGEX }
     validates :phone, length: { maximum: PHONE_LENGTH }, format: { with: PHONE_REGEX }
-
-    validates_uniqueness_of :type, scope: %i[addressable_type addressable_id]
   end
 end

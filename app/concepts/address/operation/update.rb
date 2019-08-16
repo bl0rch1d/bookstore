@@ -5,13 +5,11 @@ class Address::Update < Trailblazer::Operation
 
     def create_forms(ctx, params:, **)
       ctx['billing_address_form'] = Address::Contract::Create.new(
-        params[:current_user].billing_address ||
-        BillingAddress.new
+        params[:current_user].billing_address || BillingAddress.new
       )
 
       ctx['shipping_address_form'] = Address::Contract::Create.new(
-        params[:current_user].shipping_address ||
-        ShippingAddress.new
+        params[:current_user].shipping_address || ShippingAddress.new
       )
     end
   end
@@ -35,6 +33,7 @@ class Address::Update < Trailblazer::Operation
   end
 
   def persist(ctx, **)
-    ctx['billing_address_form'].save || ctx['shipping_address_form'].save
+    (ctx['billing_address_form'].save if ctx['billing_params']) ||
+      (ctx['shipping_address_form'].save if ctx['shipping_params'])
   end
 end

@@ -84,21 +84,21 @@ describe Address::Update do
   end
 
   describe 'Failure' do
-    # context 'when policy failed' do
-    #   let(:invalid_addressable) { { addressable_type: 'User', addressable_id: create(:user).id } }
+    context 'when policy failed' do
+      let(:invalid_addressable) { { addressable_type: 'User', addressable_id: create(:user).id } }
 
-    #   let(:params) do
-    #     {
-    #       user: {
-    #         billing_address_attributes: attributes_for(:billing_address).merge(invalid_addressable)
-    #       },
+      let(:params) do
+        {
+          user: {
+            billing_address_attributes: attributes_for(:billing_address).merge(invalid_addressable)
+          },
 
-    #       current_user: user
-    #     }
-    #   end
+          current_user: user
+        }
+      end
 
-    #   it { expect(result).to be_failure }
-    # end
+      it { expect(result).to be_failure }
+    end
 
     context 'when invalid params' do
       let(:params) do

@@ -7,6 +7,7 @@ ruby '2.6.3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
+gem 'rails-html-sanitizer', '~> 1.0.3'
 
 # DB
 gem 'hiredis', '~> 0.6.3'
@@ -111,7 +112,7 @@ group :development do
   # Linters
   gem 'fasterer', '~> 0.5.1'
   gem 'haml_lint', '~> 0.32.0'
-  gem 'overcommit', '~> 0.22.0'
+  gem 'overcommit', '~> 0.49.0'
   gem 'rails_best_practices', '~> 1.19'
   gem 'rubocop', '~> 0.72.0'
   gem 'rubocop-i18n', '~> 2.0'

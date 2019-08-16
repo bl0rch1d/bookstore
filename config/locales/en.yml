@@ -50,6 +50,9 @@ en:
 
   validation_errors:
     out_of_limits: "is out of limits"
+    credit_card:
+      expired: "can't be in the past"
+      invalid_expiration_date: 'is invalid'
 
   validation_notices:
     blank: 'Please fill out this field'

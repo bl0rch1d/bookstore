@@ -34,5 +34,29 @@ describe Checkout::Contract::CreditCard do
         expect(contract.errors.messages).to match errors
       end
     end
+
+    context 'when expiration date validation' do
+      let(:invalid_expiration_date) { 'dsdsd' }
+      let(:expired_expiration_date) { '12/12' }
+
+      let(:params) { ActionController::Parameters.new(attributes_for(:credit_card)) }
+
+      let(:invalid_error) { { expiration_date: [I18n.t('errors.messages.invalid')] } }
+      let(:expired_error) { { expiration_date: [I18n.t('validation_errors.credit_card.expired')] } }
+
+      it do
+        params[:expiration_date] = invalid_expiration_date
+
+        expect(contract.validate(params)).to be_falsey
+        expect(contract.errors.messages).to match invalid_error
+      end
+
+      it do
+        params[:expiration_date] = expired_expiration_date
+
+        expect(contract.validate(params)).to be_falsey
+        expect(contract.errors.messages).to match expired_error
+      end
+    end
   end
 end

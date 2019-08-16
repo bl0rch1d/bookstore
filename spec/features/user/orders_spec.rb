@@ -23,8 +23,8 @@ describe 'Orders page' do
 
     context 'when user uses filter' do
       it 'see orders with all states' do
-        find('a', class: 'lead').click
-        find('a', text: 'all').click
+        click_link(class: 'lead')
+        click_link('all')
 
         sleep 0.5
 
@@ -63,7 +63,8 @@ describe 'Orders page' do
 
     context 'when order page' do
       before do
-        all('a', class: 'general-order-number').first.click
+        click_link(class: 'general-order-number', match: :first)
+
         sleep 0.5
       end
 

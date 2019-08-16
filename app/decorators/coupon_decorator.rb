@@ -1,8 +1,10 @@
 class CouponDecorator < Draper::Decorator
+  include ActionView::Helpers::NumberHelper
+
   delegate_all
 
   def format_discount
-    (discount * 100).to_s.split('.')[0] + '%'
+    number_to_percentage(discount * 100, precision: 0)
   end
 
   def calculated_discount

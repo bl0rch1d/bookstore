@@ -4,7 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def fast_create
-    result = FastUser::Create.call(email: user_params[:email], password: Devise.friendly_token.first(8))
+    result = FastUser::Create.call(
+      email: user_params[:email],
+      password: Devise.friendly_token.first(Devise.password_length.first)
+    )
 
     if result.success?
       sign_up(:user, result['model'])
@@ -21,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(_resource)
-    request.referer.presence ? request.referer : root_path
+    edit_user_registration_path
   end
 
   def user_params

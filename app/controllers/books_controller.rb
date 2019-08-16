@@ -11,10 +11,18 @@ class BooksController < ApplicationController
   def show
     result = Book::Show.call(id: params[:id])
 
-    @path = request.referer.presence || root_path
+    set_back_url
 
     @book = result['model'].decorate
 
     @reviews = ReviewDecorator.decorate_collection(@book.reviews.approved)
+  end
+
+  private
+
+  def set_back_url
+    cookies[:referer] = request.referer if request.referer
+
+    @back_url = cookies[:referer] || root_path
   end
 end

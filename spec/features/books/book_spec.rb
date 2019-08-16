@@ -34,4 +34,30 @@ describe 'Books page', type: :feature do
 
     expect(page).to have_content(I18n.t('store.not_found.message'))
   end
+
+  describe 'back url' do
+    let(:referer) { books_path }
+
+    before do
+      visit referer
+
+      click_link(class: 'book_path_link', visible: false)
+    end
+
+    it 'return back' do
+      click_link(class: 'general-back-link')
+
+      expect(page).to have_current_path(referer)
+    end
+
+    it 'returns back if user reload a book page' do
+      sleep 0.1
+
+      page.driver.browser.navigate.refresh
+
+      click_link(class: 'general-back-link')
+
+      expect(page).to have_current_path(referer)
+    end
+  end
 end

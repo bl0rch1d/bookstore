@@ -17,6 +17,7 @@ class Address::Update < Trailblazer::Operation
   step Policy::Guard(Address::Policy::UpdateGuard.new, name: :user), fail_fast: true
   step Nested(Present)
   success :extract_params
+  success :define_type
   step :validate
   step :persist
 
@@ -25,15 +26,15 @@ class Address::Update < Trailblazer::Operation
     ctx['shipping_params'] = params.dig(:user, :shipping_address_attributes)
   end
 
-  def validate(ctx, **)
-    billing = ctx['billing_address_form'].validate(ctx['billing_params']) if ctx['billing_params']
-    shipping = ctx['shipping_address_form'].validate(ctx['shipping_params']) if ctx['shipping_params']
+  def define_type(ctx, **)
+    ctx['type'] = ctx['billing_params'] ? :billing : :shipping
+  end
 
-    billing || shipping
+  def validate(ctx, **)
+    ctx["#{ctx['type']}_address_form"].validate(ctx["#{ctx['type']}_params"])
   end
 
   def persist(ctx, **)
-    (ctx['billing_address_form'].save if ctx['billing_params']) ||
-      (ctx['shipping_address_form'].save if ctx['shipping_params'])
+    ctx["#{ctx['type']}_address_form"].save
   end
 end

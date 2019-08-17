@@ -24,7 +24,7 @@ class Checkout::Addresses < Trailblazer::Operation
   step Nested(Present)
   success :extract_params
   step :validate
-  step :set_addresses
+  step :persist
 
   def extract_params(ctx, params:, **)
     ctx['billing_params'] = params[:billing_address_params]
@@ -38,7 +38,7 @@ class Checkout::Addresses < Trailblazer::Operation
     billing && shipping
   end
 
-  def set_addresses(ctx, **)
+  def persist(ctx, **)
     ctx['billing_address_form'].save && ctx['shipping_address_form'].save
   end
 end

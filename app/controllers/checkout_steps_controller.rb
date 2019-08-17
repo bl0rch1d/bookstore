@@ -28,7 +28,7 @@ class CheckoutStepsController < ApplicationController
   private
 
   def initialize_user
-    Checkout::Initialize.call(service_params) unless current_order.user
+    CheckoutStep::Initialize.call(service_params) unless current_order.user
   end
 
   def fast_authenticate_user!
@@ -52,7 +52,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def address
-    result = Checkout::Addresses::Present.call(service_params)
+    result = CheckoutStep::Addresses::Present.call(service_params)
 
     authorize!(result)
 
@@ -65,7 +65,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_address
-    result = Checkout::Addresses.call(service_params.merge(address_params))
+    result = CheckoutStep::Addresses.call(service_params.merge(address_params))
 
     authorize!(result)
 
@@ -78,7 +78,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def shipping
-    result = Checkout::Shipping::Present.call(service_params)
+    result = CheckoutStep::Shipping::Present.call(service_params)
 
     authorize!(result)
 
@@ -91,9 +91,9 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_shipping
-    result = Checkout::Shipping.call(service_params.merge(
-                                       shipping_method_id: params.dig(:order, :shipping_method_id)
-                                     ))
+    result = CheckoutStep::Shipping.call(service_params.merge(
+                                           shipping_method_id: params.dig(:order, :shipping_method_id)
+                                         ))
 
     authorize!(result)
 
@@ -106,7 +106,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def payment
-    result = Checkout::Payment::Present.call(service_params)
+    result = CheckoutStep::Payment::Present.call(service_params)
 
     authorize!(result)
 
@@ -119,7 +119,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_payment
-    result = Checkout::Payment.call(service_params.merge(credit_card: params.dig(:order, :credit_card)))
+    result = CheckoutStep::Payment.call(service_params.merge(credit_card: params.dig(:order, :credit_card)))
 
     authorize!(result)
 
@@ -132,7 +132,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def confirm
-    result = Checkout::Confirm::Present.call(service_params)
+    result = CheckoutStep::Confirm::Present.call(service_params)
 
     authorize!(result)
 
@@ -140,7 +140,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def finalize_order
-    result = Checkout::Confirm.call(service_params)
+    result = CheckoutStep::Confirm.call(service_params)
 
     authorize!(result)
 
@@ -149,7 +149,7 @@ class CheckoutStepsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def complete
-    result = Checkout::Complete.call(service_params.merge(session: session))
+    result = CheckoutStep::Complete.call(service_params.merge(session: session))
 
     authorize!(result)
 

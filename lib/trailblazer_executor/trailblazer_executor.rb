@@ -1,0 +1,3 @@
+require_relative 'not_authorized_exception'
+require_relative 'controller_resource'
+require_relative 'controller_additions'

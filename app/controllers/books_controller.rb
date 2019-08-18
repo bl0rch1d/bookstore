@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  include BackUrlHelper
+
   def index
     result = Book::Index.call(params)
 
@@ -16,13 +18,5 @@ class BooksController < ApplicationController
     @book = result['model'].decorate
 
     @reviews = ReviewDecorator.decorate_collection(@book.reviews.approved)
-  end
-
-  private
-
-  def set_back_url
-    cookies[:referer] = request.referer if request.referer
-
-    @back_url = cookies[:referer] || root_path
   end
 end

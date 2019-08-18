@@ -1,3 +1,3 @@
 "use strict";
 
-let toggleRemoveAccountBtn = () => document.getElementById("removeAccountBtn").toggleAttribute("disabled");
+let toggleRemoveAccountBtn = () => { if (event.which == 1) document.getElementById("removeAccountBtn").toggleAttribute("disabled"); };

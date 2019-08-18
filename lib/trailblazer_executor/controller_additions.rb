@@ -14,6 +14,12 @@ module TrailblazerExecutor
       end
     end
 
+    def authorize!(result)
+      return unless result['result.policy.user']
+
+      raise NotAuthorized if result['result.policy.user'].failure?
+    end
+
     def self.included(base)
       base.extend ClassMethods
     end

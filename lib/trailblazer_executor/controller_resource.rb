@@ -1,7 +1,8 @@
 module TrailblazerExecutor
   class ControllerResource
-    PRESENT_ACTIONS = %w[edit].freeze
+    PRESENT_ACTIONS = %w[edit new].freeze
     ACTION_METHOD_MAPPINGS = {
+      new: :create,
       edit: :update,
       index: :index,
       create: :create,
@@ -33,13 +34,11 @@ module TrailblazerExecutor
       @controller.instance_variable_set(:@operation_result, @operation_result)
     end
 
-    private
-
     def authorize!
-      return unless @operation_result['result.policy.user']
-
-      raise NotAuthorized if @operation_result['result.policy.user'].failure?
+      @controller.authorize!(@operation_result)
     end
+
+    private
 
     def operation_class
       return "#{operation_module}::#{operation_name}::Present" if PRESENT_ACTIONS.include?(@controller.action_name)

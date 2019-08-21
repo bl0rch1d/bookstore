@@ -1,7 +1,7 @@
 # rubocop: disable Metrics/ClassLength
 class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
-  include AddressFormHelper
+  include AddressFormsExtractor
 
   before_action :fast_authenticate_user!, :initialize_user
   steps :address, :shipping, :payment, :confirm, :complete
@@ -57,7 +57,7 @@ class CheckoutStepsController < ApplicationController
     authorize!(result)
 
     if result.success?
-      expose_address_forms(result)
+      extract_address_forms(result)
       render_wizard
     else
       redirect_back(fallback_location: root_path)
@@ -72,7 +72,7 @@ class CheckoutStepsController < ApplicationController
     if result.success?
       render_wizard current_order
     else
-      expose_address_forms(result)
+      extract_address_forms(result)
       render_wizard
     end
   end

@@ -1,12 +1,12 @@
 class AddressesController < ApplicationController
-  include AddressFormHelper
+  include AddressFormsExtractor
 
   def edit
     result = Address::Update::Present.call(current_user: current_user)
 
     authorize!(result)
 
-    expose_address_forms(result)
+    extract_address_forms(result)
   end
 
   def update
@@ -16,7 +16,7 @@ class AddressesController < ApplicationController
 
     flash.notice = I18n.t('user.notice.address_updated') if result.success?
 
-    expose_address_forms(result)
+    extract_address_forms(result)
 
     render :edit
   end

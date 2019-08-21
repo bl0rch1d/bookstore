@@ -2,8 +2,8 @@ class OrderItem::Create < Trailblazer::Operation
   step Policy::Guard(OrderItem::Policy::CreateGuard.new, name: :user), fail_fast: true
   step :model
   step Contract::Build(constant: OrderItem::Contract::Create)
-  success :quantity
-  success :price_and_subtotal
+  step :quantity
+  step :price_and_subtotal
   step Contract::Validate(key: :order_item), fail_fast: true
   step Contract::Persist()
 

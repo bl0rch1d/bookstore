@@ -1,4 +1,4 @@
-module RescueHelper
+module RescueHandler
   extend ActiveSupport::Concern
 
   included do

@@ -3,8 +3,8 @@ default: &default
   encoding: unicode
   host: localhost
   post: 5432
-  username: <%= Rails.application.credentials.pg[:user] %>
-  password: <%= Rails.application.credentials.pg[:password] %>
+  username: postgres
+  password: postgres
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -18,3 +18,5 @@ test:
 production:
   <<: *default
   database: bookstore_prod
+  username: <%= Rails.application.credentials.pg[:user] %>
+  password: <%= Rails.application.credentials.pg[:password] %>

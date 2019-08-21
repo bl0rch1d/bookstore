@@ -4,9 +4,9 @@
   %h3.general-subtitle= t('checkout.shipping.title')
   = simple_form_for current_order, url: wizard_path, method: :put do |form|
 
-    = render 'shipping_method_form_mobile', form: form
+    = render 'shipping_method_form_mobile', form: form, shipping_methods: @shipping_methods
 
-    = render 'shipping_method_form', form: form
+    = render 'shipping_method_form', form: form, shipping_methods: @shipping_methods
 
     .general-text-align
       %p.in-gold-500.font-18= t('order.summary.summary')

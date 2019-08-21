@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include RescueHelper
+  include RescueHandler
 
   protect_from_forgery with: :exception
 

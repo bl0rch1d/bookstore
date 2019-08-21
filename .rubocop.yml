@@ -42,7 +42,7 @@ Metrics/ModuleLength:
     - 'spec/**/*.rb'
 
 Metrics/LineLength:
-  Max: 121
+  Max: 120
 
 Documentation:
   Enabled: false

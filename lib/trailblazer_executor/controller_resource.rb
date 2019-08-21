@@ -1,5 +1,5 @@
 module TrailblazerExecutor
-  class ControllerResource
+  class Executor
     PRESENT_ACTIONS = %w[edit new].freeze
     ACTION_METHOD_MAPPINGS = {
       new: :create,
@@ -13,14 +13,15 @@ module TrailblazerExecutor
 
     def self.add_before_action(controller_class, method)
       controller_class.send(:before_action) do |controller|
-        controller.class.executor_resource_class.new(controller).send(method)
+        controller.class.executor_class.new(controller).send(method)
       end
     end
 
-    def initialize(controller)
+    def initialize(controller, operation_params: nil)
       @controller = controller
       @controller_params = controller.params
-      @operation_params = prepare_params_for_operation
+
+      @operation_params = operation_params || prepare_params_for_operation
     end
 
     def execute_and_authorize_operation
@@ -28,8 +29,8 @@ module TrailblazerExecutor
       authorize!
     end
 
-    def execute_operation
-      @operation_result = Module.const_get(operation_class).call(@operation_params)
+    def execute_operation(klass: operation_class)
+      @operation_result = Module.const_get(klass).call(@operation_params)
 
       @controller.instance_variable_set(:@operation_result, @operation_result)
     end

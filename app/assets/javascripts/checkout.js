@@ -1,3 +1,3 @@
 "use strict";
 
-let toggleShippingForm = () => document.getElementById("shippingAddress").classList.toggle("address-hidden");
+let toggleShippingForm = () => { if (event.which == 1) document.getElementById("shippingAddress").classList.toggle("address-hidden"); };

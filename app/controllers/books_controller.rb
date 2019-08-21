@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  include BackUrlHelper
+  include BackUrlMemorizer
 
   execute_operation
 

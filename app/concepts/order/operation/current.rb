@@ -1,5 +1,5 @@
 class Order::Current < Trailblazer::Operation
-  success :model
+  step :model
   success :session
 
   def model(ctx, params:, **)

@@ -20,6 +20,7 @@ class Book < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   has_many :order_items, dependent: :destroy
+  has_many :orders, through: :order_items
 
   has_many_attached :images
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
@@ -35,7 +36,7 @@ class Book < ApplicationRecord
     less_than_or_equal_to: MAX_QUANTITY
   }
 
-  scope :most_popular,     -> { left_outer_joins(:order_items).group(:id).order('count(order_items.id) desc') }
+  scope :most_popular,     -> { MostPopularQuery.new(self).call }
 
   scope :most_recent,      -> { order('created_at DESC') }
 

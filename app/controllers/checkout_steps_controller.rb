@@ -34,27 +34,26 @@ class CheckoutStepsController < ApplicationController
 
   def resolve_step_data
     case step
+    when :address   then extract_address_forms(@operation_result)
+    when :payment   then @credit_card_form = @operation_result['contract.default']
 
-    when :address then extract_address_forms(@operation_result)
+    when :complete
+      session[:current_order_id] = nil
+
+      @order = @operation_result['model'].decorate
 
     when :shipping
       @shipping_methods = ShippingMethod.all
 
       flash.alert = I18n.t('checkout.shipping.errors.blank') if action_name == 'update'
-
-    when :payment then @credit_card_form = @operation_result['contract.default']
-
-    when :complete
-      session[:current_order_id] = nil
-      @order = @operation_result['model'].decorate
     end
   end
 
   def failed_present_step
-    return redirect_back(fallback_location: root_path) if step == :address
-
-    return redirect_to user_order_path(current_user, current_user.orders.completed.last) if step == :complete
-
-    redirect_to checkout_step_path(@previous_step)
+    case step
+    when :address then redirect_back(fallback_location: root_path)
+    when :complete then redirect_to user_order_path(current_user, current_user.orders.completed.last)
+    else redirect_to checkout_step_path(@previous_step)
+    end
   end
 end

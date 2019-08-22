@@ -24,7 +24,7 @@ class Checkout::Processor
 
   def operation_params
     @controller.params.merge(
-      current_order: @controller.current_order,
+      current_order: @controller.send(:current_order),
       current_user: @controller.current_user,
       step: @step
     )

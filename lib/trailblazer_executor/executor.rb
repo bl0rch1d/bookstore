@@ -19,7 +19,6 @@ module TrailblazerExecutor
 
     def initialize(controller, operation_params: nil)
       @controller = controller
-      @controller_params = controller.params
 
       @operation_params = operation_params || prepare_params_for_operation
     end
@@ -56,7 +55,10 @@ module TrailblazerExecutor
     end
 
     def prepare_params_for_operation
-      @controller_params.merge(current_user: @controller.current_user, current_order: @controller.current_order)
+      @controller.params.merge(
+        current_user: @controller.current_user,
+        current_order: @controller.send(:current_order)
+      )
     end
   end
 end

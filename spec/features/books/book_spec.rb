@@ -59,5 +59,15 @@ describe 'Books page', type: :feature do
 
       expect(page).to have_current_path(referer)
     end
+
+    it 'returns back if user added book to cart' do
+      sleep 0.1
+
+      find("input[value='#{I18n.t('store.button.add_to_cart')}']").click
+
+      click_link(class: 'general-back-link')
+
+      expect(page).to have_current_path(referer)
+    end
   end
 end

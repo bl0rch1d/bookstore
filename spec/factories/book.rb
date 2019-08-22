@@ -12,14 +12,6 @@ FactoryBot.define do
     category
     authors { Array.new(3) { create(:author) } }
 
-    # after :create do |book|
-    #   book.images.attach(
-    #     io: File.open(Rails.root.join("spec/fixtures/books/#{rand(1..4)}.jpg")),
-    #     filename: 'cover.jpg',
-    #     content_type: 'image/jpg'
-    #   )
-    # end
-
     trait :with_many_images do
       after :create do |book|
         4.times do

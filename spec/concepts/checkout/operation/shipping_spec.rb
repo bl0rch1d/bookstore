@@ -3,6 +3,7 @@ describe Checkout::Shipping do
   let(:result) { described_class.call(params.merge(step: :shipping)) }
 
   let(:user) { create :user }
+  let(:shipping_method_id) { create(:shipping_method).id }
 
   describe 'Success' do
     context 'when Shipping::Present' do
@@ -29,7 +30,9 @@ describe Checkout::Shipping do
         {
           current_order: order,
           current_user: user,
-          shipping_method_id: create(:shipping_method).id
+          order: {
+            shipping_method_id: shipping_method_id
+          }
         }
       end
 
@@ -52,7 +55,9 @@ describe Checkout::Shipping do
           {
             current_order: order,
             current_user: user,
-            shipping_method_id: create(:shipping_method).id
+            order: {
+              shipping_method_id: shipping_method_id
+            }
           }
         end
 
@@ -67,7 +72,9 @@ describe Checkout::Shipping do
           {
             current_order: order,
             current_user: create(:user),
-            shipping_method_id: create(:shipping_method).id
+            order: {
+              shipping_method_id: shipping_method_id
+            }
           }
         end
 
@@ -82,7 +89,9 @@ describe Checkout::Shipping do
           {
             current_order: create(:order, :at_address_step, user: user),
             current_user: user,
-            shipping_method_id: create(:shipping_method).id
+            order: {
+              shipping_method_id: shipping_method_id
+            }
           }
         end
 
@@ -98,7 +107,9 @@ describe Checkout::Shipping do
         {
           current_order: order,
           current_user: create(:user),
-          shipping_method_id: 'sd'
+          order: {
+            shipping_method_id: 'ss'
+          }
         }
       end
 

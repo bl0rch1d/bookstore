@@ -9,7 +9,7 @@
         %th
           %span.in-grey-600= t('checkout.shipping.price')
     %tbody
-      - ShippingMethod.all.each do |shipping_method|
+      - shipping_methods.each do |shipping_method|
         %tr
           %td
             .form-group.radio.mt-0.mb-0

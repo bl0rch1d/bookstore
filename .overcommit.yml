@@ -35,7 +35,7 @@ PreCommit:
 
   TrailingWhitespace:
     enabled: true
-    exclude: ['vendor/**/*', 'spec/support/vcr_cassets/**/*']
+    exclude: ['vendor/**/*']
 
   BundleOutdated:
     enabled: true

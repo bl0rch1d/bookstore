@@ -1,4 +1,4 @@
-describe Checkout::Addresses do
+describe Checkout::Address do
   let(:present_result) { described_class::Present.call(params.merge(step: :address)) }
   let(:result) { described_class.call(params.merge(step: :address)) }
 
@@ -29,15 +29,16 @@ describe Checkout::Addresses do
         {
           current_order: order,
           current_user: user,
-          billing_address_params: ActionController::Parameters.new(
-            attributes_for(:billing_address).merge(addressable)
-          ),
+          order: {
+            billing_address: ActionController::Parameters.new(
+              attributes_for(:billing_address).merge(addressable)
+            ),
 
-          shipping_address_params: ActionController::Parameters.new(
-            attributes_for(:shipping_address).merge(addressable)
-          ),
-
-          use_billing_address: false
+            shipping_address: ActionController::Parameters.new(
+              attributes_for(:shipping_address).merge(addressable)
+            ),
+            use_billing: false
+          }
         }
       end
 
@@ -57,10 +58,12 @@ describe Checkout::Addresses do
           {
             current_order: order,
             current_user: user,
-            billing_address_params: ActionController::Parameters.new(
-              attributes_for(:billing_address).except(:type).merge(addressable)
-            ),
-            use_billing_address: true
+            order: {
+              billing_address: ActionController::Parameters.new(
+                attributes_for(:billing_address).except(:type).merge(addressable)
+              ),
+              use_billing: true
+            }
           }
         end
 
@@ -99,9 +102,11 @@ describe Checkout::Addresses do
             {
               current_order: order,
               current_user: user,
-              billing_address_params: ActionController::Parameters.new(billing_address_attributes),
-              shipping_address_params: ActionController::Parameters.new(shipping_address_attributes),
-              use_billing_address: false
+              order: {
+                billing_address: ActionController::Parameters.new(billing_address_attributes),
+                shipping_address: ActionController::Parameters.new(shipping_address_attributes),
+                use_billing: false
+              }
             }
           end
 
@@ -123,16 +128,17 @@ describe Checkout::Addresses do
             {
               current_order: order,
               current_user: user,
+              order: {
+                billing_address: ActionController::Parameters.new(
+                  attributes_for(:billing_address).merge(addressable)
+                ),
 
-              billing_address_params: ActionController::Parameters.new(
-                attributes_for(:billing_address).merge(addressable)
-              ),
+                shipping_address: ActionController::Parameters.new(
+                  attributes_for(:shipping_address).merge(addressable)
+                ),
 
-              shipping_address_params: ActionController::Parameters.new(
-                attributes_for(:shipping_address).merge(addressable)
-              ),
-
-              use_billing_address: false
+                use_billing: false
+              }
             }
           end
 
@@ -158,9 +164,11 @@ describe Checkout::Addresses do
           {
             current_order: order,
             current_user: user,
-            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address)),
-            shipping_address_params: ActionController::Parameters.new(attributes_for(:shipping_address)),
-            use_billing_address: false
+            order: {
+              billing_address: ActionController::Parameters.new(attributes_for(:billing_address)),
+              shipping_address: ActionController::Parameters.new(attributes_for(:shipping_address)),
+              use_billing: false
+            }
           }
         end
 
@@ -177,9 +185,11 @@ describe Checkout::Addresses do
           {
             current_order: order,
             current_user: create(:user),
-            billing_address_params: ActionController::Parameters.new(attributes_for(:billing_address)),
-            shipping_address_params: ActionController::Parameters.new(attributes_for(:shipping_address)),
-            use_billing_address: false
+            order: {
+              billing_address: ActionController::Parameters.new(attributes_for(:billing_address)),
+              shipping_address: ActionController::Parameters.new(attributes_for(:shipping_address)),
+              use_billing: false
+            }
           }
         end
 
@@ -197,9 +207,11 @@ describe Checkout::Addresses do
         {
           current_order: order,
           current_user: user,
-          billing_address_params: ActionController::Parameters.new(attributes_for(:user)),
-          shipping_address_params: ActionController::Parameters.new(attributes_for(:book)),
-          use_billing_address: false
+          order: {
+            billing_address: ActionController::Parameters.new(attributes_for(:user)),
+            shipping_address: ActionController::Parameters.new(attributes_for(:book)),
+            use_billing: false
+          }
         }
       end
 

@@ -1,4 +1,4 @@
-class Checkout::Addresses < Trailblazer::Operation
+class Checkout::Address < Trailblazer::Operation
   class Present < Trailblazer::Operation
     step Policy::Guard(Checkout::Policy::UserGuard.new, name: :user), fail_fast: true
     step Policy::Guard(Checkout::Policy::CheckoutGuard.new, name: :checkout), fail_fast: true
@@ -27,8 +27,8 @@ class Checkout::Addresses < Trailblazer::Operation
   step :persist
 
   def extract_params(ctx, params:, **)
-    ctx['billing_params'] = params[:billing_address_params]
-    ctx['shipping_params'] = params[:use_billing_address] ? ctx['billing_params'] : params[:shipping_address_params]
+    ctx['billing_params'] = params[:order][:billing_address]
+    ctx['shipping_params'] = params[:order][:use_billing] ? ctx['billing_params'] : params[:order][:shipping_address]
   end
 
   def validate(ctx, **)

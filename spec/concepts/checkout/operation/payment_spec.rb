@@ -6,6 +6,8 @@ describe Checkout::Payment do
 
   let(:order) { create(:order, :at_payment_step, user: user) }
 
+  let(:valid_credit_card_params) { ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id)) }
+
   describe 'Success' do
     context 'when Payment::Present' do
       let(:params) do
@@ -26,7 +28,9 @@ describe Checkout::Payment do
         {
           current_order: order,
           current_user: user,
-          credit_card: ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id))
+          order: {
+            credit_card: valid_credit_card_params
+          }
         }
       end
 
@@ -50,7 +54,9 @@ describe Checkout::Payment do
           {
             current_order: order,
             current_user: user,
-            credit_card: ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id))
+            order: {
+              credit_card: valid_credit_card_params
+            }
           }
         end
 
@@ -65,7 +71,9 @@ describe Checkout::Payment do
           {
             current_order: order,
             current_user: create(:user),
-            credit_card: ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id))
+            order: {
+              credit_card: valid_credit_card_params
+            }
           }
         end
 
@@ -80,7 +88,9 @@ describe Checkout::Payment do
           {
             current_order: create(:order, :at_shipping_step, user: user),
             current_user: user,
-            credit_card: ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id))
+            order: {
+              credit_card: valid_credit_card_params
+            }
           }
         end
 
@@ -96,7 +106,9 @@ describe Checkout::Payment do
         {
           current_order: order,
           current_user: user,
-          credit_card: ActionController::Parameters.new(attributes_for(:user))
+          order: {
+            credit_card: ActionController::Parameters.new(attributes_for(:user))
+          }
         }
       end
 

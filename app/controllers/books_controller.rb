@@ -1,21 +1,19 @@
 class BooksController < ApplicationController
-  include BackUrlHelper
+  include BackUrlMemorizer
+
+  execute_operation
 
   def index
-    result = Book::Index.call(params)
+    return redirect_to(books_path) unless @operation_result.success?
 
-    return redirect_to(books_path) unless result.success?
-
-    @pagy = result['pagy']
-    @books = BookDecorator.decorate_collection(result['model'])
+    @pagy = @operation_result['pagy']
+    @books = BookDecorator.decorate_collection(@operation_result['model'])
   end
 
   def show
-    result = Book::Show.call(id: params[:id])
-
     set_back_url
 
-    @book = result['model'].decorate
+    @book = @operation_result['model'].decorate
 
     @reviews = ReviewDecorator.decorate_collection(@book.reviews.approved)
   end

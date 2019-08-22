@@ -16,7 +16,7 @@ class Checkout::Shipping < Trailblazer::Operation
   success :link_to_order
 
   def model(ctx, params:, **)
-    ctx['model'] = ShippingMethod.find_by(id: params[:shipping_method_id])
+    ctx['model'] = ShippingMethod.find_by(id: params.dig(:order, :shipping_method_id))
   end
 
   def link_to_order(ctx, params:, **)

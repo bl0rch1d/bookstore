@@ -1,22 +1,16 @@
 class AddressesController < ApplicationController
   include AddressFormsExtractor
 
+  execute_and_authorize_operation
+
   def edit
-    result = Address::Update::Present.call(current_user: current_user)
-
-    authorize!(result)
-
-    extract_address_forms(result)
+    extract_address_forms(@operation_result)
   end
 
   def update
-    result = Address::Update.call(params.merge(current_user: current_user))
+    flash.notice = I18n.t('user.notice.address_updated') if @operation_result.success?
 
-    authorize!(result)
-
-    flash.notice = I18n.t('user.notice.address_updated') if result.success?
-
-    extract_address_forms(result)
+    extract_address_forms(@operation_result)
 
     render :edit
   end

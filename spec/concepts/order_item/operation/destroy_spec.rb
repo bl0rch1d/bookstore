@@ -1,4 +1,4 @@
-describe OrderItem::Delete do
+describe OrderItem::Destroy do
   let(:result) { described_class.call(params) }
 
   let!(:current_order) { create(:order, :at_address_step) }

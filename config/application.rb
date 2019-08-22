@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require_relative '../lib/trailblazer_executor/trailblazer_executor'
 
 Bundler.require(*Rails.groups)
 

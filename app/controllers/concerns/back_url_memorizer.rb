@@ -1,4 +1,4 @@
-module BackUrlHelper
+module BackUrlMemorizer
   extend ActiveSupport::Concern
 
   included do

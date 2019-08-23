@@ -9,8 +9,8 @@ describe 'Review', type: :feature do
       },
 
       invalid: {
-        blank: 32.chr,
-        long: 70.chr * 600
+        blank: '',
+        long: 'a' * 600
       }
     }
   end

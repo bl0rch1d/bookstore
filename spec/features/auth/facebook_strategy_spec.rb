@@ -1,4 +1,4 @@
-describe 'Facebook', type: :feature do
+describe 'Facebook strategy', type: :feature do
   before do
     visit root_path
 

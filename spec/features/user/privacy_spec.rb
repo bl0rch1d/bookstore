@@ -8,7 +8,7 @@ describe 'Privacy page' do
         confirm_password: 'newPassword1'
       },
       invalid: {
-        blank: 32.chr
+        blank: ''
       }
     }
   end

@@ -25,5 +25,7 @@ Rails.application.configure do
 
   config.active_support.deprecation = :stderr
 
+  config.active_job.queue_adapter = :sidekiq
+
   config.middleware.use RackSessionAccess::Middleware
 end

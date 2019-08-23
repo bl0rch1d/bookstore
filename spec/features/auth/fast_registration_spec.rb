@@ -32,9 +32,6 @@ describe 'Fast registration', type: :feature do
 
         expect(page).to have_content(I18n.t('auth.confirmation.not_confirmed'))
 
-        # Because email delivered with delay
-        sleep 0.5
-
         confirmation_mail = ActionMailer::Base.deliveries.select do |mail|
           mail.subject == 'Confirmation instructions' && mail.to[0] == values[:valid][:email]
         end
@@ -42,8 +39,6 @@ describe 'Fast registration', type: :feature do
         ctoken = confirmation_mail[0].body.raw_source.match(/confirmation_token=[\w*-]+/)
 
         visit "/users/confirmation?#{ctoken}"
-
-        sleep 1
 
         expect(page).to have_current_path(checkout_step_path(:address))
       end

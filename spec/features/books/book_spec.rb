@@ -51,7 +51,7 @@ describe 'Books page', type: :feature do
     end
 
     it 'returns back if user reload a book page' do
-      sleep 0.1
+      has_content?(book.description)
 
       page.driver.browser.navigate.refresh
 
@@ -61,9 +61,7 @@ describe 'Books page', type: :feature do
     end
 
     it 'returns back if user added book to cart' do
-      sleep 0.1
-
-      find("input[value='#{I18n.t('store.button.add_to_cart')}']").click
+      click_button(I18n.t('store.button.add_to_cart'))
 
       click_link(class: 'general-back-link')
 

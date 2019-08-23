@@ -26,7 +26,7 @@ describe 'Orders page' do
         click_link(class: 'lead')
         click_link('all')
 
-        sleep 0.5
+        has_content?(Order.last.number)
 
         orders_on_page = all('a', class: 'general-order-number')
 
@@ -64,17 +64,20 @@ describe 'Orders page' do
     context 'when order page' do
       before do
         click_link(class: 'general-order-number', match: :first)
-
-        sleep 0.5
       end
 
       it 'user can visit order page' do
+        has_content?(user.orders.last.number)
+        has_content?(user.orders.completed.first.order_items.first.book.title)
+
         expect(page).to have_current_path("/users/#{user.id}/orders/#{user.orders.completed.first.id}")
       end
 
       # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'user can view detailed info about order' do
         extend ActionView::Helpers::NumberHelper
+
+        has_content?(user.orders.last.number)
 
         order = user.orders.completed.first.decorate
 
@@ -122,7 +125,7 @@ describe 'Orders page' do
       end
     end
 
-    context 'when user tries to view order that do not belong to him' do
+    context 'when user tries to view order that does not belong to him' do
       it 'redirects user to root with flash message' do
         visit user_order_path(3, 32)
 

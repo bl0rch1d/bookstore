@@ -4,20 +4,26 @@ describe 'Checkout', type: :feature do
   let(:values) do
     {
       valid: {
-        first_name: 'First',
-        last_name: 'Last',
-        address: 'Address Line',
-        city: 'Detroit',
-        zip: '1234',
-        phone: '+380638567656',
-        number: '1234123412341234',
-        card_name: 'Name Of Card',
-        expiration_date: '12/21',
-        cvv: Array.new(rand(3..4)) { rand(1..9) }.join,
+        address: {
+          first_name: 'First',
+          last_name: 'Last',
+          address_line: 'Address Line',
+          city: 'Detroit',
+          zip: '1234',
+          phone: '+380638567656'
+        },
+
+        credit_card: {
+          number: '1234123412341234',
+          card_name: 'Name Of Card',
+          expiration_date: '12/21',
+          cvv: Array.new(rand(3..4)) { rand(1..9) }.join
+        },
+
         secure_number: '** ** ** 1234'
       },
       invalid: {
-        blank: 32.chr
+        blank: ''
       }
     }
   end
@@ -40,20 +46,16 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:address))
 
       within '.edit_order' do
-        fill_in 'order[billing_address][first_name]',   with: values[:valid][:first_name]
-        fill_in 'order[billing_address][last_name]',    with: values[:valid][:last_name]
-        fill_in 'order[billing_address][address_line]', with: values[:valid][:address]
-        fill_in 'order[billing_address][city]',         with: values[:valid][:city]
-        fill_in 'order[billing_address][zip]',          with: values[:valid][:zip]
-        fill_in 'order[billing_address][phone]',        with: values[:valid][:phone]
+        values[:valid][:address].each do |key, value|
+          fill_in "order[billing_address][#{key}]", with: value
+        end
+
         find('#order_billing_address_country').find(:xpath, 'option[2]').select_option
 
-        fill_in 'order[shipping_address][first_name]',    with: values[:valid][:first_name]
-        fill_in 'order[shipping_address][last_name]',     with: values[:valid][:last_name]
-        fill_in 'order[shipping_address][address_line]',  with: values[:valid][:address]
-        fill_in 'order[shipping_address][city]',          with: values[:valid][:city]
-        fill_in 'order[shipping_address][zip]',           with: values[:valid][:zip]
-        fill_in 'order[shipping_address][phone]',         with: values[:valid][:phone]
+        values[:valid][:address].each do |key, value|
+          fill_in "order[shipping_address][#{key}]", with: value
+        end
+
         find('#order_shipping_address_country').find(:xpath, 'option[2]').select_option
 
         find('input[type="submit"]').click
@@ -70,10 +72,9 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:payment))
 
       within '.edit_order' do
-        fill_in 'order[credit_card][number]',           with: values[:valid][:number]
-        fill_in 'order[credit_card][card_name]',        with: values[:valid][:card_name]
-        fill_in 'order[credit_card][expiration_date]',  with: values[:valid][:expiration_date]
-        fill_in 'order[credit_card][cvv]',              with: values[:valid][:cvv]
+        values[:valid][:credit_card].each do |key, value|
+          fill_in "order[credit_card][#{key}]", with: value
+        end
 
         find('input[type="submit"]').click
       end
@@ -101,12 +102,10 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:address))
 
       within '.edit_order' do
-        fill_in 'order[billing_address][first_name]',   with: values[:valid][:first_name]
-        fill_in 'order[billing_address][last_name]',    with: values[:valid][:last_name]
-        fill_in 'order[billing_address][address_line]', with: values[:valid][:address]
-        fill_in 'order[billing_address][city]',         with: values[:valid][:city]
-        fill_in 'order[billing_address][zip]',          with: values[:valid][:zip]
-        fill_in 'order[billing_address][phone]',        with: values[:valid][:phone]
+        values[:valid][:address].each do |key, value|
+          fill_in "order[billing_address][#{key}]", with: value
+        end
+
         find('#order_billing_address_country').find(:xpath, 'option[2]').select_option
 
         check I18n.t('address.use_billing'), allow_label_click: true
@@ -125,10 +124,9 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:payment))
 
       within '.edit_order' do
-        fill_in 'order[credit_card][number]',           with: values[:valid][:number]
-        fill_in 'order[credit_card][card_name]',        with: values[:valid][:card_name]
-        fill_in 'order[credit_card][expiration_date]',  with: values[:valid][:expiration_date]
-        fill_in 'order[credit_card][cvv]',              with: values[:valid][:cvv]
+        values[:valid][:credit_card].each do |key, value|
+          fill_in "order[credit_card][#{key}]", with: value
+        end
 
         find('input[type="submit"]').click
       end
@@ -149,27 +147,20 @@ describe 'Checkout', type: :feature do
 
       expect(page).to have_current_path(books_path)
     end
-
-    context 'when user reloads page at complete step' do
-      let(:order) { create(:order, :at_complete_step, user: user) }
-
-      before do
-        page.set_rack_session(current_order_id: order.id)
-        visit checkout_step_path(:complete)
-      end
-
-      it 'redirect to order page' do
-        page.driver.browser.navigate.refresh
-
-        expect(page).to have_current_path("/users/#{user.id}/orders/#{order.id}")
-      end
-    end
   end
 
   context 'when failure' do
     before do
       create(:book)
       login_as(user, scope: :user)
+    end
+
+    it 'User redirects if order_items are empty' do
+      visit checkout_step_path(:address)
+
+      expect(page).to have_current_path(root_path)
+
+      expect(page).to have_content(I18n.t('order_item.errors.no_items'))
     end
 
     it 'User redirects if checkout step not allowed' do
@@ -194,12 +185,9 @@ describe 'Checkout', type: :feature do
         expect(page).to have_current_path(checkout_step_path(:address))
 
         within '.edit_order' do
-          fill_in 'order[billing_address][first_name]',   with: values[:invalid][:blank]
-          fill_in 'order[billing_address][last_name]',    with: values[:invalid][:blank]
-          fill_in 'order[billing_address][address_line]', with: values[:invalid][:blank]
-          fill_in 'order[billing_address][city]',         with: values[:invalid][:blank]
-          fill_in 'order[billing_address][zip]',          with: values[:invalid][:blank]
-          fill_in 'order[billing_address][phone]',        with: values[:invalid][:blank]
+          values[:valid][:address].each do |key, _value|
+            fill_in "order[billing_address][#{key}]", with: values[:invalid][:blank]
+          end
 
           check I18n.t('address.use_billing'), allow_label_click: true
 
@@ -236,10 +224,9 @@ describe 'Checkout', type: :feature do
         expect(page).to have_current_path(checkout_step_path(:payment))
 
         within '.edit_order' do
-          fill_in 'order[credit_card][number]',           with: values[:invalid][:blank]
-          fill_in 'order[credit_card][card_name]',        with: values[:invalid][:blank]
-          fill_in 'order[credit_card][expiration_date]',  with: values[:invalid][:blank]
-          fill_in 'order[credit_card][cvv]',              with: values[:invalid][:blank]
+          values[:valid][:credit_card].each_key do |key|
+            fill_in "order[credit_card][#{key}]", with: values[:invalid][:blank]
+          end
 
           find('input[type="submit"]').click
         end

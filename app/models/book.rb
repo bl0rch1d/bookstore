@@ -20,7 +20,6 @@ class Book < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   has_many :order_items, dependent: :destroy
-  has_many :orders, through: :order_items
 
   has_many_attached :images
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
@@ -37,7 +36,6 @@ class Book < ApplicationRecord
   }
 
   scope :most_popular,     -> { MostPopularQuery.new(self).call }
-
   scope :most_recent,      -> { order('created_at DESC') }
 
   scope :ascending_title,  -> { order('title ASC') }

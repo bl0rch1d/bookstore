@@ -4,14 +4,10 @@ describe 'Addressess page' do
       valid: {
         first_name: 'First',
         last_name: 'Last',
-        address: 'Address Line',
+        address_line: 'Address Line',
         city: 'Detroit',
         zip: '1234',
-        phone: '+380638567656',
-        number: '1234123412341234'
-      },
-      invalid: {
-        blank: 32.chr
+        phone: '+380638567656'
       }
     }
   end
@@ -23,12 +19,9 @@ describe 'Addressess page' do
     end
 
     it 'user can set/update billing address' do
-      fill_in 'user[billing_address_attributes][first_name]',   with: values[:valid][:first_name]
-      fill_in 'user[billing_address_attributes][last_name]',    with: values[:valid][:last_name]
-      fill_in 'user[billing_address_attributes][address_line]', with: values[:valid][:address]
-      fill_in 'user[billing_address_attributes][city]',         with: values[:valid][:city]
-      fill_in 'user[billing_address_attributes][zip]',          with: values[:valid][:zip]
-      fill_in 'user[billing_address_attributes][phone]',        with: values[:valid][:phone]
+      values[:valid].each do |key, value|
+        fill_in "user[billing_address_attributes][#{key}]", with: value
+      end
 
       find('#user_billing_address_attributes_country').find(:xpath, 'option[2]').select_option
 
@@ -38,12 +31,9 @@ describe 'Addressess page' do
     end
 
     it 'user can set/update shipping address' do
-      fill_in 'user[shipping_address_attributes][first_name]',    with: values[:valid][:first_name]
-      fill_in 'user[shipping_address_attributes][last_name]',     with: values[:valid][:last_name]
-      fill_in 'user[shipping_address_attributes][address_line]',  with: values[:valid][:address]
-      fill_in 'user[shipping_address_attributes][city]',          with: values[:valid][:city]
-      fill_in 'user[shipping_address_attributes][zip]',           with: values[:valid][:zip]
-      fill_in 'user[shipping_address_attributes][phone]',         with: values[:valid][:phone]
+      values[:valid].each do |key, value|
+        fill_in "user[shipping_address_attributes][#{key}]", with: value
+      end
 
       find('#user_shipping_address_attributes_country').find(:xpath, 'option[2]').select_option
 

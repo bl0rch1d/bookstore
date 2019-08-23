@@ -3,7 +3,7 @@ class Checkout::Complete < Trailblazer::Operation
   step Policy::Guard(Checkout::Policy::CheckoutGuard.new, name: :checkout), fail_fast: true
   step Policy::Guard(Checkout::Policy::StepGuard.new, name: :step), fail_fast: true
 
-  step :model
+  step :model, fail_fast: true
   success :mail
 
   def model(ctx, params:, **)

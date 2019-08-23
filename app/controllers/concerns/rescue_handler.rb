@@ -6,6 +6,8 @@ module RescueHandler
 
     rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
 
+    rescue_from ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordInvalid, with: :unprocessable_entity
+
     rescue_from Wicked::Wizard::InvalidStepError, with: :page_not_found
 
     rescue_from Exceptions::NotAuthorized, with: :not_authorized
@@ -16,6 +18,10 @@ module RescueHandler
 
     def not_authorized
       redirect_to(root_path, alert: I18n.t('auth.errors.not_authorized'))
+    end
+
+    def unprocessable_entity
+      redirect_back(fallback_location: root_path, alert: I18n.t('validation_errors.unprocessable_entity'))
     end
   end
 end

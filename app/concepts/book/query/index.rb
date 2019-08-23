@@ -5,8 +5,7 @@ module Book::Query
     def initialize(params)
       @params = params
 
-      @books = (@params[:category_id] ? Category.find(@params[:category_id]).books : Book.all)
-               .includes(:authors, images_attachments: :blob)
+      @books = books_relation.includes(:authors, images_attachments: :blob)
     end
 
     # rubocop: disable Metrics/AbcSize, CyclomaticComplexity
@@ -24,6 +23,10 @@ module Book::Query
     # rubocop: enable Metrics/AbcSize, CyclomaticComplexity
 
     private
+
+    def books_relation
+      @params[:category_id] ? Category.find(@params[:category_id]).books : Book.all
+    end
 
     def newest(books)
       books.most_recent

@@ -49,6 +49,7 @@ en:
       error: Something went wrong, can not log in via Facebook
 
   validation_errors:
+    unprocessable_entity: 'unprocessable entity'
     out_of_limits: "is out of limits"
     credit_card:
       expired: "can't be in the past"

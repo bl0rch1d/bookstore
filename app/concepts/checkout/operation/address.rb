@@ -23,7 +23,7 @@ class Checkout::Address < Trailblazer::Operation
 
   step Nested(Present)
   success :extract_params
-  step :validate
+  step :validate, fail_fast: true
   step :persist
 
   def extract_params(ctx, params:, **)

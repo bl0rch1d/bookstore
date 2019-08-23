@@ -25,7 +25,7 @@ class CreditCardExpirationValidator < ActiveModel::EachValidator
   end
 
   def parse_date(value)
-    @month, @year = value.split(47.chr).map(&:to_i)
+    @month, @year = value.split('/').map(&:to_i)
   end
 
   def set_current_year_and_month

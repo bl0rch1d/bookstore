@@ -1,6 +1,8 @@
 ActiveAdmin.register Review do
   permit_params :body, :rating, :state
 
+  actions :all, except: %i[edit create update]
+
   scope :all
   scope :unprocessed
   scope :processed

@@ -274,3 +274,23 @@ en:
 
   authors:
     full_name: "Full name"
+
+  admin:
+    authentication:
+      login: 'Login'
+      logout: 'Logout'
+    actions:
+      view: 'View'
+    book:
+      new: 'New Book'
+      create: 'Create Book'
+    order:
+      actions:
+        change_state: 'Change state'
+        deliver: 'Deliver'
+        confirm_delivery: 'Confirm Delivery'
+        cancel: 'Cancel'
+    review:
+      actions:
+        approve: 'Approve'
+        reject: 'Reject'

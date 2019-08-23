@@ -119,6 +119,9 @@ group :development do
   gem 'rubocop-performance', '~> 1.4'
   gem 'rubocop-rails', '~> 2.2'
   gem 'rubocop-rspec', '~> 1.33'
+
+  # Code quality reporter
+  gem 'rubycritic', '~> 4.1', require: false
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

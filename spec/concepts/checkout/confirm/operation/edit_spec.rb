@@ -1,9 +1,9 @@
-describe Checkout::Complete do
-  let(:result) { described_class.call(params.merge(step: :complete, session: { current_order_id: order.id })) }
+describe Checkout::Confirm::Edit do
+  let(:result) { described_class.call(params.merge(step: :confirm)) }
 
   let(:user) { create :user }
 
-  let(:order) { create(:order, :at_complete_step, user: user) }
+  let(:order) { create(:order, :at_confirm_step, user: user) }
 
   describe 'Success' do
     let(:params) do
@@ -13,8 +13,7 @@ describe Checkout::Complete do
       }
     end
 
-    it do
-      expect(result['model']).to be_a(Order)
+    it 'passes policy condition' do
       expect(result).to be_success
     end
   end

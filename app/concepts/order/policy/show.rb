@@ -7,6 +7,8 @@ class Order::Policy::ShowGuard
     first_condition? && second_condition?
   end
 
+  private
+
   def first_condition?
     @params[:current_user]&.id == @params[:user_id].to_i
   end

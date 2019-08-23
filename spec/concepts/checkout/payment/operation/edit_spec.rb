@@ -1,9 +1,11 @@
-describe Checkout::Complete do
-  let(:result) { described_class.call(params.merge(step: :complete, session: { current_order_id: order.id })) }
+describe Checkout::Payment::Edit do
+  let(:result) { described_class.call(params.merge(step: :payment)) }
 
   let(:user) { create :user }
 
-  let(:order) { create(:order, :at_complete_step, user: user) }
+  let(:order) { create(:order, :at_payment_step, user: user) }
+
+  let(:valid_credit_card_params) { ActionController::Parameters.new(attributes_for(:credit_card, order_id: order.id)) }
 
   describe 'Success' do
     let(:params) do
@@ -13,8 +15,8 @@ describe Checkout::Complete do
       }
     end
 
-    it do
-      expect(result['model']).to be_a(Order)
+    it 'creates credit_card form' do
+      expect(result['contract.default']).to be_a(Checkout::Payment::Contract::CreditCard)
       expect(result).to be_success
     end
   end
@@ -25,7 +27,10 @@ describe Checkout::Complete do
         let(:params) do
           {
             current_order: order,
-            current_user: create(:user)
+            current_user: create(:user),
+            order: {
+              credit_card: valid_credit_card_params
+            }
           }
         end
 

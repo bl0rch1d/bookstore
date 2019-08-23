@@ -1,4 +1,4 @@
-module Checkout::Contract
+module Checkout::Payment::Contract
   class CreditCard < Reform::Form
     NAME_LENGTH           = 50
     NAME_REGEX            = /\A[a-zA-Z' ]+\z/.freeze

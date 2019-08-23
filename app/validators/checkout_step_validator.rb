@@ -1,10 +1,12 @@
-class Checkout::Policy::StepGuard
-  include Uber::Callable
+class CheckoutStepValidator
+  def initialize(current_order, step)
+    @current_order = current_order
+    @step = step
+  end
 
-  def call(_ctx, params:, **)
-    @current_order = params[:current_order]
-
-    case params[:step]
+  def step_allowed?
+    case @step
+    when :address   then true
     when :shipping  then shipping?
     when :payment   then payment?
     when :confirm   then confirm?

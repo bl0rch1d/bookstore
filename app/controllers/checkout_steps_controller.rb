@@ -2,9 +2,9 @@
 class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
   include AddressFormsExtractor
-  include CheckoutInitializer
+  include CheckoutGuard
 
-  before_action :fast_authenticate_user!, :initialize_checkout_user
+  before_action :fast_authenticate_user!, :initialize_checkout_user, :check_order_items, :check_step
   steps :address, :shipping, :payment, :confirm, :complete
 
   def show
@@ -37,7 +37,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def address
-    result = Checkout::Address::Present.call(service_params)
+    result = Checkout::Addresses::Edit.call(service_params)
 
     authorize!(result)
 
@@ -50,7 +50,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_address
-    result = Checkout::Address.call(params.merge(service_params))
+    result = Checkout::Addresses::Update.call(params.merge(service_params))
 
     authorize!(result)
 
@@ -63,7 +63,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def shipping
-    result = Checkout::Shipping::Present.call(service_params)
+    result = Checkout::Shipping::Edit.call(service_params)
 
     authorize!(result)
 
@@ -76,7 +76,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_shipping
-    result = Checkout::Shipping.call(params.merge(service_params))
+    result = Checkout::Shipping::Update.call(params.merge(service_params))
 
     authorize!(result)
 
@@ -90,7 +90,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def payment
-    result = Checkout::Payment::Present.call(service_params)
+    result = Checkout::Payment::Edit.call(service_params)
 
     authorize!(result)
 
@@ -103,7 +103,7 @@ class CheckoutStepsController < ApplicationController
   end
 
   def update_payment
-    result = Checkout::Payment.call(params.merge(service_params))
+    result = Checkout::Payment::Update.call(params.merge(service_params))
 
     authorize!(result)
 
@@ -116,22 +116,25 @@ class CheckoutStepsController < ApplicationController
   end
 
   def confirm
-    result = Checkout::Confirm::Present.call(service_params)
+    result = Checkout::Confirm::Edit.call(service_params)
 
     authorize!(result)
 
-    render_wizard
+    if result.success?
+      render_wizard
+    else
+      redirect_to checkout_step_path(@previous_step)
+    end
   end
 
   def finalize_order
-    result = Checkout::Confirm.call(service_params)
+    result = Checkout::Confirm::Update.call(service_params)
 
     authorize!(result)
 
     render_wizard current_order
   end
 
-  # rubocop:disable Metrics/AbcSize
   def complete
     result = Checkout::Complete.call(params.merge(service_params))
 
@@ -140,11 +143,11 @@ class CheckoutStepsController < ApplicationController
     if result.success?
       session[:current_order_id] = nil
       @order = result['model'].decorate
+
       render_wizard
     else
-      redirect_to user_order_path(current_user, current_user.orders.completed.last)
+      redirect_to checkout_step_path(@previous_step)
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end
 # rubocop: enable Metrics/ClassLength

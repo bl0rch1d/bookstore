@@ -2,7 +2,7 @@ class AddressesController < ApplicationController
   include AddressFormsExtractor
 
   def edit
-    result = Address::Update::Present.call(current_user: current_user)
+    result = Address::Edit.call(current_user: current_user)
 
     authorize!(result)
 
@@ -10,7 +10,7 @@ class AddressesController < ApplicationController
   end
 
   def update
-    result = Address::Update.call(params.merge(current_user: current_user))
+    result = define_type_and_call_operation
 
     authorize!(result)
 
@@ -19,5 +19,15 @@ class AddressesController < ApplicationController
     extract_address_forms(result)
 
     render :edit
+  end
+
+  private
+
+  def define_type_and_call_operation
+    operation_params = params.merge(current_user: current_user)
+
+    return Address::Billing::Update.call(operation_params) if params.dig(:user, :billing_address_attributes)
+
+    Address::Shipping::Update.call(operation_params)
   end
 end

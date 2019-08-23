@@ -1,7 +1,5 @@
 class Checkout::Complete < Trailblazer::Operation
   step Policy::Guard(Checkout::Policy::UserGuard.new, name: :user), fail_fast: true
-  step Policy::Guard(Checkout::Policy::CheckoutGuard.new, name: :checkout), fail_fast: true
-  step Policy::Guard(Checkout::Policy::StepGuard.new, name: :step), fail_fast: true
 
   step :model, fail_fast: true
   success :mail

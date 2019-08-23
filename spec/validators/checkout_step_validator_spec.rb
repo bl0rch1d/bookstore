@@ -1,16 +1,20 @@
-describe Checkout::Policy::StepGuard do
-  let(:result) { described_class.new.call(nil, params: params) }
+describe CheckoutStepValidator do
+  let(:result) { described_class.new(order, step).step_allowed? }
 
   let(:user) { create(:user) }
 
-  context 'when shipping' do
-    let(:params) do
-      {
-        current_user: user,
-        current_order: order,
-        step: :shipping
-      }
+  context 'when address' do
+    let(:step) { :address }
+
+    context 'when success' do
+      let(:order) { create(:order, :at_address_step, user: user) }
+
+      it { expect(result).to be_truthy }
     end
+  end
+
+  context 'when shipping' do
+    let(:step) { :shipping }
 
     context 'when success' do
       let(:order) { create(:order, :at_shipping_step, user: user) }
@@ -26,13 +30,7 @@ describe Checkout::Policy::StepGuard do
   end
 
   context 'when payment' do
-    let(:params) do
-      {
-        current_user: user,
-        current_order: order,
-        step: :payment
-      }
-    end
+    let(:step) { :payment }
 
     context 'when success' do
       let(:order) { create(:order, :at_payment_step, user: user) }
@@ -48,13 +46,7 @@ describe Checkout::Policy::StepGuard do
   end
 
   context 'when confirm' do
-    let(:params) do
-      {
-        current_user: user,
-        current_order: order,
-        step: :confirm
-      }
-    end
+    let(:step) { :confirm }
 
     context 'when success' do
       let(:order) { create(:order, :at_confirm_step, user: user) }
@@ -70,13 +62,7 @@ describe Checkout::Policy::StepGuard do
   end
 
   context 'when complete' do
-    let(:params) do
-      {
-        current_user: user,
-        current_order: order,
-        step: :complete
-      }
-    end
+    let(:step) { :complete }
 
     context 'when success' do
       let(:order) { create(:order, :at_complete_step, user: user) }

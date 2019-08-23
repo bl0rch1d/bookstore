@@ -1,11 +1,17 @@
 class OrdersController < ApplicationController
-  execute_and_authorize_operation
-
   def index
-    @orders = OrderDecorator.decorate_collection(@operation_result['model'])
+    result = Order::Index.call(params.merge(current_user: current_user))
+
+    authorize!(result)
+
+    @orders = OrderDecorator.decorate_collection(result['model'])
   end
 
   def show
-    @order = @operation_result['model'].decorate
+    result = Order::Show.call(params.merge(current_user: current_user))
+
+    authorize!(result)
+
+    @order = result['model'].decorate
   end
 end

@@ -6,14 +6,30 @@ describe 'Facebook strategy', type: :feature do
     click_link(I18n.t('auth.log_in'))
   end
 
-  it 'with valid credentials' do
-    valid_facebook_login_setup
+  context 'with valid credentials' do
+    it do
+      valid_facebook_login_setup
 
-    first('.fa-facebook-official').click
+      first('.fa-facebook-official').click
 
-    expect(page).to have_current_path root_path
-    expect(page).not_to have_content(I18n.t('notices.facebook.error'))
-    expect(page).not_to have_content(I18n.t('notices.facebook.error_authentication'))
+      expect(page).to have_current_path root_path
+      expect(page).not_to have_content(I18n.t('notices.facebook.error'))
+      expect(page).not_to have_content(I18n.t('notices.facebook.error_authentication'))
+    end
+
+    context 'when user already registered' do
+      let!(:user) { create(:user) }
+
+      it do
+        valid_facebook_login_setup(email: user.email)
+
+        first('.fa-facebook-official').click
+
+        expect(page).to have_current_path root_path
+        expect(page).not_to have_content(I18n.t('notices.facebook.error'))
+        expect(page).not_to have_content(I18n.t('notices.facebook.error_authentication'))
+      end
+    end
   end
 
   it 'with invalid credentials' do
@@ -24,8 +40,8 @@ describe 'Facebook strategy', type: :feature do
     expect(page).to have_content(I18n.t('notices.facebook.error_authentication'))
   end
 
-  it 'when with out credentials' do
-    with_out_credentials_facebook_login_setup
+  it 'when without credentials' do
+    without_credentials_facebook_login_setup
 
     first('.fa-facebook-official').click
 

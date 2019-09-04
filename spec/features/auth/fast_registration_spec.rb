@@ -1,11 +1,6 @@
 describe 'Fast registration', type: :feature do
-  let(:values) do
-    {
-      valid: {
-        email: 'qwerty@example.com'
-      }
-    }
-  end
+  let(:user) { create(:user) }
+  let(:valid_email) { FFaker::Internet.email }
 
   context 'when user registering without password' do
     before do
@@ -19,13 +14,13 @@ describe 'Fast registration', type: :feature do
     end
 
     context 'with valid email' do
-      it 'register user and redirec it to heckout Address step' do
+      it 'register user and redirects it to checkout Address step' do
         click_link(I18n.t('checkout.button'))
 
         expect(page).to have_current_path(users_fast_new_path)
 
         within '#fastCreate' do
-          fill_in 'user[email]', with: values[:valid][:email]
+          fill_in 'user[email]', with: valid_email
 
           click_button(I18n.t('user.fast_auth.continue'))
         end
@@ -33,7 +28,7 @@ describe 'Fast registration', type: :feature do
         expect(page).to have_content(I18n.t('auth.confirmation.not_confirmed'))
 
         confirmation_mail = ActionMailer::Base.deliveries.select do |mail|
-          mail.subject == 'Confirmation instructions' && mail.to[0] == values[:valid][:email]
+          mail.subject == 'Confirmation instructions' && mail.to[0] == valid_email
         end
 
         ctoken = confirmation_mail[0].body.raw_source.match(/confirmation_token=[\w*-]+/)
@@ -49,10 +44,8 @@ describe 'Fast registration', type: :feature do
 
       expect(page).to have_current_path(users_fast_new_path)
 
-      create(:user, email: values[:valid][:email])
-
       within '#fastCreate' do
-        fill_in 'user[email]', with: values[:valid][:email]
+        fill_in 'user[email]', with: user.email
         click_button(I18n.t('user.fast_auth.continue'))
       end
 

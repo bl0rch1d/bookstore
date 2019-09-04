@@ -15,21 +15,21 @@ describe UserDecorator, type: :decorator do
       expect(user.full_name).to eq(full_name)
     end
 
-    it 'if user has billing address through orders' do
-      user = create(:user).decorate
-      create(:order, :at_complete_step, user: user)
+    context 'when user has billing address through orders' do
+      let(:user) { create(:user, orders: [create(:order, :at_complete_step)]).decorate }
 
-      first_name = user.orders.first.billing_address.first_name
-      last_name  = user.orders.first.billing_address.last_name
+      it do
+        first_name = user.orders.first.billing_address.first_name
+        last_name  = user.orders.first.billing_address.last_name
 
-      expect(user.full_name).to eq("#{first_name} #{last_name}")
+        expect(user.full_name).to eq("#{first_name} #{last_name}")
+      end
     end
 
-    it 'if user has email' do
-      user = create(:user).decorate
-      create(:order, user: user)
+    context 'when user has only email' do
+      let(:user) { create(:user, orders: [create(:order)]).decorate }
 
-      expect(user.full_name).to eq(user.email)
+      it { expect(user.full_name).to eq(user.email) }
     end
   end
 end

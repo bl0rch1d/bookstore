@@ -108,6 +108,7 @@ group :development do
 
   # Security
   gem 'brakeman', '~> 4.5'
+  gem 'bundler-audit', '~> 0.6.1'
 
   # Linters
   gem 'fasterer', '~> 0.5.1'

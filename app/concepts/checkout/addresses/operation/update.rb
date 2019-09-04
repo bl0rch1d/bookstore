@@ -17,6 +17,9 @@ class Checkout::Addresses::Update < Trailblazer::Operation
   end
 
   def persist(ctx, **)
-    ctx['billing_address_form'].save && ctx['shipping_address_form'].save
+    ActiveRecord::Base.transaction do
+      ctx['billing_address_form'].save
+      ctx['shipping_address_form'].save
+    end
   end
 end

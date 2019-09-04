@@ -1,11 +1,3 @@
-# class Review::Policy::CreateGuard
-#   include Uber::Callable
-
-#   def call(_ctx, params:, **)
-#     params[:current_user]&.id == params.dig(:review, :user_id).to_i && Book.exists?(params.dig(:review, :book_id))
-#   end
-# end
-
 describe Review::Policy::CreateGuard do
   let(:result) { described_class.new.call(nil, params: params) }
 

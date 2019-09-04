@@ -5,46 +5,55 @@ describe 'Order states' do
   end
 
   context 'when admin changes order state' do
-    it 'from in_progress to in_delivery' do
-      create(:order, state: I18n.t('order.filter.in_progress'))
-      visit admin_orders_path
+    context 'when from in_progress to in_delivery' do
+      before { create(:order, state: I18n.t('order.filter.in_progress')) }
 
-      click_link(I18n.t('admin.order.actions.change_state'))
+      it do
+        visit admin_orders_path
 
-      expect(page).to have_current_path(admin_order_path(Order.last))
+        click_link(I18n.t('admin.order.actions.change_state'))
 
-      click_link(I18n.t('admin.order.actions.deliver'))
+        expect(page).to have_current_path(admin_order_path(Order.last))
 
-      expect(page).to have_content(I18n.t('order.filter.in_delivery'))
-      expect(Order.last.state).to eq(I18n.t('order.filter.in_delivery'))
+        click_link(I18n.t('admin.order.actions.deliver'))
+
+        expect(page).to have_content(I18n.t('order.filter.in_delivery'))
+        expect(Order.last.state).to eq(I18n.t('order.filter.in_delivery'))
+      end
     end
 
-    it 'from in_delivery to delivered' do
-      create(:order, state: I18n.t('order.filter.in_delivery'))
-      visit admin_orders_path
+    context 'when from in_delivery to delivered' do
+      before { create(:order, state: I18n.t('order.filter.in_delivery')) }
 
-      click_link(I18n.t('admin.order.actions.change_state'))
+      it do
+        visit admin_orders_path
 
-      expect(page).to have_current_path(admin_order_path(Order.last))
+        click_link(I18n.t('admin.order.actions.change_state'))
 
-      click_link(I18n.t('admin.order.actions.confirm_delivery'))
+        expect(page).to have_current_path(admin_order_path(Order.last))
 
-      expect(page).to have_content(I18n.t('order.filter.delivered'))
-      expect(Order.last.state).to eq(I18n.t('order.filter.delivered'))
+        click_link(I18n.t('admin.order.actions.confirm_delivery'))
+
+        expect(page).to have_content(I18n.t('order.filter.delivered'))
+        expect(Order.last.state).to eq(I18n.t('order.filter.delivered'))
+      end
     end
 
-    it 'from in_progress/in_delivery to canceled' do
-      create(:order, state: I18n.t('order.filter.in_progress'))
-      visit admin_orders_path
+    context 'when from in_progress/in_delivery to canceled' do
+      before { create(:order, state: I18n.t('order.filter.in_progress')) }
 
-      click_link(I18n.t('admin.order.actions.change_state'))
+      it do
+        visit admin_orders_path
 
-      expect(page).to have_current_path(admin_order_path(Order.last))
+        click_link(I18n.t('admin.order.actions.change_state'))
 
-      click_link(I18n.t('admin.order.actions.cancel'))
+        expect(page).to have_current_path(admin_order_path(Order.last))
 
-      expect(page).to have_content(I18n.t('order.filter.canceled'))
-      expect(Order.last.state).to eq(I18n.t('order.filter.canceled'))
+        click_link(I18n.t('admin.order.actions.cancel'))
+
+        expect(page).to have_content(I18n.t('order.filter.canceled'))
+        expect(Order.last.state).to eq(I18n.t('order.filter.canceled'))
+      end
     end
   end
 end

@@ -45,7 +45,7 @@ describe Address::Billing::Update do
       let(:params) do
         {
           user: {
-            billing_address_attributes: attributes_for(:book),
+            billing_address_attributes: attributes_for(:book)
           },
 
           current_user: user

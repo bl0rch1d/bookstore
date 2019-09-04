@@ -1,34 +1,10 @@
 describe 'Checkout', type: :feature do
   let!(:shipping_method) { create(:shipping_method) }
 
-  let(:values) do
-    {
-      valid: {
-        address: {
-          first_name: 'First',
-          last_name: 'Last',
-          address_line: 'Address Line',
-          city: 'Detroit',
-          zip: '1234',
-          phone: '+380638567656'
-        },
-
-        credit_card: {
-          number: '1234123412341234',
-          card_name: 'Name Of Card',
-          expiration_date: '12/21',
-          cvv: Array.new(rand(3..4)) { rand(1..9) }.join
-        },
-
-        secure_number: '** ** ** 1234'
-      },
-      invalid: {
-        blank: ''
-      }
-    }
-  end
-
   let(:user) { create(:user) }
+  let(:address_params) { attributes_for(:billing_address).except(:country, :type) }
+  let(:credit_card_params) { attributes_for(:credit_card).except(:order_id) }
+  let(:blank) { '' }
 
   # rubocop:disable MultipleExpectations, ExampleLength
   context 'when success' do
@@ -46,13 +22,13 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:address))
 
       within '.edit_order' do
-        values[:valid][:address].each do |key, value|
+        address_params.each do |key, value|
           fill_in "order[billing_address][#{key}]", with: value
         end
 
         find('#order_billing_address_country').find(:xpath, 'option[2]').select_option
 
-        values[:valid][:address].each do |key, value|
+        address_params.each do |key, value|
           fill_in "order[shipping_address][#{key}]", with: value
         end
 
@@ -72,7 +48,7 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:payment))
 
       within '.edit_order' do
-        values[:valid][:credit_card].each do |key, value|
+        credit_card_params.each do |key, value|
           fill_in "order[credit_card][#{key}]", with: value
         end
 
@@ -83,7 +59,7 @@ describe 'Checkout', type: :feature do
 
       expect(page).to have_content(OrderItem.last.book.title)
       expect(page).to have_content(ShippingMethod.last.title)
-      expect(page).to have_content(values[:valid][:secure_number])
+      expect(page).to have_content("** ** ** #{credit_card_params[:number].last(4)}")
 
       click_button(I18n.t('form.place_order'))
 
@@ -102,7 +78,7 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:address))
 
       within '.edit_order' do
-        values[:valid][:address].each do |key, value|
+        address_params.each do |key, value|
           fill_in "order[billing_address][#{key}]", with: value
         end
 
@@ -124,7 +100,7 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:payment))
 
       within '.edit_order' do
-        values[:valid][:credit_card].each do |key, value|
+        credit_card_params.each do |key, value|
           fill_in "order[credit_card][#{key}]", with: value
         end
 
@@ -135,7 +111,7 @@ describe 'Checkout', type: :feature do
 
       expect(page).to have_content(OrderItem.last.book.title)
       expect(page).to have_content(ShippingMethod.last.title)
-      expect(page).to have_content(values[:valid][:secure_number])
+      expect(page).to have_content("** ** ** #{credit_card_params[:number].last(4)}")
 
       click_button(I18n.t('form.place_order'))
 
@@ -176,63 +152,72 @@ describe 'Checkout', type: :feature do
     end
 
     context 'when validation errors' do
-      it 'User see adddress validation errors' do
-        create(:order, :at_address_step, user: user)
-        page.set_rack_session(current_order_id: Order.last.id)
+      context 'when adddress' do
+        before { create(:order, :at_address_step, user: user) }
 
-        visit checkout_step_path(:address)
+        it 'User see adddress validation errors' do
+          page.set_rack_session(current_order_id: Order.last.id)
 
-        expect(page).to have_current_path(checkout_step_path(:address))
+          visit checkout_step_path(:address)
 
-        within '.edit_order' do
-          values[:valid][:address].each do |key, _value|
-            fill_in "order[billing_address][#{key}]", with: values[:invalid][:blank]
+          expect(page).to have_current_path(checkout_step_path(:address))
+
+          within '.edit_order' do
+            address_params.each do |key, _value|
+              fill_in "order[billing_address][#{key}]", with: blank
+            end
+
+            check I18n.t('address.use_billing'), allow_label_click: true
+
+            find('input[type="submit"]').click
           end
 
-          check I18n.t('address.use_billing'), allow_label_click: true
-
-          find('input[type="submit"]').click
+          expect(all('span.help-block').size).to eq(14)
         end
-
-        expect(all('span.help-block').size).to eq(14)
       end
 
-      it 'User see shipping method validation errors' do
-        create(:order, :at_shipping_step, user: user)
-        page.set_rack_session(current_order_id: Order.last.id)
+      context 'when shipping method' do
+        before { create(:order, :at_shipping_step, user: user) }
 
-        visit checkout_step_path(:shipping)
+        it 'User see shipping method validation errors' do
+          page.set_rack_session(current_order_id: Order.last.id)
 
-        expect(page).to have_current_path(checkout_step_path(:shipping))
+          visit checkout_step_path(:shipping)
 
-        within '.edit_order' do
-          find('input[type="submit"]').click
-        end
+          expect(page).to have_current_path(checkout_step_path(:shipping))
 
-        expect(page).to have_current_path(checkout_step_path(:shipping))
-        expect(page).to have_content(
-          I18n.t('errors.format', attribute: :"Shipping method", message: I18n.t('errors.messages.blank'))
-        )
-      end
-
-      it 'User see credit card validation errors' do
-        create(:order, :at_payment_step, user: user)
-        page.set_rack_session(current_order_id: Order.last.id)
-
-        visit checkout_step_path(:payment)
-
-        expect(page).to have_current_path(checkout_step_path(:payment))
-
-        within '.edit_order' do
-          values[:valid][:credit_card].each_key do |key|
-            fill_in "order[credit_card][#{key}]", with: values[:invalid][:blank]
+          within '.edit_order' do
+            find('input[type="submit"]').click
           end
 
-          find('input[type="submit"]').click
+          expect(page).to have_current_path(checkout_step_path(:shipping))
+          expect(page).to have_content(
+            I18n.t('errors.format', attribute: :"Shipping method", message: I18n.t('errors.messages.blank'))
+          )
         end
+      end
 
-        expect(page).to have_current_path(checkout_step_path(:payment))
-        expect(all('span.help-block').size).to eq(4)
+      context 'when credit card' do
+        before { create(:order, :at_payment_step, user: user) }
+
+        it 'User see credit card validation errors' do
+          page.set_rack_session(current_order_id: Order.last.id)
+
+          visit checkout_step_path(:payment)
+
+          expect(page).to have_current_path(checkout_step_path(:payment))
+
+          within '.edit_order' do
+            credit_card_params.each_key do |key|
+              fill_in "order[credit_card][#{key}]", with: blank
+            end
+
+            find('input[type="submit"]').click
+          end
+
+          expect(page).to have_current_path(checkout_step_path(:payment))
+          expect(all('span.help-block').size).to eq(4)
+        end
       end
     end
   end

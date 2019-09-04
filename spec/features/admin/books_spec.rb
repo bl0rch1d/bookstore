@@ -13,6 +13,7 @@ describe 'Books spec' do
 
   let(:book_attributes) { attributes_for(:book) }
 
+  # rubocop:disable ExampleLength
   it 'Admin can create a Book' do
     click_link(I18n.t('admin.book.new'))
 
@@ -40,7 +41,12 @@ describe 'Books spec' do
     end
 
     expect(page).to have_current_path(admin_book_path(Book.last))
+
+    expect(Book.last.title).to eq(book_attributes[:title])
+    expect(Book.last.price.to_f).to eq(book_attributes[:price])
+    expect(Book.last.quantity).to eq(book_attributes[:quantity])
   end
+  # rubocop:enable ExampleLength
 
   it 'Admin can view the Book' do
     click_link(I18n.t('admin.actions.view'), match: :first)

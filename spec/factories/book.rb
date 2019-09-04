@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:title) { |n| "#{FFaker::Lorem.word}#{n}" }
 
     description { FFaker::Book.description }
-    price { rand(5.0..200.00) }
+    price { rand(5.0..200.00).round(2) }
     quantity { rand(10..50) }
     height { rand(1.0..10.0).round(1) }
     width { rand(1.0..10.0).round(1) }

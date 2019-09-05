@@ -1,5 +1,5 @@
 ActiveAdmin.register Coupon do
-  permit_params :code, :discount, :expire_date
+  permit_params :code, :discount, :used
 
   decorate_with CouponDecorator
 
@@ -10,7 +10,7 @@ ActiveAdmin.register Coupon do
 
     column :discount, &:format_discount
 
-    column :expire_date
+    column :used
 
     actions
   end

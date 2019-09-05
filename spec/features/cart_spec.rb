@@ -34,20 +34,39 @@ describe 'Cart', type: :feature do
   end
 
   context 'when user appling a coupon' do
-    before do
+    let(:coupon) { create(:coupon) }
+    let(:used_coupon) { create(:coupon, used: true) }
+
+    it 'user can apply coupon' do
       within('#applyCoupon') do
-        fill_in 'code', with: create(:coupon).code
+        fill_in 'code', with: coupon.code
 
         click_button(I18n.t('coupon.apply'))
       end
-    end
 
-    it 'user can apply coupon' do
       expect(page).to have_content(I18n.t('coupon.applied'))
     end
 
-    it 'user can apply only one coupon' do
-      expect(find("input[placeholder='#{I18n.t('form.placeholders.only_one_coupon')}']")).to be_truthy
+    context 'when error' do
+      it 'user can apply only one coupon' do
+        within('#applyCoupon') do
+          fill_in 'code', with: coupon.code
+
+          click_button(I18n.t('coupon.apply'))
+        end
+
+        expect(find("input[placeholder='#{I18n.t('form.placeholders.only_one_coupon')}']")).to be_truthy
+      end
+
+      it 'user can apply one coupon only for one order' do
+        within('#applyCoupon') do
+          fill_in 'code', with: used_coupon.code
+
+          click_button(I18n.t('coupon.apply'))
+        end
+
+        expect(page).to have_content(I18n.t('coupon.errors.used'))
+      end
     end
   end
 end

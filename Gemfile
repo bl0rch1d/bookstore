@@ -60,6 +60,7 @@ gem 'trailblazer-rails', '~> 1.0'
 
 # Fake data
 gem 'ffaker', '~> 2.11'
+gem 'seedbank', '~> 0.5.0'
 
 # Email client emulation
 gem 'letter_opener', '~> 1.7'

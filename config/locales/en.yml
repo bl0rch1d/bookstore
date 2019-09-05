@@ -139,6 +139,7 @@ en:
     errors:
       not_exist: "Such coupon not exist"
       expired: "Coupon expired"
+      used: 'coupon already used'
 
   order_item:
     product: "Product"

@@ -2,9 +2,9 @@ CATEGORIES = ['Mobile development', 'Photo', 'Web design', 'Web development'].fr
 MATERIALS = ['glossy paper', 'hardcover', 'soft paper', 'cardboard'].freeze
 SEEDS_COUNT = 50
 SHIPPING_METHODS_COUNT = 3
+COUPONS_COUNT = 5
 BOOK_DIMENSIONS_RANGE = (1.0..10.0).freeze
 
-COUPON_EXPIRE_DATE_RANGE = (1.0001..1.009).freeze
 COUPON_DISCOUNT_RANGE    = (0.01..0.90).freeze
 
 if Rails.env.development?
@@ -51,11 +51,13 @@ SEEDS_COUNT.times do |index|
     book.category_id  = Category.all.sample.id
     book.authors      = Author.all.sample(rand(1..3))
   end
+end
 
+COUPONS_COUNT.times do
   Coupon.create! do |coupon|
     coupon.code         = Array.new(6) { rand(65..90).chr }.join
     coupon.discount     = rand(COUPON_DISCOUNT_RANGE).round(2)
-    coupon.expire_date  = Time.at(Time.now.to_i * rand(COUPON_EXPIRE_DATE_RANGE))
+    coupon.used         = false
   end
 end
 

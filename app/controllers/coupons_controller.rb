@@ -12,7 +12,7 @@ class CouponsController < ApplicationController
   def check_result(result)
     return flash.alert = I18n.t('coupon.errors.not_exist') unless result['model']
 
-    return flash.alert = I18n.t('coupon.errors.expired') unless result['coupon.relevant']
+    return flash.alert = I18n.t('coupon.errors.used') unless result['coupon.unused']
 
     flash.notice = I18n.t('coupon.applied')
   end

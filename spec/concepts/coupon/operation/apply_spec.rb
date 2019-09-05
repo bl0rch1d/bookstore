@@ -25,11 +25,12 @@ describe Coupon::Apply do
       end
     end
 
-    context 'when coupon has expired' do
-      let(:code) { create(:coupon, :expired).code }
+    context 'when coupon already used by another order' do
+      let(:code) { create(:coupon, used: true).code }
 
       it do
-        expect(result['coupon.relevant']).to be_falsey
+        # binding.pry
+        expect(result['coupon.used']).to be_falsey
         expect(result).to be_failure
       end
     end

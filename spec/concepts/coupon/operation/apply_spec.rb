@@ -29,7 +29,6 @@ describe Coupon::Apply do
       let(:code) { create(:coupon, used: true).code }
 
       it do
-        # binding.pry
         expect(result['coupon.used']).to be_falsey
         expect(result).to be_failure
       end

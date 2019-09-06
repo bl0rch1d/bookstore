@@ -2,5 +2,6 @@
   "name": "bookstore",
   "version": "1.0.0",
   "description": "book store",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {}
 }

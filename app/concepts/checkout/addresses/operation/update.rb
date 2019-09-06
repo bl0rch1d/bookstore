@@ -5,8 +5,10 @@ class Checkout::Addresses::Update < Trailblazer::Operation
   step :persist
 
   def extract_params(ctx, params:, **)
+    use_billing = params[:order][:use_billing] == 'true'
+
     ctx['billing_params'] = params[:order][:billing_address]
-    ctx['shipping_params'] = params[:order][:use_billing] ? ctx['billing_params'] : params[:order][:shipping_address]
+    ctx['shipping_params'] = use_billing ? ctx['billing_params'] : params[:order][:shipping_address]
   end
 
   def validate(ctx, **)

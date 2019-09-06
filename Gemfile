@@ -16,12 +16,9 @@ gem 'redis', '~> 4.1'
 
 # JS/CSS
 gem 'bootstrap-sass', '~> 3.4'
-gem 'coffee-rails', '~> 4.2'
 gem 'font-awesome-rails', '~> 4.7'
-gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.3'
 gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # Forms
@@ -60,7 +57,6 @@ gem 'trailblazer-rails', '~> 1.0'
 
 # Fake data
 gem 'ffaker', '~> 2.11'
-gem 'seedbank', '~> 0.5.0'
 
 # Email client emulation
 gem 'letter_opener', '~> 1.7'
@@ -95,10 +91,6 @@ group :development, :test do
 
   # Query checker
   gem 'bullet', '~> 6.0', '>= 6.0.1'
-
-  # Profiler
-  gem 'flamegraph', '~> 0.9.5'
-  gem 'stackprof', '~> 0.2.12'
 end
 
 group :development do

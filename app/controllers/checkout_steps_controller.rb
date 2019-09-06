@@ -3,6 +3,7 @@ class CheckoutStepsController < ApplicationController
   include Wicked::Wizard
   include AddressFormsExtractor
   include CheckoutGuard
+  include DeviseStorable
 
   before_action :fast_authenticate_user!, :initialize_checkout_user, :check_order_items, :check_step
   steps :address, :shipping, :payment, :confirm, :complete

@@ -261,7 +261,7 @@ en:
       address: "Address line"
       city: "city"
       zip: "zip"
-      phone: "Example +355 66 123 4567"
+      phone: "+12345678900"
       card_number: "card number"
       name_of_card: "name of card"
       card_expiration: "MM / YY"

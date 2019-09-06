@@ -1,16 +1,5 @@
 describe 'Addressess page' do
-  let(:values) do
-    {
-      valid: {
-        first_name: 'First',
-        last_name: 'Last',
-        address_line: 'Address Line',
-        city: 'Detroit',
-        zip: '1234',
-        phone: '+380638567656'
-      }
-    }
-  end
+  let(:address_attributes) { attributes_for(:billing_address).except(:type, :country) }
 
   context 'when billing and shipping addresses' do
     before do
@@ -19,7 +8,7 @@ describe 'Addressess page' do
     end
 
     it 'user can set/update billing address' do
-      values[:valid].each do |key, value|
+      address_attributes.each do |key, value|
         fill_in "user[billing_address_attributes][#{key}]", with: value
       end
 
@@ -31,7 +20,7 @@ describe 'Addressess page' do
     end
 
     it 'user can set/update shipping address' do
-      values[:valid].each do |key, value|
+      address_attributes.each do |key, value|
         fill_in "user[shipping_address_attributes][#{key}]", with: value
       end
 

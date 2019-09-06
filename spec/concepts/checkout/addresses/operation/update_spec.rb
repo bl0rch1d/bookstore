@@ -20,7 +20,7 @@ describe Checkout::Addresses::Update do
           shipping_address: ActionController::Parameters.new(
             attributes_for(:shipping_address).merge(addressable)
           ),
-          use_billing: false
+          use_billing: 'false'
         }
       }
     end
@@ -45,7 +45,7 @@ describe Checkout::Addresses::Update do
             billing_address: ActionController::Parameters.new(
               attributes_for(:billing_address).except(:type).merge(addressable)
             ),
-            use_billing: true
+            use_billing: 'true'
           }
         }
       end
@@ -88,7 +88,7 @@ describe Checkout::Addresses::Update do
             order: {
               billing_address: ActionController::Parameters.new(billing_address_attributes),
               shipping_address: ActionController::Parameters.new(shipping_address_attributes),
-              use_billing: false
+              use_billing: 'false'
             }
           }
         end
@@ -120,7 +120,7 @@ describe Checkout::Addresses::Update do
                 attributes_for(:shipping_address).merge(addressable)
               ),
 
-              use_billing: false
+              use_billing: 'false'
             }
           }
         end
@@ -149,7 +149,7 @@ describe Checkout::Addresses::Update do
             order: {
               billing_address: ActionController::Parameters.new(attributes_for(:billing_address)),
               shipping_address: ActionController::Parameters.new(attributes_for(:shipping_address)),
-              use_billing: false
+              use_billing: 'false'
             }
           }
         end
@@ -171,7 +171,7 @@ describe Checkout::Addresses::Update do
           order: {
             billing_address: ActionController::Parameters.new(attributes_for(:user)),
             shipping_address: ActionController::Parameters.new(attributes_for(:book)),
-            use_billing: false
+            use_billing: 'false'
           }
         }
       end

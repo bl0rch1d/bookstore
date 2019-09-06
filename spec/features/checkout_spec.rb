@@ -5,6 +5,7 @@ describe 'Checkout', type: :feature do
   let(:address_params) { attributes_for(:billing_address).except(:country, :type) }
   let(:credit_card_params) { attributes_for(:credit_card).except(:order_id) }
   let(:blank) { '' }
+  let(:after_confirm_cart_items_count) { '0' }
 
   # rubocop:disable MultipleExpectations, ExampleLength
   context 'when success' do
@@ -66,6 +67,8 @@ describe 'Checkout', type: :feature do
       expect(page).to have_current_path(checkout_step_path(:complete))
       expect(page).to have_content(OrderItem.last.book.title)
       expect(page).to have_content(I18n.t('checkout.thanks'))
+
+      expect(find(class: 'shop-quantity').text).to eq(after_confirm_cart_items_count)
 
       click_button(I18n.t('checkout.back'))
 

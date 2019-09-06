@@ -19,7 +19,12 @@ describe Address::Contract::Create do
           city: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
           country: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
           zip: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')],
-          phone: [I18n.t('errors.messages.blank'), I18n.t('errors.messages.invalid')]
+          phone:
+          [
+            I18n.t('errors.messages.blank'),
+            I18n.t('errors.messages.wrong_length.other', count: described_class::PHONE_LENGTH),
+            I18n.t('errors.messages.invalid')
+          ]
         }
       end
 

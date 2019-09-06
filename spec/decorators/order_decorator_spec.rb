@@ -1,5 +1,5 @@
 describe OrderDecorator do
-  subject(:order) { create(:order, :at_complete_step).decorate }
+  subject(:order) { create(:order, :at_confirm_step).decorate }
 
   it '#decorates coupon' do
     create :coupon, order: order
@@ -32,5 +32,9 @@ describe OrderDecorator do
 
   it '#generate_number' do
     expect(order.generate_number).to match(/\AR\d+\z/)
+  end
+
+  it 'cart_items_count' do
+    expect(order.cart_items_count).to eq(order.order_items.count)
   end
 end

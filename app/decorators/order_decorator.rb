@@ -20,6 +20,10 @@ class OrderDecorator < Draper::Decorator
     'R' + Array.new(6) { rand(1..9) }.join
   end
 
+  def cart_items_count
+    number ? 0 : order_items.count
+  end
+
   delegate :title, to: :shipping_method, prefix: true
 
   delegate :expiration_date, to: :credit_card, prefix: true

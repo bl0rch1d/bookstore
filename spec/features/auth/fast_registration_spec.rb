@@ -14,9 +14,9 @@ describe 'Fast registration', type: :feature do
     end
 
     context 'with valid email' do
-      it 'register user and redirects it to checkout Address step' do
-        click_link(I18n.t('checkout.button'))
+      before { click_link(I18n.t('checkout.button')) }
 
+      it 'register user and redirects it to checkout Address step' do
         expect(page).to have_current_path(users_fast_new_path)
 
         within '#fastCreate' do
@@ -36,6 +36,16 @@ describe 'Fast registration', type: :feature do
         visit "/users/confirmation?#{ctoken}"
 
         expect(page).to have_current_path(checkout_step_path(:address))
+      end
+
+      context 'when facebook strategy' do
+        it 'redirects user to checkout address page' do
+          find(class: 'fa-facebook-official', match: :first).click
+
+          valid_facebook_login_setup
+
+          expect(page).to have_current_path(checkout_step_path(:address))
+        end
       end
     end
 

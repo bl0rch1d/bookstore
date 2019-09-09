@@ -1,21 +1,26 @@
 class BestSellersQuery
   def initialize(categories)
     @categories = categories
+    @ids = []
   end
 
   def call
-    Book.where(id: bestsellers_ids).order('category_id asc')
+    query_ids
+
+    Book.where(id: @ids).order('category_id asc')
   end
 
-  def bestsellers_ids
-    @categories.map do |category|
-      order_items_books = OrderItem.includes(:book)
-                                   .where(order: Order.delivered, book: Book.where(category: category))
-                                   .group_by(&:book)
+  private
 
-      total_quantity = order_items_books.map { |book, item| [book, item.sum(&:quantity)] }
+  def query_ids
+    @categories.find_each do |category|
+      order_item = OrderItem
+                   .includes(:book)
+                   .where(order: Order.delivered, book: Book.where(category: category))
+                   .order('quantity desc')
+                   .first
 
-      (total_quantity.sort_by(&:second).reverse.dig(0, 0) || category.books.first).id
+      @ids << (order_item&.book&.id || category.books.first.id)
     end
   end
 end

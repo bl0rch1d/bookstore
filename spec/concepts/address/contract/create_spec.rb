@@ -22,7 +22,7 @@ describe Address::Contract::Create do
           phone:
           [
             I18n.t('errors.messages.blank'),
-            I18n.t('errors.messages.wrong_length.other', count: described_class::PHONE_LENGTH),
+            I18n.t('errors.messages.too_short.other', count: described_class::PHONE_LENGTH_RANGE.min),
             I18n.t('errors.messages.invalid')
           ]
         }

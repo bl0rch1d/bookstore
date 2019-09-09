@@ -8,7 +8,7 @@ module Address::Contract
 
     NAME_LENGTH, ADDRESS_LENGTH, CITY_COUNTRY_LENGTH = Array.new(3) { 50 }
     ZIP_LENGTH          = 10
-    PHONE_LENGTH        = 12
+    PHONE_LENGTH_RANGE  = (8..14).freeze
 
     property :first_name
     property :last_name
@@ -27,6 +27,10 @@ module Address::Contract
     validates :address_line, length: { maximum: ADDRESS_LENGTH }, format: { with: ADDRESS_REGEX }
     validates :country, :city, length: { maximum: CITY_COUNTRY_LENGTH }, format: { with: CITY_COUNTRY_REGEX }
     validates :zip, length: { maximum: ZIP_LENGTH }, format: { with: ZIP_REGEX }
-    validates :phone, length: { is: PHONE_LENGTH }, format: { with: PHONE_REGEX }
+    validates :phone, length: { in: PHONE_LENGTH_RANGE }, format: { with: PHONE_REGEX }
+
+    def phone
+      super&.strip
+    end
   end
 end

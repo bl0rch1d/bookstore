@@ -1,5 +1,7 @@
 {
   "name": "bookstore",
-  "private": true,
+  "version": "1.0.0",
+  "description": "book store",
+  "license": "MIT",
   "dependencies": {}
 }

@@ -1,0 +1,19 @@
+linters:
+  LineLength:
+    max: 160
+    exclude:
+      - 'app/views/pages/_best_sellers.html.haml'
+
+  InstanceVariables:
+    enabled: false
+
+  IdNames:
+    enabled: false
+
+  InlineStyles:
+    exclude:
+      - 'app/views/fast_registration_mailer/*'
+      - 'app/views/checkout_mailer/*'
+
+  UnnecessaryStringOutput:
+    enabled: false

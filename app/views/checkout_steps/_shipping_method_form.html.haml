@@ -1,0 +1,23 @@
+.hidden-xs.mb-res-50
+  %table.table.table-hover
+    %thead
+      %tr
+        %th.col-method
+          %span.in-grey-600.ml-40= t('checkout.shipping.method')
+        %th
+          %span.in-grey-600= t('checkout.shipping.days')
+        %th
+          %span.in-grey-600= t('checkout.shipping.price')
+    %tbody
+      - shipping_methods.each do |shipping_method|
+        %tr
+          %td
+            .form-group.radio.mt-0.mb-0
+              %label.radio-label
+                = form.radio_button :shipping_method_id, shipping_method.id, class: 'radio-input', hidden: true
+                %span.radio-icon
+                %span.radio-text= shipping_method.title
+          %td
+            %span= t('checkout.shipping.interval', min: shipping_method.min_days, max: shipping_method.max_days)
+          %td
+            %span.font-16.in-gold-500= number_to_currency(shipping_method.price, unit: t('currency.euro'))

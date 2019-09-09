@@ -1,0 +1,22 @@
+= render 'devise/shared/error_messages', resource: resource
+.confirmation-form-wrapper.m-auto
+  .text-center.mb-30
+    %h2= t('user.confirmation.resend')
+
+  .general-form
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      .form-group.mb-30
+        = f.label :email, class: 'control-label input-label'
+        = f.email_field(:email,
+                        autofocus: true,
+                        autocomplete: 'email',
+                        class: 'form-control',
+                        required: true,
+                        pattern: ApplicationHelper::EMAIL_REGEXP,
+                        value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                        placeholder: t('form.placeholders.email'))
+
+      .text-center
+        = f.submit t('user.confirmation.resend'), class: 'btn btn-default mb-20'
+
+    = render 'devise/shared/links'

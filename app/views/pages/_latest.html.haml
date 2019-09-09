@@ -1,0 +1,33 @@
+.carousel.slide#slider{ 'data-ride': 'carousel' }
+  %ol.carousel-indicators
+    %li.active{ 'data-target': '#slider', 'data-slide-to': '0' }
+    %li{ 'data-target': '#slider', 'data-slide-to': '1' }
+    %li{ 'data-target': '#slider', 'data-slide-to': '2' }
+  .carousel-inner{ role: 'listbox' }
+    - latest_books.each_with_index do |book, index|
+      .item{ class: ('active' if index.zero?) }
+        .row
+          .col-sm-5
+            .general-img-wrap
+              - if book.images.any?
+                = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+              - else
+                = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
+          .col-sm-7
+            .mb-60
+              %h1= book.title
+              %p.lead= book.description
+              %p.lead.small= book.format_authors
+              .general-align
+                - if book.quantity.positive?
+                  = link_to(t('store.button.buy_now'), order_order_items_path(current_order, order_item: { book_id: book, quantity: 1 }),
+                                                        method: :post,
+                                                        class: 'btn-primary btn')
+                - else
+                  %button.disabled.btn= t('store.button.buy_now')
+  %a.left.carousel-control{ href: '#slider', role: 'button', 'data-slide': 'prev' }
+    %span.icon-prev{ 'aria-hidden': 'true' }
+    %span.sr-only= t('store.button.prev')
+  %a.right.carousel-control{ href: '#slider', role: 'button', 'data-slide': 'next' }
+    %span.icon-next{ 'aria-hidden': 'true' }
+    %span.sr-only= t('store.button.next')

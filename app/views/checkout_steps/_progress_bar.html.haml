@@ -1,0 +1,15 @@
+%h1.general-title-margin= t('checkout.button')
+
+%ul.steps.list-inline
+  - wizard_steps[0..wizard_steps.index(step)].each do |processed_step|
+    %li.step.active
+      %span.step-number= (wizard_steps.index(processed_step) + 1).to_s
+      %span.step-text.hidden-xs= processed_step.capitalize
+    %li.step-divider
+
+  - unless next_step == 'wicked_finish'
+    - wizard_steps[wizard_steps.index(next_step)..-1].each do |not_processed_step|
+      %li.step
+        %span.step-number= (wizard_steps.index(not_processed_step) + 1).to_s
+        %span.step-text.hidden-xs= not_processed_step.capitalize
+      %li.step-divider

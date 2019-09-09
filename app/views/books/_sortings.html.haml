@@ -1,0 +1,9 @@
+%ul.dropdown-menu.sorting_menu
+  - if params[:category_id]
+    - t('sortings.text').values.each_index do |index|
+      %li
+        = link_to t('sortings.text').values[index], category_books_path(params[:category_id], sort_by: t('sortings.system').values[index])
+  - else
+    - t('sortings.text').values.each_index do |index|
+      %li
+        = link_to t('sortings.text').values[index], books_path(sort_by: t('sortings.system').values[index])

@@ -1,0 +1,72 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= t('order.order_number', number: @order.number)
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle.mt-0= t('address.shipping')
+      %p.general-address
+        = @order.shipping_address.full_name
+        %br
+        = @order.shipping_address.address_line
+        %br
+        = @order.shipping_address.city_zip
+        %br
+        = @order.shipping_address.country
+        %br
+        = @order.shipping_address.phone
+
+    .col-sm-3
+      %h3.general-subtitle.mt-0= t('address.billing')
+      %p.general-address
+        = @order.billing_address.full_name
+        %br
+        = @order.billing_address.address_line
+        %br
+        = @order.billing_address.city_zip
+        %br
+        = @order.billing_address.country
+        %br
+        = @order.billing_address.phone
+
+    .col-sm-3
+      %h3.general-subtitle.mt-0= t('checkout.shipping.title')
+      %p.general-address
+        = @order.shipping_method_title
+        %br
+        = number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
+
+    .col-sm-3
+      %h3.general-subtitle.mt-0= t('checkout.payment.info')
+      %p.general-address
+        = @order.credit_card.secure_number
+        %br
+        = @order.credit_card_expiration_date
+
+  = render(partial: 'shared/items_mobile', locals: { order: @order, with_show_link: true, static: false })
+  = render(partial: 'shared/items', locals: { order: @order, with_show_link: true, static: false })
+
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('order.summary.summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16= t('order.summary.item_total')
+        %td
+          %p.font-16= number_to_currency(@order.subtotal, unit: t('currency.euro'))
+
+      - if @order.coupon
+        %tr
+          %td
+            %p.font-16= t('order.summary.coupon')
+          %td
+            %p.font-16= number_to_currency(@order.coupon.calculated_discount, unit: t('currency.euro'))
+
+      %tr
+        %td
+          %p.font-16= t('order.summary.shipping')
+        %td
+          %p.font-16= number_to_currency(@order.shipping_method.price, unit: t('currency.euro'))
+      %tr
+        %td
+          %strong.font-18= t('order.summary.order_total')
+        %td
+          %strong.font-18= number_to_currency(@order.total, unit: t('currency.euro'))

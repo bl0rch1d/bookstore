@@ -1,0 +1,12 @@
+%h3.general-subtitle= type
+%p.general-address
+  = address.full_name
+  %span= link_to t('link_to.edit'), wizard_path(:address), class: 'general-edit'
+  %br
+  = address.address_line
+  %br
+  = address.city_zip
+  %br
+  = address.country
+  %br
+  = address.phone

@@ -1,0 +1,32 @@
+.visible-xs
+  - if orders.empty?
+    = render 'no_orders'
+  - else
+    .general-cart-item.divider-lg-bottom
+      - orders.each do |order|
+        .general-cart-item.divider-lg-bottom.pt-0
+          %table.table
+            %tr
+              %td.col-half
+                %span.in-grey-600= t('order.number')
+              %td.col-half
+                %span
+                  = link_to "##{order.number}", user_order_path(current_user, order), class: 'general-order-number'
+            %tr
+              %td
+                %span.in-grey-600= t('order.completed_at')
+              %td
+                %span.in-grey-900.font-16.fw-300= order.completed_at
+            %tr
+              %td
+                %span.in-grey-600= t('order.state')
+              %td
+                - if order.state == t('order.states.delivered')
+                  %span.font-16.fw-300.text-success= order.state
+                - else
+                  %span.font-16.in-grey-900.fw-300= order.state
+            %tr
+              %td
+                %span.in-grey-600= t('order.total')
+              %td
+                %strong.font-16= number_to_currency(order.total_price, unit: t('currency.euro'))

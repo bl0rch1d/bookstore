@@ -21,7 +21,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def cart_items_count
-    number ? 0 : order_items.count
+    completed_at? ? 0 : order_items.count
   end
 
   delegate :title, to: :shipping_method, prefix: true

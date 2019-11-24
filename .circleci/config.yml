@@ -1,49 +1,144 @@
-version: 2
-jobs:
-  build:
+executors:
+  default:
+    working_directory: ~/bookstore
     docker:
-      - image: circleci/ruby:2.6.5-stretch-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
-          PG_HOST: localhost
-          PG_USER: postgres
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-          RACK_ENV: test
 
-      - image: circleci/postgres:9.6
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: bookstore_test
-          DATABASE_URL: "postgres://postgres@localhost:5432/bookstore_test"
+      - image: circleci/postgres:12.1-alpine-ram
+      - image: circleci/redis:5.0.7-alpine3.10
 
-      - image: redis
+caches:
+  - &gem_cache gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+  - &app_cache app-cache-v1-{{ .Environment.CIRCLE_SHA1 }}
 
-    working_directory: ~/repo
-
+commands:
+  cache_app:
     steps:
-      - checkout
+      - save_cache:
+          key: *app_cache
+          paths:
+            - ~/bookstore
 
+  restore_cached_app:
+    steps:
+      - restore_cache:
+          key: *app_cache
+
+  run_bundler:
+    steps:
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
-
+            - *gem_cache
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-
+            - gem-cache-v1-
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
+          name: Install bundler
+          command: gem install bundler
+      - run:
+          name: Bundler install
+          command: bundle check || bundle install
       - save_cache:
+          key: *gem_cache
           paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - ~/bookstore/vendor/bundle
 
+  setup_database:
+    steps:
       - run:
-          name: DB Setup
+          name: Database setup
+          command: bin/rails db:create db:schema:load --trace
+
+  run_linters:
+    steps:
+      - checkout
+      - run:
+          name: Run Linters
           command: |
-            bundle exec rake db:create
-            bundle exec rake db:schema:load
+            # bundle exec bundle audit check --update
+            bundle exec rubocop
+            # bundle exec brakeman
+            bundle exec rails_best_practices .
+            bundle exec fasterer
+            # bundle exec database_consistency
 
+  run_tests:
+    steps:
       - run:
-          name: run tests
-          command: bundle exec rspec
+          name: Parallel Rspec
+          environment:
+            RAILS_ENV: test
+            RACK_ENV: test
+          command: |
+            mkdir -p /tmp/rspec
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format RspecJunitFormatter \
+                              --out /tmp/rspec/rspec.xml \
+                              --format progress \
+                              $TEST_FILES
+      - store_test_results:
+          path: /tmp/rspec
+      - run:
+          name: Stash Coverage Results
+          command: |
+            mkdir coverage_results
+            cp -R coverage/.resultset.json coverage_results/.resultset-${CIRCLE_NODE_INDEX}.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - coverage_results
+
+  check_coverage:
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Merge and check coverage
+          command: |
+            RUN_COVERAGE=true bundle exec rake simplecov:report_coverage
+      - store_artifacts:
+          path: ~/bookstore/coverage
+          destination: coverage
+
+
+version: 2.1
+jobs:
+  linter:
+    executor: default
+    steps:
+      - checkout
+      - cache_app
+      - run_bundler
+      - setup_database
+      - run_linters
+
+  test:
+    executor: default
+    steps:
+      - restore_cached_app
+      - run_bundler
+      - setup_database
+      - run_tests
+
+  coverage:
+    executor: default
+    steps:
+      - restore_cached_app
+      - run_bundler
+      - check_coverage
+
+
+workflows:
+  build:
+    jobs:
+      - linter
+      - test:
+          requires:
+            - linter
+      - coverage:
+          requires:
+            - test

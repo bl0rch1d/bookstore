@@ -1,10 +1,9 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  post: 5432
-  username: postgres
-  password: postgres
+  host: <%= ENV['PG_HOST'] %>
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -18,5 +17,3 @@ test:
 production:
   <<: *default
   database: bookstore_prod
-  username: <%= Rails.application.credentials.pg[:user] %>
-  password: <%= Rails.application.credentials.pg[:password] %>

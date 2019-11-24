@@ -41,5 +41,7 @@ Rails.application.configure do
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.cache_store = :redis_cache_store, { url: 'redis://localhost:6379/0' }
+  config.cache_store = :redis_cache_store, {
+    url: "redis://#{ENV.fetch('REDIS_HOST', 'localhost')}:#{ENV.fetch('REDIS_PORT', '6379')}/0"
+  }
 end

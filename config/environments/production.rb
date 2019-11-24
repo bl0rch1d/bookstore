@@ -24,7 +24,9 @@ Rails.application.configure do
 
   config.log_tags = [:request_id]
 
-  config.cache_store = :redis_cache_store, { url: "#{ENV['REDIS_URL']}/0" }
+  config.cache_store = :redis_cache_store, {
+    url: "redis://#{ENV.fetch('REDIS_HOST')}:#{ENV.fetch('REDIS_PORT')}/0"
+  }
 
   config.active_job.queue_adapter = :sidekiq
 

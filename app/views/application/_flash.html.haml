@@ -1,0 +1,15 @@
+- if notice
+  - if notice.instance_of?(Array)
+    - notice.each do |message|
+      %p.alert.alert-danger.text-center= message
+
+  - else
+    %p.alert.alert-info.text-center= notice
+
+- if alert
+  - if alert.instance_of?(Array)
+    - alert.each do |message|
+      %p.alert.alert-danger.text-center= message
+
+  - else
+    %p.alert.alert-danger.text-center= alert

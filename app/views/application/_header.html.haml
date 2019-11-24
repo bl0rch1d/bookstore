@@ -1,0 +1,52 @@
+%header.navbar.navbar-default
+  .container
+    .navbar-header
+      %button.navbar-toggle.pull-left{ type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbar' }
+        %span.sr-only
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to t('store.title'), root_path, class: 'navbar-brand'
+      = link_to order_order_items_path(current_order), class: 'shop-link pull-right visible-xs' do
+        %span.shop-icon
+          %span.shop-quantity= current_order.cart_items_count
+    = link_to order_order_items_path(current_order), class: 'shop-link pull-right hidden-xs' do
+      %span.shop-icon
+        %span.shop-quantity= current_order.cart_items_count
+
+    .navbar-collapse.collapse.pl-30#navbar{ 'aria-expanded': 'false' }
+
+      %ul.nav.navbar-nav
+        %li
+          = link_to t('store.menu.home'), root_path
+        %li.dropdown
+          %a.dropdown-toggle{ href: '#', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }
+            = t('store.menu.shop')
+          %ul.dropdown-menu
+            %li
+              = link_to  t('categories.all'), books_path
+            - Category.all.each do |category|
+              %li
+                = link_to category.title, category_books_path(category)
+
+        %li.dropdown
+          - if user_signed_in?
+            %a.dropdown-toggle{ href: '#', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }
+              = t('store.menu.my_account')
+            %ul.dropdown-menu
+              %li
+                = link_to t('store.menu.orders'), user_orders_path(current_user), class: 'collapse-link'
+              %li
+                = link_to t('store.menu.settings'), edit_addresses_path, class: 'collapse-link'
+              %li.divider{ role: 'separator' }
+                %li
+                  = link_to t('auth.sign_out'), destroy_user_session_path, method: :delete, class: 'collapse-link'
+
+          - else
+            %a.dropdown-toggle{ href: '#', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }
+              = t('store.menu.my_account')
+            %ul.dropdown-menu
+              %li
+                = link_to t('auth.sign_up'), new_user_registration_path, class: 'collapse-link'
+              %li
+                = link_to t('auth.log_in'), new_user_session_path, class: 'collapse-link'

@@ -1,0 +1,33 @@
+%main.container
+  %h1.general-title-margin= t('catalog')
+  = render 'filter_sort_menu'
+
+  = render 'sort_menu_mobile'
+
+  .mb-120
+    .row
+      - @books.each do |book|
+        .col-xs-6.col-sm-3
+          .general-thumb-wrap
+            .thumbnail.general-thumbnail
+              - if book.images.any?
+                = image_tag(book.cover, class: 'img-shadow general-thumbnail-img')
+              - else
+                = image_tag('book_no_cover.jpg', class: 'img-shadow general-thumbnail-img')
+
+              .thumb-hover
+                .general-thumb-link-wrap
+                  = link_to book_path(book), class: 'thumb-hover-link book_path_link' do
+                    %i.fa.fa-eye.thumb-icon{ 'aria-hidden': 'true' }
+                  = link_to order_order_items_path(current_order, order_item: { book_id: book, quantity: 1 }), method: :post, class: 'thumb-hover-link' do
+                    %i.fa.fa-shopping-cart.thumb-icon
+          .general-thumb-info
+            %p.title.book-title= book.title
+            %p.font-16.in-gold-500.book_price= number_to_currency(book.price, unit: t('currency.euro'))
+            %span.divider-sm
+            %p.lead.small.catalog-authors= book.format_authors
+
+    -# rubocop:disable Rails/OutputSafety
+    .text-center
+      = raw pagy_bootstrap_nav(@pagy)
+    -# rubocop:enable Rails/OutputSafety

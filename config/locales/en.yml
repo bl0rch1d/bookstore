@@ -1,33 +1,297 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  store:
+    title: "Bookstore"
+    welcome: "Welcome to our amazing Bookstore!"
+    description: "We pore through hundreds of new books each month and select the five best we can find to share with our members."
+    get_started: "Get Started"
+    email: "support@bookstore.com"
+    phone: "(555)-555-5555"
+    catalog: "Catalog"
+    menu:
+      home: "Home"
+      my_account: "My account"
+      shop: "Shop"
+      books: "Books"
+      orders: "Orders"
+      settings: "Settings"
+      privacy: "Privacy"
+
+    button:
+      sort_by: "Sort by"
+      buy_now: "Buy Now"
+      next: "Next"
+      prev: "Previous"
+      cart: "Cart"
+      add_to_cart: "Add to cart"
+
+    not_found:
+      message: "The page you were looking for doesn't exist."
+
+  link_to:
+    show: "show"
+    delete: "delete"
+    edit: 'edit'
+
+  resize:
+    thumb: '50x50'
+    small: '150x150'
+    middle: '200x200'
+    cover: '250x250'
+
+  zero_price: "€0.00"
+
+  currency:
+    euro: '€'
+
+  notices:
+    facebook:
+      error_authentication: Something went wrong, invalid Facebook data
+      error: Something went wrong, can not log in via Facebook
+
+  validation_errors:
+    unprocessable_entity: 'unprocessable entity'
+    out_of_limits: "is out of limits"
+    credit_card:
+      expired: "can't be in the past"
+      invalid_expiration_date: 'is invalid'
+
+  validation_notices:
+    blank: 'Please fill out this field'
+    invalid_format: "Please include an '@' in the email address. '%{value}' is missing an '@'"
+    incomplete_format: "Please enter a part following '@'. '%{value}' is incomplete."
+
+  auth:
+    have_an_account: "Already have an account?"
+    have_no_an_account: "Do not have an account?"
+    sign_up: "Sign up"
+    sign_out: "Sign out"
+    log_in: "Log in"
+    or: "Or"
+    errors:
+      email_taken: 'Email has already been taken'
+      not_authorized: 'You are not authorized to perform this action'
+    remember: "Remember me"
+    confirmation:
+      not_confirmed: 'You have to confirm your email address before continuing.'
+      not_receive: "Didn't receive confirmation instructions?"
+    lock:
+      not_receive: "Didn't receive unlock instructions?"
+
+  categories:
+    all: 'All'
+    mobile_development: 'Mobile development'
+    photo: 'Photo'
+    web_design: 'Web design'
+    web_development: 'Web development'
+
+  sortings:
+    text:
+      newest: "Newest first"
+      popular: "Popular first"
+      high_price: "Price: High to low"
+      low_price:  "Price: Low to high"
+      title_ascending: "Title: A - Z"
+      title_descending: "Title: Z - A"
+    system:
+      newest: "newest"
+      popular: "popular"
+      high_price: "high_price"
+      low_price:  "low_price"
+      title_ascending: "title_ascending"
+      title_descending: "title_descending"
+
+  review:
+    write: "Write a Review"
+    score: "Score"
+    reviews_with_size: "Reviews (%{size})"
+    verified: "Verified Reviewer"
+    title: "Title"
+    review: "Review"
+    post: "Post"
+    states:
+      unprocessed: "unprocessed"
+      approved: "approved"
+      rejected: "rejected"
+    admin_actions:
+      approve: "Approve"
+      reject: "Reject"
+    notice:
+      sent: "Thanks for Review. It will be published as soon as Admin will approve it."
+
+  book:
+    description: "Description"
+    year: "Year of publication"
+    dimensions: "Dimensions"
+    materials: "Materials"
+    best_sellers: "Best Sellers"
+    read_less: "Read less"
+    read_more: "Read more"
+    back_to_results: "Back to results"
+    cover: "Book cover"
+    short_description: "Short Description"
+    images: "Book Images"
+    image_remove_confirmation: "Are you sure?"
+
+  coupon:
+    enter_code: "Enter Your Coupon Code"
+    apply: "Apply Coupon"
+    applied: "Coupon has been applied"
+    errors:
+      not_exist: "Such coupon not exist"
+      expired: "Coupon expired"
+      used: 'coupon already used'
+
+  order_item:
+    product: "Product"
+    price: "Price"
+    quantity: "Quantity"
+    subtotal: "Subtotal"
+    errors:
+      no_items: "Add items first!"
+    notice:
+      added: "Item has been added to cart"
+      updated: "Item has been updated"
+      removed: "Item has been removed"
+
+  address:
+    title: "Address"
+    billing: "Billing Address"
+    shipping: "Shipping Address"
+    use_billing: "Use Billing Adress"
+
+  checkout:
+    button: "Checkout"
+    thanks: "Thank You for your Order!"
+    back: "Back to Store"
+    shipping:
+      title: "Shipping"
+      method: "Method"
+      days: "Days"
+      price: "Price"
+      interval: "%{min} to %{max} days"
+      errors:
+        blank: "Shipping method can't be blank"
+    payment:
+      info: "Payment Information"
+    credit_card:
+      title: "Credit card"
+      hint: "3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front"
+
+  order:
+    no_orders: "No Orders yet"
+    total: "Total"
+    number: "Number"
+    state: "State"
+    completed_at: "Completed at"
+    order_number: "Order #%{number}"
+    phone: "Phone %{phone}"
+    my: "My Orders"
+    all: 'all'
+    states:
+      in_progress: "In progress"
+      in_delivery: "In delivery"
+      delivered: "Delivered"
+      canceled: "Canceled"
+    filter:
+      in_progress: "in_progress"
+      in_delivery: "in_delivery"
+      delivered: "delivered"
+      canceled: "canceled"
+    admin_actions:
+      change: "Change state"
+      deliver: "Deliver"
+      confirm_delivery: "Confirm Delivery"
+      cancel: "Cancel"
+    validation_errors:
+      sort_by: '%{value} is not a valid filter'
+    summary:
+      summary: "Order Summary"
+      item_total: "Item Total:"
+      coupon: "Coupon:"
+      shipping: "Shipping:"
+      order_total: "Order Total:"
+    mailer:
+      subject: "Complete Order #%{order_number}"
+
+  user:
+    confirmation:
+      resend: 'Resend confirmation instructions'
+    notice:
+      email_updated: "Email has been updated"
+      address_updated: "Address has been updated"
+      password_updated: "Password has been updated"
+      account_removed: "Account has been removed"
+    password:
+      edit: "Change your password"
+      save: "Save Password"
+      forgot: "Forgot your password?"
+      reset_email: "Email Instructions"
+      reset_info: "We'll email you instructions on how to reset it"
+      cancel: "Cancel"
+    remove_account:
+      title: "Remove Account"
+      confirmation: "I understand that all data will be lost"
+      remove: "Please Remove My Account"
+    fast_auth:
+      returning: "Returning Customer"
+      new: "New Customer"
+      quick: "Quick Register"
+      password_later: "You will be able to edit password later"
+      continue: "Contine to Checkout"
+    mailer:
+      subject: "Temporary password for %{user_email}."
+
+  form:
+    all_fields_required: "all fields are required"
+    save_and_continue: "Save and Continue"
+    place_order: "Place order"
+    save: "save"
+    invalid_params: 'Invalid params'
+    password_format: 'At least 1 lowercase letter, 1 uppercase, 1 digit and 8+ chars'
+    labels:
+      email: "Email"
+      password: "Password"
+      new_password: "New password"
+      password_confirmation: "Password confirmation"
+    placeholders:
+      country: 'Select a country'
+      only_one_coupon: "Only one coupon can be applied"
+      first_name: "First Name"
+      last_name: "Last Name"
+      address: "Address line"
+      city: "city"
+      zip: "zip"
+      phone: "+12345678900"
+      card_number: "card number"
+      name_of_card: "name of card"
+      card_expiration: "MM / YY"
+      cvv: "cvv"
+      new_password: "new password"
+      confirm_password: "confirm password"
+      enter_email: "Enter your email"
+      email: "email"
+      password: "password"
+      current_password: "current password"
+
+  authors:
+    full_name: "Full name"
+
+  admin:
+    authentication:
+      login: 'Login'
+      logout: 'Logout'
+    actions:
+      view: 'View'
+    book:
+      new: 'New Book'
+      create: 'Create Book'
+    order:
+      actions:
+        change_state: 'Change state'
+        deliver: 'Deliver'
+        confirm_delivery: 'Confirm Delivery'
+        cancel: 'Cancel'
+    review:
+      actions:
+        approve: 'Approve'
+        reject: 'Reject'

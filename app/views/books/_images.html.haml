@@ -1,0 +1,4 @@
+.images.clearfix
+  - book.additional_images.each do |image|
+    %a.img-link
+      = image_tag(image.variant(resize: t('resize.small')), class: 'img-responsive')

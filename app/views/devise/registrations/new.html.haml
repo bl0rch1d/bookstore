@@ -1,0 +1,46 @@
+= render 'devise/shared/error_messages'
+%main.container.general-main-wrap
+  .text-center
+    %h3.general-login-title= t('auth.sign_up')
+
+    = render 'devise/providers/facebook'
+
+    %p.general-login-text= t('auth.or')
+
+  .general-form
+    = form_with scope: :user, url: registration_path(@user), local: true, id: 'new_user' do |f|
+      .form-group.mb-30
+        = f.label :user_email, t('form.labels.email'), class: 'control-label input-label'
+        = f.email_field(:email,
+                        autofocus: true,
+                        autocomplete: 'email',
+                        class: 'form-control',
+                        required: true,
+                        placeholder: t('form.placeholders.email'),
+                        pattern: ApplicationHelper::EMAIL_REGEXP)
+
+      .form-group.mb-30
+        = f.label :user_password, t('form.labels.password'), class: 'control-label input-label'
+        = f.password_field(:password,
+                        autocomplete: 'password',
+                        class: 'form-control',
+                        required: true,
+                        placeholder: t('form.placeholders.password'),
+                        pattern: ApplicationHelper::PASSWORD_REGEXP)
+        %span.password-format= t('form.password_format')
+
+      .form-group.mb-30
+        = f.label :user_password_confirmation, t('form.labels.password_confirmation'), class: 'control-label input-label'
+        = f.password_field(:password_confirmation,
+                        autocomplete: 'password_confirmation',
+                        class: 'form-control',
+                        required: true,
+                        placeholder: t('form.placeholders.confirm_password'),
+                        pattern: ApplicationHelper::PASSWORD_REGEXP)
+
+      .text-center
+        = f.submit t('auth.sign_up'), class: 'btn btn-default mb-20'
+
+  %p.general-sign-text.text-center
+    = t('auth.have_an_account')
+    = link_to t('"auth.log_in'), new_user_session_path, class: 'in-gold-500'

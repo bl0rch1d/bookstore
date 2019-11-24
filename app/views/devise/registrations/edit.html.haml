@@ -1,0 +1,41 @@
+%main.container
+  %h1.general-title-margi= t('store.menu.settings')
+  %ul.nav.clearfix.mb-20
+    %li.user-tab-link
+      = link_to t('address.title'), edit_addresses_path
+    %li.user-tab-link
+      = link_to t('sote.menu.privacy'), edit_user_registration_path
+
+  .tab-content
+    .row.mb-60
+      .col-sm-5
+        %p.in-gold-500.font-18.mb-25= t('form.labels.email')
+        = simple_form_for resource, as: resource_name, url: registration_path(resource_name), method: :put, class: 'general-form-md' do |form|
+          .form-group.mb-35
+            = form.input :email, placeholder: t('form.placeholders.enter_email'), type: 'text', class: 'form-control', id: 'email', autocomplete: 'email'
+          .general-text-align
+            = form.submit t('form.save'), class: 'btn btn-default mb-35', id: 'emailSave'
+
+      .col-sm-5.col-sm-offset-1
+        %p.in-gold-500.font-18.mb-25= t('form.labels.password')
+        = simple_form_for resource, as: resource_name, url: registration_path(resource_name), method: :put, class: 'general-form-md' do |form|
+          .form-group.mb-30
+            = form.input :current_password, placeholder: t('form.placeholders.current_password'), type: 'text', class: 'form-control', id: 'current_password'
+          .form-group.mb-30
+            = form.input :new_password, placeholder: t('form.placeholders.new_password'), type: 'text', class: 'form-control', id: 'new_password'
+          .form-group.mb-40
+            = form.input :confirm_password, placeholder: t('form.placeholders.confirm_password'), type: 'text', class: 'form-control', id: 'confirm_password'
+          .general-text-align
+            = form.submit t('form.save'), class: 'btn btn-default mb-10', id: 'passwordSave'
+
+      .col-sm-12
+        %p.in-gold-500.font-18.mb-25= t('user.remove_account.title')
+        = simple_form_for resource, as: resource_name, url: registration_path(resource_name), method: :delete, class: 'general-form-md' do |form|
+          .general-settings-btn
+            = form.submit t('user.remove_account.remove'), class: 'btn btn-default mb-20', disabled: true, id: 'removeAccountBtn'
+          .form-group.checkbox.general-settings-checkbox
+            %label.checkbox-label{ onmousedown: 'toggleRemoveAccountBtn();' }
+              = form.check_box :remove_account, { class: 'checkbox-input', hidden: 'true', id: 'remove_account' }, 'true', 'false'
+              %span.checkbox-icon
+                %i.fa.fa-check
+              %span.checkbox-text.noselect= t('user.remove_account.confirmation')

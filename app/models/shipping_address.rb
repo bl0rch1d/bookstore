@@ -1,0 +1,1 @@
+ShippingAddress = Class.new(Address)

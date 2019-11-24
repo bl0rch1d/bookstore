@@ -1,0 +1,1 @@
+BillingAddress = Class.new(Address)

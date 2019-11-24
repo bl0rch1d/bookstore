@@ -1,0 +1,11 @@
+%main.container
+  = render 'latest', latest_books: @latest_books
+
+.container
+  .jumbotron.text-center.mb-0
+    %h2.h1= t('store.welcome')
+    .mb-res-50
+      %p= t('store.description')
+      = link_to t('store.get_started'), books_path, role: 'button', class: 'btn btn-default to-catalog'
+
+  = render 'best_sellers', best_sellers: @best_sellers

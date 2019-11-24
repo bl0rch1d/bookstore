@@ -113,6 +113,8 @@ group :development do
 
   # Code quality reporter
   gem 'rubycritic', '~> 4.1', require: false
+
+  gem 'database_consistency', require: false
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

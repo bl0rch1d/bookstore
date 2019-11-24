@@ -137,6 +137,8 @@ GEM
       sort_alphabetical (~> 1.0)
     crass (1.0.5)
     database_cleaner (1.7.0)
+    database_consistency (0.7.5)
+      activerecord (>= 3.2)
     declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
@@ -557,6 +559,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   country_select (~> 4.0)
   database_cleaner (~> 1.7)
+  database_consistency
   devise (~> 4.6)
   draper (~> 3.1)
   factory_bot_rails (~> 5.0)

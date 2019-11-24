@@ -1,0 +1,15 @@
+DatabaseConsistencySettings:
+  color: true
+  log_level: DEBUG
+
+ActiveStorage::Attachment:
+  enabled: false
+
+ActiveStorage::Blob:
+  enabled: false
+
+ActiveAdmin::Comment:
+  enabled: false
+
+AdminUser:
+  enabled: false

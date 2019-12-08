@@ -25,12 +25,14 @@ RUN apt-get install -yq --no-install-recommends \
                          yarn=$YARN_VERSION \
                          awscli \
                          cron \
-                         vim
+                         vim \
+                         nano
 
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     truncate -s 0 /var/log/*log
 
+ENV APP_USER www-data
 ENV RAILS_ROOT /var/www/bookstore
 ENV LANG=C.UTF-8 \
     BUNDLE_PATH=$RAILS_ROOT/vendor/bundle \
@@ -52,8 +54,12 @@ WORKDIR $RAILS_ROOT
 
 COPY Gemfile* ./
 
-RUN bundle install --jobs $BUNDLE_JOBS --retry $BUNDLE_RETRY --path $BUNDLE_PATH
+RUN bundle install --without development --jobs $BUNDLE_JOBS --retry $BUNDLE_RETRY --path $BUNDLE_PATH
 
 COPY . .
 
-RUN bin/rake assets:precompile
+RUN RAILS_ENV=staging bin/rake assets:precompile
+
+RUN chown -R $APP_USER:$APP_USER /var/www
+
+USER $APP_USER

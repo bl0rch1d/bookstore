@@ -1,9 +1,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV['PG_HOST'] %>
-  username: <%= ENV['PG_USERNAME'] %>
-  password: <%= ENV['PG_PASSWORD'] %>
+  host: <%= ENV["PG_HOST"] || "localhost" %>
+  post: <%= ENV["PG_PORT"] || 5432 %>
+  username: postgres
+  password: 0123456789
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -13,6 +14,10 @@ development:
 test:
   <<: *default
   database: bookstore_test
+
+staging:
+  <<: *default
+  database: bookstore_staging
 
 production:
   <<: *default

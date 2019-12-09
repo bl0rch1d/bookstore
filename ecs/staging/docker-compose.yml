@@ -15,15 +15,7 @@ services:
         NODE_MAJOR: '10'
         YARN_VERSION: '1.19.2-1'
     image: 387465342537.dkr.ecr.us-east-2.amazonaws.com/bookstore/app:${TAG}
-    environment:
-      RAILS_ENV: staging
-      REDIS_URL: redis://in_memory_store:6379
-      PG_HOST: db
-      PG_USERNAME: postgres
-      PG_PORT: 5432
-      RAILS_LOG_TO_STDOUT: "true"
-      BUNDLE_WITHOUT: development:test
-      BUNDLE_DEPLOYMENT: "true"
+    env_file: docker.env
     links:
       - db
       - in_memory_store
@@ -32,7 +24,9 @@ services:
     volumes:
       - assets:/var/www/bookstore/public/assets
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000/admin"]
+      timeout: 20s
+      retries: 3
 
   sidekiq:
     <<: *app
@@ -57,10 +51,6 @@ services:
 
   db:
     image: postgres:11
-    # environment:
-    #   POSTGRES_USERNAME: postgres
-    #   POSTGRES_PASSWORD: 0123456789
-    #   POSTGRES_DB: bookstore_staging
     volumes:
       - /postgres:/var/lib/postgresql/data
     healthcheck:
@@ -77,18 +67,8 @@ services:
 
   dba:
     <<: *app
-    environment:
-      PG_HOST: db
-      PG_USERNAME: postgres
-      PGPASSWORD: postgres
-      POSTGRES_DATABASE: bookstore_staging
-      SCHEDULE: "*/2 * * * *"
-      S3_BUCKET: pg-backup-test-blorchid 
-      S3_FOLDER: pg
-      S3_REGION: us-east-2
-      METADATA_ENDPOINT_IP: 169.254.170.2
     user: root
     entrypoint: ''
     command: ./docker/backup_job.sh
     healthcheck:
-      disable: true
+      test: ["CMD-SHELL", "/etc/init.d/cron status"]

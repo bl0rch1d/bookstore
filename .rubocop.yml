@@ -64,4 +64,5 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'spec/rails_helper.rb'
+    - 'vendor/**/*'
   TargetRubyVersion: 2.6.3

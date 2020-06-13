@@ -23,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Forms
 gem 'country_select', '~> 4.0'
-gem 'simple_form', '~> 4.1'
+gem 'simple_form', '~> 5.0'
 
 # Authentication
 gem 'devise', '~> 4.6'
@@ -68,22 +68,26 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.7'
 # Cloud storage
 gem 'aws-sdk-s3', '~> 1.46', require: false
 
+group :test do
+  gem 'capybara', '>= 2.15'
+  gem 'database_cleaner', '~> 1.7'
+  gem 'rspec_junit_formatter', '~> 0.4.1'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'
+  gem 'shoulda-matchers', '~> 4.1'
+  gem 'simplecov', '~> 0.17.0', require: false
+end
+
 group :development, :test do
   # Debug
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry', '~> 0.12.2'
 
   # Test bundle
-  gem 'capybara', '>= 2.15'
   gem 'rack_session_access', '~> 0.2.0'
   gem 'rspec', '~> 3.8'
   gem 'rspec-rails', '~> 3.8'
-  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'
-  gem 'shoulda-matchers', '~> 4.1'
-  gem 'simplecov', '~> 0.17.0'
 
   # Fixtures
-  gem 'database_cleaner', '~> 1.7'
   gem 'factory_bot_rails', '~> 5.0'
 
   # Query checker
@@ -113,6 +117,8 @@ group :development do
 
   # Code quality reporter
   gem 'rubycritic', '~> 4.1', require: false
+
+  gem 'database_consistency', require: false
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

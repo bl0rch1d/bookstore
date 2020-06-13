@@ -1,75 +1,126 @@
 CommitMsg:
-  CapitalizedSubject:
-    enabled: false
+  ALL:
+    requires_files: false
+    quiet: false
 
   EmptyMessage:
-    enabled: false
+    enabled: true
+    description: 'Check for empty commit message'
+    quiet: true
+
+  ForbiddenBranches:
+    enabled: true
+    description: 'Do not commit directly to these branches, use Pull Requests'
+    branch_patterns:
+      - master
+      - develop
+
+  TextWidth:
+    enabled: true
+    description: 'Check text width'
+    max_subject_width: 60
+    min_subject_width: 0
+    max_body_width: 72
 
   TrailingPeriod:
     enabled: true
-
-  TextWidth:
-    enabled: false
+    description: 'Check for trailing periods in subject'
 
 PreCommit:
   ALL:
     on_warn: fail
 
-  Jscs:
-    enabled: false
-
-  ScssLint:
-    enabled: false
-
-  JsHint:
-    enabled: false
-
   AuthorEmail:
-    enabled: false
+    enabled: true
+    description: 'Check author email'
+    requires_files: false
+    required: true
+    quiet: true
+    pattern: '^[^@]+@.*$'
 
   AuthorName:
-    enabled: false
-
-  MergeConflicts:
     enabled: true
-
-  TrailingWhitespace:
-    enabled: true
-    exclude: ['vendor/**/*']
-
-  BundleOutdated:
-    enabled: true
-
-  ExecutePermissions:
-    enabled: false
-
-  ForbiddenBranches:
-    enabled: true
-    branch_patterns: ['master']
-
-  LineEndings:
-    enabled: true
-
-  RailsSchemaUpToDate:
-    enabled: true
-
-  YamlSyntax:
-    enabled: true
+    description: 'Check for author name'
+    requires_files: false
+    required: true
+    quiet: true
 
   BundleCheck:
     enabled: true
-
-  Rubocop:
-    enabled: true
-
-  Fasterer:
-    enabled: true
+    description: 'Check Gemfile dependencies'
+    required_executable: 'bundle'
+    flags: ['check']
+    install_command: 'gem install bundler'
+    include:
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      - '*.gemspec'
 
   BundleAudit:
     enabled: true
+    description: 'Check for vulnerable versions of gems'
+    required_executable: 'bundle-audit'
+    install_command: 'gem install bundler-audit'
+
+  Brakeman:
+    enabled: true
+    description: 'Check for vulnerable static code'
+    required_executable: 'brakeman'
+    install_command: 'gem install brakeman'
+    command: ['bundle', 'exec', 'brakeman']
+
+  DatabaseConsistency:
+    enabled: true
+    description: 'Check the consistency of the database constraints'
+    required_executable: 'database_consistency'
+    install_command: 'gem install database_consistency'
+    quiet: false
+    command: ['bundle', 'exec', 'database_consistency']
+
+  Fasterer:
+    enabled: true
+    description: 'Analyzing for potential speed improvements'
+    required_executable: 'fasterer'
+    install_command: 'gem install fasterer'
+    include: '**/*.rb'
+    command: ['bundle', 'exec', 'fasterer']
+
+  MergeConflicts:
+    enabled: true
+    description: 'Check for merge conflicts'
+    quiet: true
+    required_executable: 'grep'
+    flags: ['-IHn', "^<<<<<<<[ \t]"]
 
   RailsBestPractices:
     enabled: true
+    description: 'Analyze with RailsBestPractices'
+    required_executable: 'rails_best_practices'
+    flags: ['--without-color']
+    install_command: 'gem install rails_best_practices'
+    command: ['bundle', 'exec', 'rails_best_practices', '.', '-c', 'config/rails_best_practices.yml']
+
+  RuboCop:
+    enabled: true
+    description: 'Analyze with RuboCop'
+    required_executable: 'rubocop'
+    flags: ['--format=emacs', '--force-exclusion', '--display-cop-names']
+    install_command: 'gem install rubocop'
+    include:
+      - '**/*.gemspec'
+      - '**/*.rake'
+      - '**/*.rb'
+      - '**/*.ru'
+      - '**/Gemfile'
+      - '**/Rakefile'
+    command: ['bundle', 'exec', 'rubocop']
 
   HamlLint:
+    enabled: true
+    description: 'Analyze with HamlLint'
+    required_executable: 'haml_lint'
+    install_command: 'gem install haml_lint'
+    command: ['bundle', 'exec', 'haml-lint']
+
+  YamlSyntax:
     enabled: true

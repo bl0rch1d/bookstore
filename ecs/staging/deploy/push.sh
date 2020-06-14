@@ -12,18 +12,20 @@ set -e
 
 export TAG=$(git log -1 --format=%h)
 
+CLUSTER=bookstore
+REGION=eu-central-1
+SERVICE=bookstore-staging
+ECR_ID=385571455969.dkr.ecr.eu-central-1.amazonaws.com/foo
+
 # AWS Login
-$(aws ecr get-login --no-include-email)
+# $(aws ecr get-login --no-include-email)
+aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_ID
 
 # Build images
 docker-compose build app web
 
 # Upload to ECR
 docker-compose push app web
-
-CLUSTER=bookstore
-REGION=us-east-2
-SERVICE=bookstore-staging
 
 # Deploy
 ecs-cli configure \

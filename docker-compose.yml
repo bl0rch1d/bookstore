@@ -6,7 +6,7 @@ x-app: &app
     dockerfile: ./docker/app.Dockerfile
     args:
       RUBY_VERSION: '2.6.5'
-      BUNDLER_VERSION: '2.1.4'
+      BUNDLER_VERSION: '1.17.3'
       PG_MAJOR: '11'
       NODE_MAJOR: '12'
       YARN_VERSION: '1.19.2-1'
@@ -19,20 +19,21 @@ x-backend: &backend
   <<: *app
   stdin_open: true
   tty: true
-  environment:
-    RAILS_ENV: development
-    PG_HOST: postgres
-    PG_PORT: 5432
-    REDIS_URL: redis://redis:6379
-    WEB_CUNCURRENCY: 1
-    EDITOR: vim
-    RAILS_LOG_TO_STDOUT: 'true'
+  env_file: ./ecs/staging/docker.env
+  # environment:
+  #   RAILS_ENV: staging
+  #   PG_HOST: postgres
+  #   PG_PORT: 5432
+  #   REDIS_URL: redis://redis:6379
+  #   WEB_CUNCURRENCY: 1
+  #   EDITOR: vim
+  #   RAILS_LOG_TO_STDOUT: 'true'
   volumes:
     - .:/app:cached
     - rails_cache:/app/tmp/cache
     - bundle:/app/vendor/bundle
   depends_on:
-    - postgres
+    - db
     - redis
 
 services:
@@ -47,7 +48,7 @@ services:
     <<: *backend
     command: bundle exec sidekiq -C config/sidekiq.yml
 
-  postgres:
+  db:
     image: postgres:11.5
     volumes:
       - postgres:/var/lib/postgresql/data

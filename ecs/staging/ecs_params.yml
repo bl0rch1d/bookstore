@@ -2,10 +2,8 @@ version: 1
 task_definition:
   ecs_network_mode: bridge
 
-  # task_role_arn: arn:aws:iam::387465342537:role/ecs-to-s3-bookstore
-
   task_size:
-    cpu_limit: 1700
+    cpu_limit: 700
     mem_limit: 1.5GB
 
   services:
@@ -19,5 +17,3 @@ task_definition:
       essential: true
     in_memory_store:
       essential: true
-    dba:
-      essential: false

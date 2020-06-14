@@ -53,13 +53,24 @@ RUN mkdir -p $RAILS_ROOT/tmp/pids
 WORKDIR $RAILS_ROOT
 
 COPY Gemfile* ./
+COPY .ruby-version ./
 
 RUN bundle install --without development --jobs $BUNDLE_JOBS --retry $BUNDLE_RETRY --path $BUNDLE_PATH
 
 COPY . .
 
+USER root
+
+RUN find /var/www -not -user $APP_USER -execdir chown $APP_USER {} \+
+
+USER $APP_USER
+
 RUN RAILS_ENV=staging bin/rake assets:precompile
 
-RUN chown -R $APP_USER:$APP_USER /var/www
+USER root
+
+RUN sed -e '/session    required     pam_loginuid.so/ s/^#*/#/' -i /etc/pam.d/cron
+
+RUN find /var/www -not -user $APP_USER -execdir chown $APP_USER {} \+
 
 USER $APP_USER

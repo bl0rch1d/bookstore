@@ -11,7 +11,7 @@ gem 'rails-html-sanitizer', '~> 1.0.3'
 
 # DB
 gem 'hiredis', '~> 0.6.3'
-gem 'pg', '~> 1.1'
+gem 'pg', '>= 0.18', '< 2.0'
 gem 'redis', '~> 4.1'
 
 # JS/CSS

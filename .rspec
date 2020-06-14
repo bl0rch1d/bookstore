@@ -1,2 +1,2 @@
---format progress
+--profile
 --require rails_helper

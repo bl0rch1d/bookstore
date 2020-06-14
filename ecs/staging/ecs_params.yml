@@ -1,0 +1,19 @@
+version: 1
+task_definition:
+  ecs_network_mode: bridge
+
+  task_size:
+    cpu_limit: 700
+    mem_limit: 1.5GB
+
+  services:
+    web:
+      essential: true
+    sidekiq:
+      essential: true
+    app:
+      essential: true
+    db:
+      essential: true
+    in_memory_store:
+      essential: true

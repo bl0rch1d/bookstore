@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       password == Rails.application.credentials.sidekiq[:password]
   end
 
+  get 'health_check', to: proc { [200, {}, ['success']] }
+
   mount Sidekiq::Web => '/sidekiq'
 
   ActiveAdmin.routes(self)

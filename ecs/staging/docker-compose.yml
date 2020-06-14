@@ -1,0 +1,97 @@
+version: '3'
+
+volumes:
+  assets:
+
+services:
+  app: &app
+    build:
+      context: ../..
+      dockerfile: docker/app.staging.Dockerfile
+      args:
+        RUBY_VERSION: '2.6.5'
+        BUNDLER_VERSION: '1.17.3'
+        PG_MAJOR: '11'
+        NODE_MAJOR: '10'
+        YARN_VERSION: '1.19.2-1'
+    image: 385571455969.dkr.ecr.eu-central-1.amazonaws.com/bookstore/app:${TAG}
+    entrypoint: docker/app.entrypoint.sh
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - assets:/var/www/bookstore/public/assets
+    env_file: docker.env
+    links:
+      - db
+      - in_memory_store
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health_check/"]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: bookstore-staging
+        awslogs-region: eu-central-1
+        awslogs-stream-prefix: puma
+
+  sidekiq:
+    <<: *app
+    entrypoint: ''
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    healthcheck:
+      test: ["CMD-SHELL", "ps ax | grep -v grep | grep sidekiq || exit 1"]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: bookstore-staging
+        awslogs-region: eu-central-1
+        awslogs-stream-prefix: sidekiq
+
+  web:
+    build:
+      context: ../..
+      dockerfile: docker/nginx.Dockerfile
+    image: 385571455969.dkr.ecr.eu-central-1.amazonaws.com/bookstore/web:${TAG}
+    volumes:
+      - assets:/var/www/bookstore/public/assets:ro
+    ports:
+      - 80
+    links:
+      - app
+    healthcheck:
+      test: ["CMD-SHELL", "service nginx status || exit 1"]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: bookstore-staging
+        awslogs-region: eu-central-1
+        awslogs-stream-prefix: web
+
+  db:
+    image: postgres:11
+    volumes:
+      - /postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: bookstore-staging
+        awslogs-region: eu-central-1
+        awslogs-stream-prefix: db
+
+  in_memory_store:
+    image: redis:4.0
+    ports:
+      - 6379
+    volumes:
+      - /redis:/var/lib/redis/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-h", "localhost", "ping"]
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: bookstore-staging
+        awslogs-region: eu-central-1
+        awslogs-stream-prefix: in_memory_store

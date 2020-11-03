@@ -42,3 +42,10 @@
 
 # Ignore cached gems
 /vendor/cache/
+
+.DS_Store
+
+# Terraform
+terraform/.terraform
+*.tfstate
+*.tfstate.backup

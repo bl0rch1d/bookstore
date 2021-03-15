@@ -23,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Forms
 gem 'country_select', '~> 4.0'
-gem 'simple_form', '~> 4.1'
+gem 'simple_form', '~> 5.0'
 
 # Authentication
 gem 'devise', '~> 4.6'

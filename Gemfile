@@ -46,7 +46,7 @@ gem 'draper', '~> 3.1'
 gem 'haml', '~> 5.1'
 
 # Image processing
-gem 'image_processing', '~> 1.9'
+gem 'image_processing', '~> 1.12'
 gem 'mini_magick', '~> 4.9'
 
 # Trailblazer bundle
